@@ -1,0 +1,16 @@
+<div id="toolbar" class="btn-group">
+	<button id="add" class="btn btn-default" ng-click="add()">
+		<i class="glyphicon glyphicon-plus"></i> 新增
+	</button>
+	<button id="remove" class="btn btn-default" ng-click="remove()">
+		<i class="glyphicon glyphicon-remove"></i> 删除
+	</button>
+	<button id="remove" class="btn btn-default" ng-click="analysis()">
+        <i class="fa fa-bar-chart"></i> 运行活动分析统计
+    </button>
+    <button id="analysisByProject" class="btn btn-default" ng-click="analysisByProject()">
+        <i class="fa fa-bar-chart"></i> 运行活动分析统计(按工程)
+    </button>
+    
+</div>
+<table id="table" bs-table-control="tableControl"></table>

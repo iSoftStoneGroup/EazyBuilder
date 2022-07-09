@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>研发自动化管理平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- third party -->
+    <script src="../js/angular-filemanager/bower_components/jquery/jquery.min.js"></script>
+    <script src="../js/angular-filemanager/bower_components/angular/angular.min.js"></script>
+  <script src="../js/angular-filemanager/bower_components/angular-translate/angular-translate.min.js"></script>
+  <script src="../js/angular-filemanager/bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+  <script src="../js/angular-filemanager/bower_components/bootstrap/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="../js/angular-filemanager/bower_components/bootswatch/paper/bootstrap.min.css" />
+
+<!-- angular-filemanager -->
+  <link rel="stylesheet" href="../js/angular-filemanager/dist/angular-filemanager.min.css">
+  <script src="../js/angular-filemanager/dist/angular-filemanager.min.js"></script>
+</head>
+<body ng-cloak ng-app="FileManagerApp">
+<angular-filemanager></angular-filemanager>
+<script type="text/javascript">
+var teamId = new URLSearchParams(window.location.search).get('teamId');
+
+angular.module('FileManagerApp').config(['fileManagerConfigProvider', function (config) {
+  var defaults = config.$get();
+  var backend="/ci/repo/maven?teamId="+teamId;
+  config.set({
+    appName: 'Maven本地库',
+    pickCallback: function(item) {
+      var msg = 'Picked %s "%s" for external use'
+        .replace('%s', item.type)
+        .replace('%s', item.fullPath());
+      window.alert(msg);
+    },
+    doUpload: function(){
+    	if(window.parent){
+    		window.parent.location.href="/console/index.html#!/mavenUpload?teamId="+teamId;
+    	}
+    },
+    multiLang: false,
+    sidebar:false,
+    defaultLang:'cn',
+    listUrl: backend,
+    uploadUrl: backend,
+    renameUrl: backend,
+    copyUrl: backend,
+    moveUrl: backend,
+    removeUrl: backend,
+    editUrl: backend,
+    getContentUrl: backend,
+    createFolderUrl: backend,
+    downloadFileUrl: backend,
+    downloadMultipleUrl: backend,
+    compressUrl: backend,
+    extractUrl: backend,
+    permissionsUrl: backend,
+    basePath: 'd:/',
+    allowedActions: {
+        upload: false,
+        rename: false,
+        move: false,
+        copy: false,
+        edit: false,
+        changePermissions: false,
+        compress: false,
+        compressChooseName: false,
+        extract: false,
+        download: true,
+        downloadMultiple: true,
+        preview: false,
+        remove: true,
+        createFolder: false,
+        pickFiles: false,
+        pickFolders: false
+    },
+    isEditableFilePattern: null,
+    isImageFilePattern: null,
+    isExtractableFilePattern: null,
+  });
+}]);
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<div id="toolbar" class="btn-group">
+	<button id="goback" class="btn btn-default" ng-click="backToPipeline()">
+		<i class="fa fa-mail-reply"></i> 返回
+	</button>
+    <div class="dropdown toolbar-condition">
+        <input type="text" class="form-control" data-toggle="dropdown" placeholder="构建日期" ng-change="refreshTable($event)" ng-model="condition.date"></input>
+        <ul class="dropdown-menu" aria-labelledby="dLabel" style="padding:5px;">
+            <div pickadate ng-model="condition.date" format="yyyy-mm-dd" style="width:300px;"></div>
+        </ul>
+    </div>
+    <div class="dropdown toolbar-condition">  
+        <input type="text" class="form-control" ng-keyup="refreshTable($event)" data-toggle="dropdown" placeholder="项目" ng-model="condition.projectName">
+    </div>
+    <div class="dropdown toolbar-condition">
+        <input type="text" class="form-control" ng-keyup="refreshTable($event)" data-toggle="dropdown" placeholder="来源分支" ng-model="condition.sourceBranch">
+    </div>
+    <div class="dropdown toolbar-condition">
+        <input type="text" class="form-control" ng-keyup="refreshTable($event)" data-toggle="dropdown" placeholder="目标分支" ng-model="condition.targetBranch">
+    </div>
+    <div class="dropdown toolbar-condition">
+        <input type="text" class="form-control" ng-keyup="refreshTable($event)" data-toggle="dropdown" placeholder="构建过程" ng-model="condition.profileName">
+    </div>
+    <div class="dropdown toolbar-condition">
+        <input type="text" class="form-control" ng-keyup="refreshTable($event)" data-toggle="dropdown" placeholder="版本号" ng-model="condition.pipelineVersion">
+    </div>
+    <!-- <button id="import" class="btn btn-default toolbar-condition" style="font-size: 12px;" ui-sref="pipeline.revision">
+        <i class="fa fa-files-o"></i> 导出修订记录
+    </button> -->
+</div>
+
+<table id="historyTable" bs-table-control="historyTableControl"></table>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="example">
+ 
+ <insert id="addUserLogin" parameterClass="com.iss.finance.portal.userlogin.entity.UserLogin">
+<selectKey keyProperty="id" type="pre" resultClass="long">
+SELECT SEQ_ITS_USERLOGIN.NEXTVAL AS VALUE FROM DUAL
+</selectKey>
+insert into its_userlogin (id, userId, userNo, loginName, userName, userType, systemType, loginPlatform, loginDate, logoutDate, loginAddr, browserOther, jsessionId, statusId, browserName, browserVersion) values (#id#, #userId#, #userNo#, #loginName#, #userName#, #userType#, #systemType#, #loginPlatform#, #loginDate#, #logoutDate#, #loginAddr#, #browserOther#, #jsessionId#, #statusId#, #browserName#, #browserVersion#)
+</insert>
+ <select id="testIsGreaterThan" 
+cacheModel="account-cache" 
+resultMap="account-result" >
+select * from ACCOUNT
+<isGreaterThan prepend="and" property="id" compareValue="0">
+where ACC_ID = #id#
+</isGreaterThan>
+<isGreaterThan prepend="and" property="id" compareValue="0">
+ACC_ID = #id#
+</isGreaterThan> 
+order by ACC_LAST_NAME 
+</select>
+
+<statement id="someName" resultMap="account-result" > 
+select * from ACCOUNT
+<dynamic prepend="where"> 
+<isGreaterThan prepend="and" property="id" compareValue="0">
+ACC_ID = #id#
+</isGreaterThan> 
+<isNotNull prepend="and" property="lastName"> 
+ACC_LAST_NAME = #lastName# 
+</isNotNull>
+</dynamic>
+order by ACC_LAST_NAME 
+</statement>
+
+<select id="testIsNotEmpty" resultClass="com.iss.example.business.entity.Example" parameterClass="java.util.HashMap">
+		 select id 
+		      ,PROJECT_NAME projectName
+		      ,PROJECT_CONTENT projectContent
+		      ,APPLY_BUDGET applyBudget
+		      ,PURCHASE_WAY purchaseWay
+		      ,AGENCY_NAME agencyName
+		      ,PROJECT_TYPE projectType
+		      ,PROJECT_COMMENT projectComment
+		      ,ATTACHEMENT attachement
+		      ,FROMDATAID fromDataId
+          from eazybuilder_EXAMPLE_FORM t where 1=1
+                  <isNotEmpty prepend=" AND " property="projectName">
+	    	   t.PROJECT_NAME = #projectName#
+		          </isNotEmpty>    
+                  <isNotEmpty prepend=" AND " property="projectContent">
+	    	   t.PROJECT_CONTENT = #projectContent#
+		          </isNotEmpty>    
+                  <isNotEmpty prepend=" AND " property="applyBudget">
+	    	   t.APPLY_BUDGET = #applyBudget#
+		          </isNotEmpty>    
+                  <isNotEmpty prepend=" AND " property="purchaseWay">
+	    	   t.PURCHASE_WAY = #purchaseWay#
+		          </isNotEmpty>    
+                  <isNotEmpty prepend=" AND " property="agencyName">
+	    	   t.AGENCY_NAME = #agencyName#
+		          </isNotEmpty>    
+                  <isNotEmpty prepend=" AND " property="projectType">
+	    	   t.PROJECT_TYPE = #projectType#
+		          </isNotEmpty>    
+  </select>
+  
+
+<delete id="delStudybook" parameterClass="java.util.List">
+
+ 　　delete FROM STUDYBOOK WHERE ID IN
+
+ <iterate conjunction="," open="(" close=")">
+
+  　　#bookList[]#
+
+ </iterate>
+
+</delete>
+
+
+<insert id="BarkInsertUsers" parameterClass="java.util.List">
+
+ insert all
+
+ <iterate conjunction="">
+
+ 　　into users(user_id,user_name,password,address,telephone,email,create_date)
+
+ 　　values(#list[].user_id#,#list[].user_name#,#list[].password#,
+
+ 　　#list[].address#,#list[].telephone#,#list[].email#,#list[].create_date#)
+
+ </iterate>
+
+ <!--必须要加上 -->
+
+  　　select * from dual
+
+</insert>
+
+	
+</sqlMap>

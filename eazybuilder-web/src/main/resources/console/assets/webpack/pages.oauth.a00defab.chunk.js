@@ -1,0 +1,2 @@
+(this.webpackJsonp=this.webpackJsonp||[]).push([[266],{96:function(t,e,n){n("HVBj"),t.exports=n("vn+M")},"eoW/":function(t,e,n){"use strict";n("jaBk");e.a=async function(){const t=document.querySelector(".js-search-settings-app");if(t){const{default:e}=await Promise.all([n.e(442),n.e(421)]).then(n.bind(null,"bBUS"));e({el:t})}}},"vn+M":function(t,e,n){"use strict";n.r(e);var s=n("eoW/");Object(s.a)()}},[[96,1,0]]]);
+//# sourceMappingURL=pages.oauth.a00defab.chunk.js.map

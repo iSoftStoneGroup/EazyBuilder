@@ -1,0 +1,30 @@
+<div class="modal">
+	<div class="modal-dialog large">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">脚本执行情况</h4>
+			</div>
+			<div class="modal-body" align="center">
+				<div class="content-block">
+				<table class="table">
+				<thead><tr><th>顺序</th><th>脚本名称</th><th>成功</th><th>失败</th><th>警告</th></tr></thead>
+				<tbody>
+				<tr ng-repeat="detail in details" ng-class="{warning:detail.totalWarning>0;danger:detail.totalFailed>0}">
+				<td>{{detail.executeOrder}}</td>
+				<td>{{detail.scriptName}}</td>
+				<td>{{detail.totalPass}}</td>
+				<td>{{detail.totalFailed}}</td>
+				<td>{{detail.totalWarning}}</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+					ng-click="closeModal()">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

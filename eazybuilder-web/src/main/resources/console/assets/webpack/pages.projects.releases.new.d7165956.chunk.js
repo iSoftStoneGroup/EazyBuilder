@@ -1,0 +1,2 @@
+(this.webpackJsonp=this.webpackJsonp||[]).push([[381],{211:function(e,t,n){n("HVBj"),n("gjpc"),e.exports=n("htgk")},htgk:function(e,t,n){"use strict";n.r(t);var s=n("jB52"),a=n("yi8e"),c=n("eskq"),u=n("7a32"),o=n("SVj7");s.default.use(a.b);new(n("Ylta").a),function(){const e=document.getElementById("js-new-release-page"),t=Object(u.a)({modules:{editNew:Object(o.a)(e.dataset)}});new s.default({el:e,store:t,render:function(e){return e(c.a)}})}()}},[[211,1,0,6,2,3,4,5,9,10,11,12,13,14,16,17,28,75,122]]]);
+//# sourceMappingURL=pages.projects.releases.new.d7165956.chunk.js.map

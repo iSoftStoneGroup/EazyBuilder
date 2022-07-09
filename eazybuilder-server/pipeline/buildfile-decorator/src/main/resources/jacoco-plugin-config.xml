@@ -1,0 +1,6 @@
+<configuration>
+	<destFile>${project.build.directory}/jacoco-ut.exec</destFile>
+	<dataFile>${project.build.directory}/jacoco-ut.exec</dataFile>
+	<output>file</output>
+	<append>true</append>
+</configuration>

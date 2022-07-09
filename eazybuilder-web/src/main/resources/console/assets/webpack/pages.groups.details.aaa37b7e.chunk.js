@@ -1,0 +1,2 @@
+(this.webpackJsonp=this.webpackJsonp||[]).push([[228],{58:function(s,t,c){c("HVBj"),s.exports=c("LTG5")},LTG5:function(s,t,c){"use strict";c.r(t);var e=c("ZRYG");Object(e.a)("details")}},[[58,1,0,2,4,5,15,55,66,68,69,85,102]]]);
+//# sourceMappingURL=pages.groups.details.aaa37b7e.chunk.js.map

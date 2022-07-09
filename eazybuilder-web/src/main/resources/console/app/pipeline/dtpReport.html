@@ -1,0 +1,47 @@
+<div class="modal">
+    <div class="modal-dialog large" style="width:55vw;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">自动化测试报告</h4>
+            </div>
+            <div class="modal-body" align="center">
+                <div class="content-block">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>顺序</th>
+                            <th>计划名称</th>
+                            <th>测试类型</th>
+                            <th>失败次数</th>
+                            <th>成功次数</th>
+                            <th>总次数</th>
+                            <th>耗时</th>
+                            <th>项目名</th>
+                            <th>执行结果(取决于在DTP设置的阈值)</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="report in dtpReports | orderBy: 'createTime'">
+                            <td>{{$index+1}}</td>
+                            <td><a ng-click="dtpReportHref(report.reportUrl)">{{report.name}}</a></td>
+                            <td>{{report.testType}}</td>
+                            <td>{{report.totalFail}}</td>
+                            <td>{{report.totalPass}}</td>
+                            <td>{{report.expectRun}}</td>
+							<td>{{report.elapsedTime/1000}}秒</td>
+                            <th>{{report.projectName}}</th>
+                            <td>{{report.succeed}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        ng-click="closeModal()">关闭
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

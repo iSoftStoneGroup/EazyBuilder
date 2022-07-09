@@ -1,0 +1,49 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.eazybuilder</groupId>
+    <artifactId>pipeline</artifactId>
+    <version>1.2.2-SNAPSHOT</version>
+  </parent>
+  <artifactId>buildfile-decorator</artifactId>
+  <dependencies>
+<!-- https://mvnrepository.com/artifact/io.takari.maven/model-resolver -->
+<dependency>
+    <groupId>io.takari.maven</groupId>
+    <artifactId>model-resolver</artifactId>
+    <version>0.0.2</version>
+</dependency>
+
+  </dependencies>
+  
+  <build>
+  <plugins>
+  <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <version>3.1.0</version>
+            <configuration>
+                <descriptorRefs>
+                    <descriptorRef>jar-with-dependencies</descriptorRef>
+                </descriptorRefs>
+                <archive>
+                      <manifest>
+                        <mainClass>com.eazybuilder.ci.decorator.Main</mainClass>
+                      </manifest>
+                    </archive>
+            </configuration>
+            <executions>
+                <execution>
+                    <id>assemble-all</id>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>single</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+  </plugins>
+  
+  </build>
+</project>

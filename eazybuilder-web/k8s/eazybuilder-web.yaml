@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: eazybuilder-web
+  name: eazybuilder-web
+  namespace: test
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: eazybuilder-web
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: eazybuilder-web
+        imageTag: "202111182014"
+    spec:
+      containers:
+      - image: registryxxxxx/dev/eazybuilder-web
+        imagePullPolicy: Always
+        name: eazybuilder-web
+        ports:
+        - containerPort: 80
+          name: 80tcp2
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 1Gi
+          requests:
+            cpu: 100m
+            memory: 1Gi
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: harbor
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: eazybuilder-web-service
+  namespace: test
+  labels:
+    app: eazybuilder-web-service
+spec:
+  ports:
+    - port: 80
+      name: server
+      targetPort: 80
+  clusterIP: None
+  selector:
+    app: eazybuilder-web
+# ------------------- App Ingress ------------------- #
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins-client-ingress
+  namespace: test
+spec:
+  rules:
+  - host: cixxxxx
+    http:
+      paths:
+      - path: /ci
+        pathType: Prefix
+        backend:
+          service:
+            name: ci-jenkins-client
+            port: 
+             name: server 
+      - path: /console
+        pathType: Prefix
+        backend:
+          service:
+            name: eazybuilder-web-service
+            port: 
+             name: server           

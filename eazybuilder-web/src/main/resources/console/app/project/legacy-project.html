@@ -1,0 +1,52 @@
+<div class="modal">
+    <div class="modal-dialog large">
+    <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">非Maven工程约束</h4>
+            </div>
+            <div class="modal-body" align="center">
+<pre style="text-align:left;">
+- 目前只支持以下三种旧项目工程结构：
+
+(1) eazybuilder4或者eazybuilder5项目
+
+    Build              —— ant构建脚本
+    eazybuilderEJB/src   —— 核心EJB代码
+    eazybuilderWEB       —— webcontent
+    lib                —— 所有依赖包
+
+(2) 通过Eclipse生成的Dynamic Web Project
+
+    src                    —— Java源代码  
+    WebContent             —— 核心EJB代码
+    WebContent/WEB-INF/lib —— 所有依赖包
+
+(3) 基于eazybuilder工程模板的项目：
+
+   src/main/java    —— Java源代码  
+   src/main/resources   ——  运行期配置文件、资源文件等  
+   src/main/webapp      ——  webContent  
+   src/test/java       ——   单元测试代码  （可选）
+   src/test/resources   ——  单元测试配置文件、资源文件等  （可选）
+       
+   lib库符合以下规则：
+
+   1. 运行期依赖均包含在src/main/webapp/WEB-INF/lib/下   
+   2. 编译期依赖均包含在lib/compile/下
+
+       根目录下存在build.properties，并且其中标注了应用名称和版本号，例如:
+
+    #应用名称
+    app.name=ifinance-loan   
+    #版本号
+    app.version=1.0.0
+
+</pre>
+</div>
+<div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                    ng-click="closeModal()">关闭</button>
+            </div>
+</div>
+</div>
+</div>

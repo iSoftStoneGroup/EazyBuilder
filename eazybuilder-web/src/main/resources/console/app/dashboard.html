@@ -1,0 +1,168 @@
+<div class="container-fluid" ng-controller="dashboardController">
+    <div class="row">
+        <div class="col-xs-12">
+
+            <ol class="breadcrumb">
+                <li>Home</li>
+                <li class="active"><a href="#">控制台</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div style="height: calc(100vh - 95px);overflow-y: auto;margin: 0 -15px 0 -13px;background-color: #F3F7F9;padding: 8px 25px;">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a href="#" ng-click="drillTo('pipeline.list')">
+                    <div class="banner-block red">
+                        <div class="block-content">
+                            <span class="banner-icon fa-stack fa-3x">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-tags fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <div class="banner-content">
+                                <div class="title">{{totalProject}}</div>
+                                <div class="sub-title">项目数量</div>
+                            </div>
+                            <div class="clear-both"></div>
+                        </div>
+    
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a href="#" ng-click="drillTo('userStatistic.list')">
+                    <div class="banner-block yellow">
+                        <div class="block-content">
+                            <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-file-code-o fa-stack-1x fa-inverse"></i>
+                        </span>
+                            <div class="banner-content">
+                                <div class="title">{{totalCodeLine}}</div>
+                                <div class="sub-title">代码行数</div>
+                            </div>
+                            <div class="clear-both"></div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a href="#" ng-click="drillTo('pipeline.history')">
+                    <div class="banner-block green">
+                        <div class="block-content">
+                            <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-inbox fa-stack-1x fa-inverse"></i>
+                        </span>
+                            <div class="banner-content">
+                                <div class="title">{{totalBuild}}</div>
+                                <div class="sub-title">构建次数</div>
+                            </div>
+                            <div class="clear-both"></div>
+                        </div>
+    
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <a href="#" ng-click="drillTo('userStatistic.list')">
+                    <div class="banner-block blue" >
+                        <div class="block-content">
+                            <span class="fa-stack fa-3x">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-group fa-stack-1x fa-inverse"></i>
+                        </span>
+                            <div class="banner-content">
+                                <div class="title">{{totalDevelopers}}人</div>
+                                <div class="sub-title">项目成员</div>
+                            </div>
+                            <div class="clear-both"></div>
+                        </div>
+    
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="banner-block white">
+                    <div class="block-content" ng-controller="bugChartController">
+                        <div class="block-title pull-left">BUG</div>
+                        <div class="form-group col-sm-4 pull-right">
+                            <select class="form-control" ng-model="team"
+                                    required="required"
+                                    placeholder="项目组"
+                                    ng-options="teamName as teamName for teamName in teams" ng-change="refreshData()">
+                                <option value="">--请选择项目组--</option>
+                            </select>
+                        </div>
+    
+                        <div class="row">
+                            <canvas class="chart chart-bar" height="100"
+                                chart-data="data" chart-labels="labels" chart-series="series" chart-colours="colours"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="banner-block white">
+                    <div class="block-content" ng-controller="vulnerChartController">
+                        <div class="block-title pull-left">安全漏洞</div>
+                        <div class="form-group col-sm-4 pull-right">
+                            <select class="form-control" ng-model="team"
+                                    required="required"
+                                    placeholder="项目组"
+                                    ng-options="teamName as teamName for teamName in teams" ng-change="refreshData()">
+                                <option value="">--请选择项目组--</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <canvas class="chart chart-bar" height="100"
+                                chart-data="data" chart-labels="labels" chart-series="series" ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="banner-block white">
+                    <div class="block-content" ng-controller="funcTestChartController">
+                        <div class="block-title pull-left">开源包依赖</div>
+                        <div class="form-group col-sm-4 pull-right">
+                            <select class="form-control" ng-model="team"
+                                    required="required"
+                                    placeholder="项目组"
+                                    ng-options="teamName as teamName for teamName in teams" ng-change="refreshData()">
+                                <option value="">--请选择项目组--</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <canvas class="chart chart-bar" height="100"
+                                chart-data="data" chart-labels="labels" chart-series="series" ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="banner-block white">
+                    <div class="block-content" ng-controller="codeSmellChartController">
+                        <div class="block-title pull-left">编码规范问题</div>
+                        <div class="form-group col-sm-4 pull-right">
+                            <select class="form-control" ng-model="team"
+                                    required="required"
+                                    placeholder="项目组"
+                                    ng-options="teamName as teamName for teamName in teams" ng-change="refreshData()">
+                                <option value="">--请选择项目组--</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <canvas class="chart chart-bar" height="97"
+                                chart-data="data" chart-labels="labels" chart-series="series" ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

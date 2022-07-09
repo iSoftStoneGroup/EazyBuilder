@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE ureport [
+        <!ELEMENT ureport (cell|row|column|datasource|paper)*>
+        <!ELEMENT cell (cell-style|chart-value|simple-value|dataset-value)*>
+        <!ATTLIST cell
+                col CDATA #REQUIRED
+                col-span CDATA #IMPLIED
+                expand CDATA #REQUIRED
+                name CDATA #REQUIRED
+                row CDATA #REQUIRED>
+        <!ELEMENT cell-style (left-border|right-border|top-border|bottom-border)*>
+        <!ATTLIST cell-style
+                align CDATA #REQUIRED
+                bgcolor CDATA #IMPLIED
+                bold CDATA #IMPLIED
+                font-family CDATA #REQUIRED
+                font-size CDATA #REQUIRED
+                forecolor CDATA #REQUIRED
+                valign CDATA #REQUIRED>
+        <!ELEMENT chart-value (dataset|option|plugin)*>
+        <!ELEMENT dataset (sql|field|parameter)*>
+        <!ATTLIST dataset
+                category-property CDATA #IMPLIED
+                collect-type CDATA #IMPLIED
+                dataset-name CDATA #IMPLIED
+                name CDATA #IMPLIED
+                series-text CDATA #IMPLIED
+                series-type CDATA #IMPLIED
+                type CDATA #REQUIRED
+                value-property CDATA #IMPLIED>
+        <!ELEMENT option (#PCDATA)>
+        <!ATTLIST option
+                display CDATA #REQUIRED
+                position CDATA #REQUIRED
+                text CDATA #IMPLIED
+                type CDATA #REQUIRED>
+        <!ELEMENT plugin (#PCDATA)>
+        <!ATTLIST plugin
+                name CDATA #REQUIRED
+                display CDATA #REQUIRED>
+        <!ELEMENT left-border (#PCDATA)>
+        <!ATTLIST left-border
+                color CDATA #REQUIRED
+                style CDATA #REQUIRED
+                width CDATA #REQUIRED>
+        <!ELEMENT right-border (#PCDATA)>
+        <!ATTLIST right-border
+                color CDATA #REQUIRED
+                style CDATA #REQUIRED
+                width CDATA #REQUIRED>
+        <!ELEMENT top-border (#PCDATA)>
+        <!ATTLIST top-border
+                color CDATA #REQUIRED
+                style CDATA #REQUIRED
+                width CDATA #REQUIRED>
+        <!ELEMENT bottom-border (#PCDATA)>
+        <!ATTLIST bottom-border
+                color CDATA #REQUIRED
+                style CDATA #REQUIRED
+                width CDATA #REQUIRED>
+        <!ELEMENT simple-value (#PCDATA)>
+        <!ELEMENT dataset-value (#PCDATA)>
+        <!ATTLIST dataset-value
+                aggregate CDATA #REQUIRED
+                dataset-name CDATA #REQUIRED
+                mapping-type CDATA #REQUIRED
+                order CDATA #REQUIRED
+                property CDATA #REQUIRED>
+        <!ELEMENT row (#PCDATA)>
+        <!ATTLIST row
+                height CDATA #REQUIRED
+                row-number CDATA #REQUIRED>
+        <!ELEMENT column (#PCDATA)>
+        <!ATTLIST column
+                col-number CDATA #REQUIRED
+                width CDATA #REQUIRED>
+        <!ELEMENT datasource (dataset)*>
+        <!ATTLIST datasource
+                name CDATA #REQUIRED
+                type CDATA #REQUIRED
+                username CDATA #REQUIRED
+                password CDATA #REQUIRED
+                url CDATA #REQUIRED
+                driver CDATA #REQUIRED>
+        <!ELEMENT sql (#PCDATA)>
+        <!ELEMENT field (#PCDATA)>
+        <!ATTLIST field
+                name CDATA #REQUIRED>
+        <!ELEMENT parameter (#PCDATA)>
+        <!ATTLIST parameter
+                name CDATA #REQUIRED
+                type CDATA #REQUIRED
+                default-value CDATA #REQUIRED>
+        <!ELEMENT paper (#PCDATA)>
+        <!ATTLIST paper
+                type CDATA #REQUIRED
+                left-margin CDATA #REQUIRED
+                right-margin CDATA #REQUIRED
+                top-margin CDATA #REQUIRED
+                bottom-margin CDATA #REQUIRED
+                paging-mode CDATA #REQUIRED
+                fixrows CDATA #REQUIRED
+                width CDATA #REQUIRED
+                height CDATA #REQUIRED
+                orientation CDATA #REQUIRED
+                html-report-align CDATA #REQUIRED
+                bg-image CDATA #REQUIRED
+                html-interval-refresh-value CDATA #REQUIRED
+                column-enabled CDATA #REQUIRED>
+        ]>
+<ureport><cell expand="None" name="A1" row="1" col="1" col-span="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><chart-value><dataset dataset-name="redmine_issues_problem" type="pie" category-property="NAME" series-type="text" series-text="数量统计" value-property="value" collect-type="select"/><option type="title" position="top" display="true" text="项目组功能类问题各状态占比"/><option type="legend" position="right" display="true"/><plugin name="data-labels" display="true"/></chart-value></cell><cell expand="None" name="A2" row="2" col="1"><cell-style font-size="9" forecolor="255,255,255" font-family="宋体" bgcolor="53,89,219" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[名称]]></simple-value></cell><cell expand="None" name="B2" row="2" col="2"><cell-style font-size="9" forecolor="255,255,255" font-family="宋体" bgcolor="53,89,219" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[数量（个）]]></simple-value></cell><cell expand="Down" name="A3" row="3" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="redmine_issues_problem" aggregate="group" property="NAME" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="B3" row="3" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="redmine_issues_problem" aggregate="group" property="value" order="none" mapping-type="simple"></dataset-value></cell><row row-number="1" height="157"/><row row-number="2" height="19"/><row row-number="3" height="19"/><column col-number="1" width="226"/><column col-number="2" width="194"/><datasource name="grafana" type="jdbc" username="root" password="mysql_123" url="jdbc:mysql://mysqlxxxxx:3306/grafana?useUnicode=true&amp;useSSL=false&amp;characterEncoding=utf-8" driver="com.mysql.cj.jdbc.Driver"><dataset name="test" type="sql"><sql><![CDATA[SELECT id, name, description, is_in_chlog, `position`, is_in_roadmap, fields_bits, default_status_id
+FROM grafana.redmine_trackers]]></sql><field name="id"/><field name="name"/><field name="description"/><field name="is_in_chlog"/><field name="position"/><field name="is_in_roadmap"/><field name="fields_bits"/><field name="default_status_id"/></dataset><dataset name="redmine_issues_problem" type="sql"><sql><![CDATA[SELECT '待认领总数' AS NAME, (  SELECT
+    COUNT(*)
+  FROM
+    redmine_issues
+  WHERE
+    status_id = (SELECT  id FROM  issue_statuses   WHERE  name='待认领' )
+        and project_id =(SELECT  id FROM  redmine_projects WHERE name=:teamName)
+        and tracker_id =(SELECT  id FROM redmine_trackers rt  WHERE  rt.name='功能' )
+  ) AS "value"
+
+  UNION ALL
+  SELECT '处理中总数' AS NAME ,(
+      SELECT
+    COUNT(*)
+  FROM
+    redmine_issues
+  WHERE
+    status_id = (SELECT  id FROM  issue_statuses   WHERE  name='处理中' )
+        and project_id =(SELECT  id FROM  redmine_projects WHERE name=:teamName)
+        and tracker_id =(SELECT  id FROM redmine_trackers rt  WHERE  rt.name='功能' )
+  ) AS "value"
+  UNION ALL
+  SELECT '待审核总数' AS NAME ,(
+      SELECT
+    COUNT(*)
+  FROM
+    redmine_issues
+  WHERE
+    status_id = (SELECT  id FROM  issue_statuses   WHERE  name='待审核' )
+        and project_id =(SELECT  id FROM  redmine_projects WHERE name=:teamName)
+        and tracker_id =(SELECT  id FROM redmine_trackers rt  WHERE  rt.name='功能' )
+  ) AS "value"
+  UNION ALL
+  SELECT '测试中总数' AS NAME ,(
+      SELECT
+    COUNT(*)
+  FROM
+    redmine_issues
+  WHERE
+        status_id = (SELECT  id FROM  issue_statuses   WHERE  name='测试中'     )
+        and project_id =(SELECT  id FROM  redmine_projects WHERE name=:teamName)
+        and tracker_id =(SELECT  id FROM redmine_trackers rt  WHERE  rt.name='功能' )
+  ) AS "value"
+  UNION ALL
+  SELECT '待上线总数' AS NAME ,(
+      SELECT
+    COUNT(*)
+  FROM
+    redmine_issues i
+  WHERE
+        i.project_id = (SELECT  id FROM  redmine_projects WHERE name=:teamName)
+        AND i.status_id =(SELECT  id FROM  issue_statuses   WHERE  name='待上线'        )
+        and tracker_id =(SELECT  id FROM redmine_trackers rt  WHERE  rt.name='功能' )
+  ) AS "value"
+  UNION ALL
+  SELECT '已上线总数' AS NAME ,(
+      SELECT
+    COUNT(*)
+  FROM
+    redmine_issues i
+  WHERE
+        i.project_id = (SELECT  id FROM  redmine_projects WHERE name=:teamName)
+        AND i.status_id =(SELECT  id FROM  issue_statuses   WHERE  name='已上线'        )
+        and tracker_id =(SELECT  id FROM redmine_trackers rt  WHERE  rt.name='功能' )
+  ) AS "value"
+  UNION ALL
+  SELECT '已撤销总数' AS NAME ,(
+      SELECT
+    COUNT(*)
+  FROM
+    redmine_issues i
+  WHERE
+        i.project_id = (SELECT  id FROM  redmine_projects WHERE name=:teamName)
+        AND i.status_id =(SELECT  id FROM  issue_statuses   WHERE  name='已撤销'        )
+        and tracker_id =(SELECT  id FROM redmine_trackers rt  WHERE  rt.name='功能' )
+  ) AS "value"
+  UNION ALL
+  SELECT '待部署总数' AS NAME ,(
+      SELECT
+    COUNT(*)
+  FROM
+    redmine_issues i
+  WHERE
+        i.project_id = (SELECT  id FROM  redmine_projects WHERE name=:teamName)
+        AND i.status_id =(SELECT  id FROM  issue_statuses   WHERE  name='待部署'        )
+        and tracker_id =(SELECT  id FROM redmine_trackers rt  WHERE  rt.name='功能' )
+  ) AS "value"
+  UNION ALL
+  SELECT '测试打回总数' AS NAME ,(
+      SELECT
+    COUNT(*)
+  FROM
+    redmine_issues i
+  WHERE
+        i.project_id = (SELECT  id FROM  redmine_projects WHERE name=:teamName)
+        AND i.status_id =(SELECT  id FROM  issue_statuses   WHERE  name='测试打回'      )
+        and tracker_id =(SELECT  id FROM redmine_trackers rt  WHERE  rt.name='功能' )
+  ) AS "value"
+  ]]></sql><field name="NAME"/><field name="value"/><parameter name="teamName" type="String" default-value="devops"/></dataset></datasource><paper type="A4" left-margin="90" right-margin="90"
+                                                                                                                                                   top-margin="72" bottom-margin="72" paging-mode="fitpage" fixrows="0"
+                                                                                                                                                   width="595" height="842" orientation="portrait" html-report-align="left" bg-image="" html-interval-refresh-value="0" column-enabled="false"></paper></ureport>

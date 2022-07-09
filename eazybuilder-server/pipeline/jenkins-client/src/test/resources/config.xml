@@ -1,0 +1,130 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<flow-definition plugin="workflow-job@2.33">
+  <actions>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.actions.DeclarativeJobAction plugin="pipeline-model-definition@1.3.8"/>
+  </actions>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <definition class="org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition" plugin="workflow-cps@2.72">
+    <script>
+    
+      pipeline{
+        agent any
+        stages {
+            stage(&apos;checkout from scm&apos;) {
+                steps {
+                                              //check source code from svn
+                        checkout([$class: &apos;SubversionSCM&apos;, 
+                            additionalCredentials: [], 
+                            excludedCommitMessages: &apos;&apos;, 
+                            excludedRegions: &apos;&apos;, 
+                            excludedRevprop: &apos;&apos;, 
+                            excludedUsers: &apos;&apos;, 
+                            filterChangelog: false, 
+                            ignoreDirPropChanges: false, 
+                            includedRegions: &apos;&apos;, 
+                            locations: [[
+                                cancelProcessOnExternalsFail: true, 
+                                credentialsId: &apos;18a52f67-e829-4b85-82f3-12977595aead&apos;,
+                                depthOption: &apos;infinity&apos;, 
+                                ignoreExternalsOption: true, 
+                                local: &apos;.&apos;,
+                                remote: &apos;https://10.129.131.5/svn/eazybuilder/Products/eazybuilder/%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/%E6%BA%90%E7%A0%81/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90&apos;
+                                ]], 
+                            quietOperation: true, 
+                            workspaceUpdater: [$class: &apos;UpdateWithCleanUpdater&apos;]])
+                }
+            }
+            //update ci-tools
+            stage(&apos;update ci-tools&apos;){
+                steps {
+                    sh &apos;&apos;&apos;rm -rf ci-tool &amp;&amp; mkdir -p ci-tool/lib &amp;&amp; cp /opt/ci-tool/lib/*.jar ci-tool/lib/&apos;&apos;&apos;
+                }
+            }
+                    //maven build
+                    stage(&apos;maven build&apos;) {
+                        steps {
+                           //upgrade local svn files  
+                           sh &apos;&apos;&apos; svn upgrade -q &apos;&apos;&apos;  
+                                
+                           //get svn revision and build
+                           script{
+                               def revision = sh(
+                                    script: &quot;svn info --show-item last-changed-revision&quot;,
+                                    returnStdout: true
+                               )
+                                    sh script: &apos;mvn clean install -Dmaven.test.skip=true -Denv.SVN_REVISION=&apos;+revision,returnStdout: false
+                           }
+                           
+                        }
+                    }
+            
+            stage(&apos;dependency check&apos;){
+               steps {
+                    sh &apos;&apos;&apos;mvn org.owasp:dependency-check-maven:5.1.0:aggregate -Dformat=ALL -DautoUpdate=false -DskipProvidedScope=true -DskipSystemScope=true &apos;&apos;&apos;
+               }
+            }
+            
+            
+                    stage(&apos;sonar scan&apos;){
+                       steps {
+                            sh &apos;&apos;&apos;mvn sonar:sonar -Dsonar.scm.disabled=true -Dsonar.host.url=http://ci-sonarqube-headless:9000/sonarqube -Dsonar.login=admin -Dsonar.password=admin -Dsonar.projectKey=CI-TEST  &apos;&apos;&apos;
+                       }
+                    }
+                    stage(&apos;decorate project&apos;){
+                        //invoke java program
+                        steps {
+                            script{
+                                def out = sh script: &apos;java -jar ci-tool/lib/buildfile-decorator*.jar maven ./&apos;, returnStdout: true
+                                println(out)
+                            }
+                        }
+                     }
+                        stage(&apos;run unit test&apos;) {
+                            steps {
+                             sh &apos;&apos;&apos;mvn test --fail-never -Dsurefire.timeout=30 &apos;&apos;&apos;
+                            }
+                        }
+                        stage(&apos;aggregate test report&apos;){
+                            steps {
+                                sh &apos;&apos;&apos;mvn surefire-report:report-only -Daggregate=true &apos;&apos;&apos;
+                                sh &apos;&apos;&apos;mvn jacoco:report-aggregate&apos;&apos;&apos;
+                            }
+                        } 
+                    //build docker image
+                    stage(&apos;build docker image&apos;){
+                        steps {
+                           //build
+                           sh &apos;&apos;&apos;mvn -Ddocker.build.host=0.0.0.0:2375 -Ddocker.build.groupId=ats -Ddocker.build.version=latest -Ddocker.registry=xxxx  -Ddocker.registry.serverId=docker-4 -Ddocker.registry.username=cn-north-1@SZIKDB82ITDURHYUFP6Z -Ddocker.registry.password=c473732fc7f549e45ce44a12f8217bcf75607236e93921929c762dc31bfb0066 -Ddocker.registry.email=xx@eazybuilder.com   docker:build -DdockerImageTags=latest&apos;&apos;&apos;
+                           //push
+                           sh &apos;&apos;&apos;mvn -Ddocker.build.host=0.0.0.0:2375 -Ddocker.build.groupId=ats -Ddocker.build.version=latest -Ddocker.registry=xxxx  -Ddocker.registry.serverId=docker-4 -Ddocker.registry.username=cn-north-1@SZIKDB82ITDURHYUFP6Z -Ddocker.registry.password=c473732fc7f549e45ce44a12f8217bcf75607236e93921929c762dc31bfb0066 -Ddocker.registry.email=xx@eazybuilder.com   docker:push&apos;&apos;&apos;
+                        }
+                    }
+                //deploy
+                stage(&apos;ansible deploy&apos;) {
+                    steps{
+                     script {
+                       def projectHome=&apos;&apos;
+                       if(projectHome.lastIndexOf(&apos;/&apos;)!=-1){
+                           projectHome=projectHome.substring(0,projectHome.lastIndexOf(&apos;/&apos;))
+                       }
+                       if (fileExists(env.WORKSPACE+projectHome+&apos;/deploy/hosts&apos;)&amp;&amp;fileExists(env.WORKSPACE+projectHome+&apos;/deploy/playbook.yml&apos;)) {
+                            ansiblePlaybook inventory: env.WORKSPACE+projectHome+&apos;/deploy/hosts&apos;, playbook: env.WORKSPACE+projectHome+&apos;/deploy/playbook.yml&apos;
+                           
+                       } else {
+                           echo &apos;skip deploy step for ansible playbook not exist&apos;
+                        }
+                      
+                     }
+                 }
+                }
+        }
+      }
+    
+    </script>
+    <sandbox>false</sandbox>
+  </definition>
+  <triggers/>
+  <disabled>false</disabled>
+</flow-definition>

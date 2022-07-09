@@ -1,0 +1,41 @@
+<div class="content-block panel-block">
+	<div class="block-title">devops门禁设置</div>
+	<form class="form-horizontal" name="form">
+	    <input type="hidden" ng-model="entity.id"/>
+		<div class="block-content">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">名称:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="entity.name" name="name" required="required"/>
+				</div>
+			</div>
+
+            <div class="form-group" required="required">
+            	<label class="col-sm-2 control-label">度量指标:</label>
+            	<div class="col-sm-10">
+                    <select class="form-control" ng-model="entity.guardType" ng-options="key as value for (key, value) in guardTypes">
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+            	<label class="col-sm-2 control-label">阈值:</label>
+                <div class="col-sm-10">
+                <input type="number" class="form-control" ng-model="entity.thresholdMax"  placeholder="{{ entity.guardType.includes('rate') ? '请输入百分比,不包含百分号' : '' }}"/>
+                </div>
+           	</div>
+		</div>
+		<div class="block-footer">
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+				   <div class="col-sm-4">
+					<button  class="btn btn-primary" ng-click="save()" ng-disabled="form.$invalid">保存</button>
+				  </div>
+				  <div class="col-sm-4">
+					<button  class="btn btn-default" ng-click="back()">返回</button>
+				 </div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,20 @@
+<div class="modal">
+	<div class="modal-dialog large" style="width: 65vw">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">请选择用户</h4>
+			</div>
+			<div class="modal-body" align="center">
+				<div class="content-block">
+				<table id="addUserTableControl" bs-table-control="addUserTableControl"></table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+					ng-click="closeModal()">取消</button>
+				<button type="button" class="btn btn-primary" ng-disabled="form.$invalid"
+					ng-click="confirmAdd()">确认</button>
+			</div>
+		</div>
+	</div>
+</div>

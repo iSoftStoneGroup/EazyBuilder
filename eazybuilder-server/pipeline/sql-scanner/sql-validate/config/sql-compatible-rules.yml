@@ -1,0 +1,83 @@
+#识别违反的SQL规则
+#ERROR CODE DIC:
+#42883 -> undefined function
+#99999 -> performance warning
+---
+name: "to_char"
+description: "to_char() is not compatible with MySQL"
+condition: 'regex.containsFunction("to_char",sql)'
+actions:
+  - 'result.setSuccess(false);'
+  - 'result.setMsg("to_char() is not compatible with MySQL");'
+  - 'result.setCode("42883");'
+
+---
+name: "to_date"
+description: "to_date() is not compatible with MySQL"
+condition: 'regex.containsFunction("to_date",sql)'
+actions:
+  - 'result.setSuccess(false);'
+  - 'result.setMsg("to_date() is not compatible with MySQL");'
+  - 'result.setCode("42883");' 
+---
+name: "to_timestamp"
+description: "to_timestamp() is not compatible with MySQL"
+condition: 'regex.containsFunction("to_timestamp",sql)'
+actions:
+  - 'result.setSuccess(false);'
+  - 'result.setMsg("to_timestamp() is not compatible with MySQL");'
+  - 'result.setCode("42883");' 
+
+---
+name: "nvl"
+description: "nvl() is not compatible with MySQL"
+condition: 'regex.containsFunction("nvl",sql)'
+actions:
+  - 'result.setSuccess(false);'
+  - 'result.setMsg("nvl() is not compatible with MySQL");'
+  - 'result.setCode("42883");'
+
+---
+name: "to_number"
+description: "to_number() is not compatible with MySQL"
+condition: 'regex.containsFunction("to_number",sql)'
+actions:
+  - 'result.setSuccess(false);'
+  - 'result.setMsg("to_number() is not compatible with MySQL");'
+  - 'result.setCode("42883");'
+  
+---
+name: "to_many_join"
+description: "to many join will bring down SQL performance"
+condition: 'regex.countSQLKeywords("join",sql)>3 || regex.countSQLKeywords("on",sql)>3'
+actions:
+  - 'result.setSuccess(false);'
+  - 'result.setMsg("to many join will bring down SQL performance");'
+  - 'result.setCode("99999");' 
+  
+---
+name: "call procedure"
+description: "Database procedure is not allowed to use"
+condition: 'regex.containsSQLKeywords("call",sql)|| regex.containsSQLKeywords("exec",sql)'
+actions:
+  - 'result.setSuccess(false);'
+  - 'result.setMsg("Database procedure is not allowed to use");'
+  - 'result.setCode("99999");'  
+  
+---
+name: "insert all"
+description: "insert all into xxx is not compatible with MySQL"
+condition: 'regex.containsSQLKeywords("insert all",sql)'
+actions:
+  - 'result.setSuccess(false);'
+  - 'result.setMsg("insert all into xxx is not compatible with MySQL");'
+  - 'result.setCode("99999");'  
+
+---
+name: "string concat"
+description: "String concat use '||'  is not compatible with MySQL"
+condition: 'sql.indexOf("||")>0'
+actions:
+  - 'result.setSuccess(false);'
+  - 'result.setMsg("String concat use || is not compatible with MySQL");'
+  - 'result.setCode("99999");' 

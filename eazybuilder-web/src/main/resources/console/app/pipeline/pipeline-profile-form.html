@@ -1,0 +1,204 @@
+<div class="content-block panel-block">
+    <div class="block-title">自定义构建配置</div>
+    <form class="form-horizontal" name="form">
+        <input type="hidden" ng-model="entity.id"/>
+        <div class="block-content">
+                        <div class="block-content">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">配置名称:</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" ng-model="entity.name" required="required"></input>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" >类型:</label>
+                                <div class="col-sm-8">
+                                 <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default" title="私有的构建配置只在您的项目组内使用"
+                                        ng-click="entity.publicProfile=false"
+                                        ng-class="{'btn-info':!entity.publicProfile}">私有</button>
+                                    <button ng-if="role=='admin'" type="button" class="btn btn-md btn-default" title="公开的构建配置可以供所有项目组使用"
+                                        ng-click="entity.publicProfile=true"
+                                        ng-class="{'btn-info':entity.publicProfile}">公开</button>
+                                 </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="!entity.publicProfile">
+                                <label class="col-sm-3 control-label" >所属项目组:</label>
+                                <div class="col-sm-8">
+                                    <select class="form-control" ng-model="entity.teamId"
+                                             required="required" 
+                                             placeholder="项目组" 
+                                             ng-options="team.id as team.name for team in teams">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" >单元测试及覆盖率检查:</label>
+                                <div class="col-sm-8">
+                                 <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipUnitTest=false"
+                                        ng-class="{'btn-success':!entity.skipUnitTest}">开启</button>
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipUnitTest=true"
+                                        ng-class="{'btn-danger':entity.skipUnitTest}">关闭</button>
+                                 </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" >工程依赖包安全检查:</label>
+                                <div class="col-sm-8">
+                                 <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipDependencyCheck=false"
+                                        ng-class="{'btn-success':!entity.skipDependencyCheck}">开启</button>
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipDependencyCheck=true"
+                                        ng-class="{'btn-danger':entity.skipDependencyCheck}">关闭</button>
+                                 </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" >源码质量及漏洞扫描:</label>
+                                <div class="col-sm-8">
+                                 <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipScan=false"
+                                        ng-class="{'btn-success':!entity.skipScan}">开启</button>
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipScan=true"
+                                        ng-class="{'btn-danger':entity.skipScan}">关闭</button>
+                                 </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="!entity.skipScan">
+                                <label class="col-sm-3 control-label" >扫描JavaScript:</label>
+                                <div class="col-sm-8">
+                                 <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipJsScan=false"
+                                        ng-class="{'btn-success':!entity.skipJsScan}">开启</button>
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipJsScan=true"
+                                        ng-class="{'btn-danger':entity.skipJsScan}">关闭</button>
+                                 </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" >扫描SQL(支持ibatis/mybatis):</label>
+                                <div class="col-sm-8">
+                                 <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipSqlScan=false"
+                                        ng-class="{'btn-success':!entity.skipSqlScan}">开启</button>
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipSqlScan=true"
+                                        ng-class="{'btn-danger':entity.skipSqlScan}">关闭</button>
+                                 </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" >敏感sql脚本提醒:</label>
+                                <div class="col-sm-8">
+                                    <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                        <button type="button" class="btn btn-md btn-default"
+                                                ng-click="entity.sqlRemind=true"
+                                                ng-class="{'btn-success':entity.sqlRemind}">开启</button>
+                                        <button type="button" class="btn btn-md btn-default"
+                                                ng-click="entity.sqlRemind=false"
+                                                ng-class="{'btn-danger':!entity.sqlRemind}">关闭</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" >docker镜像构建:</label>
+                                <div class="col-sm-8">
+                                 <div class="btn-group pull-left col-xs-4" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipDockerBuild=false"
+                                        ng-class="{'btn-success':!entity.skipDockerBuild}">开启</button>
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipDockerBuild=true"
+                                        ng-class="{'btn-danger':entity.skipDockerBuild}">关闭</button>
+                                 </div>
+                                <label class="col-xs-2 control-label" >镜像运行平台:</label>
+                                <div class="col-xs-3">
+                                 <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.buildArm64Image=false"
+                                        ng-class="{'btn-success':!entity.buildArm64Image}">x86</button>
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.buildArm64Image=true"
+                                        ng-class="{'btn-danger':entity.buildArm64Image}">ARM</button>
+                                 </div>
+                                </div>
+                                </div>
+                            </div>
+                           <!--  <div class="form-group">
+                                <label class="col-sm-3 control-label" >docker镜像安全扫描:</label>
+                                <div class="col-sm-8">
+                                 <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipAnchore=false"
+                                        ng-class="{'btn-success':!entity.skipAnchore}">开启</button>
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipAnchore=true"
+                                        ng-class="{'btn-danger':entity.skipAnchore}">关闭</button>
+                                 </div>
+                                </div>
+                            </div> -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" >自动发布/部署:</label>
+                                <div class="col-sm-8">
+                                 <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipDeploy=false"
+                                        ng-class="{'btn-success':!entity.skipDeploy}">开启</button>
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.skipDeploy=true"
+                                        ng-class="{'btn-danger':entity.skipDeploy}">关闭</button>
+                                 </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" >推送war包:</label>
+                                <div class="col-sm-8">
+                                 <div class="btn-group pull-left col-xs-2" style="padding: 0 0;">
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.deployWar=true"
+                                        ng-class="{'btn-success':entity.deployWar}">开启</button>
+                                    <button type="button" class="btn btn-md btn-default"
+                                        ng-click="entity.deployWar=false"
+                                        ng-class="{'btn-danger':!entity.deployWar}">关闭</button>
+                                 </div>
+                                <label class="col-sm-2 control-label" ng-if="entity.deployWar">主机：</label>
+                                <div class="col-sm-3" ng-if="entity.deployWar">
+                                    <select class="form-control" ng-model="entity.deployInfo.hostId" ng-options="host.id as host.name for host in hosts" ></select>
+                                </div>
+                                <label class="col-sm-2 control-label" ng-if="entity.deployWar">路径：</label>
+                                <div class="col-sm-3" ng-if="entity.deployWar">
+                                    <input type="text" class="form-control" ng-model="entity.deployInfo.path" placeholder="路径"/>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" >自定义构建参数:</label>
+                                <div class="col-sm-8">
+                                <input type="text" class="form-control" ng-model="entity.buildParam" placeholder="默认为: mvn clean install"></input>
+                                </div>
+                            </div>
+                        </div>
+        </div>
+        <div class="block-footer">
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                  <div class="col-sm-4">
+                    <button  class="btn btn-default" ng-click="back()">返回</button>
+                 </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

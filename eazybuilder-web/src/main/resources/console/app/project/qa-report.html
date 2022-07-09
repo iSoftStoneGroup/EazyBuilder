@@ -1,0 +1,21 @@
+<div class="container-fluid" >
+       <div class="row">
+                <div class="col-xs-12">
+
+                    <ol class="breadcrumb">
+                        <li>Home</li>
+                        <li class="active"><a ui-sref="project.list">工程质量报表-汇总</a>
+                        </li>
+                    </ol>
+                </div>
+       </div>
+      <div class="row">
+      <div id="toolbar" class="btn-group">
+                        <select class="show-tick form-control toolbar-condition" title="查询全部项目组"
+                                ng-options="group.id as group.name for group in groups" ng-model="condition.groupIds"
+                                data-selectpicker multiple="true">
+                        </select>
+      </div>
+        <table id="table" bs-table-control="tableControl"></table>
+      </div>
+</div>

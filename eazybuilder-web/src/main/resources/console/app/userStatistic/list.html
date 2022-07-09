@@ -1,0 +1,69 @@
+<div class="content-block panel-block" ng-controller="userActivitiesController">
+    <div class="block-title">
+        <span>开发者活动信息</span>
+        <div class="btn-toolbar pull-right">
+        <div class="btn-group btn-group-sm">
+	        <button class="btn btn-default" ng-click="getDataIn(1)" ng-class="{active:day==1}">上日</button>
+	        <button class="btn btn-default" ng-click="getDataIn(7)" ng-class="{active:day==7}">一周内</button>
+	        <button class="btn btn-default" ng-click="getDataIn(30)" ng-class="{active:day==30}">一月内</button>
+	        <button class="btn btn-default" ng-click="getDataIn(90)" ng-class="{active:day==90}">三个月内</button>
+	        <button class="btn btn-default" ng-click="getDataIn(180)" ng-class="{active:day==180}">半年内</button>
+	        <button class="btn btn-default" ng-click="getDataIn(365)" ng-class="{active:day==365}">一年内</button>
+        </div>
+        
+        <div class="btn-group btn-group-sm">
+             <button class="btn btn-default" ng-click="activeByUser(true)" ng-class="{active:byUser}">按用户统计</button>
+            <button class="btn btn-default" ng-click="activeByUser(false)" ng-class="{active:!byUser}">按工程统计</button>
+        </div>
+        </div>
+    </div>
+    <div  class="row">
+        <div class="block-content" style="height: calc(100vh - 154px);width: 100%;">
+            <div ng-if="byUser">
+                <canvas class="chart chart-bar" height="50" chart-data="data"
+                    chart-labels="labels" chart-series="series" chart-options="options"></canvas>
+                <div style="padding:15px;text-align:center;">
+                    <table class="table table-bordered table-condensed statistic-table">
+                        <tr><th width="100px">开发者</th><th width="200px">邮箱</th><th>提交数</th><th>新增代码行</th><th>删除代码行</th><th>创建MR</th><th>评审合并MR</th></tr>
+                        <tr ng-repeat="activity in statistic">
+                            <td>{{activity.userName.substring(0,activity.userName.indexOf('/'))}}</td>
+                            <td>{{activity.userName.substring(activity.userName.indexOf('/')+1)}}</td>
+                            <td>{{activity.push}}</td>
+                            <td>{{activity.lineAdd}}</td>
+                            <td>{{activity.lineRemove}}</td>
+                            <td>{{activity.opened}}</td>
+                            <td>{{activity.merged}}</td>
+                        </tr>
+                        <tr ng-if="!statistic||statistic.length==0"><td colspan="7">没有活动数据</td></tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div ng-if="!byUser">
+                <canvas class="chart chart-horizontal-bar" height="100" chart-data="data"
+                    chart-labels="labels" chart-series="series" chart-options="options"></canvas>
+                <div style="padding:15px;text-align:center;">
+                    <table class="table table-bordered table-condensed statistic-table">
+                        <tr><th width="200px">工程</th><th>提交数</th><th>新增代码行</th><th>删除代码行</th><th>创建MR</th><th>评审合并MR</th></tr>
+                        <tr ng-repeat="activity in projectActivities">
+                            <td>{{activity.pname}}</td>
+                            <td>{{activity.push}}</td>
+                            <td>{{activity.lineAdd}}</td>
+                            <td>{{activity.lineRemove}}</td>
+                            <td>{{activity.opened}}</td>
+                            <td>{{activity.merged}}</td>
+                        </tr>
+                        <tr ng-if="!projectActivities||projectActivities.length==0"><td colspan="6">没有活动数据</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+<style>
+table.statistic-table tr th{
+    text-align:center;
+    background-color:rgba(0, 0, 0, 0.01);
+}
+</style>

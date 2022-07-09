@@ -1,0 +1,139 @@
+<div class="modal">
+	<div class="modal-dialog large"  style="width: 960px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">{{title}}</h4>
+			</div>
+			<!-- 选项卡菜单-->
+			<ul id="myTab" class="nav nav-tabs" role="tablist" style="margin-top:5px;">
+				<li ng-class="{'active':tasks.length > 0}" ng-if="tasks.length>0"><a href="#bulletin" role="tab" data-toggle="tab">代码质量详情</a></li>
+				<li ng-class="{'active':tasks.length === 0}"><a href="#rule" role="tab" data-toggle="tab">构建步骤详情</a></li>
+				<li ng-if="dtpTask"><a href="#forum" role="tab" data-toggle="tab">自动化测试过程</a></li>
+				<li ng-if="statusGuard!= 'NOT_EXECUTED'"><a href="#metrics" role="tab" data-toggle="tab">门禁判断详情</a></li>
+			</ul>
+			<!-- 选项卡面板 -->
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane fade in active" ng-class="{'in active':tasks.length > 0}" id="bulletin" ng-if="tasks.length>0">
+					<div class="modal-body" align="center">
+						<div class="content-block">
+							<table class="table" ng-if="tasks.length>0">
+								<thead><tr><th>BUG(阻断)</th><th>BUG(严重)</th><th>安全漏洞(阻断)</th><th>安全漏洞(严重)</th><th>单元测试覆盖率</th><th>单元测试通过率</th></tr></thead>
+								<tbody>
+								<tr ng-repeat="task in tasks">
+									<td ng-bind-html="task.bug_blocker"></td>
+									<td ng-bind-html="task.bug_critical"></td>
+									<td ng-bind-html="task.vulner_blocker"></td>
+									<td ng-bind-html="task.vulner_critical"></td>
+									<td ng-bind-html="task.unit_test_coverage_rate"></td>
+									<td ng-bind-html="task.unit_test_success_rate"></td>
+								</tr>
+						</tbody>
+						</table>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" ng-class="{'in active':tasks.length === 0}" id="rule">
+					<div class="modal-body" align="center">
+						<div class="content-block">
+							<table class="table">
+								<thead><tr><th>顺序</th><th>步骤</th><th>耗时</th><th>执行结果</th></tr></thead>
+								<tbody>
+									<tr ng-repeat="stage in stages | orderBy: 'startTimeMillis'">
+										<td>{{$index+1}}</td>
+										<td>{{stage.name}}</td>
+										<td>{{stage.durationMillis/1000}}秒</td>
+										<td>
+											<span class="tdLabel" ng-class="{'label-success':stage.status=='SUCCESS','label-danger':stage.status=='FAILED','label-progress':stage.status!='SUCCESS'&&stage.status!='FAILED'}">{{stage.status}}</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="forum">
+					<div class="modal-body" align="center">
+						<div class="content-block">
+							<table class="table"  ng-if="dtpReports.length>0">
+								<thead>
+								<tr>
+									<th>顺序</th>
+									<th>计划名称</th>
+									<th>测试类型</th>
+									<th>失败次数</th>
+									<th>成功次数</th>
+									<th>总次数</th>
+									<th>耗时</th>
+									<th>项目名</th>
+									<th>执行结果(取决于在DTP设置的阈值)</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="report in dtpReports | orderBy: 'createTime'">
+									<td>{{$index+1}}</td>
+									<td><a ng-click="dtpReportHref(report.reportUrl)">{{report.name}}</a></td>
+									<td>{{report.testType}}</td>
+									<td>{{report.totalFail}}</td>
+									<td>{{report.totalPass}}</td>
+									<td>{{report.expectRun}}</td>
+									<td>{{report.elapsedTime/1000}}秒</td>
+									<th>{{report.projectName}}</th>
+									<td>
+										<span ng-if="report.succeed" class="tdLabel label-success">成功</span>
+										<span ng-if="!report.succeed" class="tdLabel label-danger">失败</span>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+							<span ng-if="dtpReports.length==0">该项目可能没有配置dtp测试任务，请检查。</span>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="metrics">
+					<div class="modal-body" align="center">
+						<div class="content-block">
+							<table class="table" ng-if="metrics.length>0">
+								<thead><tr><th>指标类型</th><th>门禁限值</th><th>实际值</th><th>对比结果</th></tr></thead>
+								<tbody>
+								<tr ng-repeat="metric in metrics">
+									<td ng-bind="guardTypes[metric.type]"></td>
+									<td>{{metric.thresholdVal}}  {{ metric.thresholdVal &&  metric.type.includes("rate") ? "%":""}}  </td>
+									<td>{{metric.val}}{{metric.type.includes("rate") ? "%":""}}</td>
+									<td>
+										<span ng-if="metric.assertSucceed" class="tdLabel label-success">通过</span>
+										<span ng-if="!metric.assertSucceed" class="tdLabel label-danger">未通过</span>
+									</td>
+								</tr>
+							</tbody>
+							</table>
+							<table class="table" ng-if="accessControls.length>0">
+								<thead><tr><th>自动化门禁</th><th>成功数</th><th>失败数</th><th>判定结果</th></tr></thead>
+								<tbody>
+								<tr ng-repeat="accessControl in accessControls">
+									<td>{{accessControl.name}}</td>
+									<td>{{accessControl.succeedTotal}}</td>
+									<td>{{accessControl.faildTotal}}</td>
+									<td>
+										<span ng-if="accessControl.reslut" class="tdLabel label-success">成功</span>
+										<span ng-if="!accessControl.reslut" class="tdLabel label-danger">失败</span>
+									</td>
+								</tr>
+							</tbody>
+							</table>
+							<span ng-if="accessControls.length===0&&dtpTask">
+                                由于自动化测试没有成功触发，判断门禁为成功，请检查自动化测试任务。
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+			    <a class="btn btn-default" href="{{logUrl}}" target="_blank">查看详细日志</a>
+				<button type="button" class="btn btn-default"
+						ng-click="showTestResult()"  ng-if="entity.dtpReports !=null  && entity.dtpReports.length > 0">查看自动化测试结果</button>
+				<button type="button" class="btn btn-default"
+					ng-click="closeModal()">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

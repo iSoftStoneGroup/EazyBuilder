@@ -1,0 +1,25 @@
+<configuration>
+	<imageName>${docker.registry}/${docker.build.groupId}/${project.artifactId}:${docker.build.version}</imageName>
+	<dockerDirectory>${project.basedir}/src/main/docker/${docker.platform}</dockerDirectory>
+	<dockerHost>http://${docker.build.host}</dockerHost>
+	<serverId>${docker.registry.serverId}</serverId>
+	<registryUrl>http://${docker.registry}</registryUrl>
+	<skipDockerBuild>${skip.docker.build}</skipDockerBuild>
+	<skipDockerPush>${skip.docker.build}</skipDockerPush>
+	<skipDockerTag>${skip.docker.build}</skipDockerTag>
+	<forceTags>true</forceTags>
+	<resources>
+		<resource>
+			<directory>${project.build.directory}</directory>
+			<includes>
+                 <include>${project.build.finalName}.jar</include>
+                 <include>${project.build.finalName}.war</include>
+            </includes>
+		</resource>
+		<resource>
+			<targetPath>/</targetPath>
+			<directory>${project.basedir}</directory>
+			<include>config/</include>
+		</resource>
+	</resources>
+</configuration>

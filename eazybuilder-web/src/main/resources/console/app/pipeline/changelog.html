@@ -1,0 +1,37 @@
+<div class="modal">
+	<div class="modal-dialog large" style="width:800px;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">变更历史</h4>
+			</div>
+			<div class="modal-body" align="center">
+				<div class="content-block">
+				    <table class="table table-condensed" style="font-size:12px;" ng-if="tableMode">
+                        <thead><tr><th>版本号</th><th style="width:150px">提交时间</th><th>作者</th><th>注释</th></tr></thead>
+                        <tbody>
+                        <tr ng-repeat="changelog in changelogs| orderBy: '-date'">
+                            <td>{{changelog.version}}</td>
+                            <td>{{changelog.date| date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td>{{changelog.author}}</td>
+                            <td>{{changelog.log}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+ <pre id="pretext" ng-if="!tableMode" style="text-align:left;">
+{{multiline}}
+</pre>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+			    <button class="btn btn-default" ngclipboard data-clipboard-target="#pretext" ngclipboard-success="onCopySuccess(e);" ng-if="!tableMode">
+                     复制到剪贴板
+                </button>
+			    <button type="button" class="btn btn-default"
+                    ng-click="tableMode=!tableMode">文本/表格模式切换</button>
+				<button type="button" class="btn btn-default"
+					ng-click="closeModal()">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

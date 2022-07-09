@@ -1,0 +1,10 @@
+.wui-area {
+	margin-bottom: 30px;
+}
+p {
+	font-size: 12px;
+	color: #333;
+}
+li,p{
+	margin-bottom: 15px;
+}

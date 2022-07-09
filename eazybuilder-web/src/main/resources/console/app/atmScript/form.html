@@ -1,0 +1,85 @@
+<div class="content-block panel-block">
+	<div class="block-title">自动化测试脚本管理</div>
+	<form class="form-horizontal" name="form">
+	    <input type="hidden" ng-model="entity.id"/>
+	    <input type="hidden" ng-model="entity.scm.id"/>
+		<div class="block-content">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">脚本名称:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="entity.name" name="name" required="required" placeholder="自动化测试脚本名称，必须跟资源库/上传压缩包中的脚本名称一致"/>
+				</div>
+			</div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">备注:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="entity.description" required="required" placeholder="脚本备注信息"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">脚本类型:</label>
+                <div class="col-sm-10">
+                    <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                            <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.scriptType='qtp'"
+                                ng-class="{'btn-success':entity.scriptType=='qtp'}">QTP脚本</button>
+                            <button type="button"  class="btn btn-md btn-default"
+                                ng-click="entity.scriptType='selenium_java'"
+                                ng-class="{'btn-success':entity.scriptType=='selenium_java'}">Selenium脚本</button>
+                        </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">资源库类型:</label>
+                <div class="col-sm-10">
+                    <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                            <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.scm.type='svn';entity.scm.url='';"
+                                ng-class="{'btn-success':entity.scm.type=='svn'}">SVN</button>
+                            <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.scm.type='git';entity.scm.url='';"
+                                ng-class="{'btn-success':entity.scm.type=='git'}">GIT</button>
+                            <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.scm.type='other'"
+                                ng-class="{'btn-success':entity.scm.type=='other'}">上传文件</button>
+                        </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="entity.scm.type=='other'">
+                <label class="col-sm-2 control-label">测试脚本压缩包:</label>
+                <div class="col-sm-10">
+                    <uploader name="上传" url="/api/fileResource/upload"></uploader>
+                    <a ng-href="/ci/download?fileId={{entity.scm.url}}" ng-if="entity.scm.url">下载</a>
+                </div>
+            </div>
+            <div class="form-group" ng-if="entity.scm.type!='other'">
+                <label class="col-sm-2 control-label">资源库地址:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="entity.scm.url" required="required" placeholder="工程的SVN/GIT仓库地址"/>
+                </div>
+            </div>
+            <div class="form-group" ng-if="entity.scm.type!='other'">
+                <label class="col-sm-2 control-label">资源库用户:</label>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control" ng-model="entity.scm.user" required="required" placeholder="SVN/GIT用户(只需要项目读取权限)"/>
+                </div>
+                <label class="col-sm-2 control-label">密码:</label>
+                <div class="col-sm-4">
+                    <input type="password" class="form-control" ng-model="entity.scm.password" required="required" placeholder="SVN/GIT密码"/>
+                </div>
+            </div>
+		</div>
+		<div class="block-footer">
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+				   <div class="col-sm-4">
+					<button  class="btn btn-primary" ng-click="save()" ng-disabled="form.$invalid">保存</button>
+				  </div>
+				  <div class="col-sm-4">
+					<button  class="btn btn-default" ng-click="back()">返回</button>
+				 </div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

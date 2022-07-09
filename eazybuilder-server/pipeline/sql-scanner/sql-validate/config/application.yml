@@ -1,0 +1,32 @@
+server:
+    port: 8081
+    contextPath: /sql-validate
+
+spring:
+    datasource:
+      mysql5:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://tcla-mysql:3306/sonar?serverTimezone=CTT&characterEncoding=utf8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+        username: root
+        password: password
+      postgre:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: org.postgresql.Driver
+        url: jdbc:postgresql://postgres:35432/sonar
+        username: sonar
+        password: password
+    jpa: 
+        hibernate: 
+            #update|none
+            ddl-auto: none
+        show-sql: false 
+    freemarker: 
+        template-loader-path: file:config/template/
+        cache: false
+        charset: UTF-8
+        suffix: .ftl
+    http: 
+        multipart: 
+            maxFileSize: 32MB
+            maxRequestSize: 32MB

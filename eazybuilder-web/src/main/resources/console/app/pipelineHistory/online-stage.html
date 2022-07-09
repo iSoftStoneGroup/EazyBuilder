@@ -1,0 +1,30 @@
+<div class="modal">
+    <div class="modal-dialog large">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}}</h4>
+            </div>
+            <div class="modal-body" align="center">
+                <div class="content-block">
+                    <table class="table">
+                        <thead><tr><th>顺序</th><th>步骤</th><th>耗时</th><th>执行结果</th></tr></thead>
+                        <tbody>
+                        <tr ng-repeat="stage in stages | orderBy: 'startTimeMillis'">
+                            <td>{{$index+1}}</td>
+                            <td>{{stage.name}}</td>
+                            <td>{{stage.durationMillis/1000}}秒</td>
+                            <td>{{stage.status}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <a class="btn btn-success" href="{{logUrl}}" target="_blank">查看详细日志</a>
+                <button type="button" class="btn btn-default"
+                        ng-click="closeModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,4 @@
+<configuration>
+	<aggregate>true</aggregate>
+	<shutdown>kill</shutdown>
+</configuration>

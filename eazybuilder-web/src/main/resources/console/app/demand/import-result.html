@@ -1,0 +1,27 @@
+
+<div class="modal">
+    <div class="modal-dialog large">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">导入结果</h4>
+            </div>
+            <div class="modal-body" align="center">
+          <table class="table">
+          <tr>
+              <th>项目</th><th>导入结果</th><th>其他信息</th>
+          </tr>
+          <tr ng-repeat="result in saveResult">
+              <td>{{result.projectSimpleName}}</td><td>{{result.success?'成功':'失败'}}</td><td>
+                    {{result.remindMsg.indexOf('ConstraintViolationException')>0?"重复数据":result.remindMsg}}</td>
+          </tr>
+          </table>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                    ng-click="closeModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+        

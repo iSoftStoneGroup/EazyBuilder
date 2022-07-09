@@ -1,0 +1,23 @@
+<div class="container-fluid" ng-controller="mavenRepoController">
+       <div class="row">
+                <div class="col-xs-12">
+
+                    <ol class="breadcrumb">
+                        <li>Home</li>
+                        <li class="active"><a ui-sref="mavenRepo">Maven本地仓库管理</a>
+                        </li>
+                    <li>
+                    <span>项目组:</span>
+                    <select 
+                            ng-model="currentTeamId"
+                            ng-change="setRepoUrl"
+                            required="required" 
+                            placeholder="项目组" 
+                            ng-options="team.id as team.name for team in teams">
+                    </select>
+                    </li>
+                    </ol>
+                </div>
+       </div>
+      <iframe ng-src="{{repoUrl}}" height="100%" width="100%" style="border:0px;margin:0px -30px 0px -8px;" auto-height></iframe>
+</div>

@@ -1,0 +1,160 @@
+<link rel="stylesheet" href="js/angularjs-datetime-picker/wui.min.css"/>
+
+<div class="content-block panel-block">
+    <div class="block-title">项目上线信息</div>
+    <form class="form-horizontal" name="form">
+        <input type="hidden" ng-model="entity.id"/>
+        <div class="block-content">
+            <div class="form-group col-sm-6">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">上线标题:</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" ng-model="entity.title" required="required"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">紧急上线:</label>
+                    <div class="col-sm-4">
+                        <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                            <button type="button" class="btn btn-md btn-default" title=""
+                                    ng-click="entity.immedIatelyOnline='true'"
+                                    ng-class="{'btn-info':entity.immedIatelyOnline}">开启</button>
+                            <button type="button" class="btn btn-md btn-default" title=""
+                                    ng-click="entity.immedIatelyOnline='false'"
+                                    ng-class="{'btn-info':!entity.immedIatelyOnline}">关闭</button>
+                        </div>
+                    </div>
+                    <label class="col-sm-2 control-label">上线时间:</label>
+                    <div class="col-sm-4">
+                        <wui-date
+                                format="yyyy-mm-dd hh:mm"
+                                placeholder="请选择或输入起始日期"
+                                id="date1"
+                                btns="{'ok':'确定','now':'此刻'}"
+                                ng-model="entity.releaseDate"
+                        >
+                        </wui-date>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">项目组:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="entity.teamId"
+                                required="required"
+                                placeholder="请选择redmine上对应的项目组"
+                                ng-change="getRedmineSprintByTeam()"
+                                ng-options="team.id as team.name for team in redmine.teams">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">迭代版本:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="entity.sprintId"
+                                required="required"
+                                placeholder="sprint"
+                                ng-change="getApplyOnlineTags()"
+                                ng-options="sprint.id as sprint.name for sprint in redmine.sprints">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">提测Tag:</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="entity.releaseId"
+                                required="required"on
+                                placeholder="sprint"
+                                ng-change="getIssuesByReleaseId()"
+                                ng-options="tag.id as tag.imageTag for tag in release.tags">
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">镜像harbor地址:</label>
+                    <div class="col-sm-10"><div  id="digest" class="tab-pane fade in active" >
+                        <table class="table table-condensed table-bordered">
+                            <thead>
+                            <tr>
+                                <th>digest</th>
+                                <th>项目名</th>
+                                <th>镜像名称</th>
+                                <th>tag</th>
+                                <th>命名空间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="dockerDigest in dockerDigests">
+                                <td><a target="_blank" ng-href="{{dockerDigest.url}}">{{dockerDigest.digest | text_length_set: 10}}</a></td>
+                                <td>{{dockerDigest.projectName}}</td>
+                                <td>{{dockerDigest.imageName}}</td>
+                                <td>{{dockerDigest.tag}}</td>
+                                <td>{{dockerDigest.namespace}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">手动测试报告:</label>
+                    <div class="col-sm-10">
+                        <uploader  name="上传" url="/api/fileResource/upload"></uploader>
+                        <a ng-href="/ci/download?fileId={{entity.dtpReportUrl}}" ng-show="entity.dtpReportUrl">下载</a>
+                    </div>
+                </div>
+                <div class="form-group" ng-if="dtpReports">
+                    <label class="col-sm-2 control-label">自动测试报告:</label>
+                  <div class="col-sm-10"><div  id="params" class="tab-pane fade in active" >
+                        <table class="table table-condensed table-bordered">
+                            <thead>
+                            <tr>
+                                <th>顺序</th>
+                                <th>计划名称</th>
+                                <th>测试类型</th>
+                                <th>耗时</th>
+                                <th>项目名</th>
+                                <th>执行结果</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="report in dtpReports | orderBy: 'createTime'">
+                                <td>{{$index+1}}</td>
+                                <td><a ng-href="{{report.reportUrl}}">{{report.name}}</a></td>
+                                <td>{{report.testType}}</td>
+                                <td>{{report.elapsedTime/1000}}秒</td>
+                                <th>{{report.projectName}}</th>
+                                <td>{{report.succeed}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div></div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">上线描述:</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" ng-model="entity.releaseDetail" rows="10"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div  class="form-group col-sm-6">
+                <div class="zTreeDemoBackground col-sm-11">
+                    <ul id="issuesTreeBatch" class="ztree" ></ul>
+                </div>
+            </div>
+        </div>
+        <div class="block-footer">
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" ng-click="save()" ng-disabled="form.$invalid">保存
+                        </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-default" ng-click="back()">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

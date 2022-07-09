@@ -1,0 +1,28 @@
+<div class="modal">
+    <div class="modal-dialog large" style="width:60%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">历史记录对比</h4>
+            </div>
+            <div class="modal-body" align="center" style="background-color: #ffffff;min-height: 75vh">
+                <div ng-if="noDifferent">
+                    <h4>没有发现不同！</h4>
+                </div>
+
+                <div ng-if="!noDifferent" >
+                    <div>
+                        <div dir="ltr" role="row" class="next-row">
+                            <!--<div dir="ltr" role="gridcell" class="next-col col-sm-offset-2 col-sm-5">{{left}}</div>
+                            <div dir="ltr" role="gridcell" class="next-col col-sm-offset-8" >{{right}}</div>-->
+                        </div>
+                    </div>
+                    <div id="viewMarge" class="viewMarge" ng-init="viewMarge()"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        ng-click="closeModal()">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>

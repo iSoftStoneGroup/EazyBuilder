@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.eazybuilder.finance</groupId>
+  <artifactId>${name}</artifactId>
+  <version>${version}</version>
+  <packaging>war</packaging>
+  <properties>
+      <sonar.exclusions>**/pom.xml,**/webservice/**/*</sonar.exclusions>
+  </properties>
+  <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>http://0.0.0.0:8082/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>snapshots</id>
+            <url>http://0.0.0.0:8082/nexus/content/repositories/snapshots</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+  <dependencies>
+  <#if encoding=="UTF-8">
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>3.0.1</version>
+        <scope>provided</scope>
+    </dependency>
+  <#else>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>2.5</version>
+        <scope>provided</scope>
+    </dependency>
+  </#if>
+    <dependency>
+        <groupId>javax.servlet.jsp</groupId>
+        <artifactId>jsp-api</artifactId>
+        <version>2.2</version>
+        <scope>provided</scope>
+    </dependency>
+    <!-- UNKOWN JAR START-->
+    <#list unkownJars as jar>
+    <dependency>
+       <groupId>eazybuilder.legacy</groupId>
+       <artifactId>${jar.name}</artifactId>
+       <version>${jar.version}</version>
+       <scope>system</scope>
+       <systemPath>${jar.filePath}</systemPath>
+    </dependency>
+    </#list>
+    <!-- UNKOWN JAR END-->
+    <#list centralJars as jar>
+    <dependency>
+       <groupId>${jar.groupId}</groupId>
+       <artifactId>${jar.artifactId}</artifactId>
+       <version>${jar.version}</version>
+    </dependency>
+    </#list>
+    <#list nexusJars as jar>
+    <dependency>
+       <groupId>${jar.groupId}</groupId>
+       <artifactId>${jar.artifactId}</artifactId>
+       <version>${jar.version}</version>
+    </dependency>
+    </#list>
+  </dependencies>
+  
+  <build>
+  <plugins>
+  <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${jdk}</source>
+                    <target>${jdk}</target>
+                    <encoding>${encoding}</encoding>
+                </configuration>
+            </plugin>
+    <plugin>  
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-surefire-plugin</artifactId>  
+        <version>2.17</version>  
+        <configuration>  
+          <skipTests>true</skipTests>  
+        </configuration>
+      </plugin>
+      <plugin>  
+        <groupId>org.apache.maven.plugins</groupId>  
+        <artifactId>maven-war-plugin</artifactId>  
+        <version>2.2</version>  
+        <configuration>  
+          <failOnMissingWebXml>false</failOnMissingWebXml>  
+        </configuration>
+      </plugin>
+  </plugins>
+  </build>
+</project>

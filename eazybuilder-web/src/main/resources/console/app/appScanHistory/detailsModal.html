@@ -1,0 +1,33 @@
+<div class="modal">
+	<div class="modal-dialog large">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">扫描情况</h4>
+			</div>
+			<div class="modal-body" align="center">
+				<div class="content-block">
+				<table class="table">
+				<thead><tr><th>顺序</th><th>脚本名称</th><th>高危级别漏洞</th><th>中等级别漏洞</th><th>低级别漏洞</th></tr></thead>
+				<tbody>
+				<tr ng-if="details.length==0">
+				    <td colspan="5" style="text-align:center;">没有漏洞发现</td>
+				</tr>
+				<tr ng-repeat="detail in details" ng-class="{warning:detail.totalWarning>0;danger:detail.totalFailed>0}">
+				<td>{{detail.executeOrder}}</td>
+				<td>{{detail.scriptName}}</td>
+				<td>{{detail.totalHigh}}</td>
+				<td>{{detail.totalMedium}}</td>
+				<td>{{detail.totalLow}}</td>
+				</tr>
+				</tbody>
+				</table>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+					ng-click="closeModal()">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

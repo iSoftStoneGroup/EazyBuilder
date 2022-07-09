@@ -1,0 +1,108 @@
+<div class="content-block panel-block">
+	<div class="block-title">测试计划制定</div>
+	<form class="form-horizontal" name="form">
+	    <input type="hidden" ng-model="entity.id"/>
+		<div class="block-content">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">计划名称:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="entity.name" name="name" required="required" placeholder="自动化测试脚本名称，必须跟资源库/上传压缩包中的脚本名称一致"/>
+				</div>
+			</div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">项目组:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="entity.teamId"
+                            required="required" 
+                            placeholder="项目组" 
+                            ng-options="team.id as team.name for team in teams">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">执行策略:</label>
+                <div class="col-sm-10">
+                    <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                            <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.executeType='manual'"
+                                ng-class="{'btn-success':entity.executeType=='manual'}">人工执行</button>
+                            <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.executeType='timePlan'"
+                                ng-class="{'btn-success':entity.executeType=='timePlan'}">按时间计划执行</button>
+                            <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.executeType='afterDeploy'"
+                                ng-class="{'btn-success':entity.executeType=='afterDeploy'}">在项目成功部署后执行</button>
+                        </div>
+                </div>
+            </div>
+            <div class="form-group" ng-if="entity.executeType=='timePlan'">
+                <label class="col-sm-2 control-label">时间计划:</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="entity.cron" placeholder="CRON表达式" required="required"/>
+                    <a href="http://cron.qqe2.com/" target="_blank" style="font-size:10px;">点这里在线生成 </a>
+                </div>
+            </div>
+            <div class="form-group" ng-if="entity.executeType=='afterDeploy'">
+                <label class="col-sm-2 control-label">项目:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="entity.projectId"
+                            required="required" 
+                            placeholder="触发项目" 
+                            ng-options="prj.id as prj.name for prj in projects">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">测试环境:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="entity.envId"
+                            required="required" 
+                            placeholder="测试环境" 
+                            ng-options="env.id as env.name for env in envs">
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">测试脚本:</label>
+                <div class="col-sm-10">
+                    <div class="btn-group  col-xs-12" style="padding: 0 0;">
+                    
+                                    <button class="btn btn-default" ng-click="showAddModel()">添加</button>
+                                    <button class="btn btn-default" ng-click="delSelected()">删除</button>
+                                    <button class="btn btn-default" ng-click="moveUp()"><i class="fa fa-angle-double-up"></i>上移顺序</button>
+                                    <button class="btn btn-default" ng-click="moveDown()"><i class="fa fa-angle-double-down"></i>下移顺序</button>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                <table class="table table-condensed table-hover table-bordered">
+                                   <thead>
+                                   <tr style="background-color:rgba(0, 0, 0, 0.01);"><th width="100px">执行顺序</th><th width="40%">测试脚本名称</th><th>备注</th></tr>
+                                   </thead>
+                                   <tbody>
+                                   <tr ng-repeat="script in entity.scripts" ng-click="updateSelection($event,script.id)" ng-class="{danger:isSelected(script.id)}">
+                                       <td>{{$index+1}}</td>
+                                       <td>{{script.name}}</td>
+                                       <td>{{script.description}}</td>
+                                   </tr>
+                                   </tbody>
+                                   </table>
+                </div>
+            </div>
+		</div>
+		<div class="block-footer">
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+				   <div class="col-sm-4">
+					<button  class="btn btn-primary" ng-click="save()" ng-disabled="form.$invalid">保存</button>
+				  </div>
+				  <div class="col-sm-4">
+					<button  class="btn btn-default" ng-click="back()">返回</button>
+				 </div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

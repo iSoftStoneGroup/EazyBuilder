@@ -1,0 +1,80 @@
+.pickadate {
+  font-family: 'Helvetica Neue', Helvetica, Helvetica, Arial, sans-serif; }
+  .pickadate a {
+    color: #666666; }
+    .pickadate a:visited {
+      color: #666666; }
+
+.pickadate-header {
+  position: relative; }
+
+.pickadate-main {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 12px; }
+
+.pickadate-cell {
+  overflow: hidden;
+  margin: 0;
+  padding: 0; }
+  .pickadate-cell li {
+    display: block;
+    float: left;
+    border: 1px solid #DCDCDC;
+    border-width: 0 1px 1px 0;
+    width: 14.285%;
+    padding: 1.3% 0 1.3% 0;
+    line-height: normal;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box; }
+    .pickadate-cell li:nth-child(7n+0) {
+      border-right: 1px solid #DCDCDC; }
+    .pickadate-cell li:nth-child(1), .pickadate-cell li:nth-child(8), .pickadate-cell li:nth-child(15), .pickadate-cell li:nth-child(22), .pickadate-cell li:nth-child(29), .pickadate-cell li:nth-child(36) {
+      border-left: 1px solid #DCDCDC; }
+  .pickadate-cell .pickadate-disabled {
+    color: #DCDCDC; }
+    .pickadate-cell .pickadate-disabled a {
+      color: #DCDCDC; }
+  .pickadate-cell .pickadate-enabled {
+    cursor: pointer;
+    font-size: 12px;
+    color: #666666; }
+  .pickadate-cell .pickadate-today {
+    background-color: #eaeaea; }
+  .pickadate-cell .pickadate-active {
+    background-color: #b52a00;
+    color: white; }
+  .pickadate-cell .pickadate-head {
+    border-top: 1px solid #DCDCDC;
+    background: #f3f3f3; }
+    .pickadate-cell .pickadate-head:nth-child(1), .pickadate-cell .pickadate-head:nth-child(7) {
+      background: #f3f3f3; }
+
+.pickadate-centered-heading {
+  font-weight: normal;
+  text-align: center;
+  font-size: 1em;
+  margin: 13px 0 13px 0;
+  line-height: normal; }
+
+.pickadate-controls {
+  position: absolute;
+  z-index: 10;
+  width: 100%; }
+  .pickadate-controls .pickadate-next {
+    float: right; }
+  .pickadate-controls a {
+    text-decoration: none;
+    font-size: 0.9em; }
+
+.pickadate-modal {
+  position: absolute;
+  background-color: #fff;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0 5px 5px 5px;
+  z-index: 1000; }

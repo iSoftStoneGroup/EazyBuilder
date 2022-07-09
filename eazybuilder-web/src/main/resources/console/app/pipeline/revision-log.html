@@ -1,0 +1,37 @@
+<div class="content-block panel-block">
+	<div class="block-title">导出版本修订记录</div>
+	   <form class="form-horizontal" name="form">
+		<div class="block-content">
+		    <div class="form-group">
+                <label class="col-sm-2 control-label">工程/项目:</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="entity.projectId" ng-options="project.id as project.name for project in projects" required="required"></select>
+                </div>
+            </div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">版本号(起始):</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="entity.from"/>
+				</div>
+			</div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">版本号(截止):</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="entity.to"/>
+                </div>
+            </div>
+		</div>
+		<div class="block-footer">
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-9">
+				    <div class="col-sm-4">
+				        <button  class="btn btn-default" ng-click="queryChangeList()">查询</button>
+                  </div>
+                  <div class="col-sm-4">
+                    <button  class="btn btn-default" ng-click="back()">返回</button>
+                 </div>
+				</div>
+			</div>
+		</div>
+		</form>
+</div>

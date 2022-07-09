@@ -1,0 +1,31 @@
+<div class="modal">
+	<div class="modal-dialog large">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">{{title}}</h4>
+			</div>
+			<div class="modal-body" align="center">
+				<div class="content-block">
+				    <table class="table">
+                        <thead><tr><th>指标类型</th><th>门禁限值</th><th>实际值</th><th>对比结果</th></tr></thead>
+                        <tbody>
+                        <tr ng-repeat="metric in metrics">
+							<td ng-bind="guardTypes[metric.type]"></td>
+                            <td>{{metric.thresholdVal}}  {{ metric.thresholdVal &&  metric.type.includes("rate") ? "%":""}}  </td>
+                            <td>{{metric.val}}{{metric.type.includes("rate") ? "%":""}}</td>
+                            <td>{{metric.assertSucceed ? '通过':'未通过'}}</td>
+                        </tr>
+                </tbody>
+                </table>
+				</div>
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default"
+						ng-click="showTestResult()"  ng-if="entity.dtpReports !=null  && entity.dtpReports.length > 0">查看自动化测试结果</button>
+				<button type="button" class="btn btn-default"
+					ng-click="closeModal()">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>

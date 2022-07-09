@@ -1,0 +1,62 @@
+<div class="content-block panel-block">
+	<div class="block-title">测试环境配置</div>
+	<form class="form-horizontal" name="form">
+	    <input type="hidden" ng-model="entity.id"/>
+		<div class="block-content">
+                        <div class="block-content">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">测试环境名称:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" ng-model="entity.name" required="required"></input>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">测试站点地址(URL):</label>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" ng-model="entity.siteUrl" required="required" placeholder="测试脚本中对应SITE_URL环境变量"></input>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label" >环境变量:</label>
+                                <div class="col-sm-6">
+                                  <div class="btn-group  col-xs-12" style="padding: 0 0;">
+                                    <button class="btn btn-default" ng-click="showEnvAddModel()">添加</button>
+                                    <button class="btn btn-default" ng-click="delSelectedEnv()">删除</button>
+                                    <uploader name="批量导入" url="/api/testEnvSet/import"></uploader>
+                                   <a href="/ci/download/testEnvTemplate" style="line-height:12px;">下载模板</a>
+                                   </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4"></label>
+                                <div class="col-sm-6">
+                                   <table class="table table-condensed table-hover table-bordered">
+                                   <thead>
+                                   <tr style="background-color:rgba(0, 0, 0, 0.01);"><th><input type="checkbox" ng-click="checkAll()" ng-checked="entity.envs.length==selectedEnv.length"></input><th>变量名称</th><th>变量值</th></tr>
+                                   </thead>
+                                   <tbody>
+                                   <tr ng-repeat="env in entity.envs" ng-click="updateSelection($event,env.id)">
+                                       <td><input type="checkbox" ng-checked="isSelected(env.id)"></input></td>
+                                       <td><a ng-click="showEnvAddModel(env)">{{env.key}}</a></td>
+                                       <td>{{env.val}}</td>
+                                   </tr>
+                                   </tbody>
+                                   </table>
+                                </div>
+                            </div>
+                        </div>
+		</div>
+		<div class="block-footer">
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+				   <div class="col-sm-4">
+					<button  class="btn btn-primary" ng-click="save()" ng-disabled="form.$invalid">保存</button>
+				  </div>
+				  <div class="col-sm-4">
+					<button  class="btn btn-default" ng-click="back()">返回</button>
+				 </div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,42 @@
+<div class="modal">
+	<div class="modal-dialog large" style="width:60%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">变更历史</h4>
+			</div>
+			<div class="modal-body" align="center">
+<div class="content-block">
+	<form class="form-horizontal" name="dataForm">
+		<input type="hidden" ng-model="entity.id"/>
+		<div class="block-content">
+<!--			<div class="form-group">-->
+<!--				<label class="col-sm-2 control-label">工程缩写/英文</label>-->
+<!--				<div class="col-sm-10">-->
+<!--					<input type="text" class="form-control" ng-model="entity.name" required="required" disabled="disabled"/>-->
+<!--				</div>-->
+<!--			</div>-->
+			<div id="historyToolbar" class="btn-group ">
+				<button id="add" class="btn btn-bd-red" ng-click="switchToSelected()">
+					<i class="fa fa-clock"></i> 切换到该版本
+				</button>
+				<button id="compare" class="btn btn-bd-red" ng-click="compareToSelected()">
+					<i class="fa fa-clock"></i> 比对历史版本
+				</button>
+			</div>
+			<table id="historyTable" bs-table-control="tableControlHistory"></table>
+		</div>
+		<div class="block-footer">
+			<div class="form-group">
+				<div class="col-sm-offset-6 col-sm-6">
+					<div class="col-sm-4 pull-right">
+						<button  class="btn btn-default" ng-click="closeModal()">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+</div>
+</div>
+</div>

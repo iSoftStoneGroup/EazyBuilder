@@ -1,0 +1,97 @@
+<div class="modal">
+	<div class="modal-dialog large" style="width:60%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">需求明细</h4>
+			</div>
+			<div class="modal-body" align="center">
+				<form class="form-horizontal" name="dataForm">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">主题:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="issueDetail.subject"
+								   readonly="readonly" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">需求id:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="issueDetail.id"
+								   readonly="readonly" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">被指派用户姓名:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="issueDetail.assigneeName"
+								   readonly="readonly" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">作者（问题发起人）:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="issueDetail.authorName"
+								   readonly="readonly"  />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-2 control-label">需求创建时间:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="issueDetail.createOn"
+								   readonly="readonly" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">需求描述:</label>
+						<div class="col-sm-10">
+							<textarea class="form-control" ng-model="issueDetail.description" rows="10" readonly="readonly"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">需求截止日期:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="issueDetail.dueDate"
+								   readonly="readonly" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">需求预估时间:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" ng-model="issueDetail.estimatedHours"
+								   readonly="readonly" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">是否更新sql:</label>
+						<div class="btn-group pull-left col-xs-4" >
+							<button readonly="readonly" type="button" class="btn btn-md btn-default"
+									ng-class="{'btn-info':issueDetail.sqlEdit=='0'}">否
+							</button>
+							<button readonly="readonly" type="button" class="btn btn-md btn-default"
+									ng-class="{'btn-info':issueDetail.sqlEdit=='1'}">是
+							</button>
+						</div>
+						<label class="col-sm-2 control-label">是否更新配置文件:</label>
+						<div class="btn-group pull-left col-xs-4" >
+							<button readonly="readonly" type="button" class="btn btn-md btn-default"
+									ng-class="{'btn-info':issueDetail.configEdit=='0'}">否
+							</button>
+							<button readonly="readonly" type="button" class="btn btn-md btn-default"
+									ng-class="{'btn-info':issueDetail.configEdit=='1'}">是
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="modal-footer">
+				<div class="col-sm-offset-3 col-sm-9">
+					<div class="col-sm-4">
+						<button class="btn btn-default" ng-click="closeModal()">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

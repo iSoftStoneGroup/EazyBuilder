@@ -1,0 +1,65 @@
+<div class="modal">
+    <div class="modal-dialog large">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">请填写入库包详细资料</h4>
+            </div>
+            <div class="modal-body" align="center">
+                <div class="content-block">
+                <div class="block-content">
+                    <form name="form" class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">groupId:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="groupId" required="required" placeholder="com.eazybuilder"></input>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">artifactId:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="artifactId" required="required"></input>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">version:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="version" required="required"></input>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">packaging:</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" ng-model="packaging" required="required">
+                                        <option>jar</option>
+                                        <option>war</option>
+                                        <option>ear</option>
+                                        <option>pom</option>
+                                    </select>
+                                </div>
+                            </div>
+                             <div class="form-group">
+                                <label class="col-sm-2 control-label">classfier:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" ng-model="classfier"></input>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">文件:</label>
+                                <div class="col-sm-9">
+                                    <input type="file" class="form-control" file-model="uploadfile" required="required"></input>
+                                </div>
+                            </div>
+                        </div>
+                     </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                    ng-click="closeModal()">取消</button>
+                <button type="button" class="btn btn-primary" ng-disabled="form.$invalid"
+                    ng-click="save()">确认</button>
+            </div>
+        </div>
+    </div>
+</div>

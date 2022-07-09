@@ -1,0 +1,26 @@
+<li class="submenu" ng-click="active($event)" ng-if="menu.type == 'MENU'" >
+	<a ui-sref="{{menu.path}}"  title="{{menu.name}}">
+		<div>
+			<i class="menu-icon" ng-class="menu.icon"></i>
+			<span class="menu-title">{{menu.name}}</span>
+		</div>
+	</a>
+</li>
+
+<li class="submenu  dropdown"   ng-if="menu.type == 'DIR'"  ng-mouseover="menu.isShow = true" ng-mouseleave="menu.isShow = false" ng-class="{'dropdown open': menu.isShow }">
+	<a title="{{menu.name}}"  data-toggle="dropdown">
+		<div>
+			<i class="menu-icon" ng-class="menu.icon" ></i>
+			<span class="menu-title">{{menu.name}}</span>
+		</div>
+	</a>
+
+	<ul class="dropdown-menu">
+		<li ng-repeat="child in menu.children" class="submenu" ng-click="active($event)">
+			<a ui-sref="{{child.path}}" title="{{child.name}}">
+				<div>
+					<i ng-class="child.icon"></i> <span>{{child.name}}</span>
+				</div>
+			</a></li>
+	</ul>
+</li>
