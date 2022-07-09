@@ -8,7 +8,7 @@
   <artifactId>sql-validate</artifactId>
   <properties>
     <skip.docker.build>false</skip.docker.build>
-    <mysql-connector.version>8.0.19</mysql-connector.version>
+    <mysql-connector.version>8.0.28</mysql-connector.version>
     <h2.version>1.4.183</h2.version>
   </properties>
   <dependencies>
