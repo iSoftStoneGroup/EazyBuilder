@@ -35,6 +35,8 @@ EazyBuilder is hosted by the [Cloud Native Computing Foundation (CNCF)](https://
   
 - Self-built mirrors
 
+  The platform uses the image of the x86 architecture by default.The platform is compatible with arm64, and each plug-in directory contains the arm64 directory. It should be noted that arm64 is still in the test, and the related functions have not been fully tested;
+
   Generate an image: docker-compose build
 
 - Start the app
