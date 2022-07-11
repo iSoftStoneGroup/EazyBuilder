@@ -32,8 +32,7 @@ EazyBuilder 由 [云原生计算基金会 (CNCF)](https://cncf.io) 托管.
 
 - Docker版本： 1.13.0+
 
-- EazyBuilder镜像已经发布至[Docker Hub](https://hub.docker.com/ "Docker Hub");
-  可以直接使用EazyBuilder官方镜像
+** EazyBuilder支持部署包安装与docker安装，可参照如下步骤，自己制作镜像
   
 - 自主构建镜像
 
