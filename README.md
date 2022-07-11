@@ -36,8 +36,7 @@ EazyBuilder is hosted by the [Cloud Native Computing Foundation (CNCF)](https://
 
 - Docker version: 1.13.0+
 
-- EazyBuilder image has been released to [Docker Hub](https://hub.docker.com/ "Docker Hub");
-  You can directly use the official image of EazyBuilder
+**Eazybuilder supports deployment package installation and docker installation. You can refer to the following steps to make your own image
   
 - Self-built mirrors
 
