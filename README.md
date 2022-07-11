@@ -1,5 +1,6 @@
 
 
+
 # Welcome to the EazyBuilder project!
 
 EazyBuilder focuses on multi-team and multi-project unified compilation, build, scan, deployment and other continuous integration automation pipeline requirements, through plug-in automatic injection and decoration, pipeline template, improve traditional continuous integration tools (such as directly using Jenkins/Hudson) configuration is cumbersome and professional High requirements (for example, you must be familiar with Jenkinsfile/pipeline/groovy syntax, etc.), complex environment dependencies (shared library needs to rely on code bases when running), difficult configuration of large-scale projects, and difficult management.
