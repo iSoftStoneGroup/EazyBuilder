@@ -1,4 +1,4 @@
-FROM swr.cn-north-1.myhuaweicloud.com/gtreasury/docker-tomcat:latest
+FROM tomcat:latest
 
 ENV APP_NAME="%s"
 

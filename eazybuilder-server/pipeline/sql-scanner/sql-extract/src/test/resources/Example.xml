@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
 <sqlMap namespace="example">
  
- <insert id="addUserLogin" parameterClass="com.iss.finance.portal.userlogin.entity.UserLogin">
+ <insert id="addUserLogin" parameterClass="finance.portal.userlogin.entity.UserLogin">
 <selectKey keyProperty="id" type="pre" resultClass="long">
 SELECT SEQ_ITS_USERLOGIN.NEXTVAL AS VALUE FROM DUAL
 </selectKey>
@@ -34,7 +34,7 @@ ACC_LAST_NAME = #lastName#
 order by ACC_LAST_NAME 
 </statement>
 
-<select id="testIsNotEmpty" resultClass="com.iss.example.business.entity.Example" parameterClass="java.util.HashMap">
+<select id="testIsNotEmpty" resultClass="example.business.entity.Example" parameterClass="java.util.HashMap">
 		 select id 
 		      ,PROJECT_NAME projectName
 		      ,PROJECT_CONTENT projectContent
