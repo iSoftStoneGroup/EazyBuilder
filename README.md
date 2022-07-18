@@ -27,7 +27,6 @@ EazyBuilder focuses on multi-team and multi-project unified compilation, build, 
 - **Pipeline monitoring and early warning**: Built-in rich early warning methods, comprehensively monitor the pipeline status, actively send abnormal logs, and continuously improve the pipeline through data-driven.
 - **Event-driven**: Support wildcards, configure different event types for different code branches, and trigger different pipelines.
 
-EazyBuilder is hosted by the [Cloud Native Computing Foundation (CNCF)](https://cncf.io).
 
 # **Getting Started**
 

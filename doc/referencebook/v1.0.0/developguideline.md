@@ -320,3 +320,16 @@ logging:
 - thridparty模块包含jenkins打包脚本，可调整dockerfile，制作专用构建镜像
 - thridparty模块包含jenkins-inbound-agent打包脚本，支持kubernetes弹性调度
 
+
+**Nacos集成**
+
+- 平台集成了Nacos配置中心功能，如需关闭，可以在pom.xml中删除相关依赖：
+
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+			<version>2.2.3.RELEASE</version>
+		</dependency>
+
+
+- 如果启用nacos作为配置中心，建议将工程中jenkins-client.yml删除，并且将内容复制在nacos中
