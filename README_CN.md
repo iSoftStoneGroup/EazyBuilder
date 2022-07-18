@@ -37,6 +37,8 @@ EazyBuilder聚焦多团队多工程统一编译、构建、扫描、部署等持
 
   平台默认使用x86架构的镜像;平台可以兼容arm64，每个插件目录中，都包含了arm64目录，需要注意，arm64还在试验中，相关功能未经过充分测试； 
 
+  docker-compose version 1.27.4, build 40524192
+  
   生成镜像：docker-compose build
 
 - 启动应用
