@@ -44,6 +44,8 @@ EazyBuilder focuses on multi-team and multi-project unified compilation, build, 
 
 - start the app
 
+  docker-compose version 1.27.4, build 40524192
+
   docker-compose up -d
 
   Use default compose file: [dockercompose/docker-compose.yml](./dockercompose/docker-compose.yml)

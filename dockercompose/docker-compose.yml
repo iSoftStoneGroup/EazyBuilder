@@ -1,82 +1,83 @@
-ci-nginx: 
-  build:
-    context: ./eazybuilder-web/src/main/docker
-    image: eazybuilder-web
-  ports: 
-    - "80:80"
-  restart: always
-  volumes_from:
-    - ci-jenkins-client
-  links: 
-    - "ci-jenkins:ci-jenkins"
-    - "ci-sonarqube:ci-sonarqube"
-    - "ci-jenkins-client:ci-jenkins-client"
+services:
+  backend:
+    image: eazybuilder-web 
+    build:
+      context: ../eazybuilder-web/src/main/docker
+    ports: 
+       - "80:80"
+    restart: always
+    volumes_from:
+      - ci-jenkins-client
+    links: 
+      - "ci-jenkins:ci-jenkins"
+      - "ci-sonarqube:ci-sonarqube"
+      - "ci-jenkins-client:ci-jenkins-client" 
 
-ci-jenkins-client: 
-  build:
-    context: ./eazybuilder-server/pipeline/jenkins-client/src/main/docker
-  image: eazybuilder-server
-  ports: 
-    - "8080"
-  restart: always
-  privileged: true
-  volumes_from:
-    - ci-jenkins
-  environment: 
-     JAVA_OPTS: "-Xmx1g -Dspring.datasource.max-active=50 -Dspring.mail.username=xxxx -Dspring.mail.password=xxxxxx -Dspring.mail.from=xxxx@xxxx.com"
-  links: 
-    - "ci-jenkins:ci-jenkins"
-    - "ci-sonarqube:ci-sonarqube"
-    - "ci-mysql:ci-mysql"
+  ci-jenkins-client: 
+    build:
+      context: ../eazybuilder-server/pipeline/jenkins-client/src/main/docker
+    image: eazybuilder-server
+    ports: 
+      - "8080"
+    restart: always
+    privileged: true
+    volumes_from:
+      - ci-jenkins
+    environment: 
+       JAVA_OPTS: "-Xmx1g -Dspring.datasource.max-active=50 -Dspring.mail.username=xxxx -Dspring.mail.password=xxxxxx -Dspring.mail.from=xxxx@xxxx.com"
+    links: 
+      - "ci-jenkins:ci-jenkins"
+      - "ci-sonarqube:ci-sonarqube"
+      - "ci-mysql:ci-mysql" 
 
-ci-jenkins: 
-  image: jenkins
-  restart: always
-  environment: 
-    - TZ=Asia/Shanghai
-  links: 
-   - "ci-sonarqube:ci-sonarqube"
-  volumes: 
-   - /opt/mnt/ci/maven-repo:/usr/share/maven-repo
-
-ci-sonarqube: 
-  image: sonarqube
-  restart: always
-  command: -Dsonar.web.context=/sonarqube -Dsonar.search.javaOpts=-Xmx2g -Dsonar.ce.javaOpts=-Xmx2g
-  environment: 
-    - JAVA_OPTS=-Xmx1g
-    - SONARQUBE_JDBC_USERNAME=xxxxx
-    - SONARQUBE_JDBC_PASSWORD=xxxxx
-    - SONARQUBE_JDBC_URL=jdbc:postgresql://ci-postgres/sonar 
-  links: 
-   - "ci-postgres:ci-postgres"
-  volumes:
-    - /opt/mnt/ci/sonarqube-data:/opt/sonarqube/data
-    - /opt/mnt/ci/sonarqube-tmp:/opt/sonarqube/temp
-
-   
-ci-mysql: 
-  image: mysql
-  restart: always
-  command: --max_allowed_packet=67108864
-  ports: 
-    - "33306:3306" 
-  environment: 
-    - MYSQL_ROOT_PASSWORD=xxxxx
-    - MYSQL_DATABASE=xxxxx
-    - MYSQL_USER=xxxxx
-    - MYSQL_PASSWORD=xxxxx
-  volumes:
-    - /opt/mnt/ci/mysql-data:/var/lib/mysql
-
-
-ci-postgres: 
-   image: postgres
-   restart: always
-   ports: 
-    - "35432:5432"
-   environment: 
-    - POSTGRES_PASSWORD=xxxxx
-    - POSTGRES_USER=xxxxx
-   volumes: 
-    - /opt/mnt/ci/postgres-repo/data:/var/lib/postgresql/data
+  ci-jenkins: 
+    image: jenkins
+    restart: always
+    environment: 
+      - TZ=Asia/Shanghai
+    links: 
+     - "ci-sonarqube:ci-sonarqube"
+    volumes: 
+     - /opt/mnt/ci/maven-repo:/usr/share/maven-repo
+  
+  ci-sonarqube: 
+    image: sonarqube
+    restart: always
+    command: -Dsonar.web.context=/sonarqube -Dsonar.search.javaOpts=-Xmx2g -Dsonar.ce.javaOpts=-Xmx2g
+    environment: 
+      - JAVA_OPTS=-Xmx1g
+      - SONARQUBE_JDBC_USERNAME=xxxxx
+      - SONARQUBE_JDBC_PASSWORD=xxxxx
+      - SONARQUBE_JDBC_URL=jdbc:postgresql://ci-postgres/sonar 
+    links: 
+     - "ci-postgres:ci-postgres"
+    volumes:
+      - /opt/mnt/ci/sonarqube-data:/opt/sonarqube/data
+      - /opt/mnt/ci/sonarqube-tmp:/opt/sonarqube/temp
+  
+     
+  ci-mysql: 
+    image: mysql
+    restart: always
+    command: --max_allowed_packet=67108864
+    ports: 
+      - "33306:3306" 
+    environment: 
+      - MYSQL_ROOT_PASSWORD=xxxxx
+      - MYSQL_DATABASE=xxxxx
+      - MYSQL_USER=xxxxx
+      - MYSQL_PASSWORD=xxxxx
+    volumes:
+      - /opt/mnt/ci/mysql-data:/var/lib/mysql
+  
+  
+  ci-postgres: 
+     image: postgres
+     restart: always
+     ports: 
+      - "35432:5432"
+     environment: 
+      - POSTGRES_PASSWORD=xxxxx
+      - POSTGRES_USER=xxxxx
+     volumes: 
+      - /opt/mnt/ci/postgres-repo/data:/var/lib/postgresql/data
