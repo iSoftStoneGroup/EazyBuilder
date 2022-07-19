@@ -23,6 +23,7 @@ EazyBuilder聚焦多团队多工程统一编译、构建、扫描、部署等持
 - **流水线监控预警**：内置丰富预警手段，对流水线状况进行全方位监控，主动发送异常日志，通过数据驱动流水线持续改进。
 - **事件驱动**：支持通配符，对不同的代码分支，配置不同的事件类型，触发不同的流水线。
 
+EazyBuilder 由 [云原生计算基金会 (CNCF)](https://cncf.io) 托管.
 
 # **入门**
 
@@ -31,14 +32,11 @@ EazyBuilder聚焦多团队多工程统一编译、构建、扫描、部署等持
 
 - Docker版本： 1.13.0+
 
-** EazyBuilder支持部署包安装与docker安装，可参照如下步骤，自己制作镜像
+- EazyBuilder镜像已经发布至[Docker Hub](https://hub.docker.com/ "Docker Hub");
+  可以直接使用EazyBuilder官方镜像
   
 - 自主构建镜像
 
-  平台默认使用x86架构的镜像;平台可以兼容arm64，每个插件目录中，都包含了arm64目录，需要注意，arm64还在试验中，相关功能未经过充分测试； 
-
-  docker-compose version 1.27.4, build 40524192
-  
   生成镜像：docker-compose build
 
 - 启动应用
@@ -94,6 +92,13 @@ EazyBuilder 将在云原生环境中与其他工具一起使用。因此，将�
 - Twitter：在 Twitter 上关注最新的 EazyBuilder 新闻。
 - 微博：关注微博（中国版推特）最新的EazyBuilder新闻。
 - 电子邮件组：
+
+-「欢迎大家关注eazybuilder，在使用中遇到问题，可以加群讨论（二维码图片会保持每周更新）」
+
+- **下方为交流沟通群二维码，欢迎扫码加入**
+
+<img src="https://user-images.githubusercontent.com/108848768/179685732-94766385-8336-417d-8f18-0b965150bae7.png" width="900px"></img>
+
 
 # **资源**
 

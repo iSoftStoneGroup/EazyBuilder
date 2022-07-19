@@ -96,6 +96,12 @@ EazyBuilder will be used with other tools in a cloud-native environment. Therefo
 - Weibo: Follow the latest EazyBuilder news on Weibo (Chinese version of Twitter).
 - Email group:
 
+- Welcome to pay attention to eazybuilder, if you encounter problems in use, you can join the group discussion (the QR code picture will be updated weekly)
+
+- **The following is the QR code of the communication group, welcome to scan the code to join**
+
+<img src="https://user-images.githubusercontent.com/108848768/179685732-94766385-8336-417d-8f18-0b965150bae7.png" width="900px"></img>
+
 # **Resource**
 
 The latest documentation for each release can be found at:
