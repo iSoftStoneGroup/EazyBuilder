@@ -88,10 +88,6 @@ EazyBuilder 将在云原生环境中与其他工具一起使用。因此，将�
 
 # **联系我们**
 
-- Gitter：EazyBuilder 用于社区消息传递、协作和发现的 IM 工具。
-- Twitter：在 Twitter 上关注最新的 EazyBuilder 新闻。
-- 微博：关注微博（中国版推特）最新的EazyBuilder新闻。
-- 电子邮件组：
 
 -「欢迎大家关注eazybuilder，在使用中遇到问题，可以加群讨论（二维码图片会保持每周更新）」
 

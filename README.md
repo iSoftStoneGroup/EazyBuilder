@@ -91,11 +91,6 @@ EazyBuilder will be used with other tools in a cloud-native environment. Therefo
 
 # **Contact us**
 
-- Gitter: EazyBuilder's IM tool for community messaging, collaboration, and discovery.
-- Twitter: Follow the latest EazyBuilder news on Twitter.
-- Weibo: Follow the latest EazyBuilder news on Weibo (Chinese version of Twitter).
-- Email group:
-
 - Welcome to pay attention to eazybuilder, if you encounter problems in use, you can join the group discussion (the QR code picture will be updated weekly)
 
 - **The following is the QR code of the communication group, welcome to scan the code to join**
