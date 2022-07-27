@@ -95,7 +95,7 @@ EazyBuilder will be used with other tools in a cloud-native environment. Therefo
 
 - **The following is the QR code of the communication group, welcome to scan the code to join**
 
-<img src="https://user-images.githubusercontent.com/108848768/179685732-94766385-8336-417d-8f18-0b965150bae7.png" width="50%" syt height="50%"></img>
+See [QRCode](https://github.com/iSoftStoneGroup/EazyBuilder/issues/15).
 
 # **Resource**
 
