@@ -27,6 +27,7 @@ EazyBuilder 由 [云原生计算基金会 (CNCF)](https://cncf.io) 托管.
 
 # **入门**
 
+- Eazybulider包含一个前端与一个后端应用，代码目录分别为：eazybuilder-web,eazybuilder-server
 
 #### Docker安装
 
