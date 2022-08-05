@@ -91,9 +91,9 @@ EazyBuilder 将在云原生环境中与其他工具一起使用。因此，将�
 
 -「欢迎大家关注eazybuilder，在使用中遇到问题，可以加群讨论（二维码图片会保持每周更新）」
 
-- **下方为交流沟通群二维码，欢迎扫码加入**
+- **下方为交流沟通群微信二维码，欢迎扫码加入**
 
-查看 [二维码](https://github.com/iSoftStoneGroup/EazyBuilder/issues/15).
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/1069092/182996994-4fb73866-0c0a-445f-a355-089ee3e015dc.JPG">
 
 
 # **资源**

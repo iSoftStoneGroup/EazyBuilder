@@ -93,9 +93,10 @@ EazyBuilder will be used with other tools in a cloud-native environment. Therefo
 
 - Welcome to pay attention to eazybuilder, if you encounter problems in use, you can join the group discussion (the QR code picture will be updated weekly)
 
-- **The following is the QR code of the communication group, welcome to scan the code to join**
+- **The following is the WeChat QR code of the communication group, welcome to scan the code to join**
 
-See [QRCode](https://github.com/iSoftStoneGroup/EazyBuilder/issues/15).
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/1069092/182996994-4fb73866-0c0a-445f-a355-089ee3e015dc.JPG">
+
 
 # **Resource**
 
