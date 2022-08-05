@@ -26,16 +26,17 @@
     secret: xxxx
     accessToken: xxxx
 ```	
-### 第61~63行，配置钉钉（如果不需要，可以不配置，但是参数不能删除，可以为空）
+### 第61~63行，配置harbor（如果不需要，可以不配置，但是参数不能删除，可以为空）
 ```yaml
   harbor:
     url: registry.iss-devops.cn
-    password: Password123!	harbor
+    password: Password123!	
 ```	
 	
 ### 第67行，配置k8s yaml文件存放地，平台可以自动生成k8syaml文件，支持obs与本地存储，如果是本地存储，就需要配置此参数（如果不需要，可以不配置，但是参数不能删除，可以为空）
 ```yaml
  k8s-folder: D:/data/k8s-yaml
+```
 
 ### 第69~70行， 配置redis，平台会将部分信息缓存到redis，redis是必须的配置
 ```yaml
@@ -93,7 +94,7 @@ sonar:
   qualityprofilesSearchUrl: http://sonarqube.iss-devops.cn/api/qualityprofiles/search
   为指定项目设置默认规则集
   qualityprofilesAddProjectUrl: http://sonarqube.iss-devops.cn/api/qualityprofiles/add_project  
-  
+```  
 ### 第110~111行，配置docker远程地址，平台使用了mavne docker plugin,制作镜像，需要配置docker远程地址，如果不使用docker，可以不配置
 ```yaml
 build:
@@ -182,7 +183,7 @@ harbor:
   project:
     ## 默认设定为20GB
     storageLimit: 21474836480  
-    ```
+```
 
 ### 第201-203行，配置gitlab api接口地址，平台集成了gitlab，可以执行创建mr等操作，目前这块代码还在整理中，后续会考虑开源，可以不配置，参数留空
 ```yaml
