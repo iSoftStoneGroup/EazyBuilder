@@ -7,7 +7,7 @@
     <mirror>
       <id>repo2</id>
       <mirrorOf>*</mirrorOf>
-      <name>ISS DevOps Mirror.</name>
+      <name>Eazybuilder DevOps Mirror.</name>
       <url>http://nexus3.eazybuilder-devops.cn/repository/maven-public/</url>
     </mirror>
   </mirrors>
