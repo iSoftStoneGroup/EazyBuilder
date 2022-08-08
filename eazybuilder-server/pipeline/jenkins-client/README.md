@@ -112,10 +112,10 @@ message:
   fanoutExchange: ci.pipeline.exchange
   queue: ci.pipeline.queue
   routingKey: ci.*
-  confirmCallbackBean: issRabbitmqConfirmCallbackService
+  confirmCallbackBean: eazybuilderRabbitmqConfirmCallbackService
   updateProject: ci.project.update
   returnCallbackBean:
-  issNotifyFanoutExchange: iss.notify.exchange
+  issNotifyFanoutExchange: eazybuilder.notify.exchange
   dtpexchange: devops.dtp.testTopic
 ```
 ### 第142-161行，此配置项，集成了我司自己的统一登录平台，可以不配置，参数留空
