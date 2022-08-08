@@ -1,4 +1,4 @@
-FROM registry.iss-devops.cn/devops/jenkins-inbound-agent
+FROM registry.eazybuilder-devops.cn/devops/jenkins-inbound-agent
 RUN cat /proc/version
 RUN echo “dash dash/sh boolean false” | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
