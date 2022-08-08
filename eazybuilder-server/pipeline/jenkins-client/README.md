@@ -29,7 +29,7 @@
 ### 第61~63行，配置harbor（如果不需要，可以不配置，但是参数不能删除，可以为空）
 ```yaml
   harbor:
-    url: registry.iss-devops.cn
+    url: registry.eazybuilder-devops.cn
     password: Password123!	
 ```	
 	
@@ -72,7 +72,7 @@ ldap:
 ### 第89~93行，配置jenkins,  jenkins需要提前安装一些插件，可以参照thridparty\jenkins-base中的dockerfile去安装插件
 ```yaml
 jenkins:
-  url: http://jenkins.iss-devops.cn/jenkins/
+  url: http://jenkins.eazybuilder-devops.cn/jenkins/
   user: xx
   password: xxx
   home: /var/jenkins_home  
@@ -85,15 +85,15 @@ maven:
 ### 第99~108行，配置sonarqube,平台集成了sonarqube做代码质量扫描，需要配置sonarqube的地址，以及部分sonarqube api接口，如果不需要集成代码质量扫描，可以不配置  
 ```yaml
 sonar:
-  url: http://sonarqube.iss-devops.cn/sonarqube/
+  url: http://sonarqube.eazybuilder-devops.cn/sonarqube/
   user: admin
   password: admin123
   查询sonarqube支持的语言
-  languagesListUrl: http://sonarqube.iss-devops.cn/api/languages/list
+  languagesListUrl: http://sonarqube.eazybuilder-devops.cn/api/languages/list
   查询语言对应的规则集
-  qualityprofilesSearchUrl: http://sonarqube.iss-devops.cn/api/qualityprofiles/search
+  qualityprofilesSearchUrl: http://sonarqube.eazybuilder-devops.cn/api/qualityprofiles/search
   为指定项目设置默认规则集
-  qualityprofilesAddProjectUrl: http://sonarqube.iss-devops.cn/api/qualityprofiles/add_project  
+  qualityprofilesAddProjectUrl: http://sonarqube.eazybuilder-devops.cn/api/qualityprofiles/add_project  
 ```  
 ### 第110~111行，配置docker远程地址，平台使用了mavne docker plugin,制作镜像，需要配置docker远程地址，如果不使用docker，可以不配置
 ```yaml
@@ -124,36 +124,36 @@ message:
 portal:
   used: true
   统一门户网站的登录地址
-  loginUrl: http://upms-web.iss-devops.cn/#/login?tenantCode=MTAxNzgxNTE2MzIwNzY4
+  loginUrl: http://upms-web.eazybuilder-devops.cn/#/login?tenantCode=MTAxNzgxNTE2MzIwNzY4
   验签接口url
-  credentialsUrl: ${credentialsUrl:http://upms-web.iss-devops.cn/system/cookie}
+  credentialsUrl: ${credentialsUrl:http://upms-web.eazybuilder-devops.cn/system/cookie}
   获取用户相关信息
-  getUserInfoUrl: ${getUserInfoUrl:http://upms-web.iss-devops.cn/system/user/getInfo}
+  getUserInfoUrl: ${getUserInfoUrl:http://upms-web.eazybuilder-devops.cn/system/user/getInfo}
   获取用户所在的项目组（upms维护的群组信息）
-  getProjectGroupUrl: ${getProjectGroupUrl:http://upms-web.iss-devops.cn/system/group/user/list/user}
+  getProjectGroupUrl: ${getProjectGroupUrl:http://upms-web.eazybuilder-devops.cn/system/group/user/list/user}
   获取子系统下当前用户所对应的菜单信息--前端请求，需要使用域名
-  getMenusForCurrentUser: ${getMenusForCurrentUser:http://upms-web.iss-devops.cn/system/resource/resourceWithMenu}
+  getMenusForCurrentUser: ${getMenusForCurrentUser:http://upms-web.eazybuilder-devops.cn/system/resource/resourceWithMenu}
   获取用户角色信息
-  getRolesById: http://upms-web.iss-devops.cn/system/openapi/v1/role/list
+  getRolesById: http://upms-web.eazybuilder-devops.cn/system/openapi/v1/role/list
   upmsTokenRefresh: false  
 upms:
   gateway:
-    url: "http://upms-web.iss-devops.cn/system/openapi/v1/"
+    url: "http://upms-web.eazybuilder-devops.cn/system/openapi/v1/"
     token: "Bearer xxxx"  
 ``` 
 ### 第162-173行，此配置项，集成了redmine，目前这块代码还在整理中，后续会考虑开源，可以不配置，参数留空
 ```yaml
 redmine:
   根据当前用户查询项目组
-  getProjectsUrl: http://demand-management.iss-devops.cn/demand-management/project/getProjectsByUserName
+  getProjectsUrl: http://demand-management.eazybuilder-devops.cn/demand-management/project/getProjectsByUserName
   根据项目组查询sprints
-  getSprintsUrl: http://demand-management.iss-devops.cn//demand-management/api/sprints/getSprintsByProjectId
+  getSprintsUrl: http://demand-management.eazybuilder-devops.cn//demand-management/api/sprints/getSprintsByProjectId
   根据sprint 查询对应的需求
-  getIssuesUrl: http://demand-management.iss-devops.cn/demand-management/api/issuesTable/getIssuesBySprintId
+  getIssuesUrl: http://demand-management.eazybuilder-devops.cn/demand-management/api/issuesTable/getIssuesBySprintId
   根据issuesId查询明细
-  getIssuesDetailUrl: http://demand-management.iss-devops.cn/demand-management/api/issuesTable/getIssueById
+  getIssuesDetailUrl: http://demand-management.eazybuilder-devops.cn/demand-management/api/issuesTable/getIssueById
   根据sprintsid查询看板信息
-  getSprintsById: http://demand-management.iss-devops.cn/demand-management/api/sprints/ 
+  getSprintsById: http://demand-management.eazybuilder-devops.cn/demand-management/api/sprints/ 
   ```
  
 ### 第174-185行， 配置平台默认的代码质量阈值，需要与sonarqube配合使用，如果不需要，可以参数留空
@@ -176,7 +176,7 @@ guard:
 ### 第187-194行，配置harbor信息，平台集成了harbor，用来管理镜像，如果不需要，可以参数留空
 ```yaml
 harbor:
-  url: https://registry.iss-devops.cn
+  url: https://registry.eazybuilder-devops.cn
   username: xxxx
   password: xxxx
   addUserDefaultPwd: xxxx
@@ -188,5 +188,5 @@ harbor:
 ### 第201-203行，配置gitlab api接口地址，平台集成了gitlab，可以执行创建mr等操作，目前这块代码还在整理中，后续会考虑开源，可以不配置，参数留空
 ```yaml
 gitlabApi:
-  base_url: http://gitlab-api.iss-devops.cn	
+  base_url: http://gitlab-api.eazybuilder-devops.cn	
   ```
