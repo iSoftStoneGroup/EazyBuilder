@@ -1,5 +1,8 @@
 # Directory description
 
+
+# [中文说明](./README_CN.md)
+
 ## common
 - Public package, including database dao layer objects and public utility classes;
 
