@@ -2,7 +2,9 @@
 
 EazyBuilder integrates plugins such as jenkins and sonarqube. This directory contains the Dockerfile for making plugin images. Recreating the image using the Dockerfile is not necessary. You can configure the existing plugin access address directly in the EazyBuilder configuration file.
 
-# directory description
+# [中文说明](./README_CN.md)
+
+# Directory description
 
 ##x86 support
 - The platform uses the image of the x86 architecture by default.
