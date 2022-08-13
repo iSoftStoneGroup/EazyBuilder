@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <localRepository>/usr/share/maven-repo</localRepository>
+  <mirrors>
+    <mirror>
+      <id>repo2</id>
+      <mirrorOf>*</mirrorOf>
+      <name>Eazybuilder DevOps Mirror.</name>
+      <url>http://nexus3.eazybuilder-devops.cn/repository/maven-public/</url>
+    </mirror>
+  </mirrors>
+  <servers>
+        <server>
+            <id>${docker.registry.serverId}</id>
+            <username>${docker.registry.username}</username>
+            <password>${docker.registry.password}</password>
+            <configuration>
+                <email>${docker.registry.email}</email>
+            </configuration>
+        </server>
+		<server>
+      <id>team-release</id>
+      <username>${release.repo.username}</username>
+      <password>${release.repo.password}</password> 
+     </server>
+     <server>
+             <id>team-snapshot</id>
+             <username>${snapshot.repo.username}</username>
+             <password>${snapshot.repo.password}</password>
+     </server>
+  </servers>
+  
+    <pluginGroups>
+        <pluginGroup>com.spotify</pluginGroup>
+    </pluginGroups>  
+  
+</settings>

@@ -30,6 +30,7 @@ EazyBuilder focuses on multi-team and multi-project unified compilation, build, 
 
 # **Getting Started**
 
+- Eazybulider includes a front-end and a back-end application, the code directories are: eazybuilder-web, eazybuilder-server
 
 #### Docker installation
 
