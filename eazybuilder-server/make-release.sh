@@ -3,7 +3,7 @@ if [ ! $1 ] || [ ! $2 ];then
     exit 0
 fi
 
-echo "READY TO RELEASE eazybuilder-CI VERSION:$1 , NEXT DEV VERSION:$2"
+echo "READY TO RELEASE Eazybuilder-CI VERSION:$1 , NEXT DEV VERSION:$2"
 #quit if any error
 set -e
 #dry run to check if any error

@@ -15,7 +15,6 @@ import java.security.SecureRandom;
  * <li>Apache Shiro 1.3.2  /org.apache.shiro.crypto.hash.SimpleHash</li>
  * <li>https://www.owasp.org/index.php/Hashing_Java</li>
  * <li>https://www.owasp.org/index.php/Password_Storage_Cheat_Sheet</li>
-
  *
  */
 public final class PasswordHashUtil  {

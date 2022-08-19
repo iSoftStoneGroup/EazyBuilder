@@ -130,8 +130,6 @@
                     <#include "pipeline/build-docker-image.ftl">
                     <#include "pipeline/push-war.ftl">
              </#if>
-             
-             <#include "pipeline/ansible.ftl">
         }
         
         post { 

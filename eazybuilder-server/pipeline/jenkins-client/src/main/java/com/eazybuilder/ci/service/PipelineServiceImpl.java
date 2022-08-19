@@ -1,5 +1,7 @@
 package com.eazybuilder.ci.service;
 
+import cn.hutool.core.collection.CollectionUtil;
+import com.eazybuilder.ci.config.LoadConfigYML;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -9,10 +11,7 @@ import com.eazybuilder.ci.constant.AutoTestSwitch;
 import com.eazybuilder.ci.controller.vo.*;
 import com.eazybuilder.ci.dto.ProjectLastBuildInfo;
 import com.eazybuilder.ci.entity.*;
-import com.eazybuilder.ci.entity.devops.IssuesStatus;
-import com.eazybuilder.ci.entity.devops.Online;
-import com.eazybuilder.ci.entity.devops.Release;
-import com.eazybuilder.ci.entity.devops.ReleaseProject;
+import com.eazybuilder.ci.entity.devops.*;
 import com.eazybuilder.ci.entity.report.Report;
 import com.eazybuilder.ci.entity.report.ResourceItem;
 import com.eazybuilder.ci.entity.report.Stage;
@@ -42,7 +41,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -55,22 +54,22 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 
 
 @Service
-
+@RefreshScope
 public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, Pipeline>
         implements CommonService<Pipeline> {
 
     private static Logger logger = LoggerFactory.getLogger(PipelineServiceImpl.class);
+    private static Properties properties = new LoadConfigYML().getConfigProperties();
 
 
     public static  final String SUBLOG_BEGIN_SIGN = "========%s start========";
@@ -79,6 +78,12 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
 
 
     private static final String LAST_SIGN = "Declarative: Post Actions";
+
+    @Value("${ci.storage.type}")
+    public String storageType;
+
+    @Resource
+    OnlineService onlineService;
 
     @Resource
     FileResourceDao fileResourceDao;
@@ -92,9 +97,6 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
 
     @Resource
     ReleaseService releaseService;
-
-    @Resource
-    OnlineService onlineService;
 
     @Resource
     DockerImageService dockerImageService;
@@ -114,6 +116,9 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
 
     @Autowired
     TeamResourceService teamResourceService;
+
+    @Autowired
+    ScmService scmService;
 
     @Autowired
     MetricService metricService;
@@ -208,8 +213,8 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
 
     @PostConstruct
     public void initReportCache() {
-        reportCache = client.getMap("pipeline-callback-cache");
-        lastBuildInfo = client.getMap("project-last-build-cache");
+        reportCache = client.getMap("eazybuilder-pipeline-callback-cache");
+        lastBuildInfo = client.getMap("eazybuilder-project-last-build-cache");
         queryFactory = new JPAQueryFactory(entityManager);
     }
 
@@ -243,8 +248,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
     }
 
     public ProjectLastBuildInfo getLastBuildRecord(Project prj) {
-//        ProjectLastBuildInfo lastBuild = lastBuildInfo.get(prj.getId());
-        ProjectLastBuildInfo lastBuild = null;
+        ProjectLastBuildInfo lastBuild = lastBuildInfo.get(prj.getId());
         if (lastBuild == null||!lastBuild.getName().equals(prj.getName())) {
             lastBuild = ProjectLastBuildInfo.build(prj);
             lastBuild.setJenkinsUrl(env.getJenkinsUrl());
@@ -285,6 +289,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
     }
 
     protected JenkinsPipelineService createJenkinsService(Project project, String dockerImageTag) {
+        logger.debug("createJenkinsService：{}",project.getDescription());
         Iterable<TeamResource> trs = teamResourceService.findAll(
                 QTeamResource.teamResource.teamId.eq(project.getTeam().getId()));
         try {
@@ -306,11 +311,10 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
                 } else {
                     sonarUrl = env.getSonarUrl();
                 }
-
-                return new JenkinsPipelineService(jenkinsUrl, sonarUrl, configuration, tr.isJenkinsK8sSupport(), env, dockerImageTag);
+                return new JenkinsPipelineService(jenkinsUrl, sonarUrl,configuration, tr.isJenkinsK8sSupport(), env, dockerImageTag,onlineService,storageType);
             } else {
                 //use default jenkins server & sonar server
-                return new JenkinsPipelineService(env.getJenkinsUrl(), env.getSonarUrl(), configuration, env.isK8sSupport(), env, dockerImageTag);
+                return new JenkinsPipelineService(env.getJenkinsUrl(), env.getSonarUrl(),configuration, env.isK8sSupport(), env, dockerImageTag,onlineService,storageType);
             }
         } catch (Exception e) {
             logger.error("error create jenkins pipeline service", e);
@@ -339,6 +343,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
      * @return
      */
     public Pipeline getLastPipeline(String projectName) {
+        logger.info("实时获取指定项目的流水线构建信息(包括正在构建的情况): {}",projectName);
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmm");
         Project project = projectService.findByName(projectName);
         ProjectLastBuildInfo lastBuild = lastBuildInfo.get(project.getId());
@@ -349,7 +354,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
             try {
                 //使用最后一次的构建服务器地址
                 jenkinsService = new JenkinsPipelineService(lastBuild.getJenkinsUrl(),
-                        lastBuild.getSonarUrl(), configuration, false, env, df.format(new Date()));
+                        lastBuild.getSonarUrl(),configuration, false, env, df.format(new Date()),onlineService,storageType);
                 Pipeline pipeline = jenkinsService.getLastPipeline(project.getJobName());
                 pipeline.setProject(project);
                 return pipeline;
@@ -360,15 +365,16 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
 
         return null;
     }
-    
+
     public ProjectLastBuildInfo getProjectLastBuildInfoByProjectId(String projectId) {
     	 Project project = projectService.findOne(projectId);
     	 ProjectLastBuildInfo lastBuild = lastBuildInfo.get(project.getId());
-    	 
+
     	 return lastBuild;
     }
 
     public Pipeline getLastPipelineByProjectId(String projectId) {
+        logger.debug("查询最后一次构建记录：{}",projectId);
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmm");
         Project project = projectService.findOne(projectId);
         ProjectLastBuildInfo lastBuild = lastBuildInfo.get(project.getId());
@@ -380,7 +386,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
             try {
                 //使用最后一次的构建服务器地址
                 jenkinsService = new JenkinsPipelineService(lastBuild.getJenkinsUrl(),
-                        lastBuild.getSonarUrl(), configuration, false, env, df.format(new Date()));
+                        lastBuild.getSonarUrl(),configuration, false, env, df.format(new Date()),onlineService,storageType);
                 Pipeline pipeline = jenkinsService.getLastPipeline(project.getJobName());
                 pipeline.setProject(project);
                 return pipeline;
@@ -427,10 +433,15 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
      * @throws Exception
      */
     public Pipeline triggerPipeline(String projectId, ProjectBuildVo buildParam) throws Exception {
-
         Project project = projectService.findOne(projectId);
         if (project == null) {
             throw new IllegalArgumentException("项目ID:" + projectId + "不存在");
+        }
+        if(null!=project.getTeam()){
+            List<TeamResource> teamResources =(ArrayList)teamResourceService.findAll(QTeamResource.teamResource.teamId.eq(project.getTeam().getId()));
+            if(!CollectionUtil.isEmpty(teamResources)){
+                project.getTeam().setTeamResource(teamResources.get(0));
+            }
         }
         if (StringUtils.isNotBlank(buildParam.getProfile())) {
             PipelineProfile profile = profileService.findOne(buildParam.getProfile());
@@ -592,7 +603,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
         projectPipelinePool.submit(()->{
             logger.info("###########################uid"+uid);
             try{
-                String name = jenkinsService.createPipeLine(pipelineBuildVo, uid, true);
+                String name = jenkinsService.createPipeLine(pipelineBuildVo, uid, true,buildParam);
                 logger.info("pipe line :{} created. uid:{}", name, uid);
 
                 cacheBuildInfo(project, jenkinsService, uid);
@@ -705,7 +716,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
                 params.put("deployConfig", deployConfig);
                 params.put("project", project);
                 params.put("profile", project.getProfile());
-                
+                params.put("nacosUrl", properties.getProperty("nacos.url"));
                 
 //        		params.put("jenkinsDataPath",env.getJenkinsDataPath());
 //        		params.put("jenkinsLimitMeory",env.getJenkinsLimitMeory());
@@ -720,15 +731,16 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
         		
                 
                 String yamlData = FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
-                String url = ciK8s + project.getName() + "/" + deployConfig.getName() + System.currentTimeMillis() + ".yaml";
-                //将文件存入本地
-                logger.info("k8s 部署文件保存到本地中：" + url);
-                writeBytesToFile(yamlData, url);
+//                String url = ciK8s + project.getName() + "/" + deployConfig.getName() + System.currentTimeMillis() + ".yaml";
+//                //将文件存入本地
+//                logger.info("k8s 部署文件保存到本地中：" + url);
+//                writeBytesToFile(yamlData, url);
                 ResourceItem resource = new ResourceItem();
                 resource.setName(deployConfig.getName() + System.currentTimeMillis() + ".yaml");
                 resource.setData(yamlData.getBytes(Charsets.UTF_8));
                 String resourceId = storageService.save(resource);
                 deployConfig.setYamlId(resourceId);
+//                deployConfig.setStorageType(storageType);
                 logger.info("k8s 部署文件保存到obs中：" + resourceId);
             }
         }else {
@@ -813,21 +825,10 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
             ExecutorCompletionService<PipelineExecuteResult> ecs = new ExecutorCompletionService<>(threadPool);
 
             AtomicBoolean pipelinePoolError=new AtomicBoolean(Boolean.FALSE);
-            Online online = onlineService.findOne(jobInfo.getOnLineId());
             for (Project prj : jobInfo.getProjects()) {
                 Pipeline ppl = new Pipeline();
                 ppl.setJobId(jobInfo.getId());
-                if (jobInfo.isOnLine() && StringUtils.isNotBlank(jobInfo.getOnLineId())) {
-                    ppl.setTargetBranch(online.getImageTag().toLowerCase());
-                }else{
-                    if (StringUtils.isNotBlank(prj.getScm().getArriveTagName())) {
-                        ppl.setTargetBranch(prj.getScm().getArriveTagName());
-                    } else if (StringUtils.isNotBlank(prj.getScm().getTagName())) {
-                        ppl.setTargetBranch(prj.getScm().getTagName());
-                    } else {
-                        ppl.setTargetBranch("master");
-                    }
-                }
+
                 if (StringUtils.isNotBlank(jobInfo.getProfileId())) {
                     PipelineProfile profile = profileService.findOne(jobInfo.getProfileId());
                     if (profile != null) {
@@ -845,8 +846,18 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
                     ppl.setPipelineType(PipelineType.job);
                 }
                 if (jobInfo.isOnLine() && StringUtils.isNotBlank(jobInfo.getOnLineId())) {
+                    Online online = onlineService.findOne(jobInfo.getOnLineId());
+                    ppl.setTargetBranch(online.getImageTag().toLowerCase());
                     ppl.setPipelineType(PipelineType.online);
                     ppl.setPipelineVersion(online.getOnLineImageTag());
+                }else{
+                    if (StringUtils.isNotBlank(prj.getScm().getArriveTagName())) {
+                        ppl.setTargetBranch(prj.getScm().getArriveTagName());
+                    } else if (StringUtils.isNotBlank(prj.getScm().getTagName())) {
+                        ppl.setTargetBranch(prj.getScm().getTagName());
+                    } else {
+                        ppl.setTargetBranch("master");
+                    }
                 }
                 Project project = getCreateJenkinsProject(prj, jobInfo, event);
                 JenkinsPipelineService jenkinsService = createJenkinsService(project, df.format(new Date()));
@@ -882,7 +893,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
                     logger.info("####################uuid:"+uid+"开始执行");
                     Future future = null;
                     try {
-                        String name = jenkinsService.createPipeLine(project, uid, true);
+                        String name = jenkinsService.createPipeLine(project, uid, true,null);
                         logger.info("pipe line :{} created", name);
                         cacheBuildInfo(project, jenkinsService, uid);
                         jenkinsService.runPipeLine(name);

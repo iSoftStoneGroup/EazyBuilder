@@ -8,7 +8,7 @@
                     input ->
                     groovy.json.JsonOutput.toJson(input)
                 }
-                def nacos_url= "http://gitlab-apixxxxx/gitlab-api/hook/releaseConfigPipeline"
+                def nacos_url= "http://${gitlab_api_domain}/gitlab-api/hook/releaseConfigPipeline"
                 out =sh(script:"ls ${project.profile.nameSpace}",returnStatus:true)
                 println out
                 if(out==0){

@@ -24,6 +24,7 @@ public class DruidConfig {
     @Bean
     public ServletRegistrationBean statViewServlet() {
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
+
         // 添加控制台管理用户
         servletRegistrationBean.addInitParameter("loginUsername", "druid");
         servletRegistrationBean.addInitParameter("loginPassword", "123456");

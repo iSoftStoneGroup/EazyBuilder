@@ -9,13 +9,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
- //配置文件自动刷新
+@RefreshScope //配置文件自动刷新
 @RestController
 public class UpmsLoginController {
     Logger logger=LoggerFactory.getLogger(this.getClass());
@@ -69,11 +69,16 @@ public class UpmsLoginController {
     @PostMapping(value = "/signatureVerification")
     @ResponseBody
     public  Map  signatureVerification(@RequestBody Map<String,Object> map) throws Exception {
+        boolean debugEnabled = logger.isDebugEnabled();
         String credentials = (String) map.get("credentials");
         String token = upmsLoginService.getTokenByCredentials(credentials);
-        logger.info ("获取的upms——token信息为--->{}",token);
+        if(debugEnabled){
+            logger.info ("获取的upms——token信息为--->{}",token);
+        }
         String userInfoJsonStr = upmsLoginService.getUserInfoByToken(token);
-        logger.info ("获取的用户信息:\n{}",userInfoJsonStr);
+        if(debugEnabled){
+            logger.debug ("获取的用户信息:\n{}",userInfoJsonStr);
+        }
         JSONObject upmsObject = upmsLoginService.getUpmsObject(userInfoJsonStr, token);
         UserVo user = upmsLoginService.getUerInfo(upmsObject);
         Map tokenMap=Maps.newHashMap();
@@ -81,8 +86,9 @@ public class UpmsLoginController {
         tokenMap.put("user",user);
         //用户是否被指定为某个项目的配置管理员 这里默认为false
         tokenMap.put("isCM", false);
-        logger.info ("返回到前端的值:\n{}", JSON.toJSONString(tokenMap));
-
+        if(debugEnabled){
+            logger.info ("返回到前端的值:\n{}", JSON.toJSONString(tokenMap));
+        }
         //存储全局凭证信息
         upmsLoginService.accessToken(tokenMap);
         upmsLoginService.saveCurrentAccessUser(tokenMap);

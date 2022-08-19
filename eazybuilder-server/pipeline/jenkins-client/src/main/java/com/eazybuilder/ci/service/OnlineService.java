@@ -8,10 +8,12 @@ import com.eazybuilder.ci.constant.RoleEnum;
 import com.eazybuilder.ci.controller.vo.ProjectBuildVo;
 import com.eazybuilder.ci.entity.*;
 import com.eazybuilder.ci.entity.devops.*;
+import com.eazybuilder.ci.entity.docker.DockerDigest;
 import com.eazybuilder.ci.mail.MailSenderHelper;
 import com.eazybuilder.ci.rabbitMq.SendRabbitMq;
 import com.eazybuilder.ci.repository.OnlineDao;
 import com.eazybuilder.ci.util.AuthUtils;
+import com.eazybuilder.ci.util.DingtalkWebHookUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.apache.commons.collections.map.HashedMap;
@@ -23,8 +25,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -68,7 +72,46 @@ public class OnlineService extends AbstractCommonServiceImpl<OnlineDao, Online> 
     @Resource
     ReleaseProjectService releaseProjectService;
 
+    @Resource
+    DockerDigestService dockerDigestService;
+
     private static Logger logger = LoggerFactory.getLogger(OnlineService.class);
+
+
+    @Transactional
+    public List<DockerDigest> findDockerDigest(String releaseId, String teamName) {
+
+        Release release = releaseService.findOne(releaseId);
+        List<Project> projectList = release.getProjectList();
+        Team team = teamService.findByName(teamName);
+        Set<TeamNamespace> teamNamespaceSet = teamService.getTeamNameSpace(team);
+        Set<String> teamNamespaceTestSet = new HashSet<String>();
+
+        if (null != projectList && projectList.size() > 0) {
+            Set<String> projectIds = new HashSet<String>();
+            for (Project project : projectList) {
+                projectIds.add(project.getId());
+            }
+
+            if (null != teamNamespaceSet && teamNamespaceSet.size() > 0) {
+                for (TeamNamespace teamNamespace : teamNamespaceSet) {
+                    if (NamespaceType.test.equals(teamNamespace.getNamespaceType())) {
+                        teamNamespaceTestSet.add(teamNamespace.getCode());
+                    }
+                }
+            }
+
+            if (teamNamespaceTestSet.size() > 0) {
+                return (List<DockerDigest>) dockerDigestService.findDockerByProjectIdAndNamespaceAndTag(projectIds, teamNamespaceTestSet, release.getImageTag());
+            } else {
+                return new ArrayList<DockerDigest>();
+            }
+
+        } else {
+            return new ArrayList<DockerDigest>();
+        }
+
+    }
 
 
     @Override
@@ -113,6 +156,7 @@ public class OnlineService extends AbstractCommonServiceImpl<OnlineDao, Online> 
                 projectProfileMap.put(project, projectBuildVos);
                 for(ProjectBuildVo projectBuildVo:projectBuildVos){
                     if(projectBuildVo.getProfile()!=null){
+                        projectBuildVo.setReleaseId(releaseId);
                         PipelineProfile profile = pipelineProfileService.findOne(projectBuildVo.getProfile());
                         ReleaseProject releaseProject = releaseProjectService.findByReleaseIdAndProjectId(releaseId, project.getId());
                         String createTagVersion = releaseProject.getCreateTagVersion();
@@ -192,6 +236,8 @@ public class OnlineService extends AbstractCommonServiceImpl<OnlineDao, Online> 
     public void save(Online entity) {
         Release release = releaseService.findOne(entity.getReleaseId());
         saveOnlineEntity(entity,release);
+        this.sendMessage(entity);
+
     }
 
     public void saveJobOnlineEntity(Online entity,Release release) throws Exception {
@@ -252,4 +298,51 @@ public class OnlineService extends AbstractCommonServiceImpl<OnlineDao, Online> 
     public String getJobOnlineProfile() {
         return (propService.getValue("job.online.profile.name", "ipaas生产环境部署"));
     }
+
+    private void sendMessage(Online entity){
+        Assert.isTrue(null!=entity.getBatchUserId(),"发生错误，审批人id不能为null");
+        User user = userService.findOne(entity.getBatchUserId().toString());
+        List<String> emails = Arrays.asList(user.getEmail());
+        StringBuilder sb=new StringBuilder();
+        sb.append("**").append("上线标题:").append("**").append(entity.getTitle()).append("\n");
+        sb.append("\n");
+        sb.append("**").append("上线申请号:").append("**").append(null!=entity.getReleaseCode()?entity.getReleaseCode():"获取失败！").append("\n");
+        sb.append("\n");
+        sb.append("**").append("内容:").append("**").append(entity.getReleaseUserName()).append("申请上线，请及时处理！").append("\n");
+        Team team = teamService.findByName(entity.getTeamName());
+        DingtalkWebHookUtil.sendDingtalkPrivateMsgBymq("申请上线",sb.toString(),team.getCode(),emails,MsgProfileType.onlineApply,sendRabbitMq);
+    }
+
+    public void sendDingTalkAfterPassedRease(Online entity){
+        List<User> byUserName = userService.findByUserName(entity.getReleaseUserName());
+        Assert.notEmpty(byUserName,"根据申请上线人姓名【 "+entity.getReleaseUserName()+" 】查询用户信息未找到！");
+        User user = byUserName.get(0);
+        List<String> emails = Arrays.asList(user.getEmail());
+        StringBuilder sb=new StringBuilder();
+        sb.append("**").append("上线标题:").append("**").append(entity.getTitle()).append("\n");
+        sb.append("\n");
+        sb.append("**").append("上线申请号:").append("**").append(null!=entity.getReleaseCode()?entity.getReleaseCode():"获取失败！").append("\n");
+        sb.append("\n");
+        sb.append("**").append("审批人:").append("**").append(entity.getBatchUserName()).append("\n");
+        sb.append("\n");
+        String title=null;
+        MsgProfileType msgProfileType=null;
+        if(Status.SUCCESS == entity.getBatchStatus()){
+            sb.append("**").append("审批状态:").append("**").append("通过！");
+            title="申请上线已通过";
+            msgProfileType=MsgProfileType.onlinePass;
+        }else {
+            sb.append("**").append("审批状态:").append("**").append("未通过！").append("\n");
+            title="申请上线未通过";
+            sb.append("\n");
+            sb.append("**").append("原因如下:").append("**").append( StringUtils.isNotBlank(entity.getBatchDetail()) ? entity.getBatchDetail():"无！" );
+            msgProfileType=MsgProfileType.onlineRefused;
+        }
+        Team team = teamService.findOne(entity.getTeamId() + "");
+        DingtalkWebHookUtil.sendDingtalkPrivateMsgBymq(title,sb.toString(),team.getCode(),emails,msgProfileType,sendRabbitMq);
+    }
+
+
+
+
 }

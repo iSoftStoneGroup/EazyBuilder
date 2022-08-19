@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Eazybuilder研发持续集成平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/animate.css">
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="css/awesome-bootstrap-checkbox.css">
+    <link rel="stylesheet" type="text/css" href="css/select2.css">
+    <link rel="stylesheet" href="js/bootstrap-table/1.11.1/bootstrap-table.min.css"/>
+    <link rel="stylesheet" href="js/angular-strap/bootstrap-additions.min.css"/>
+    <link rel="stylesheet" href="js/angular-pickadate/angular-pickadate.css"/>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/theme.css">
+
+    <link rel="stylesheet" type="text/css" href="js/angular-wizard/angular-wizard.min.css">
+    <link rel="stylesheet" type="text/css" href="js/zTree_v3/css/zTreeStyle/zTreeStyle.css">
+
+
+    <link rel="stylesheet" type="text/css" href="js/codemirror/codemirror.css" >
+    <link rel="stylesheet" type="text/css" href="js/codemirror/theme/3024-night.css" >
+    <link rel="stylesheet" type="text/css" href="js/codemirror/addon/merge/merge.css" >
+    <link rel="stylesheet" type="text/css" href="css/newStyle.css"/>
+    <style>
+        .viewMarge .CodeMirror-merge, .viewMarge .CodeMirror-merge .CodeMirror {
+            line-height: 1.2;
+            min-height: 70vh !important;
+        }
+        .CodeMirror-merge, .CodeMirror-merge .CodeMirror {
+            height: 360px;
+        }
+        @media screen and (min-width: 1300px) {
+            article { max-width: 1000px; }
+            #nav { border-right: 499px solid transparent; }
+        }
+        span.clicky {
+            cursor: pointer;
+            background: #d70;
+            color: white;
+            padding: 0 3px;
+            border-radius: 3px;
+        }
+        .CodeMirror-merge-gap{
+            min-height: 70vh;
+        }
+        .viewMarge .CodeMirror-merge-pane-rightmost{
+            position: static;
+        }
+    </style>
+</head>
+
+<body class="flat-blue final-view sidebar-collapse" ng-cloak ng-app="consoleApp">
+
+<div class="sidebar" ng-controller="sideBarController">
+    <div class="menu-control toggle-sidebar">
+        <a class="navbar-brand" href="#"><i class="fa fa-bar-chart"></i>平台功能</a>
+        <i class="fa fa-bars navicon"></i>
+    </div>
+
+
+    <div ng-include="'upms-menus.html'" ng-if="portal &&  portal.used"></div>
+    <div ng-include="'local-menus.html'"  ng-if="!portal || !portal.used"></div>
+</div>
+
+
+<div class="content-container wrap" ng-controller="userController">
+    <nav class="navbar navbar-default" ng-if="!usedUpms">
+        <div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><i class="fa fa-bar-chart"></i> Eazybuilder研发持续集成平台v1.2 </a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" ui-sref="help"><i class="fa fa-1x fa-question-circle"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{currentUser.name}}
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu user-info">
+                            <li class="dropdown-title-bar">
+                                <img src="images/profile.jpg" class="profile-img">
+                            </li>
+                            <li>
+                                <div class="navbar-login">
+                                    <h4 class="user-name">{{currentUser.name}}</h4>
+                                    <p>{{currentUser.email}}</p>
+                                    <div class="btn-group margin-bottom-2x" role="group">
+                                        <button type="button" class="btn btn-default" ng-click="editProfile()"><i
+                                                class="fa fa-user"></i> 编辑资料
+                                        </button>
+                                        <button type="button" class="btn btn-default" ng-click="logout()"><i
+                                                class="fa fa-sign-out"></i> 退出系统
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+
+    <!-- include view by ui-router -->
+    <ui-view></ui-view>
+
+    <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="js/jquery.knob.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/Chart.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script type="text/javascript" src="js/angular-locale_zh-cn.js"></script>
+    <script type="text/javascript" src="js/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <script type="text/javascript"
+            src="js/bootstrap-table/1.11.1/extensions/angular/bootstrap-table-angular.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script type="text/javascript" src="js/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="js/angular-strap/2.3.6/angular-strap.min.js"></script>
+    <script type="text/javascript" src="js/angular-strap/2.3.6/angular-strap.tpl.min.js"></script>
+    <script src="js/angularjs-datetime-picker/wui-date.js"></script>
+    <script type="text/javascript" src="tools.js"></script>
+
+
+
+    <script type="text/javascript" src="js/codemirror/codemirror.js"></script>
+    <script type="text/javascript" src="js/codemirror/diff_match_patch.js"></script>
+    <script type="text/javascript" src="js/codemirror/xml.js"></script>
+    <script type="text/javascript" src="js/codemirror/ui-codemirror.js"></script>
+    <script type="text/javascript" src="js/codemirror/addon/display/fullscreen.js"></script>
+    <script type="text/javascript" src="js/codemirror/addon/lint/lint.js"></script>
+    <script type="text/javascript" src="js/codemirror/addon/edit/trailingspace.js"></script>
+    <script type="text/javascript" src="js/codemirror/addon/merge/merge.js"></script>
+    <script type="text/javascript" src="js/codemirror/addon/lint/lint.js"></script>
+
+
+    <script type="text/javascript" src="js/angular-chart.min.js"></script>
+    <script type="text/javascript" src="js/markdown/marked.js"></script>
+    <script type="text/javascript" src="js/markdown/angular-marked.min.js"></script>
+    <script type="text/javascript" src="js/SimpleAjaxUploader.min.js"></script>
+
+    <script type="text/javascript" src="js/angular-pickadate/angular-pickadate.min.js"></script>
+    <script type="text/javascript" src="js/smart-progressbar/smart-progressbar.min.js"></script>
+    <script type="text/javascript" src="js/angular-clipboard/clipboard.min.js"></script>
+    <script type="text/javascript" src="js/angular-clipboard/ngclipboard.min.js"></script>
+    <script type="text/javascript" src="js/ng-bookstrap-select.js"></script>
+    <script type="text/javascript" src="js/bookstrap-select.defaultSettings.js"></script>
+    <script type="text/javascript" src="js/angularjs-datetime-picker/wui-date.js"></script>
+    <script type="text/javascript" src="js/angular-wizard/angular-wizard.min.js"></script>
+
+
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="js/ci-menu/menu.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="authService.js"></script>
+    <script type="text/javascript" src="app-config.js"></script>
+    <script type="text/javascript" src="route.js"></script>
+    <script type="text/javascript" src="controller/basic-service.js"></script>
+    <script type="text/javascript" src="upmsLoginService.js"></script>
+    <script type="text/javascript" src="controller/dashboard-controller.js"></script>
+    <script type="text/javascript" src="controller/project-controller.js"></script>
+    <script type="text/javascript" src="controller/developer-controller.js"></script>
+    <script type="text/javascript" src="controller/docker-registry-controller.js"></script>
+    <script type="text/javascript" src="controller/pipeline-controller.js"></script>
+    <script type="text/javascript" src="controller/pipeline-history-controller.js"></script>
+    <script type="text/javascript" src="controller/job-controller.js"></script>
+    <script type="text/javascript" src="controller/job-online-controller.js"></script>
+    <script type="text/javascript" src="controller/user-controller.js"></script>
+    <script type="text/javascript" src="controller/team-controller.js"></script>
+    <script type="text/javascript" src="controller/pipeline-profile-controller.js"></script>
+    <script type="text/javascript" src="controller/test-envset-controller.js"></script>
+    <script type="text/javascript" src="controller/atm-script-controller.js"></script>
+    <script type="text/javascript" src="controller/it-plan-controller.js"></script>
+    <script type="text/javascript" src="controller/test-exec-history-controller.js"></script>
+
+    <script type="text/javascript" src="controller/maven-artifact-install-controller.js"></script>
+
+    <script type="text/javascript" src="controller/appscan-plan-controller.js"></script>
+    <script type="text/javascript" src="controller/appscan-script-controller.js"></script>
+    <script type="text/javascript" src="controller/appscan-history-controller.js"></script>
+    <script type="text/javascript" src="controller/system-property-controller.js"></script>
+
+    <script type="text/javascript" src="controller/qa-controller.js"></script>
+    <script type="text/javascript" src="controller/project-batch-import-controller.js"></script>
+    <script type="text/javascript" src="controller/project-svn-scan-controller.js"></script>
+    <script type="text/javascript" src="controller/warn-controller.js"></script>
+    <script type="text/javascript" src="controller/warnRule-controller.js"></script>
+    <script type="text/javascript" src="controller/hostInfo-controller.js"></script>
+    <script type="text/javascript" src="controller/api-security-controller.js"></script>
+
+    <script type="text/javascript" src="controller/project-group-controller.js"></script>
+    <script type="text/javascript" src="controller/scm-statistic-job-controller.js"></script>
+    <script type="text/javascript" src="controller/user-statistic-controller.js"></script>
+    <script type="text/javascript" src="controller/syslog-controller.js"></script>
+
+    <script type="text/javascript" src="controller/team-resource-controller.js"></script>
+    <script type="text/javascript" src="controller/devops-controller.js"></script>
+    <script type="text/javascript" src="controller/release-controller.js"></script>
+    <script type="text/javascript" src="controller/guard-controller.js"></script>
+    <script type="text/javascript" src="controller/event-controller.js"></script>
+    <script type="text/javascript" src="controller/on-line-controller.js"></script>
+	<script type="text/javascript" src="controller/demand-batch-import-controller.js"></script>
+    <script type="text/javascript" src="controller/msg-controller.js"></script>
+
+    <script type="text/javascript" src="js/zTree_v3/js/jquery.ztree.all.min.js"></script>
+
+
+</div>
+
+<footer class="footer text-center">
+    <span></span>
+</footer>
+</body>
+
+</html>

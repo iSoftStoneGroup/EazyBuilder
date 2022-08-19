@@ -11,7 +11,7 @@ public class TestConvertLegacyProject {
 
 	@Test
 	public void doConvert(){
-		File project=new File("E:/eazybuilder/eazybuilder-platform-service/trunk");
+		File project=new File("E:/Eazybuilder/eazybuilder-platform-service/trunk");
 		AntProjectToMavenAdapter.getInstance().convertAntProject(project);
 	}
 }

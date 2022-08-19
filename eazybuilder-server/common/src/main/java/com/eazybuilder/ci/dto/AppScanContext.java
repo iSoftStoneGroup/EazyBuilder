@@ -6,6 +6,8 @@ import com.eazybuilder.ci.entity.appscan.AppScanScript;
 
 /**
  * 自动化测试的DTO，Jenkins通过调用QTP/Selenium Agent进行测试时传输
+ *
+ *
  */
 public class AppScanContext {
 	private List<AppScanScript> scripts;

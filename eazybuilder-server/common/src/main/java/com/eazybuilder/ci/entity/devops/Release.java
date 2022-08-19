@@ -46,7 +46,10 @@ public class Release {
 	 * redmine team
 	 */
 	private Integer teamId;
-
+	/**
+	 * redmine identifier
+	 */
+	private String teamName;
 	/**
 	 * redmine sprint
 	 */
@@ -100,6 +103,11 @@ public class Release {
 	 * @return
 	 */
 	private String batchUserName;
+	/**
+	 * 指定的审批负责人id
+	 * @return
+	 */
+	private Long batchUserId;
 	/**
 	 *审批状态
 	 */
@@ -306,6 +314,13 @@ public class Release {
 		this.nameSpace = nameSpace;
 	}
 
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
 //	public String getCreteBranchVersion() {
 //		return creteBranchVersion;
 //	}
@@ -323,6 +338,14 @@ public class Release {
 
 	public void setReleaseProjects(List<ReleaseProject> releaseProjects) {
 		this.releaseProjects = releaseProjects;
+	}
+
+	public Long getBatchUserId() {
+		return batchUserId;
+	}
+
+	public void setBatchUserId(Long batchUserId) {
+		this.batchUserId = batchUserId;
 	}
 
 	@Override
@@ -350,6 +373,10 @@ public class Release {
 				", batchDdvice='" + batchDdvice + '\'' +
 				", issuesTreeJson='" + issuesTreeJson + '\'' +
 				", tagDetail='" + tagDetail + '\'' +
+				", batchUserId='" + batchUserId + '\'' +
+				", teamName='" + teamName + '\'' +
+
+
 				'}';
 	}
 }

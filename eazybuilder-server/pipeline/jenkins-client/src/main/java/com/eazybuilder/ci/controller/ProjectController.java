@@ -1,24 +1,29 @@
 package com.eazybuilder.ci.controller;
 
+import com.eazybuilder.ci.entity.*;
+import com.eazybuilder.ci.entity.devops.DevopsInit;
+import com.eazybuilder.ci.entity.devops.QDevopsInit;
+import com.eazybuilder.ci.repository.TeamNamespaceDao;
 import com.google.common.collect.Lists;
 import com.eazybuilder.ci.base.CRUDRestController;
 import com.eazybuilder.ci.base.PageResult;
 import com.eazybuilder.ci.controller.vo.ProjectQAReport;
 import com.eazybuilder.ci.dto.ProjectLastBuildInfo;
-import com.eazybuilder.ci.entity.Pipeline;
-import com.eazybuilder.ci.entity.Project;
-import com.eazybuilder.ci.entity.ProjectGroup;
-import com.eazybuilder.ci.entity.ProjectHistory;
 import com.eazybuilder.ci.entity.devops.Release;
 import com.eazybuilder.ci.service.*;
 import com.eazybuilder.ci.util.JsonMapper;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
+import org.glassfish.jersey.internal.guava.Sets;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.util.Assert;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -28,6 +33,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/project")
 public class ProjectController extends CRUDRestController<ProjectService, Project>{
+	private  static Logger logger = LoggerFactory.getLogger(ProjectController.class);
 
 	@Autowired
 	ProjectHistoryService projectHistoryService;
@@ -46,6 +52,23 @@ public class ProjectController extends CRUDRestController<ProjectService, Projec
 
 	@Resource
 	ReleaseService releaseService;
+
+	@Autowired
+	ProjectService projectService;
+
+	@Autowired
+	DevopsInitServiceImpl devopsInitService;
+
+	@Autowired
+	TeamServiceImpl teamServiceImpl;
+
+
+	@RequestMapping(value = "/projectsByTeamId/{id}", method = RequestMethod.GET)
+	@ApiOperation("根据ID查找")
+	public List<Project> getTeamNameSpaces(@PathVariable("id") String id) {
+		return service.findAllByTeamId(id);
+	}
+
 
 	@RequestMapping(value="/history",method=RequestMethod.GET)
 	@ApiOperation("按页查询，查询指定项目的历史数据")
@@ -176,4 +199,14 @@ public class ProjectController extends CRUDRestController<ProjectService, Projec
 			}
 		}
 	}
+
+	@GetMapping("/getNameSpacesByProjectId")
+	public  Set<String>   getNameSpacesByProjectId(@RequestParam("projectId") String projectId){
+		Set<String> teamNamespaces = Sets.newHashSet();
+		Project project = projectService.findOne(projectId);
+		Set<TeamNamespace> teamNameSpace = teamServiceImpl.getTeamNameSpace(project.getTeam());
+		teamNameSpace.forEach(teamNamespace ->teamNamespaces.add(teamNamespace.getCode()) );
+		return teamNamespaces;
+	}
+
 }

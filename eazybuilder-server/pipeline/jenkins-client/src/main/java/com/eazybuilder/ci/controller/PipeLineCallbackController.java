@@ -29,7 +29,7 @@ import com.eazybuilder.ci.service.UserActivityStatisticService;
 import com.eazybuilder.ci.storage.ResourceStorageService;
 /**
  * 处理流水线执行后的回调/信息上报
-
+ *
  *
  */
 @RestController

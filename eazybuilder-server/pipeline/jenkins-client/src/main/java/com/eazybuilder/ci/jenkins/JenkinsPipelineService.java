@@ -1,35 +1,36 @@
 package com.eazybuilder.ci.jenkins;
 
 
-import java.io.IOException;
-import java.net.URI;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.UUID;
-
+import cn.hutool.core.codec.Base64;
+import com.eazybuilder.ci.config.LoadConfigYML;
+import com.eazybuilder.ci.controller.vo.ProjectBuildVo;
+import com.eazybuilder.ci.entity.Pipeline;
+import com.eazybuilder.ci.entity.Project;
+import com.eazybuilder.ci.entity.ScmType;
 import com.eazybuilder.ci.entity.devops.Release;
-import com.eazybuilder.ci.storage.ResourceStorageService;
+import com.eazybuilder.ci.entity.docker.DockerDigest;
+import com.eazybuilder.ci.service.OnlineService;
+import com.eazybuilder.ci.util.JsonMapper;
+import com.google.common.collect.Maps;
+import com.offbytwo.jenkins.model.Job;
+import com.offbytwo.jenkins.model.QueueReference;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
-import com.google.common.collect.Maps;
-import com.eazybuilder.ci.entity.Pipeline;
-import com.eazybuilder.ci.entity.Project;
-import com.eazybuilder.ci.entity.ScmType;
-import com.eazybuilder.ci.util.JsonMapper;
-import com.offbytwo.jenkins.model.Job;
-import com.offbytwo.jenkins.model.QueueReference;
-
-import cn.hutool.core.codec.Base64;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
+import java.io.IOException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 public class JenkinsPipelineService {
 	private static Logger logger=LoggerFactory.getLogger(JenkinsPipelineService.class);
+	private static Properties properties = new LoadConfigYML().getConfigProperties();
+
 	Configuration configuration;
 	JenkinsPipelineEnv env;
 	String serverUrl;
@@ -37,16 +38,22 @@ public class JenkinsPipelineService {
 	String sonarUrl;
 	Jenkins jenkins;
 	String dockerImageTag;
+	String storageType;
 	Release release;
-	private ResourceStorageService storageService;
+
+	private OnlineService onlineService;
 
 	public JenkinsPipelineService(String jenkinsUrl,
 								  String sonarUrl,
 								  Configuration configuration,
 								  boolean k8sSupport,
 								  JenkinsPipelineEnv env,
-								  String dockerImageTag
+								  String dockerImageTag,
+								  OnlineService onlineService,
+								  String storageType
 	) throws Exception {
+		this.storageType=storageType;
+		this.onlineService=onlineService;
 		this.configuration=configuration;
 		this.env=env;
 		if(jenkinsUrl==null||sonarUrl==null) {
@@ -56,7 +63,7 @@ public class JenkinsPipelineService {
 		this.sonarUrl=sonarUrl;
 		this.k8sCloudSupport=k8sSupport;
 		this.dockerImageTag = dockerImageTag;
-//		logger.info("Jenkins URL:{} K8s Support:{},SonarQube URL:{}",this.serverUrl,this.k8sCloudSupport,this.sonarUrl);
+		logger.debug("Jenkins URL:{} K8s Support:{},SonarQube URL:{}",this.serverUrl,this.k8sCloudSupport,this.sonarUrl);
 		initJenkins();
 	}
 
@@ -65,7 +72,7 @@ public class JenkinsPipelineService {
 	}
 
 
-	public String generatePipeLineJob(Project project,String pipeLineUid) throws Exception{
+	public String generatePipeLineJob(Project project, String pipeLineUid, ProjectBuildVo buildParam) throws Exception{
 		boolean crumbflag=env.crumb();
 		String credentialId=UUID.randomUUID().toString();
 		jenkins.addCredential(credentialId, project.getScm().getUser(), project.getScm().getPassword(), "",crumbflag);
@@ -73,6 +80,7 @@ public class JenkinsPipelineService {
 		Map<String,Object> params=Maps.newHashMap();
 		params.put("credentialsId", credentialId);
 		params.put("project",project);
+		params.put("registryUrl",properties.getProperty("registry.url"));
 		if(!project.getDeployConfigList().isEmpty()&&project.getDeployConfigList().size()>0) {
 			params.put("deployConfig", project.getDeployConfigList().get(0));
 			params.put("deployConfigList", project.getDeployConfigList());
@@ -85,8 +93,19 @@ public class JenkinsPipelineService {
 		params.put("sonarUrl",this.sonarUrl);
 		params.put("sonarUser",env.getSonarUser());
 		params.put("sonarPassword",env.getSonarPassword());
+		if(project.getScm().getType()==ScmType.git){
+			buildParam.setEncodedUrl(project.getScm().getUrl());
+		}
+		params.put("buildVo",buildParam);
 		params.put("release",release);
-		
+		params.put("GITLAB_API_ADDR",env.getGitLabApiBaseUrl());
+		if(project.getProfile()!=null&&StringUtils.isNotBlank(project.getProfile().getGitlabApiDomain())) {
+			//构建ARM64镜像时 使用单独指定的docker host(ARM64平台)
+			params.put("gitlab_api_domain",project.getProfile().getGitlabApiDomain());
+		}else {
+			params.put("gitlab_api_domain",properties.getProperty("gitlabApi.url"));
+		}
+
 //		params.put("jenkinsDataPath",env.getJenkinsDataPath());
 //		params.put("jenkinsLimitMeory",env.getJenkinsLimitMeory());
 //		params.put("jenkinsNetworkHost",env.getJenkinsNetworkHost());
@@ -107,6 +126,12 @@ public class JenkinsPipelineService {
 			params.put("yamlId",yamlId);
 			params.put("namespace",nameSpace);
 			params.put("rolloutName",rolloutName);
+			params.put("storageType",storageType);
+			if(StringUtils.isNotBlank(storageType)) {
+				if (storageType.equals("local")) {
+					params.put("k8sYamlPath", project.getTeam().getTeamResource().getK8sYmlPath());
+				}
+			}
 		}
 
 //)
@@ -115,7 +140,6 @@ public class JenkinsPipelineService {
 			dockerImageTag=df.format(new Date());
 		}
 		params.put("dockerImageTag",dockerImageTag);
-
 		if(project.getProfile()!=null&&project.getProfile().isBuildArm64Image()) {
 			//构建ARM64镜像时 使用单独指定的docker host(ARM64平台)
 			params.put("dockerBuildHost",env.getArm64DockerBuildHost());
@@ -138,6 +162,10 @@ public class JenkinsPipelineService {
 		}else{
 			params.put("tagName","master");
 		}
+
+
+
+
 		logger.info("流水线运行分支：{}",params.get("tagName"));
 		Template template=null;
 		if(project.getScm().getType()==ScmType.svn){
@@ -145,14 +173,46 @@ public class JenkinsPipelineService {
 		}else{
 			template=configuration.getTemplate("pipe-git-maven.ftl");
 		}
+		//项目独有配置优先于流水线配置
+		if(StringUtils.isNotBlank(project.getBuildProperty())){
+			params.put("buildProperty",project.getBuildProperty());
+		}else  if(StringUtils.isNotBlank(project.getProfile().getBuildProperty())){
+			params.put("buildProperty",project.getProfile().getBuildProperty());
+		}else {
+			params.put("buildProperty",project.getProfile().getBuildProperty());
+		}
+		if(project.getTeam()!=null && project.getTeam().getTeamResource()!=null && StringUtils.isNotBlank(project.getTeam().getTeamResource().getReferenceSource()) ){
+			params.put("referenceSource",project.getTeam().getTeamResource().getReferenceSource());
+		}
+
+		if(project.getTeam()!=null && project.getTeam().getTeamResource()!=null && StringUtils.isNotBlank(project.getTeam().getTeamResource().getJenkinsWorkPath()) ){
+			params.put("jenkinsWorkPath",project.getTeam().getTeamResource().getJenkinsWorkPath());
+		}else{
+			params.put("jenkinsWorkPath","/sfsdata/jenkins");
+		}
+
+		if(project.getTeam()!=null && project.getTeam().getTeamResource()!=null && StringUtils.isNotBlank(project.getTeam().getTeamResource().getJenkinsWorkType()) ){
+			params.put("jenkinsWorkType",project.getTeam().getTeamResource().getJenkinsWorkType());
+		}
+
+
+
 		if(logger.isDebugEnabled()) {
 			logger.debug("-------prepared to generate pipeline------");
 			logger.debug(JsonMapper.nonDefaultMapper().toJson(params));
 		}
+
+		if(project.getProfile()!=null&&project.getProfile().isUpgradeDocker()) {
+			List<DockerDigest> dockerDigests = onlineService.findDockerDigest(buildParam.getReleaseId(), project.getTeam().getName());
+			if(dockerDigests!=null&&dockerDigests.size()>0) {
+				params.put("dockerDigests", dockerDigests);
+			}
+		}
+
 		return FreeMarkerTemplateUtils.processTemplateIntoString(template, params);
 	}
 
-	public String createPipeLine(Project project,String pipeLineUid,boolean override) throws Exception{
+	public String createPipeLine(Project project, String pipeLineUid, boolean override, ProjectBuildVo buildParam) throws Exception{
 		boolean crumbflag=env.crumb();
 		long tag=System.currentTimeMillis();
 		//给job名字加一个时间戳，允许任务并行
@@ -173,7 +233,7 @@ public class JenkinsPipelineService {
 			logger.error("删除job出错，捕捉异常，不作处理",e);
 
 		}
-		String jenkinsPipe=generatePipeLineJob(project,pipeLineUid);
+		String jenkinsPipe=generatePipeLineJob(project,pipeLineUid,buildParam);
 		logger.debug("jenkins job xml:");
 		logger.debug("jenkins日志:{}",jenkinsPipe);
 		System.out.println("jenkins日志:{}: "+jenkinsPipe);

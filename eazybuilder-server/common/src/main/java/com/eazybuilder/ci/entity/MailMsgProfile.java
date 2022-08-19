@@ -1,7 +1,5 @@
 package com.eazybuilder.ci.entity;
 
-import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 
 /**

@@ -14,6 +14,7 @@ import com.eazybuilder.ci.util.HttpUtil;
  * url应该为资源文件压缩包的raw下载链接(http)
  * 或者整个repo的clone url
  *
+ *
  */
 public class GitResourceDownloader implements ResourceDownloader{
 

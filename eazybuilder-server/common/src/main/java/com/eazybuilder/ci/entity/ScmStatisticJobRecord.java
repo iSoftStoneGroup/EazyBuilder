@@ -12,6 +12,7 @@ import javax.persistence.Table;
 /**
  * 记录JOB对应的执行结果
  *
+ *
  */
 @Entity
 @Table(name="CI_SCM_STATISTIC_RECORD")

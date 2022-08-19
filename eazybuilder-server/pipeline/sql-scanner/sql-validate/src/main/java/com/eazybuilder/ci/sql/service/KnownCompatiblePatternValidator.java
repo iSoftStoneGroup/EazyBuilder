@@ -22,6 +22,7 @@ import com.eazybuilder.ci.sql.vo.SQLValidateResult;
 /**
  * 根据已知的固定模式，追加检测项
  *
+ *
  */
 @Component
 public class KnownCompatiblePatternValidator {

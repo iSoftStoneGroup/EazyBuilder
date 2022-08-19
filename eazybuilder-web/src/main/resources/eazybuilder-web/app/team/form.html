@@ -1,0 +1,96 @@
+<div class="content-block panel-block">
+	<div class="block-title">项目组信息</div>
+	<form class="form-horizontal" name="dataForm">
+		<input type="hidden" ng-model="entity.id"/>
+		<div class="block-content">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">名称:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="entity.name" required="required" readonly/>
+				</div>
+			</div>
+			<div class="form-group">
+                <label class="col-sm-2 control-label">项目编号:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" ng-model="entity.code" readonly/>
+                </div>
+            </div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">迭代版本提测限制:</label>
+				<div class="col-sm-4">
+					<div class="btn-group pull-left col-xs-12" >
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.sprintMultiTest=true"
+								ng-class="{'btn-success':entity.sprintMultiTest}">开启
+						</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.sprintMultiTest=false"
+								ng-class="{'btn-danger':!entity.sprintMultiTest}">关闭
+						</button>
+					</div>
+				</div>
+				<label class="col-sm-2 control-label">提测门禁校验:</label>
+				<div class="col-sm-4">
+					<div class="btn-group pull-left col-xs-12" >
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.checkReleasePipeline=true"
+								ng-class="{'btn-success':entity.checkReleasePipeline}">开启
+						</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.checkReleasePipeline=false"
+								ng-class="{'btn-danger':!entity.checkReleasePipeline}">关闭
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<ul class="nav nav-pills grayLine">
+					<li role="presentation" ng-repeat="(actionType,guardTypeList) in actionScopeGuardTypes" >
+						<a   data-toggle="tab" ng-click="entity.partView = actionType">{{ actionScopes[actionType] }}</a></li>
+				</ul>
+			</div>
+			<div ng-if="entity.partView != 'SONARQUBE_RULE'" class="tab-content" style="overflow-y: auto;overflow-x: hidden;background-color: #1225350a">
+				<div  ng-repeat="(actionType,guardTypeList) in actionScopeGuardTypes"  ng-class="{'in active': entity.partView == actionType}" class="tab-pane fade" >
+					<table class="table table-condensed table-hover table-bordered">
+						<tr style="background-color:rgba(0, 0, 0, 0.01);"><th>门禁指标</th><th>门禁</th></tr>
+						<tr ng-repeat="guaryType in guardTypeList">
+							<td>{{guardTypes[guaryType]}}</td>
+							<td> <select class="form-control" ng-model="entity.teamThresholdMap[actionType][guaryType].blockerId">
+								<option ng-repeat="(guaryType, guard) in guardMap[guaryType]"   value="{{ guard.id }}" >
+									{{guard.name}}(限定值为：{{ guard.thresholdMax}}{{ guard.guardType.includes('rate') ? '%' : '' }}) </option>
+							</select>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div ng-if="entity.partView == 'SONARQUBE_RULE'" class="tab-content" style="overflow-y: auto;overflow-x: hidden;background-color: #1225350a">
+					<table class="table table-condensed table-hover table-bordered">
+						<tr style="background-color:rgba(0, 0, 0, 0.01);"><th>语言</th><th>规则集</th></tr>
+						<tr ng-repeat="(key,value) in qualityProfiles">
+							<td>{{key}}</td>
+							<td> <select class="form-control"
+										 selected="selected"
+										 ng-model="entity.teamQualityProfilesMap[key].rule">
+								<option ng-repeat="rule in value" placeholder="请选择规则集"  value="{{rule }}" >
+									{{rule}} </option>
+							</select>
+							</td>
+						</tr>
+					</table>
+			</div>
+		</div>
+		<div class="block-footer">
+			<div class="form-group">
+				<div class="col-sm-offset-3 col-sm-9">
+					<div class="col-sm-4">
+						<button  class="btn btn-primary" ng-click="save()" title="只有项目负责人或配置管理员能维护项目成员信息" ng-disabled="dataForm.$invalid||(entity.id!=null&&(entity.ownerId!=currentUserId&&entity.configerIds.indexOf(currentUserId)<0)&&role!='admin')">保存</button>
+					</div>
+					<div class="col-sm-4">
+						<button  class="btn btn-default" ng-click="back()">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,8 +1,15 @@
 package com.eazybuilder.ci.dto;
 
-import com.eazybuilder.ci.entity.devops.IssuesStatus;
-
-
+/**
+ * @date 2021年12月6日
+ * 开发（集成分支）-->处理中 不发送mq
+ * 申请提测-->待审核
+ * 申请提测通过->测试中，
+ * 申请上线->待上线
+ * 申请上线通过->待部署 不能提交代码
+ * 上线部署->已上线 不能提交代码
+ *
+ */
 public class IssuesStatusDto {
 
     //需求状态

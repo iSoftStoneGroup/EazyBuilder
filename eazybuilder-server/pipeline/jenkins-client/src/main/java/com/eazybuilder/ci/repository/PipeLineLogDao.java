@@ -1,6 +1,5 @@
 package com.eazybuilder.ci.repository;
 
-import com.eazybuilder.ci.entity.Guard;
 import com.eazybuilder.ci.entity.PipelineLog;
 import org.springframework.stereotype.Repository;
 

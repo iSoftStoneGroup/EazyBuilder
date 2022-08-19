@@ -145,7 +145,7 @@ public class AntProjectToMavenAdapter {
 	}
 
 	private void assemblyMavenStyleProject(File projectHome, ProjectStyle projectStyle, String srcPath, String libPath) {
-		//非eazybuilder模板ant工程，检查是否存在：(1)src——源码存放位置 (2)WebContent
+		//非Eazybuilder模板ant工程，检查是否存在：(1)src——源码存放位置 (2)WebContent
 		boolean adaptable=false;
 		switch(projectStyle){
 		case other:
@@ -166,7 +166,7 @@ public class AntProjectToMavenAdapter {
 			return;
 		case eazybuilder:
 			return;
-		case legacy_eazybuilder:
+		case legacy_Eazybuilder:
 			try {
 				File src=new File(projectHome,"eazybuilderEJB/src");
 				if(src.exists()){
@@ -207,7 +207,7 @@ public class AntProjectToMavenAdapter {
 	
 	enum ProjectStyle{
 		eazybuilder,
-		legacy_eazybuilder,
+		legacy_Eazybuilder,
 		dynamicWebApp,
 		other
 	}
@@ -218,7 +218,7 @@ public class AntProjectToMavenAdapter {
 		}
 		
 		if(new File(projectHome,"eazybuilderEJB").exists()){
-			return ProjectStyle.legacy_eazybuilder;
+			return ProjectStyle.legacy_Eazybuilder;
 		}
 		if(new File(projectHome,"src/main/java").exists()){
 			return ProjectStyle.eazybuilder;

@@ -20,10 +20,8 @@ public class AuthUtils {
 	
 	public static UserVo getCurrentUser(){
 		UserVo user = ACCESS_USER.get();
-		if(user!=null) {
-			logger.info("获取当前登录用户信息：{}", user.toString());
-		}else{
-			logger.error("当前登录用户信息为空");
+		if(logger.isDebugEnabled()){
+			logger.debug("获取当前登录用户信息：{}", user.toString());
 		}
 		return user;
 	}

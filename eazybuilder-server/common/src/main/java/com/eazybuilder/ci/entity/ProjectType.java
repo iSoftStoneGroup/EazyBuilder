@@ -7,6 +7,7 @@ public enum ProjectType {
 	all,
 	initDeploy,
 	dataBaseScript,
-	net
+	net,
+	config
 
 }

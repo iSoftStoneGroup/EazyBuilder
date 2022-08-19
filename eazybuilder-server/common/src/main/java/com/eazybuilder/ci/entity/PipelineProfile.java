@@ -3,6 +3,7 @@ package com.eazybuilder.ci.entity;
 import javax.persistence.*;
 /**
  * 流水线配置（用于精细化设置是否启用每一步）
+ *
  */
 
 import com.eazybuilder.ci.constant.AutoTestSwitch;
@@ -28,6 +29,15 @@ public class PipelineProfile {
 
 	private String teamName;
 
+	/**
+	 * kubectl config 配置
+	 */
+	private  String kubectlConfig;
+
+	/**
+	 * 是否扫描静态代码
+	 */
+	private Boolean staticJs;
 	/**
 	 * 是否开启数据库脱敏
 	 */
@@ -198,6 +208,29 @@ public class PipelineProfile {
     //ANT 项目
 	@Column(name="is_del",columnDefinition="int(1) default 0")
 	private boolean isDel;
+
+	/**
+	 * 自定义
+	 * 对应mvn命令后的-D参数，多个请用空格分隔
+	 */
+	private String buildProperty;
+
+	/**
+	 * 发起自动化测试延时
+	 */
+	private Integer testDelayTime;
+
+	/**
+	 * 是否自动创建merge request请求
+	 */
+	private boolean createMR;
+
+	/**
+	 * 被指派合并人员邮箱
+	 */
+	private String mergeDesignee;
+
+	private String gitlabApiDomain;
 	
 	
 	
@@ -518,5 +551,61 @@ public class PipelineProfile {
 
 	public void setSqlTakeMinUrl(String sqlTakeMinUrl) {
 		this.sqlTakeMinUrl = sqlTakeMinUrl;
+	}
+
+	public String getBuildProperty() {
+		return buildProperty;
+	}
+
+	public void setBuildProperty(String buildProperty) {
+		this.buildProperty = buildProperty;
+	}
+
+	public Integer getTestDelayTime() {
+		return testDelayTime;
+	}
+
+	public void setTestDelayTime(Integer testDelayTime) {
+		this.testDelayTime = testDelayTime;
+	}
+
+	public boolean isCreateMR() {
+		return createMR;
+	}
+
+	public void setCreateMR(boolean createMR) {
+		this.createMR = createMR;
+	}
+
+	public String getMergeDesignee() {
+		return mergeDesignee;
+	}
+
+	public void setMergeDesignee(String mergeDesignee) {
+		this.mergeDesignee = mergeDesignee;
+	}
+
+	public Boolean getStaticJs() {
+		return staticJs;
+	}
+
+	public void setStaticJs(Boolean staticJs) {
+		this.staticJs = staticJs;
+	}
+
+	public String getKubectlConfig() {
+		return kubectlConfig;
+	}
+
+	public void setKubectlConfig(String kubectlConfig) {
+		this.kubectlConfig = kubectlConfig;
+	}
+
+	public String getGitlabApiDomain() {
+		return gitlabApiDomain;
+	}
+
+	public void setGitlabApiDomain(String gitlabApiDomain) {
+		this.gitlabApiDomain = gitlabApiDomain;
 	}
 }

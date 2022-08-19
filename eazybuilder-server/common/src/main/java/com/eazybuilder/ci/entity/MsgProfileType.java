@@ -5,6 +5,10 @@ public enum MsgProfileType {
 
 
 	/**
+	 * 流水线通知类 钉钉推送
+	 */
+	pipelineDingTalk,
+	/**
 	 * 流水线通知类 仅失败发送
 	 */
 	 pipelineFail,
@@ -134,6 +138,8 @@ public enum MsgProfileType {
 	 * 监控类 敏感sql
 	 */
 	monitoringSql,
+
+
 	/**
 	 * 配置文件变更类 配置文件（开发，测试，生产）变更提醒
 	 */

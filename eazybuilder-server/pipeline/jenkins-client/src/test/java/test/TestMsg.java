@@ -49,7 +49,7 @@ public class TestMsg {
 		msgJson.put("msgType", MsgType.ding);
 		msgJson.put("chatMethods", "private");
 		msgJson.put("msgProfile", MsgProfileType.issuesStatusUpdate);
-		String[] emailArray = new String[]{"xxx@eazybuilder.com"};
+		String[] emailArray = new String[]{"kunyangu@eazybuilder.com"};
 		msgJson.put("emailArray",emailArray);
 		logger.info("发送钉钉消息：{}", msgJson.toJSONString());
 
@@ -70,8 +70,8 @@ public class TestMsg {
 		 * 发送消息 参数一：交换机名称 参数二：路由key: rancher.#,符合路由rancher.#规则即可 参数三：发送的消息
 		 */
 
-
-		String msg = "{\r\n" + "\"title\":\"Eazybuilder钉钉\",\r\n" + "\"markdownContent\":\"测试发送消息\",\r\n"
+	 
+		String msg = "{\r\n" + "\"title\":\"ISS钉钉\",\r\n" + "\"markdownContent\":\"测试发送消息\",\r\n"
 				+ "\"access_token\":\"35be4fbc1d460ae42f88aa3e434c254e14dcfcade649634759067632bee5d970\",\r\n"
 				+ "\"dingtalkSecret\":\"SEC5b9a6099b4dc945f97392d3d9a9c07d98ba79e0450b9efa287bd74c9e0f31da7\"\r\n"
 				+ "}";

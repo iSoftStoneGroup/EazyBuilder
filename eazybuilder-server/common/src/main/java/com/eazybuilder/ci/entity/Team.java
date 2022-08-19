@@ -41,6 +41,7 @@ public class Team extends BaseEntry implements Serializable{
 
 	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     @NotFound(action=NotFoundAction.IGNORE)
+	@Fetch(FetchMode.SUBSELECT)
     private List<User> members;
 
 //	@ManyToMany(fetch=FetchType.EAGER)
@@ -56,6 +57,7 @@ public class Team extends BaseEntry implements Serializable{
 	private Set<TeamThreshold> teamThresholds;
 
 
+    private  String qualityprofilesJson;
 	
     @OneToOne
     private TeamResource teamResource;
@@ -173,5 +175,13 @@ public class Team extends BaseEntry implements Serializable{
 
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
+	}
+
+	public String getQualityprofilesJson() {
+		return qualityprofilesJson;
+	}
+
+	public void setQualityprofilesJson(String qualityprofilesJson) {
+		this.qualityprofilesJson = qualityprofilesJson;
 	}
 }

@@ -14,6 +14,8 @@ import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 /**
  * 工程分组，跟项目组区分开，主要用于统计分析
+ * 
+ *
  *
  */
 @Entity

@@ -7,7 +7,7 @@
                     input ->
                     groovy.json.JsonOutput.toJson(input)
                 }
-                def remind_url= "http://gitlab-apixxxxx/gitlab-api/hook/parseSqlPipeline"
+                def remind_url= "http://${gitlab_api_domain}/gitlab-api/hook/parseSqlPipeline"
                 files=sh(returnStdout: true, script: 'find -name "*.sql" -o -name "*.SQL"').split();
                 for(file in files){
                     String[] arr = file.split('/');

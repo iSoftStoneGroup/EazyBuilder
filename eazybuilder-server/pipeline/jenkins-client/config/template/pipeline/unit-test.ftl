@@ -6,6 +6,7 @@
                        // }
                         stage('aggregate test report'){
                             steps {
+                                echo '========aggregate test report start========'
                                 <#if project.projectType?? && project.projectType=="net">
                                     echo '========net unit test skip========'
                                     sh '''dotnet test <#if project.netTestPath !="">${project.netTestPath}<#else>src/${project.name}.Test/${project.name}.Test.csproj</#if> -p:CollectCoverage=true -p:CoverletOutputFormat=opencover -p:Exclude=\"[xunit.runner.*]*\"'''
@@ -36,11 +37,10 @@
                                         sh '''dotnet /root/.dotnet/tools/.store/dotnet-sonarscanner/5.5.3/dotnet-sonarscanner/5.5.3/tools/netcoreapp3.0/any/SonarScanner.MSBuild.dll end -d:sonar.login=${sonarUser} -d:sonar.password=${sonarPassword}'''
                                     </#if>
                                 <#else>
-                                    echo '========aggregate test report start========'
                                     sh '''mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>surefire-report:report-only -Daggregate=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}'''
                                     sh '''mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>org.jacoco:jacoco-maven-plugin:0.8.5:report-aggregate -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}'''
-                                    echo '========aggregate test report end========'
                                 </#if>
+                            echo '========aggregate test report end========'
                             }
                         } 
                     </#if>

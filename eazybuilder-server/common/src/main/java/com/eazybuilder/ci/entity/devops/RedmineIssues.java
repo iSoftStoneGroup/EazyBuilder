@@ -1,7 +1,5 @@
 package com.eazybuilder.ci.entity.devops;
 
-import org.springframework.util.StringUtils;
-
 import java.io.Serializable;
 
 public class RedmineIssues implements Serializable {
