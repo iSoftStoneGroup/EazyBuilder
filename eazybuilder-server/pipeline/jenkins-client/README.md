@@ -1,64 +1,65 @@
-#  平台后端采用springboot架构
-#   application.yml所在目录为：
+# [中文说明](./README_CN.md)
+# The platform backend adopts springboot architecture
+# The directory where application.yml is located is:
 - pipeline/jenkins-client/config/application.yml
 
-## 配置文件经过脱敏，如数据库用户密码等信息，需要用户自行配置
+## The configuration file is desensitized, such as database user password and other information, which needs to be configured by the user
 
-### 第16~18行，配置数据库
-```yaml
+### Lines 16~18, configure the database
+````yaml
     url: jdbc:mysql://mysql:3306/ci?useUnicode=true&useSSL=false&characterEncoding=utf-8
     username: xxx
     password: xxxx
-```	
-### 第29~34行，配置邮箱
-```yaml
+````
+### Lines 29~34, configure the mailbox
+````yaml
     host: smtp.xxxx.com
     port: 25
     default-encoding: UTF-8
     username: d-fesci
     password: "xxxx"
     from: xxxx@xxxx.com
-```
-### 第57~60行，配置钉钉（如果不需要，可以不配置，但是参数不能删除，可以为空）	
-```yaml
+````
+### Lines 57~60, configure Dingding (if you don't need it, you can not configure it, but the parameter cannot be deleted, it can be empty)
+````yaml
   dingtalk:
     url: https://oapi.dingtalk.com/robot/send?access_token=xxxxx
     secret: xxxx
     accessToken: xxxx
-```	
-### 第61~63行，配置harbor（如果不需要，可以不配置，但是参数不能删除，可以为空）
-```yaml
+````
+### Lines 61~63, configure harbor (if you don't need it, you can not configure it, but the parameter cannot be deleted, it can be empty)
+````yaml
   harbor:
     url: registry.eazybuilder-devops.cn
-    password: Password123!	
-```	
-	
-### 第67行，配置k8s yaml文件存放地，平台可以自动生成k8syaml文件，支持obs与本地存储，如果是本地存储，就需要配置此参数（如果不需要，可以不配置，但是参数不能删除，可以为空）
-```yaml
- k8s-folder: D:/data/k8s-yaml
-```
+    password: Password123!
+````
 
-### 第69~70行， 配置redis，平台会将部分信息缓存到redis，redis是必须的配置
-```yaml
+### Line 67, configure the k8s yaml file storage location, the platform can automatically generate k8syaml files, support obs and local storage, if it is local storage, you need to configure this parameter (if not, you can not configure it, but the parameter cannot be deleted , can be empty)
+````yaml
+ k8s-folder: D:/data/k8s-yaml
+````
+
+### Lines 69~70, configure redis, the platform will cache some information to redis, redis is a necessary configuration
+````yaml
    redis:
     address: ${redis_addr:redis://redis-plat:6379}
-```	
-### 第71~78行， 配置文件存储的路径，如果选择local,则不需要再配置hw-obs节点了
-```yaml
+````
+### Lines 71~78, the path of the configuration file storage, if you choose local, you do not need to configure the hw-obs node again
+````yaml
   storage:
     type: local
-```	
-#### obs配置	
-```yaml
+````
+#### obs configuration
+````yaml
     type: hw-obs
     hw-obs:
       endpointUrl: http://xxxx
       ak: xxxx
       sk: xxxx
-      bucketName: obs	
-```
-### 第80~87行，配置ldap,如果enable选false，后面的ldap信息就不需要配置了
-```yaml
+      bucketName: obs
+````
+### Lines 80~87, configure ldap, if enable is false, the following ldap information does not need to be configured
+````yaml
 ldap:
   enable: true
   url: "ldap://xxxxx:389"
@@ -67,43 +68,43 @@ ldap:
   userPwd: "xxxx"
   referral: ignore
   domainName: "%s@xxxx"
-```  
+````
   
-### 第89~93行，配置jenkins,  jenkins需要提前安装一些插件，可以参照thridparty\jenkins-base中的dockerfile去安装插件
-```yaml
-jenkins:
+### Lines 89~93, configure jenkins, jenkins needs to install some plug-ins in advance, you can refer to the dockerfile in thridparty\jenkins-base to install the plug-ins
+````yaml
+Jenkins:
   url: http://jenkins.eazybuilder-devops.cn/jenkins/
   user: xx
   password: xxx
-  home: /var/jenkins_home  
-```
-### 第95~96行，配置mavne中lib的存储地址，平台支持maven本地仓库管理（如果不需要，可以不配置，但是参数不能删除，可以为空）  
-```yaml
+  home: /var/jenkins_home
+````
+### Lines 95~96, configure the storage address of lib in mavne, the platform supports maven local warehouse management (if not needed, you can not configure it, but the parameter cannot be deleted, it can be empty)
+````yaml
 maven:
-  local_repo: /usr/share/maven-repo  
-```  
-### 第99~108行，配置sonarqube,平台集成了sonarqube做代码质量扫描，需要配置sonarqube的地址，以及部分sonarqube api接口，如果不需要集成代码质量扫描，可以不配置  
-```yaml
+  local_repo: /usr/share/maven-repo
+````
+### Lines 99~108, configure sonarqube, the platform integrates sonarqube for code quality scanning, you need to configure the address of sonarqube, and some sonarqube api interfaces, if you do not need to integrate code quality scanning, you can not configure
+````yaml
 sonar:
   url: http://sonarqube.eazybuilder-devops.cn/sonarqube/
   user: admin
   password: admin123
-  查询sonarqube支持的语言
+  Query the languages ​​supported by sonarqube
   languagesListUrl: http://sonarqube.eazybuilder-devops.cn/api/languages/list
-  查询语言对应的规则集
+  The rule set corresponding to the query language
   qualityprofilesSearchUrl: http://sonarqube.eazybuilder-devops.cn/api/qualityprofiles/search
-  为指定项目设置默认规则集
-  qualityprofilesAddProjectUrl: http://sonarqube.eazybuilder-devops.cn/api/qualityprofiles/add_project  
-```  
-### 第110~111行，配置docker远程地址，平台使用了mavne docker plugin,制作镜像，需要配置docker远程地址，如果不使用docker，可以不配置
-```yaml
+  Set the default ruleset for the specified project
+  qualityprofilesAddProjectUrl: http://sonarqube.eazybuilder-devops.cn/api/qualityprofiles/add_project
+````
+### Lines 110~111, configure the docker remote address. The platform uses the mavne docker plugin. To make an image, you need to configure the docker remote address. If you do not use docker, you can not configure it.
+````yaml
 build:
-  docker-host: xxxxxx:2375  
-```
-### 第127-141行，配置mq信息，平台是从devops中拆出来的单独的开源工具，在与其他工具做交互时，使用的是rabbitmq,此配置项可以不配置，可以在pipeline/jenkins-client/pom.xml中删除mq的startter,但是这些配置项不能删除，  
-```yaml
+  docker-host: xxxxxx:2375
+````
+### Lines 127-141, configure mq information. The platform is a separate open source tool that was removed from devops. When interacting with other tools, rabbitmq is used. This configuration item can be left unconfigured and can be configured in pipeline/ Delete mq's starter in jenkins-client/pom.xml, but these configuration items cannot be deleted,
+````yaml
 message:
-  生产者 需求状态
+  Producer Demand Status
   ciStatusExchange: ci.status.exchange
   dtpReport: ci.ATSReceive.devqueue
   ciGuardExchange: ci.guard.exchange
@@ -117,76 +118,49 @@ message:
   returnCallbackBean:
   issNotifyFanoutExchange: eazybuilder.notify.exchange
   dtpexchange: devops.dtp.testTopic
-```
-### 第142-161行，此配置项，集成了我司自己的统一登录平台，可以不配置，参数留空
-```yaml
-统一登录portal
+````
+### Lines 142-161, this configuration item integrates our own unified login platform, you can not configure it, and leave the parameters blank
+````yaml
+Unified login portal
 portal:
   used: true
-  统一门户网站的登录地址
+  Login address of the unified portal
   loginUrl: http://upms-web.eazybuilder-devops.cn/#/login?tenantCode=MTAxNzgxNTE2MzIwNzY4
-  验签接口url
+  Signature verification interface url
   credentialsUrl: ${credentialsUrl:http://upms-web.eazybuilder-devops.cn/system/cookie}
-  获取用户相关信息
+  Get user related information
   getUserInfoUrl: ${getUserInfoUrl:http://upms-web.eazybuilder-devops.cn/system/user/getInfo}
-  获取用户所在的项目组（upms维护的群组信息）
+  Get the project group the user is in (group information maintained by upms)
   getProjectGroupUrl: ${getProjectGroupUrl:http://upms-web.eazybuilder-devops.cn/system/group/user/list/user}
-  获取子系统下当前用户所对应的菜单信息--前端请求，需要使用域名
+  Get the menu information corresponding to the current user under the subsystem--front-end request, you need to use the domain name
   getMenusForCurrentUser: ${getMenusForCurrentUser:http://upms-web.eazybuilder-devops.cn/system/resource/resourceWithMenu}
-  获取用户角色信息
+  Get user role information
   getRolesById: http://upms-web.eazybuilder-devops.cn/system/openapi/v1/role/list
-  upmsTokenRefresh: false  
+  upmsTokenRefresh: false
 upms:
   gateway:
     url: "http://upms-web.eazybuilder-devops.cn/system/openapi/v1/"
-    token: "Bearer xxxx"  
-``` 
-### 第162-173行，此配置项，集成了redmine，目前这块代码还在整理中，后续会考虑开源，可以不配置，参数留空
-```yaml
+    token: "Bearer xxxx"
+````
+### Lines 162-173, this configuration item integrates redmine. At present, this code is still being sorted out. Open source will be considered in the future. It can be left blank.
+````yaml
 redmine:
-  根据当前用户查询项目组
+  Query project group based on current user
   getProjectsUrl: http://demand-management.eazybuilder-devops.cn/demand-management/project/getProjectsByUserName
-  根据项目组查询sprints
+  Query sprints by project group
   getSprintsUrl: http://demand-management.eazybuilder-devops.cn//demand-management/api/sprints/getSprintsByProjectId
-  根据sprint 查询对应的需求
+  Query the corresponding requirements according to the sprint
   getIssuesUrl: http://demand-management.eazybuilder-devops.cn/demand-management/api/issuesTable/getIssuesBySprintId
-  根据issuesId查询明细
+  Query details based on issuesId
   getIssuesDetailUrl: http://demand-management.eazybuilder-devops.cn/demand-management/api/issuesTable/getIssueById
-  根据sprintsid查询看板信息
-  getSprintsById: http://demand-management.eazybuilder-devops.cn/demand-management/api/sprints/ 
-  ```
+  Query kanban information based on sprintsid
+  getSprintsById: http://demand-management.eazybuilder-devops.cn/demand-management/api/sprints/
+  ````
  
-### 第174-185行， 配置平台默认的代码质量阈值，需要与sonarqube配合使用，如果不需要，可以参数留空
-```yaml
-门禁默认值
+### Lines 174-185, configure the default code quality threshold of the platform, which needs to be used in conjunction with sonarqube, if not, the parameter can be left blank
+````yaml
+Access Control Default
 guard:
-  bug_blocker_name: 默认BUG阻断阈值
+  bug_blocker_name: Default bug blocking threshold
   bug_blocker_name_thresholdMin: 30
-  bug_blocker_name_thresholdMax: 100
-
-  vulner_blocker_name: 默认安全漏洞阻断阈值
-  vulner_blocker_name_thresholdMin: 30
-  vulner_blocker_name_thresholdMax: 100
-
-  code_smell_blocker_name: 默认编码规范阻断阈值
-  code_smell_blocker_name_thresholdMin: 30
-  codeSmellBlockerNameThresholdMax: 100 
-```  
-  
-### 第187-194行，配置harbor信息，平台集成了harbor，用来管理镜像，如果不需要，可以参数留空
-```yaml
-harbor:
-  url: https://registry.eazybuilder-devops.cn
-  username: xxxx
-  password: xxxx
-  addUserDefaultPwd: xxxx
-  project:
-    ## 默认设定为20GB
-    storageLimit: 21474836480  
-```
-
-### 第201-203行，配置gitlab api接口地址，平台集成了gitlab，可以执行创建mr等操作，目前这块代码还在整理中，后续会考虑开源，可以不配置，参数留空
-```yaml
-gitlabApi:
-  base_url: http://gitlab-api.eazybuilder-devops.cn	
-  ```
+  bug_blocker_name_th
