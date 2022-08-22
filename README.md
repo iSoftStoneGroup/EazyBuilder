@@ -96,7 +96,7 @@ EazyBuilder will be used with other tools in a cloud-native environment. Therefo
 
 - **The following is the WeChat QR code of the communication group, welcome to scan the code to join**
 
-<img width="400" alt="image" src="https://user-images.githubusercontent.com/1069092/184493533-23c034f0-0864-4990-8086-eb9b186ee114.JPG">
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/1069092/185724245-cde63934-18c4-46ed-8579-bbf87c17db99.JPG">
 
 
 # **Resource**
