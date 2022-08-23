@@ -5,7 +5,6 @@ import com.eazybuilder.ci.entity.devops.DevopsInit;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 
 public class DevopsInitDto extends DevopsInit implements Serializable {

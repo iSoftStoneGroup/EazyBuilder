@@ -10,9 +10,9 @@ spec:
   containers:
   - name: jnlp
   <#if project.projectType?? && project.projectType=="net">
-  image: registryxxxxx/dev/jenkins-inbound-agent
+  image: ${registryUrl}/prod/jenkins-inbound-agent-net
   <#else>
-  image: registryxxxxx/devops/jenkins-inbound-agent
+  image: ${registryUrl}/prod/jenkins-inbound-agent-java
   </#if>
     resources:
       requests:
@@ -22,6 +22,10 @@ spec:
         cpu: '5000m'
         memory: ${jenkinsLimitMeory}Mi
     volumeMounts:
+        <#if storageType?? && storageType =="local">
+        - mountPath: /home/jenkins/agent/workspace/
+          name: ci
+        </#if>
         - mountPath: /opt/ci-tool
           name: jenkins
         - mountPath: /usr/share/maven-repo
@@ -45,144 +49,31 @@ spec:
   tolerations:
   - key: "application-type"
     operator: "Equal"
-    value: ${jenkinsBuildNode}
-    effect: "NoSchedule"  
-  
-  hostAliases:
-  - hostnames:
-    - core.eazybuilder.com
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - eazybuilder.nacos-devops.com
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - jenkinsxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - ci-ingressxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - mysqlxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - redis-clusterxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - sonarqubexxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - postgresxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - sonarqubexxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - redminexxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - demand-managementxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - nexus3xxxxx
-    ip: ${jenkinsMavenUrl}
-  - hostnames:
-    - nacosxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - rabbitmqxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - rancher-suportxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - dev.login.ingress-upms.cn
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - redis-single-secretxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - redis-singlexxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - redis-single
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - redis-plat
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - redis-platxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - gitlabxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - gitlab-devxxxxx
-    ip: ${jenkinsNetworkHost}    
-  - hostnames:
-    - eazybuilder-devops.cn
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - dev.upms.swagger.hpa-cloud.com
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - registryxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - ci-test-ingressxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - ats-ui-ingressxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - jenkins.icip.cn
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - upms-webxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - upms-ci-ingressxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - cixxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - measurexxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - mysqldevxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - dtpxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - ipaas-jenkinsxxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - measure-consolexxxxx
-    ip: ${jenkinsNetworkHost}
-  - hostnames:
-    - mysqldevxxxxx
-    ip: ${jenkinsNetworkHost}
-  <#if jenkinsTeamGitlabUrl?? && jenkinsTeamGitlabUrl !="">    
+    value: ${project.team.code}-jenkins
+    effect: "NoSchedule"
+  <#if jenkinsTeamGitlabUrl?? && jenkinsTeamGitlabUrl !="">
   - hostnames:
     - ${jenkinsTeamGitlabUrl}
-    ip: ${jenkinsTeamGitlabHost}    
-  </#if>    
+    ip: ${jenkinsTeamGitlabHost}
+  </#if>
   serviceAccount: nfs-client-provisioner
   serviceAccountName: nfs-client-provisioner
   terminationGracePeriodSeconds: 30
   volumes:
-  
-  <#if jenkinsPathType?? && jenkinsPathType =="host">
+    <#if storageType?? && storageType =="local">
+    - name: ci
+      hostPath:
+        path: ${k8sYamlPath}
+    </#if>
+    <#if jenkinsWorkType?? && jenkinsWorkType =="host">
     - name: jenkins
       hostPath:
-        path: ${jenkinsDataPath} 
-  <#else>
+        path: ${jenkinsWorkPath}
+    <#else>
     - name: jenkins
       persistentVolumeClaim:
-        claimName: ${jenkinsDataPath}  
-  </#if>
-
+        claimName: ${jenkinsWorkPath}
+    </#if>
     - name: bin-path
       hostPath:
         path: /usr/local/bin/kubectl

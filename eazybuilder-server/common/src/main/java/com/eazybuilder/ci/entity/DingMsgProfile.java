@@ -1,7 +1,5 @@
 package com.eazybuilder.ci.entity;
 
-import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 
 /**
@@ -24,6 +22,10 @@ public class DingMsgProfile {
 	 * redmine 新增任务
 	 */
 	private boolean issuesAdd;
+	/**
+	 * 流水线通知类 钉钉推送
+	 */
+	private boolean pipelineDingTalk;
 	/**
 	 * 流水线通知类 仅失败发送
 	 */

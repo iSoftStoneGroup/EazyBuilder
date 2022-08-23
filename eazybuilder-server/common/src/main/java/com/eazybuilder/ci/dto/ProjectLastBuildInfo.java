@@ -102,7 +102,6 @@ public class ProjectLastBuildInfo {
 		this.jenkinsUrl = jenkinsUrl;
 	}
 
-
 	public String getSonarUrl() {
 		return sonarUrl;
 	}

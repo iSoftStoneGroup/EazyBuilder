@@ -122,6 +122,10 @@ public class Project extends BaseEntry{
 
 	private NetType netType;
 
+	private String sqlPath;
+
+	private SqlType sqlType;
+
 	@Column(name="eazybuilder_ejb_project",columnDefinition="int(1) default 0")
 	private boolean eazybuilderEjbProject;
 	
@@ -150,7 +154,7 @@ public class Project extends BaseEntry{
 	@NotFound(action=NotFoundAction.IGNORE)
 	private DockerRegistry registry;
 	/**
-	 * 镜像仓库中的命名空间(例如0.0.0.0:5000/ci/xxx  命名空间即为ci)
+	 * 镜像仓库中的命名空间(例如${registry_IP}:5000/ci/xxx  命名空间即为ci)
 	 */
 	private String imageSchema;
 	
@@ -180,6 +184,13 @@ public class Project extends BaseEntry{
 	@Transient
 	@JsonIgnore(false)
 	private PipelineProfile profile;
+
+
+	/**
+	 * 自定义
+	 * 对应mvn命令后的-D参数，多个请用空格分隔
+	 */
+	private String buildProperty;
 
 	public DeployType getDeployType() {
 		return deployType;
@@ -279,10 +290,10 @@ public class Project extends BaseEntry{
 	public void setImageSchema(String imageSchema) {
 		this.imageSchema = imageSchema;
 	}
-	public boolean isEazybuilderEjbProject() {
+	public boolean iseazybuilderEjbProject() {
 		return eazybuilderEjbProject;
 	}
-	public void setEazybuilderEjbProject(boolean eazybuilderEjbProject) {
+	public void seteazybuilderEjbProject(boolean eazybuilderEjbProject) {
 		this.eazybuilderEjbProject = eazybuilderEjbProject;
 	}
 	public PipelineProfile getDefaultProfile() {
@@ -309,10 +320,10 @@ public class Project extends BaseEntry{
 	public void setPomPath(String pomPath) {
 		this.pomPath = pomPath;
 	}
-	public boolean iseazybuilderStyleProject() {
+	public boolean isEazybuilderStyleProject() {
 		return eazybuilderStyleProject;
 	}
-	public void seteazybuilderStyleProject(boolean eazybuilderStyleProject) {
+	public void setEazybuilderStyleProject(boolean eazybuilderStyleProject) {
 		this.eazybuilderStyleProject = eazybuilderStyleProject;
 	}
 	public String getCodeCharset() {
@@ -519,6 +530,30 @@ public class Project extends BaseEntry{
 
 	public void setNetTestPath(String netTestPath) {
 		this.netTestPath = netTestPath;
+	}
+
+	public String getBuildProperty() {
+		return buildProperty;
+	}
+
+	public void setBuildProperty(String buildProperty) {
+		this.buildProperty = buildProperty;
+	}
+
+	public String getSqlPath() {
+		return sqlPath;
+	}
+
+	public void setSqlPath(String sqlPath) {
+		this.sqlPath = sqlPath;
+	}
+
+	public SqlType getSqlType() {
+		return sqlType;
+	}
+
+	public void setSqlType(SqlType sqlType) {
+		this.sqlType = sqlType;
 	}
 
 	@Override

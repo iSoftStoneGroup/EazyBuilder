@@ -3,7 +3,6 @@ package com.eazybuilder.ci.entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.persistence.*;
 
@@ -14,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.google.common.collect.Lists;
 import com.eazybuilder.ci.constant.RoleEnum;
 import org.springframework.util.Assert;
-import org.springframework.util.CollectionUtils;
 
 @Entity
 @Table(name="CI_USER")

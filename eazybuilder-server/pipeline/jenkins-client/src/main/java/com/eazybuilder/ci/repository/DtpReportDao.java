@@ -1,7 +1,6 @@
 package com.eazybuilder.ci.repository;
 
 import com.eazybuilder.ci.entity.DtpReport;
-import com.eazybuilder.ci.entity.pipeline.CIPackage;
 import org.springframework.stereotype.Repository;
 
 @Repository

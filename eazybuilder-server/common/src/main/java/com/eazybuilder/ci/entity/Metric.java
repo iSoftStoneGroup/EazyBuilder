@@ -17,7 +17,6 @@ import com.eazybuilder.ci.constant.MetricType;
 
 /**
  * 质量统计信息
- *
  */
 @Entity
 @Table(name="CI_METRIC")

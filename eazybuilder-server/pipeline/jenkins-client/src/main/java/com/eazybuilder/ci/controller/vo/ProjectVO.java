@@ -5,6 +5,7 @@ import com.eazybuilder.ci.entity.ProjectType;
 /**
  * 用于批量导入工程信息的VO
  *
+ *
  */
 public class ProjectVO {
 	private String id;
@@ -65,16 +66,16 @@ public class ProjectVO {
 	public void setPomPath(String pomPath) {
 		this.pomPath = pomPath;
 	}
-	public boolean isEazybuilderEjbProject() {
+	public boolean iseazybuilderEjbProject() {
 		return eazybuilderEjbProject;
 	}
-	public void setEazybuilderEjbProject(boolean eazybuilderEjbProject) {
+	public void seteazybuilderEjbProject(boolean eazybuilderEjbProject) {
 		this.eazybuilderEjbProject = eazybuilderEjbProject;
 	}
-	public boolean iseazybuilderStyleProject() {
+	public boolean isEazybuilderStyleProject() {
 		return eazybuilderStyleProject;
 	}
-	public void seteazybuilderStyleProject(boolean eazybuilderStyleProject) {
+	public void setEazybuilderStyleProject(boolean eazybuilderStyleProject) {
 		this.eazybuilderStyleProject = eazybuilderStyleProject;
 	}
 	public String getCodeCharset() {

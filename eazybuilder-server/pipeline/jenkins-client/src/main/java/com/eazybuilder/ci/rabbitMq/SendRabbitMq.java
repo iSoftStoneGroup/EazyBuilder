@@ -39,7 +39,7 @@ public class SendRabbitMq {
     public String ciStatusExchange;
     
     @Value("${message.issNotifyFanoutExchange}")
-    public String issNotifyFanoutExchange;    
+    public String issNotifyFanoutExchange;
     
 
     /**
@@ -113,7 +113,7 @@ public class SendRabbitMq {
                     if(null!=user) {
                         issuesStatusDto.setUserName(user.getEmail().split("@")[0]);
                     }else{
-                        issuesStatusDto.setUserName("demo");
+                        issuesStatusDto.setUserName("kunyangu");
                     }
                     data.add(issuesStatusDto);
                 }
@@ -124,7 +124,7 @@ public class SendRabbitMq {
                 if(null!=user) {
                     issuesStatusDto.setUserName(user.getEmail().split("@")[0]);
                 }else{
-                    issuesStatusDto.setUserName("demo");
+                    issuesStatusDto.setUserName("kunyangu");
                 }
                 data.add(issuesStatusDto);
             }

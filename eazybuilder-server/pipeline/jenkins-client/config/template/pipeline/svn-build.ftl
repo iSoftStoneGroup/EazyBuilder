@@ -1,4 +1,4 @@
-<#if project.projectType??&&project.projectType=="npm">
+<#if project.projectType??&&project.projectType=="npm" && !project.profile.skipMvnBuild>
                 stage('npm build') {
                         steps {
                            //get svn revision and build
@@ -13,7 +13,7 @@
                             echo '========npm build end========'
                         }
                 }
-            <#elseif project.legacyProject && project.profile?? && buildParam?? && buildParam != "" && buildParam?starts_with("ant ")>
+            <#elseif project.legacyProject && project.profile?? && buildParam?? && buildParam != "" && buildParam?starts_with("ant ") && !project.profile.skipMvnBuild>
                 //build ANT project 
                 stage('ant build') {
                         steps {
@@ -34,7 +34,7 @@
                             }
                         }
                 }
-            <#else>
+            <#elseif !project.profile.skipMvnBuild>
                     <#if project.legacyProject>
                     stage('convert legacy project'){
                         steps {

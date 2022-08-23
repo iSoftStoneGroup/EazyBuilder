@@ -43,7 +43,6 @@ import com.eazybuilder.ci.maven.POMDecorator;
            </plugin>
         </plugins>
     </build>
- *
  */
 public class DockerPluginDecorator implements POMDecorator{
 

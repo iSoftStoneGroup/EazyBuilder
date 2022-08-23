@@ -10,12 +10,14 @@ import com.eazybuilder.ci.entity.devops.*;
 import com.eazybuilder.ci.rabbitMq.SendRabbitMq;
 import com.eazybuilder.ci.repository.ReleaseDao;
 import com.eazybuilder.ci.util.AuthUtils;
+import com.eazybuilder.ci.util.DingtalkWebHookUtil;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -41,8 +43,10 @@ public class ReleaseService extends AbstractCommonServiceImpl<ReleaseDao, Releas
     ReleaseProjectService releaseProjectService;
     @Resource
     PipelineProfileService pipelineProfileService;
-
-
+    @Resource
+    UserService userService;
+    @Resource
+    TeamServiceImpl teamService;
     
 
 
@@ -264,6 +268,36 @@ public class ReleaseService extends AbstractCommonServiceImpl<ReleaseDao, Releas
             entity.setReleaseStatus(Status.ABORTED);
         }
         dao.save(entity);
+    }
+
+    public  void  sendDingTalkAfterPassedRease(Release entity) {
+        List<User> byUserName = userService.findByUserName(entity.getReleaseUserName());
+        Assert.notEmpty(byUserName,"根据提测申请人姓名【 "+entity.getReleaseUserName()+" 】查询用户信息未找到！");
+        User user = byUserName.get(0);
+        List<String> emails = Arrays.asList(user.getEmail());
+        StringBuilder sb=new StringBuilder();
+        sb.append("**").append("提测标题:").append("**").append(entity.getTitle()).append("\n");
+        sb.append("\n");
+        sb.append("**").append("提测申请号:").append("**").append(null!=entity.getReleaseCode()?entity.getReleaseCode():"获取失败！").append("\n");
+        sb.append("\n");
+        sb.append("**").append("审批人:").append("**").append(entity.getBatchUserName()).append("\n");
+        sb.append("\n");
+        String title=null;
+        MsgProfileType msgProfileType=null;
+        if(Status.SUCCESS == entity.getBatchStatus()){
+            sb.append("**").append("审批状态:").append("**").append("通过！");
+            title="申请提测已通过";
+            sb.append(title).append("请及时处理后续流程！").append("\n");
+            msgProfileType=MsgProfileType.releasePass;
+        }else {
+            sb.append("**").append("审批状态:").append("**").append("未通过！").append("\n");
+            title="申请提测未通过";
+            sb.append("\n");
+            sb.append("**").append("原因如下:").append("**").append( StringUtils.isNotBlank(entity.getBatchDetail()) ? entity.getBatchDetail():"无！" );
+            msgProfileType=MsgProfileType.releaseRefused;
+        }
+        Team team = teamService.findOne(entity.getTeamId() + "");
+        DingtalkWebHookUtil.sendDingtalkPrivateMsgBymq(title,sb.toString(),team.getCode(),emails,msgProfileType,sendRabbitMq);
     }
 
 

@@ -5,6 +5,7 @@ import com.eazybuilder.ci.entity.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+
 @Entity
 @Table(name="CI_DEVOPS_PROJECT")
 public class DevopsProject implements Serializable{
@@ -42,8 +43,12 @@ public class DevopsProject implements Serializable{
 
 	private NetType netType;
 
+	private String sqlPath;
+
+	private SqlType sqlType;
+
 	/**
-	 * 镜像仓库中的命名空间(例如0.0.0.0:5000/ci/xxx  命名空间即为ci)
+	 * 镜像仓库中的命名空间(例如${registry_IP}:5000/ci/xxx  命名空间即为ci)
 	 */
 	private String imageSchema;
 
@@ -171,6 +176,22 @@ public class DevopsProject implements Serializable{
 		this.netType = netType;
 	}
 
+	public String getSqlPath() {
+		return sqlPath;
+	}
+
+	public void setSqlPath(String sqlPath) {
+		this.sqlPath = sqlPath;
+	}
+
+	public SqlType getSqlType() {
+		return sqlType;
+	}
+
+	public void setSqlType(SqlType sqlType) {
+		this.sqlType = sqlType;
+	}
+
 	//TODO 待修改，如果都是用Project的话，代码可删除
 	public void update(Project project){
 		this.scmUrl = project.getScm().getUrl();
@@ -182,5 +203,7 @@ public class DevopsProject implements Serializable{
 		this.netSlnPath = project.getNetSlnPath();
 		this.netTestPath = project.getNetTestPath();
 		this.netType = project.getNetType();
+		this.sqlPath = project.getSqlPath();
+		this.sqlType = project.getSqlType();
 	}
 }

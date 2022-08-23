@@ -52,9 +52,9 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
 	private ApiInfo apiInfo() {
 		ApiInfo apiInfo = new ApiInfo(
-                "eazybuilder持续集成系统-SQL扫描模块REST API接口",
+                "Eazybuilder持续集成系统-SQL扫描模块REST API接口",
                 "",
-                "©2002-"+LocalDate.now().getYear()+" 软通动力", 
+                "",
                 "", 
                 "",
                 "");

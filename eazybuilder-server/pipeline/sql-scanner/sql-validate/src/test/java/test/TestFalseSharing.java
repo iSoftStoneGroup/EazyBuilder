@@ -27,10 +27,6 @@ duration = 1526198912
 duration = 1248551659
 duration = 1668061280
 duration = 1408059581
-
- * 
- * 
-
  *
  */
 public class TestFalseSharing implements Runnable{

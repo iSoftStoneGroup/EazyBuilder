@@ -112,6 +112,8 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
                                         if(rabbitmqData.containsKey("code")){
                                             projectBuildVo.setRedmineCode(rabbitmqData.getString("code"));
                                         }
+                                        projectBuildVo.setGitlabApiUrl(rabbitmqData.getString("gitPath"));
+                                        projectBuildVo.setEncodedUrl(projectBuildVo.getGitlabApiUrl());
                                         if(rabbitmqData.containsKey("userName")){
                                             String redmineUser = rabbitmqData.getString("userName");
                                             //gitlab推过来的用户信息有时候是中文、有时候是英文。英文可以直接发送邮件，中文需要调接口查询

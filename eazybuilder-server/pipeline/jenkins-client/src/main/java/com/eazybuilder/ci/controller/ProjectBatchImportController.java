@@ -2,6 +2,7 @@ package com.eazybuilder.ci.controller;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.tmatesoft.svn.core.SVNException;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.excel.annotation.ExcelProperty;
@@ -21,14 +23,18 @@ import com.alibaba.excel.metadata.CellData;
 import com.alibaba.excel.metadata.GlobalConfiguration;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.eazybuilder.ci.controller.vo.ProjectVO;
 import com.eazybuilder.ci.controller.vo.ScmVO;
 import com.eazybuilder.ci.entity.Project;
 import com.eazybuilder.ci.entity.ProjectType;
+import com.eazybuilder.ci.entity.Scm;
 import com.eazybuilder.ci.entity.ScmType;
 import com.eazybuilder.ci.service.ProjectService;
+import com.eazybuilder.ci.svn.DisplayRepositoryTree;
+import com.eazybuilder.ci.svn.ProjectSourceInfo;
 import com.eazybuilder.ci.util.AsyncTaskTracker;
-
+import com.eazybuilder.ci.util.AsyncTaskTracker.TaskTracker;
 
 
 @RestController
@@ -44,7 +50,50 @@ public class ProjectBatchImportController {
 	public List<ProjectVO> storeResource(@RequestParam("uploadfile")MultipartFile request) throws Exception{
 		return parseBatchProject(request.getInputStream());
 	}
-
+	
+	@RequestMapping(value="/scanSvn",method=RequestMethod.POST)
+	public Map<String,String> scanSvn(@RequestBody Scm scm){
+		//异步执行
+		String taskUid=taskTracker.submitTask(new TaskTracker<List<Project>>(){
+			@Override
+			public List<Project> doRun() {
+				List<Project> prjs=Lists.newArrayList();
+				try {
+					List<ProjectSourceInfo> psis=DisplayRepositoryTree
+							.list(scm.getUrl(), scm.getUser(), scm.getPassword(),logQueue);
+					if(psis!=null){
+						psis.forEach(psi->{
+							Project project=new Project();
+							project.setName(scm.getName()+"_"+psi.getName());
+							project.setDescription(scm.getName()+"_"+psi.getName());
+							project.setLegacyProject(!psi.isMaven());
+							project.seteazybuilderEjbProject(false);
+							project.setSrcPath(psi.getSrcPath());
+							project.setLibPath(psi.getLibPath());
+							project.setProjectType(psi.getProjectType());
+							Scm projectScm=new Scm();
+							projectScm.setUrl(scm.getUrl()+"/"+psi.getProjectPath());
+							projectScm.setType(ScmType.svn);
+							projectScm.setUser(scm.getUser());
+							projectScm.setPassword(scm.getPassword());
+							project.setScm(projectScm);
+							
+							prjs.add(project);
+						});
+					}
+					
+				} catch (SVNException e) {
+					logQueue.add("执行异常:"+e.getMessage());
+				}
+				return prjs;
+			}
+		});
+		Map<String,String> result=Maps.newHashMap();
+		result.put("uid", taskUid);
+		return result;
+	}
+	
+	
 	@RequestMapping(method=RequestMethod.POST)
 	public List<ProjectImportResult> importResult(@RequestBody List<Project> projects){
 		List<ProjectImportResult> results=Lists.newArrayList();

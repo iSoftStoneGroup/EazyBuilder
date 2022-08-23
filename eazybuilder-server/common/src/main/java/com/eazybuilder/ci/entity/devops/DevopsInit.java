@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
 @Entity
 @Table(name="CI_DEVEOPS_TEAM")
 @Where(clause = "IS_DEL = 0 or IS_DEL is null")
@@ -64,6 +65,11 @@ public class DevopsInit extends BaseEntry implements Serializable{
 	 */
 	private  String teamCode;
 
+	/**
+	 * 需求管理平台
+	 */
+	private String projectManage;
+
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@NotFound(action= NotFoundAction.IGNORE)
 	private Set<TeamNamespace> teamNamespaces;
@@ -103,6 +109,14 @@ public class DevopsInit extends BaseEntry implements Serializable{
 
 	public void setTeamCode(String teamCode) {
 		this.teamCode = teamCode;
+	}
+
+	public String getProjectManage() {
+		return projectManage;
+	}
+
+	public void setProjectManage(String projectManage) {
+		this.projectManage = projectManage;
 	}
 
 	public List<DevopsProject> getDevopsProjects() {

@@ -24,14 +24,20 @@ import com.eazybuilder.ci.entity.Project;
 import com.eazybuilder.ci.entity.report.Report;
 import com.eazybuilder.ci.entity.report.Summary;
 import com.eazybuilder.ci.entity.report.Type;
+
+import com.eazybuilder.ci.config.LoadConfigYML;
+import java.util.Properties;
+
 public class SonarAnalysisCollector implements ReportCollector{
 	private static Logger logger=LoggerFactory.getLogger(SonarAnalysisCollector.class);
+
+	private static Properties properties = new LoadConfigYML().getConfigProperties();
+
+	String serverUrl=System.getProperty("sonar.url", properties.getProperty("sonarqube.serverUrl"));
 	
-	String serverUrl=System.getProperty("sonar.url", "http://sonarqubexxxxx");
+	String user=System.getProperty("sonar.user", properties.getProperty("sonarqube.user"));
 	
-	String user=System.getProperty("sonar.user", "admin");
-	
-	String password=System.getProperty("sonar.password", "admin123");
+	String password=System.getProperty("sonar.password",properties.getProperty("sonarqube.password"));
 
 	String projectTagName=System.getProperty("project.tagName", "master");
 	

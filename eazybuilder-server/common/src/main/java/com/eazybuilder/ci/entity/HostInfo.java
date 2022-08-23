@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 /**
  * 主机信息
+ *
+ *
  */
 @Entity
 @Table(name="CI_HOST_INFO")

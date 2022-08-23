@@ -61,7 +61,7 @@ public class RedmineService {
         if(email.contains("@")) {
             userName = email.substring(0, email.indexOf("@"));
         }else {
-            userName = "demo";
+            userName = "kunyangu";
         }
         logger.info("调用redmine查询项目组开始 Url:{} param:{}",getProjectsUrl,userName);
         String data = HttpUtil.getJson(getProjectsUrl, "userName="+userName);
@@ -82,7 +82,7 @@ public class RedmineService {
             logger.info("调用redmine查询spring结束{}", data);
             redisTemplate.opsForValue().set(REDMINESPRINTTEAM +teamId, data);
             //一小时。
-            redisTemplate.expire(REDMINESPRINTTEAM +teamId, 36000, TimeUnit.SECONDS);
+            redisTemplate.expire(REDMINESPRINTTEAM +teamId, 60, TimeUnit.MINUTES);
         }
         JSONObject jsonObject = JSONObject.fromObject(data);
         JSONArray listData = jsonObject.getJSONArray("data");
@@ -101,7 +101,7 @@ public class RedmineService {
             logger.info("调用redmine查询issues结束{}", data);
             redisTemplate.opsForValue().set(REDMINEISSUE+sprintId, data);
             //一小时。
-            redisTemplate.expire(REDMINEISSUE+sprintId, 36000, TimeUnit.SECONDS);
+            redisTemplate.expire(REDMINEISSUE+sprintId, 60, TimeUnit.MINUTES);
         }
         com.alibaba.fastjson.JSONArray listData = com.alibaba.fastjson.JSONObject.parseObject(data).getJSONArray("data");
         List<RedmineIssues> dataArr = com.alibaba.fastjson.JSONArray.parseArray(listData.toJSONString(), RedmineIssues.class);
@@ -116,7 +116,7 @@ public class RedmineService {
         logger.info("调用redmine查询issues结束{}", data);
         redisTemplate.opsForValue().set(key, data);
         //一小时。
-        redisTemplate.expire(key, 60, TimeUnit.SECONDS);
+        redisTemplate.expire(key, 60, TimeUnit.MINUTES);
         com.alibaba.fastjson.JSONArray listData = com.alibaba.fastjson.JSONObject.parseObject(data).getJSONArray("data");
         List<RedmineIssues> dataArr = com.alibaba.fastjson.JSONArray.parseArray(listData.toJSONString(), RedmineIssues.class);
         return dataArr;
@@ -175,7 +175,7 @@ public class RedmineService {
             logger.info("调用redmine查询看板信息结束{}",data);
             redisTemplate.opsForValue().set(REDMINESPRINTID +springId, data);
             //一周。
-            redisTemplate.expire(REDMINESPRINTID +springId, 1530000, TimeUnit.SECONDS);
+            redisTemplate.expire(REDMINESPRINTID +springId, 60*24*7, TimeUnit.SECONDS);
         }
         com.alibaba.fastjson.JSONObject jsonObject = com.alibaba.fastjson.JSONObject.parseObject(data).getJSONObject("data");
         return jsonObject;

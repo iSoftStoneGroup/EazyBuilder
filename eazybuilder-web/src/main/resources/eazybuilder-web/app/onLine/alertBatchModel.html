@@ -1,0 +1,57 @@
+<div class="modal">
+	<div class="modal-dialog large" style="width: 65vw;height:40vw;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">审批建议</h4>
+			</div>
+			<div class="modal-body" align="center">
+				<form class="form-horizontal" name="dataForm">
+					<div class="form-group" >
+						<label class="col-sm-2 control-label">审批建议:</label>
+						<div class="col-sm-10">
+							<textarea  class="form-control" ng-model="entity.batchDetail"  rows="5"></textarea>
+						</div>
+					</div>
+					<div class="form-group" ng-show="entity.batchStatus=='SUCCESS'">
+						<label class="col-sm-2 control-label">指定执行人:</label>
+						<div class="col-sm-2">
+							<div class="btn-group pull-left col-xs-12 select-multiple" style="padding:0 0;height:12vw;">
+								<!-- fix around style for this multiple select -->
+								<style>
+									div.select-multiple > ul, div.select-multiple > ul > li,div.select-multiple > ul > li >a{
+										background-color:#fff !important;
+										color:#000;
+									}
+									div.select-multiple > ul > li >a:hover{
+										background-color:#ddd !important;
+										color:#000;
+									}
+									.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+										background-color: #ffffff !important;
+										color:#000;
+									}
+								</style>
+								<select class="show-tick form-control"
+										ng-options="member.id as member.name for member in members" ng-model="entity.memberId"
+										data-selectpicker >
+								</select>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="modal-footer">
+				<div class="col-sm-offset-3 col-sm-9">
+					<div class="col-sm-4">
+						<button class="btn btn-primary" ng-click="confirmAdd()"
+								ng-disabled="dataForm.$invalid">确定</button>
+					</div>
+					<div class="col-sm-4">
+						<button class="btn btn-default" ng-click="closeModal()">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

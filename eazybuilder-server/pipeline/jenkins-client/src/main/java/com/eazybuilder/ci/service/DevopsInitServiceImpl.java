@@ -197,6 +197,8 @@ public class DevopsInitServiceImpl extends AbstractCommonServiceImpl<DevopsInitD
                 project.setNetSlnPath(devopsProject.getNetSlnPath());
                 project.setNetTestPath(devopsProject.getNetTestPath());
                 project.setNetType(devopsProject.getNetType());
+                project.setSqlPath(devopsProject.getSqlPath());
+                project.setSqlType(devopsProject.getSqlType());
                 project.setLegacyProject(devopsProject.isLegacyProject());
                 project.setTeam(team);
                 project.setDeployType(DeployType.k8s);

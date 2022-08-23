@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.*;
 import org.springframework.stereotype.Component;
@@ -22,7 +22,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.eazybuilder.ci.entity.User;
 import com.eazybuilder.ci.util.AuthUtils;
 
+import static de.regnis.q.sequence.core.QSequenceAssert.assertNotNull;
 
+
+@RefreshScope
 @Component
 public class QueryUpmsData {
 	// upms网关地址
@@ -100,6 +103,8 @@ public class QueryUpmsData {
 			String api = "role/list";
 			HttpEntity<JSONObject> jsonObject = restTemplate.exchange(gatewayUrl + api + "?userIds=" + userId, HttpMethod.GET, new HttpEntity<>(upmsHeader),
 					JSONObject.class);
+
+			assertNotNull(jsonObject.getBody());
 			logger.info("返回：{}", jsonObject.getBody());
 
 			return jsonObject.getBody();
@@ -169,7 +174,9 @@ public class QueryUpmsData {
 
 	}
 
-
+	/**
+	 * 获取项目组列表
+	 */
 	public String getGroupList() {
 		try {
 			if (Boolean.TRUE.equals(redisTemplate.hasKey(GROUPCACHE))) {
@@ -214,6 +221,11 @@ public class QueryUpmsData {
 
 	/**
 	 * 查询一个项目组下的人员
+	 *
+	 * @return:{groupId=107533985382400, tenantId=101781516320768,
+	 *                                   groupName=DevOps项目组, users=[{userId=17760,
+	 *                                   tenantId=101781516320768, userName=张三,
+	 *                                   nickName=, email=zzz@eazybuilder.com}]}
 	 *
 	 */
 	public String getGroup(String groupId) {

@@ -15,10 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.eazybuilder.ci.entity.User;
 
-/**
- * token验证
- *
- */
+
 @Component
 public class AccessTokenService {
 	Logger logger= LoggerFactory.getLogger(this.getClass());

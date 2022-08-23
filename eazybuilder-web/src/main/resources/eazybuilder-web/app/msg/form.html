@@ -1,0 +1,1028 @@
+<div class="modal" id="custom-modal">
+    <div class="modal-dialog large"  style="width: 70vw;margin-left:300px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">自定义构建配置</h4>
+            </div>
+            <div class="modal-body" style="max-height: 80vh;overflow-y: auto;">
+                <div class="content-block">
+                    <form class="form-horizontal" name="form" >
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">消息类型设置:</label>
+                            <div class="col-sm-8">
+                                <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <button  type="button" class="btn btn-md btn-default"
+                                             ng-click="entity.msgType= 'mail'"
+                                             ng-class="{'btn-success':entity.msgType == 'mail' }">邮件推送
+                                    </button>
+                                    <button  type="button" class="btn btn-md btn-default"
+                                             ng-click="entity.msgType= 'ding'"
+                                             ng-class="{'btn-success':entity.msgType == 'ding' }">钉钉推送
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div ng-if="entity.msgType=='ding'">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">钉钉群机器人链接:</label>
+                                <div class="col-sm-8">
+                                    <input type="text"  class="form-control" ng-model="entity.dingWebHookUrl" placeholder="非必输，如果输入了，会根据该信息在钉钉群发送消息"/>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-if="entity.dingWebHookUrl">
+                                <label class="col-sm-2 control-label">钉钉群机器人密钥:</label>
+                                <div class="col-sm-8">
+                                    <input type="text"  class="form-control" ng-model="entity.dingSecret" placeholder="钉钉机器人密钥可以更好的保证数据安全性，但前提是用户开启了密钥"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">流水线通知类</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">钉钉通知:</label>
+                                            <div class="col-sm-6" style="padding-left: 7px;">
+                                                <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.pipelineDingTalk= false"
+                                                             ng-class="{'btn-success':!entity.dingMsgProfile.pipelineDingTalk}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.pipelineDingTalk= true"
+                                                             ng-class="{'btn-success':entity.dingMsgProfile.pipelineDingTalk}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">正反正脚本执行确认:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.sqlScript=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.sqlScript}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.sqlScript=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.sqlScript}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">红灯发送:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.focusRedlightRepair=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.focusRedlightRepair}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.focusRedlightRepair=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.focusRedlightRepair}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">红灯提醒间隔:</label>
+                                            <div class="col-sm-6">
+                                                <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">
+                                                    <input type="text"  class="form-control" ng-model="entity.dingMsgProfile.focusRedlightRepairConfig" placeholder="流水线失败后会发送三次消息提醒，可以设置提醒时间间隔"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">redmine需求变更类</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">新增需求:</label>
+                                            <div class="col-sm-6">
+                                                <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.issuesAdd=true"
+                                                             ng-class="{'btn-success':entity.dingMsgProfile.issuesAdd}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.issuesAdd=false"
+                                                             ng-class="{'btn-danger':!entity.dingMsgProfile.issuesAdd}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">需求状态更新:</label>
+                                            <div class="col-sm-6">
+                                                <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.issuesStatusUpdate=true"
+                                                             ng-class="{'btn-success':entity.dingMsgProfile.issuesStatusUpdate}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.issuesStatusUpdate=false"
+                                                             ng-class="{'btn-danger':!entity.dingMsgProfile.issuesStatusUpdate}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--        <div class="panel panel-info">-->
+                                <!--            <div class="panel-heading">-->
+                                <!--                <h3 class="panel-title">自动化测试通知类</h3>-->
+                                <!--            </div>-->
+                                <!--            <div class="panel-body">-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">性能测试:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.dtpPerformanceTest=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.dtpPerformanceTest}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.dtpPerformanceTest=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.dtpPerformanceTest}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">web ui测试:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.dtpWebUiTest=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.dtpWebUiTest}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.dtpWebUiTest=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.dtpWebUiTest}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">接口测试:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.dtpApiTest=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.dtpApiTest}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.dtpApiTest=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.dtpApiTest}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">安全测试:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.dtpSecurityTest=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.dtpSecurityTest}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.dtpSecurityTest=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.dtpSecurityTest}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--            </div>-->
+                                <!--        </div>-->
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">gitlab事件类</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">代码提交:</label>
+                                            <div class="col-sm-6">
+                                                <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.push=true"
+                                                             ng-class="{'btn-success':entity.dingMsgProfile.push}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.push=false"
+                                                             ng-class="{'btn-danger':!entity.dingMsgProfile.push}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">合并申请:</label>
+                                            <div class="col-sm-6">
+                                                <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.mergeApply=true"
+                                                             ng-class="{'btn-success':entity.dingMsgProfile.mergeApply}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.mergeApply=false"
+                                                             ng-class="{'btn-danger':!entity.dingMsgProfile.mergeApply}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">合并关闭:</label>
+                                            <div class="col-sm-6">
+                                                <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.mergeRefused=true"
+                                                             ng-class="{'btn-success':entity.dingMsgProfile.mergeRefused}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.mergeRefused=false"
+                                                             ng-class="{'btn-danger':!entity.dingMsgProfile.mergeRefused}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">合并通过:</label>
+                                            <div class="col-sm-6">
+                                                <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.mergePass=true"
+                                                             ng-class="{'btn-success':entity.dingMsgProfile.mergePass}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.mergePass=false"
+                                                             ng-class="{'btn-danger':!entity.dingMsgProfile.mergePass}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">提测类</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-group col-sm-6">
+                                                    <label class="col-sm-6 control-label">申请提测提醒:</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.releaseApply=true"
+                                                                     ng-class="{'btn-success':entity.dingMsgProfile.releaseApply}">开启
+                                                            </button>
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.releaseApply=false"
+                                                                     ng-class="{'btn-danger':!entity.dingMsgProfile.releaseApply}">关闭
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+<!--                                                <div class="form-group col-sm-6">-->
+<!--                                                    <label class="col-sm-6 control-label">提测申请提醒:</label>-->
+<!--                                                    <div class="col-sm-6">-->
+<!--                                                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+<!--                                                            <button  type="button" class="btn btn-md btn-default"-->
+<!--                                                                     ng-click="entity.dingMsgProfile.releaseWait=true"-->
+<!--                                                                     ng-class="{'btn-success':entity.dingMsgProfile.releaseWait}">开启-->
+<!--                                                            </button>-->
+<!--                                                            <button  type="button" class="btn btn-md btn-default"-->
+<!--                                                                     ng-click="entity.dingMsgProfile.releaseWait=false"-->
+<!--                                                                     ng-class="{'btn-danger':!entity.dingMsgProfile.releaseWait}">关闭-->
+<!--                                                            </button>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                                <div class="form-group col-sm-6">
+                                                    <label class="col-sm-6 control-label">通过提醒:</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.releasePass=true"
+                                                                     ng-class="{'btn-success':entity.dingMsgProfile.releasePass}">开启
+                                                            </button>
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.releasePass=false"
+                                                                     ng-class="{'btn-danger':!entity.dingMsgProfile.releasePass}">关闭
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label class="col-sm-6 control-label">拒绝提醒:</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.releaseRefused=true"
+                                                                     ng-class="{'btn-success':entity.dingMsgProfile.releaseRefused}">开启
+                                                            </button>
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.releaseRefused=false"
+                                                                     ng-class="{'btn-danger':!entity.dingMsgProfile.releaseRefused}">关闭
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">上线类</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-group col-sm-6">
+                                                    <label class="col-sm-6 control-label">申请上线提醒:</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.onlineApply=true"
+                                                                     ng-class="{'btn-success':entity.dingMsgProfile.onlineApply}">开启
+                                                            </button>
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.onlineApply=false"
+                                                                     ng-class="{'btn-danger':!entity.dingMsgProfile.onlineApply}">关闭
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+<!--                                                <div class="form-group col-sm-6">-->
+<!--                                                    <label class="col-sm-6 control-label">待审批提醒:</label>-->
+<!--                                                    <div class="col-sm-6">-->
+<!--                                                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+<!--                                                            <button  type="button" class="btn btn-md btn-default"-->
+<!--                                                                     ng-click="entity.dingMsgProfile.onlineWait=true"-->
+<!--                                                                     ng-class="{'btn-success':entity.dingMsgProfile.onlineWait}">开启-->
+<!--                                                            </button>-->
+<!--                                                            <button  type="button" class="btn btn-md btn-default"-->
+<!--                                                                     ng-click="entity.dingMsgProfile.onlineWait=false"-->
+<!--                                                                     ng-class="{'btn-danger':!entity.dingMsgProfile.onlineWait}">关闭-->
+<!--                                                            </button>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+                                                <div class="form-group col-sm-6">
+                                                    <label class="col-sm-6 control-label">通过提醒:</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.onlinePass=true"
+                                                                     ng-class="{'btn-success':entity.dingMsgProfile.onlinePass}">开启
+                                                            </button>
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.onlinePass=false"
+                                                                     ng-class="{'btn-danger':!entity.dingMsgProfile.onlinePass}">关闭
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-sm-6">
+                                                    <label class="col-sm-6 control-label">拒绝提醒:</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.onlineRefused=true"
+                                                                     ng-class="{'btn-success':entity.dingMsgProfile.onlineRefused}">开启
+                                                            </button>
+                                                            <button  type="button" class="btn btn-md btn-default"
+                                                                     ng-click="entity.dingMsgProfile.onlineRefused=false"
+                                                                     ng-class="{'btn-danger':!entity.dingMsgProfile.onlineRefused}">关闭
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                <!--        </div>-->
+                                <!--        <div class="panel panel-info">-->
+                                <!--            <div class="panel-heading">-->
+                                <!--                <h3 class="panel-title">部署类</h3>-->
+                                <!--            </div>-->
+                                <!--            <div class="panel-body">-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">部署待执行提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.deployWait=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.deployWait}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.deployWait=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.deployWait}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">部署已执行提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.deployRun=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.deployRun}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.deployRun=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.deployRun}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--            </div>-->
+                                <!--        </div>-->
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">监控类</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">触发自动化测试:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.monitoringDtpTestRun=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.monitoringDtpTestRun}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.monitoringDtpTestRun=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.monitoringDtpTestRun}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">自动化测试成功/失败:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.monitoringDtpTestStatus=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.monitoringDtpTestStatus}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.monitoringDtpTestStatus=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.monitoringDtpTestStatus}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">度量数据每日同步提醒:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.monitoringMeasureDataSync=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.monitoringMeasureDataSync}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.monitoringMeasureDataSync=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.monitoringMeasureDataSync}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">定时任务执行提醒:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.monitoringJobRun=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.monitoringJobRun}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.monitoringJobRun=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.monitoringJobRun}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">敏感sql:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.monitoringSql=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.monitoringSql}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.dingMsgProfile.monitoringSql=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.monitoringSql}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">需求超过三天未认领:</label>
+                                            <div class="col-sm-6">
+                                                <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.needToDoPass3Day=true"
+                                                             ng-class="{'btn-success':entity.dingMsgProfile.needToDoPass3Day}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.dingMsgProfile.needToDoPass3Day=false"
+                                                             ng-class="{'btn-danger':!entity.dingMsgProfile.needToDoPass3Day}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--        <div class="panel panel-info">-->
+                                <!--            <div class="panel-heading">-->
+                                <!--                <h3 class="panel-title">配置文件变更类</h3>-->
+                                <!--            </div>-->
+                                <!--            <div class="panel-body">-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">配置文件变更提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.configEdit=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.dingMsgProfile.configEdit}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.dingMsgProfile.configEdit=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.dingMsgProfile.configEdit}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--            </div>-->
+                                <!--        </div>-->
+                            </div>
+                        </div>
+                        </div>
+                        <div ng-if="entity.msgType=='mail'">
+                            <div class="form-group">
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">流水线通知类</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">邮件通知:</label>
+                                            <div class="col-sm-6" style="padding-left: 7px;">
+                                                <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.mailMsgProfile.pipelineFail= false"
+                                                             ng-class="{'btn-success':!entity.mailMsgProfile.pipelineFail}">成功/失败
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.mailMsgProfile.pipelineFail= true"
+                                                             ng-class="{'btn-success':entity.mailMsgProfile.pipelineFail}">仅失败
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">正反正脚本执行确认:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.sqlScript=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.sqlScript}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.sqlScript=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.sqlScript}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <div  class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">红灯提醒间隔:</label>
+                                            <div class="col-sm-6">
+                                                <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">
+                                                    <input type="text"  class="form-control" ng-model="entity.mailMsgProfile.focusRedlightRepairConfig" placeholder="流水线失败后会发送三次消息提醒，可以设置提醒时间间隔"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">redmine需求变更类</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">新增需求:</label>
+                                            <div class="col-sm-6">
+                                                <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.mailMsgProfile.issuesAdd=true"
+                                                             ng-class="{'btn-success':entity.mailMsgProfile.issuesAdd}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.mailMsgProfile.issuesAdd=false"
+                                                             ng-class="{'btn-danger':!entity.mailMsgProfile.issuesAdd}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">需求状态更新:</label>
+                                            <div class="col-sm-6">
+                                                <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.mailMsgProfile.issuesStatusUpdate=true"
+                                                             ng-class="{'btn-success':entity.mailMsgProfile.issuesStatusUpdate}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.mailMsgProfile.issuesStatusUpdate=false"
+                                                             ng-class="{'btn-danger':!entity.mailMsgProfile.issuesStatusUpdate}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--        <div class="panel panel-info">-->
+                                <!--            <div class="panel-heading">-->
+                                <!--                <h3 class="panel-title">自动化测试通知类</h3>-->
+                                <!--            </div>-->
+                                <!--            <div class="panel-body">-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">性能测试:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.dtpPerformanceTest=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.dtpPerformanceTest}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.dtpPerformanceTest=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.dtpPerformanceTest}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">web ui测试:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.dtpWebUiTest=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.dtpWebUiTest}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.dtpWebUiTest=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.dtpWebUiTest}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">接口测试:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.dtpApiTest=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.dtpApiTest}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.dtpApiTest=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.dtpApiTest}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">安全测试:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.dtpSecurityTest=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.dtpSecurityTest}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.dtpSecurityTest=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.dtpSecurityTest}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--            </div>-->
+                                <!--        </div>-->
+                                <!--        <div class="panel panel-info">-->
+                                <!--            <div class="panel-heading">-->
+                                <!--                <h3 class="panel-title">提测类</h3>-->
+                                <!--            </div>-->
+                                <!--            <div class="panel-body">-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">申请提测提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.releaseApply=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.releaseApply}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.releaseApply=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.releaseApply}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">待审批提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.releaseWait=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.releaseWait}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.releaseWait=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.releaseWait}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">通过提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.releasePass=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.releasePass}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.releasePass=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.releasePass}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">拒绝提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.releaseRefused=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.releaseRefused}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.releaseRefused=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.releaseRefused}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--            </div>-->
+                                <!--        </div>-->
+                                <!--        <div class="panel panel-info">-->
+                                <!--            <div class="panel-heading">-->
+                                <!--                <h3 class="panel-title">上线类</h3>-->
+                                <!--            </div>-->
+                                <!--            <div class="panel-body">-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">申请上线提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.onlineApply=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.onlineApply}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.onlineApply=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.onlineApply}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">待审批提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.onlineWait=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.onlineWait}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.onlineWait=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.onlineWait}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">通过提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.onlinePass=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.onlinePass}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.onlinePass=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.onlinePass}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">拒绝提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.onlineRefused=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.onlineRefused}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.onlineRefused=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.onlineRefused}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--            </div>-->
+
+                                <!--        </div>-->
+                                <!--        <div class="panel panel-info">-->
+                                <!--            <div class="panel-heading">-->
+                                <!--                <h3 class="panel-title">部署类</h3>-->
+                                <!--            </div>-->
+                                <!--            <div class="panel-body">-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">部署待执行提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.deployWait=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.deployWait}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.deployWait=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.deployWait}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">部署已执行提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.deployRun=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.deployRun}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.deployRun=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.deployRun}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--            </div>-->
+                                <!--        </div>-->
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">监控类</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">触发自动化测试:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.monitoringDtpTestRun=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.monitoringDtpTestRun}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.monitoringDtpTestRun=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.monitoringDtpTestRun}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">自动化测试成功/失败:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.monitoringDtpTestStatus=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.monitoringDtpTestStatus}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.monitoringDtpTestStatus=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.monitoringDtpTestStatus}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">度量数据每日同步提醒:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.monitoringMeasureDataSync=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.monitoringMeasureDataSync}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.monitoringMeasureDataSync=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.monitoringMeasureDataSync}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">定时任务执行提醒:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.monitoringJobRun=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.monitoringJobRun}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.monitoringJobRun=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.monitoringJobRun}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <!--                <div class="form-group col-sm-6">-->
+                                        <!--                    <label class="col-sm-6 control-label">敏感sql:</label>-->
+                                        <!--                    <div class="col-sm-6">-->
+                                        <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.monitoringSql=true"-->
+                                        <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.monitoringSql}">开启-->
+                                        <!--                            </button>-->
+                                        <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                        <!--                                     ng-click="entity.mailMsgProfile.monitoringSql=false"-->
+                                        <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.monitoringSql}">关闭-->
+                                        <!--                            </button>-->
+                                        <!--                        </div>-->
+                                        <!--                    </div>-->
+                                        <!--                </div>-->
+                                        <div class="form-group col-sm-6">
+                                            <label class="col-sm-6 control-label">需求超过三天未认领:</label>
+                                            <div class="col-sm-6">
+                                                <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.mailMsgProfile.needToDoPass3Day=true"
+                                                             ng-class="{'btn-success':entity.mailMsgProfile.needToDoPass3Day}">开启
+                                                    </button>
+                                                    <button  type="button" class="btn btn-md btn-default"
+                                                             ng-click="entity.mailMsgProfile.needToDoPass3Day=false"
+                                                             ng-class="{'btn-danger':!entity.mailMsgProfile.needToDoPass3Day}">关闭
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--        <div class="panel panel-info">-->
+                                <!--            <div class="panel-heading">-->
+                                <!--                <h3 class="panel-title">配置文件变更类</h3>-->
+                                <!--            </div>-->
+                                <!--            <div class="panel-body">-->
+                                <!--                <div class="form-group col-sm-6">-->
+                                <!--                    <label class="col-sm-6 control-label">配置文件变更提醒:</label>-->
+                                <!--                    <div class="col-sm-6">-->
+                                <!--                        <div class="btn-group pull-left col-sm-12" style="padding: 0 0;">-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.configEdit=true"-->
+                                <!--                                     ng-class="{'btn-success':entity.mailMsgProfile.configEdit}">开启-->
+                                <!--                            </button>-->
+                                <!--                            <button  type="button" class="btn btn-md btn-default"-->
+                                <!--                                     ng-click="entity.mailMsgProfile.configEdit=false"-->
+                                <!--                                     ng-class="{'btn-danger':!entity.mailMsgProfile.configEdit}">关闭-->
+                                <!--                            </button>-->
+                                <!--                        </div>-->
+                                <!--                    </div>-->
+                                <!--                </div>-->
+                                <!--            </div>-->
+                                <!--        </div>-->
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="block-footer" style="height: 48px;">
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9" >
+                        <div class="col-sm-4">
+                            <button  ng-if="!cracker.publicProfile||(cracker.publicProfile&&role=='admin')"
+                                     class="btn btn-primary col-sm-12" ng-click="save()" ng-disabled="form.$invalid||expression">保存
+                            </button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-default" ng-click="closeModal()">返回</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

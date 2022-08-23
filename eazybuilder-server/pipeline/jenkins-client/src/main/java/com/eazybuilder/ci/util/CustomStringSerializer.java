@@ -3,7 +3,6 @@ package com.eazybuilder.ci.util;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;

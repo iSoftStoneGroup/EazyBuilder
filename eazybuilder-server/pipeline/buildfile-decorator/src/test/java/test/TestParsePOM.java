@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Plugin;
+import org.apache.maven.model.building.ModelBuilder;
 import org.apache.maven.model.building.ModelBuildingException;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
 import org.junit.Test;
@@ -51,7 +52,7 @@ public class TestParsePOM {
 //	@Test
 	public void testProcess(){
 		try {
-			POMProcessor.getInstance().processPOM("../../..");
+			POMProcessor.getInstance().processPOM("../../../ci-demo");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

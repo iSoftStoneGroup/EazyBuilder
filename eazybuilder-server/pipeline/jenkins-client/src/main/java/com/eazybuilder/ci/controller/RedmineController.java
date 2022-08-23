@@ -1,9 +1,14 @@
 package com.eazybuilder.ci.controller;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.eazybuilder.ci.entity.Team;
+import com.eazybuilder.ci.entity.User;
 import com.eazybuilder.ci.entity.devops.RedmineIssues;
 import com.eazybuilder.ci.entity.devops.RedmineProject;
 import com.eazybuilder.ci.entity.devops.RedmineSprint;
 import com.eazybuilder.ci.service.RedmineService;
+import com.eazybuilder.ci.service.TeamServiceImpl;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -20,6 +26,9 @@ public class RedmineController  {
 
     @Resource
     RedmineService redmineService;
+
+    @Resource
+    TeamServiceImpl teamService;
 
     @RequestMapping(value="/getRedmineTeams",method=RequestMethod.GET)
     @ApiOperation("查询redmine 当前用户拥有的项目")
@@ -63,6 +72,20 @@ public class RedmineController  {
     @ApiOperation("根据issuesId查询明细")
     public com.alibaba.fastjson.JSONObject getIssueDetailById(@RequestParam(value = "issueId") String issueId) throws Exception {
         return redmineService.getIssueDetailById(issueId);
+    }
+
+
+    @RequestMapping(value="/getRedmineSprintAndUsersByTeam",method=RequestMethod.GET)
+    @ApiOperation("根据项目组id查询 对应的sprint")
+    public Map<String, List>  getRedmineSprintAndUsersByTeam(@RequestParam(value = "teamId") String teamId,
+                                                             @RequestParam(value = "teamName") String teamName) throws Exception {
+        Map<String, List> map = Maps.newHashMapWithExpectedSize(2);
+        List<RedmineSprint> redmineSprintByTeam = redmineService.getRedmineSprintByTeam(teamId);
+        Team team = teamService.findByName(teamName);
+        List<User> members = null != team?team.getMembers() : Lists.newArrayListWithCapacity(0);
+        map.put("redmineSprints",redmineSprintByTeam);
+        map.put("members",members);
+        return map;
     }
 
 }

@@ -1,14 +1,9 @@
 package com.eazybuilder.ci.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.*;
-import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 
 @Entity
@@ -27,6 +22,8 @@ public class TeamNamespace extends BaseEntry implements Serializable {
 	private String name;
 
 	private NamespaceType namespaceType;
+
+	private String gitlabApiDomain;
 	
 	private String remark1;
 	private String remark2;
@@ -40,6 +37,14 @@ public class TeamNamespace extends BaseEntry implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getGitlabApiDomain() {
+		return gitlabApiDomain;
+	}
+
+	public void setGitlabApiDomain(String gitlabApiDomain) {
+		this.gitlabApiDomain = gitlabApiDomain;
 	}
 
 	public NamespaceType getNamespaceType() {

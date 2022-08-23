@@ -17,6 +17,7 @@ import org.hibernate.annotations.NotFoundAction;
  * 审计视图设置(每个项目审计人员可以维护一个到多个审计视图、当审计人员查询质量报表时，
  * 可以通过审计视图定制筛选的工程项目)
  *
+ *
  */
 @Entity
 @Table(name="CI_AUDIT_PROFILE")

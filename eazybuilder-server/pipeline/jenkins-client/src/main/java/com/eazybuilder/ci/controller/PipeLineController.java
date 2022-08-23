@@ -49,7 +49,10 @@ public class PipeLineController{
 	
 	@Autowired
 	ProjectService projectService;
-
+	
+	@Autowired
+	ScmService scmService;
+	
 	@Autowired
 	MetricService metricService;
 
@@ -135,6 +138,9 @@ public class PipeLineController{
 					}
 				}
 				buildParam.setPipelineType(PipelineType.manual);
+				if(StringUtils.isNotBlank(buildParam.getArriveTagName())){
+					buildParam.setTargetBranch(buildParam.getArriveTagName());
+				}
 				Pipeline pipeline = service.triggerPipeline(projectId,buildParam);
 				if(null!=pipeline) {
 					pipelineLog.setPipelineId(pipeline.getId());
@@ -210,6 +216,22 @@ public class PipeLineController{
 		Page<Pipeline> page=service.pageSearch(pageable, projectIds,projectName,sourceBranch,targetBranch,profileName,date);
 		PageResult<Pipeline> result=PageResult.create(page.getTotalElements(), page.getContent());
 		return result;
+	}
+	
+	@RequestMapping(value="/changeList",method=RequestMethod.GET)
+	@ApiOperation("查询项目变更记录")
+	public List<ScmVersionInfo> getChangeList(
+			@RequestParam(value="projectId",required=true)String projectId,
+			@RequestParam(value="limit",defaultValue="50")int limit,
+			@RequestParam(value="from",required=true)String fromVersion,
+			@RequestParam(value="to",required=true)String toVersion,
+			@RequestParam(value="includeChange",defaultValue="false")boolean includeChangeList,
+			HttpServletRequest request) throws Exception{
+		Project project=projectService.findOne(projectId);
+		if(project==null){
+			throw new IllegalArgumentException("项目不存在");
+		}
+		return scmService.getCommitLog(project.getScm(), fromVersion, toVersion, limit,includeChangeList);
 	}
 
 

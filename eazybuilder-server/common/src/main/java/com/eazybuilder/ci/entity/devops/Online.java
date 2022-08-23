@@ -40,6 +40,11 @@ public class Online {
 	private Integer teamId;
 
 	/**
+	 * redmine identifier
+	 */
+	private String teamName;
+
+	/**
 	 * redmine sprint
 	 */
 	private String sprintId;
@@ -86,10 +91,16 @@ public class Online {
 	 private String releaseUserName;
 
 	/**
-	 * 审批负责人
+	 * 实际审批负责人
 	 * @return
 	 */
 	private String batchUserName;
+
+	/**
+	 * 指定的审批负责人id
+	 * @return
+	 */
+	private Long batchUserId;
 	/**
 	 *审批状态
 	 */
@@ -325,5 +336,21 @@ public class Online {
 
 	public void setImmedIatelyOnline(boolean immedIatelyOnline) {
 		this.immedIatelyOnline = immedIatelyOnline;
+	}
+
+	public Long getBatchUserId() {
+		return batchUserId;
+	}
+
+	public void setBatchUserId(Long batchUserId) {
+		this.batchUserId = batchUserId;
+	}
+
+	public String getTeamName() {
+		return teamName;
+	}
+
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 }
