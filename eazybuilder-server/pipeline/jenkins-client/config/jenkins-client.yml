@@ -8,10 +8,10 @@ spring:
   main:
     allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
   datasource:
-    url: jdbc:mysql://mysql-devxxxxx:3306/ci?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&failOverReadOnly=false&serverTimezone=UTC
+    url: jdbc:mysql://0.0.0.0:32309/ci?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&failOverReadOnly=false&serverTimezone=UTC
     username: root
-    password: xxxx
-    driver-class-name: com.mysql.jdbc.Driver
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       initial-size: 8
@@ -32,7 +32,7 @@ spring:
       use-global-data-source-stat: true
   redis:
     host: 0.0.0.0
-    port: 16379
+    port: 36679
     password:
     pool:
       max-active: 200
@@ -44,7 +44,7 @@ spring:
       enabled: false
   rabbitmq:
     host: 0.0.0.0
-    port: 5672
+    port: 35673
     virtual-host: /devops-dev
     username: devops
     password: password
@@ -103,7 +103,7 @@ ci:
   k8s-folder: D:/data/k8s-yaml
   hosts: http://ci-ingressxxxxx/
   redis:
-    address: ${redis_addr:redis://redis-platxxxxx:16379}
+    address: ${redis_addr:redis://0.0.0.0:36679}
   storage:
     #typs: local
     type: local
@@ -129,8 +129,8 @@ maven:
 
 sonar:
   url: http://sonarqubexxxxx/sonarqube/
-  user: admin
-  password: password
+  user: sonar
+  password: sonar
 
 build:
   docker-host: 0.0.0.0:2375
