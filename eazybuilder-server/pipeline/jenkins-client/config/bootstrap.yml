@@ -1,0 +1,20 @@
+nacos:
+  ip: 0.0.0.0
+  port: 28848
+  username: nacos
+  password: nacos
+spring:
+  application:
+    name: jenkins-client
+  main:
+    allow-bean-definition-overriding: true #当遇到同样名字的时候，是否允许覆盖注册
+  cloud:
+    nacos:
+      username: ${nacos.username}
+      password: ${nacos.password}
+      config:
+        enabled: true
+        namespace: ${NACOS_SPACE:public}
+        group: DEFAULT_GROUP
+        server-addr: ${nacos.ip}:${nacos.port}
+        file-extension: yml
