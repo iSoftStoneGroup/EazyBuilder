@@ -1,0 +1,43 @@
+#------------------------------------------------------------------
+#            WAR ANSIBLE 简易部署脚本  by 平台持续集成组
+#------------------------------------------------------------------
+# 部署过程：
+# 1. 检索war包
+# 2. 上传到Server指定目录下
+#
+# host  --> deploy host
+# deploy_home  --> path to deploy 
+#
+# 创建部署用户:
+#   useradd ci-deploy
+#   passwd  ci-deploy   
+#   chown -R ci-deploy  <TOMCAT_HOME>
+#-------------------------------------------------------------------
+- hosts: "{{ host }}"
+  gather_facts: False
+  vars: 
+    #jenkins pipeline workspace 当前为自动获取
+    workspace: "{{ lookup('env','WORKSPACE') }}"
+    deploy_home: "{{ deploy_home | default('/tmp')}}" 
+  tasks: 
+    - name: 检查部署参数是否完整
+      fail: msg='部署参数无效或不完整，请检查'
+      when: not (workspace | length | int  > 0)
+  
+    - name: 查找构建好的war
+      find:  paths="{{ workspace }}" recurse=yes patterns="*.war"
+      register: find_files
+      connection: local
+
+    - name: 设置待拷贝的war列表
+      set_fact:
+        all_files:
+          - "{{ find_files.files | map(attribute='path') | list }}"
+      when: find_files > 0
+
+    - name: 将war拷贝到远程目录
+      copy:
+        src: "{{ item }}"
+        dest: "{{ deploy_home }}"
+      with_items: "{{ all_files }}"
+      when: find_files > 0

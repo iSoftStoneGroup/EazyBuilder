@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="UTF-8"?><ureport><cell expand="None" name="A1" row="1" col="1" col-span="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><chart-value><dataset dataset-name="环比-折线" type="line" category-property="months" series-property="name" series-type="property" value-property="xiangBi" collect-type="select"/></chart-value></cell><cell expand="None" name="A2" row="2" col="1"><cell-style font-size="10" forecolor="255,0,0" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[指标名称]]></simple-value></cell><cell expand="None" name="B2" row="2" col="2"><cell-style font-size="10" forecolor="255,0,0" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[月份]]></simple-value></cell><cell expand="None" name="C2" row="2" col="3"><cell-style font-size="10" forecolor="255,0,0" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[本月]]></simple-value></cell><cell expand="None" name="D2" row="2" col="4"><cell-style font-size="9" forecolor="255,0,0" font-family="宋体" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[上月]]></simple-value></cell><cell expand="None" name="E2" row="2" col="5"><cell-style font-size="9" forecolor="255,0,0" font-family="宋体" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[环比]]></simple-value></cell><cell expand="Down" name="A3" row="3" col="1"><cell-style font-size="10" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="环比表格" aggregate="group" property="name" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="B3" row="3" col="2"><cell-style font-size="10" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="环比表格" aggregate="group" property="months" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="C3" row="3" col="3"><cell-style font-size="10" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="环比表格" aggregate="group" property="current_month" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="D3" row="3" col="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="环比表格" aggregate="group" property="before_month" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="E3" row="3" col="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="环比表格" aggregate="group" property="xiangBi" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="A4" row="4" col="1"><cell-style font-size="10" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="B4" row="4" col="2"><cell-style font-size="10" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="C4" row="4" col="3"><cell-style font-size="10" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="D4" row="4" col="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="E4" row="4" col="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A5" row="5" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="B5" row="5" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="C5" row="5" col="3"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="D5" row="5" col="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="E5" row="5" col="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A6" row="6" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="B6" row="6" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="C6" row="6" col="3"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="D6" row="6" col="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="E6" row="6" col="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A7" row="7" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="B7" row="7" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="C7" row="7" col="3"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="D7" row="7" col="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="E7" row="7" col="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A8" row="8" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="B8" row="8" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="C8" row="8" col="3"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="D8" row="8" col="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="E8" row="8" col="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A9" row="9" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="B9" row="9" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="C9" row="9" col="3"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="D9" row="9" col="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="E9" row="9" col="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><row row-number="1" height="139"/><row row-number="2" height="53"/><row row-number="3" height="25"/><row row-number="4" height="23"/><row row-number="5" height="24"/><row row-number="6" height="23"/><row row-number="7" height="19"/><row row-number="8" height="19"/><row row-number="9" height="19"/><column col-number="1" width="323"/><column col-number="2" width="254"/><column col-number="3" width="278"/><column col-number="4" width="287"/><column col-number="5" width="230"/><datasource name="测试环境-grafana" type="jdbc" username="develop" password="develop_123" url="jdbc:mysql://10.137.101.3:3306/grafana?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true" driver="com.mysql.jdbc.Driver"><dataset name="teamName" type="sql"><sql><![CDATA[select name from ci_team ]]></sql><field name="name"/></dataset><dataset name="环比表格" type="sql"><sql><![CDATA[(
+	with temp as(
+SELECT 
+		avg( ABS(TIMESTAMPDIFF(DAY , ist.yi_shang_xian , ist.chu_li_zhong) ) ) current_month,
+		DATE_FORMAT(ri.created_on, '%Y-%m') months
+FROM 
+		issues_status_trigger ist
+left join redmine_issues ri  		
+	on
+	ist.issues_id = ri.id
+WHERE 		   
+	ri.project_id =(
+	select
+		id
+	from
+		redmine_projects rp
+	WHERE
+		rp.identifier = :teamName)
+	AND 
+	ri.tracker_id =(
+	SELECT
+		id
+	from
+		redmine_trackers
+	WHERE
+		name = '需求' )
+	and ri.status_id =(
+	select
+		id
+	from
+		issue_statuses is2
+	WHERE
+		is2.name = '已上线')
+GROUP by
+	months
+order by
+	months asc
+	
+)
+SELECT
+	*,
+	if(ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2)<0,
+		concat(ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2),"(下降)"),
+		ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2)
+	)	 
+ xiangBi,
+	"需求交付周期(天)" as 'name'
+from
+	(
+	select
+		temp.months as months
+		,
+		round(temp.current_month,2) current_month,
+		round(lag(temp.current_month,1) over( order by  temp.months)) before_month
+
+	from
+		temp
+)t	
+)
+union all
+
+(
+	with temp as(
+SELECT 
+	DATE_FORMAT(cm.time_stamp , '%Y-%m') months,
+	avg(cm.val)/ 100 current_month
+FROM  
+	ci_metric cm
+left join 
+	ci_pipeline_history cph
+	on
+cm.pipeline_id = cph.id
+WHERE 
+	cph.project_id in(
+SELECT
+	id
+from
+	ci_project cp
+WHERE
+	cp.team_id =(
+	SELECT
+		id
+	from
+		ci_team ct
+	WHERE
+		ct.name = :teamName)
+	)
+AND 
+	cm.type = 'new_unit_test_coverage_rate'
+AND 
+	cph.target_branch = 'master'
+GROUP by
+months
+order by
+months asc	
+)
+SELECT 
+*,
+	if(ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2)<0,
+		concat(ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2),"(下降)"),
+		ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2)
+	)
+    xiangBi,
+"新增单元测试覆盖率" as 'name'
+from
+(
+select 
+		temp.months,
+		round(temp.current_month,2) current_month,
+		round(lag(temp.current_month,1) over( order by  temp.months)) before_month
+from
+	temp
+)t
+
+
+)
+
+union all
+
+(
+	with temp as( 	
+	with t as( 
+		select
+			z1.project_name ,
+			z1.profile_name ,
+			FROM_UNIXTIME(z1.red_start/1000) as red_start,
+			FROM_UNIXTIME(z1.red_end/1000) as red_end,
+			(z1.red_end-z1.red_start)/(60 * 1000) as spend_time
+		from
+			(
+			select
+				project_name,
+				target_branch,
+				profile_name,
+				min(red_time) as red_start,
+				repair_time as red_end
+			from
+				(
+				SELECT
+					t1.project_name,
+					t1.target_branch,
+					t1.profile_name,
+					t1.end_time_millis AS red_time,
+					MIN(h2.end_time_millis) AS repair_time
+				FROM
+					(
+					SELECT
+						h1.end_time_millis,
+						h1.project_name,
+						h1.target_branch,
+						h1.profile_id,
+						h1.status,
+						h1.source_branch ,
+						p1.name AS profile_name
+					FROM
+						ci_pipeline_history h1,
+						ci_pipeline_profile p1
+					WHERE
+						p1.id = h1.profile_id
+						and p1.team_name = :teamName
+						AND h1.status = 5
+						) t1,
+					ci_pipeline_history h2,
+					ci_project p2,
+					ci_team t2
+				WHERE
+					h2.project_name = t1.project_name
+					AND (h2.target_branch = t1.target_branch or h2.source_branch= t1.source_branch )
+					AND h2.profile_id = t1.profile_id
+					and h2.project_id=p2.id
+					and p2.team_id = t2.id 
+					and t2.name=:teamName
+					AND h2.status != 5
+					AND h2.end_time_millis>t1.end_time_millis
+				GROUP BY
+					t1.end_time_millis,
+					t1.project_name,
+					t1.target_branch,
+					t1.profile_name
+				order by
+					red_time desc
+				) z
+			group by
+				project_name,
+				target_branch,
+				profile_name,
+				red_end
+			) z1 
+			
+		)
+		
+		SELECT 
+		DATE_FORMAT(t.red_start,'%Y-%m') months,
+		avg(t.spend_time) current_month
+		from t
+		group by months
+		order by months asc	
+)
+
+SELECT 
+*,
+	if(ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2)<0,
+		concat(ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2),"(下降)"),
+		ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2)
+	)  xiangBi,
+  "红灯修复时长(分钟)" as 'name'
+from (
+	select 
+		temp.months,
+		round(temp.current_month,2) current_month,
+	    round(lag(temp.current_month,1) over( order by  temp.months)) before_month
+-- 	    ( temp.current_month-lag(temp.current_month,12) over( order by  temp.months) )/lag(temp.current_month,12) over( order by  temp.months) xiangBi
+	from temp
+)t	
+
+)
+
+union all
+
+(
+	with temp as( 	
+SELECT 
+	sum( mr) current_month,
+	DATE_FORMAT(t.time,'%Y-%m') months
+from
+	(
+		SELECT
+			sum(cus.mergedmrs) as 'mr',
+			cus.time as 'time'
+		from
+			(
+			select
+				STR_TO_DATE(cus.`day`,'%Y-%m-%d') as "time",
+				cus.*
+			FROM
+				ci_user_statistic cus,
+				ci_project p,
+				ci_team t
+			where cus.project_name =p.name and p.team_id =t.id and t.name=:teamName
+			) cus
+		where
+			name_space = :teamName
+			and user_name !='robot'
+		group by
+			cus.day
+		order by
+			cus.day
+		
+	)t	
+GROUP  by months
+	
+)
+
+SELECT 
+*,
+	if(ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2)<0,
+		concat(ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2),"(下降)"),
+		ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2)
+	)  xiangBi,
+  "集成频率(次)" as 'name'
+from (
+	select 
+		temp.months,
+		round(temp.current_month,2) current_month,
+	    round(lag(temp.current_month,1) over( order by  temp.months)) before_month
+-- 	    ( temp.current_month-lag(temp.current_month,12) over( order by  temp.months) )/lag(temp.current_month,12) over( order by  temp.months) xiangBi
+	from temp
+)t	
+)
+
+union all
+
+(
+	with temp as( 	
+select
+	max(acr.coverage_rate) current_month,
+	DATE_FORMAT(acr.create_time,'%Y-%m') months
+from
+	grafana.api_coverage_rate acr 
+
+where 
+acr.team_id=(SELECT group_id from ci_team ct WHERE ct.name=:teamName)
+GROUP  by  months
+order by  months asc
+)
+
+SELECT 
+*,
+	if(ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2)<0,
+		concat(ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2),"(下降)"),
+		ROUND(IFNULL(( t.current_month-t.before_month )/ t.before_month, 0),2)
+	)  xiangBi,
+ '接口自动化测试覆盖率(%)' as 'name'
+from (
+	select 
+		temp.months,
+		round(temp.current_month,2) current_month,
+	    round(lag(temp.current_month,1) over( order by  temp.months)) before_month
+	from temp
+)t	
+)
+]]></sql><field name="months"/><field name="current_month"/><field name="before_month"/><field name="xiangBi"/><field name="name"/><parameter name="teamName" type="String" default-value="ipaas"/></dataset><dataset name="环比-折线" type="sql"><sql><![CDATA[(
+	with temp as(
+SELECT 
+		avg( ABS(TIMESTAMPDIFF(DAY , ist.yi_shang_xian , ist.chu_li_zhong) ) ) current_month,
+		DATE_FORMAT(ri.created_on, '%Y-%m') months
+FROM 
+		issues_status_trigger ist
+left join redmine_issues ri  		
+	on
+	ist.issues_id = ri.id
+WHERE 		   
+	ri.project_id =(
+	select
+		id
+	from
+		redmine_projects rp
+	WHERE
+		rp.identifier = :teamName)
+	AND 
+	ri.tracker_id =(
+	SELECT
+		id
+	from
+		redmine_trackers
+	WHERE
+		name = '需求' )
+	and ri.status_id =(
+	select
+		id
+	from
+		issue_statuses is2
+	WHERE
+		is2.name = '已上线')
+GROUP by
+	months
+order by
+	months asc
+	
+)
+SELECT
+	*,
+	IFNULL(( t.current_month-t.before_month )/ t.before_month, 0)
+ xiangBi,
+	"需求交付周期" as 'name'
+from
+	(
+	select 
+		temp.months,
+		temp.current_month,
+		lag(temp.current_month, 1) over(
+	order by
+		temp.months) before_month
+		-- 	    ( temp.current_month-lag(temp.current_month,12) over( order by  temp.months) )/lag(temp.current_month,12) over( order by  temp.months) xiangBi
+	from
+		temp
+)t	
+)
+union all
+
+(
+	with temp as(
+SELECT 
+	DATE_FORMAT(cm.time_stamp , '%Y-%m') months,
+	avg(cm.val)/ 100 current_month
+FROM  
+	ci_metric cm
+left join 
+	ci_pipeline_history cph
+	on
+cm.pipeline_id = cph.id
+WHERE 
+	cph.project_id in(
+SELECT
+	id
+from
+	ci_project cp
+WHERE
+	cp.team_id =(
+	SELECT
+		id
+	from
+		ci_team ct
+	WHERE
+		ct.name = :teamName)
+	)
+AND 
+	cm.type = 'new_unit_test_coverage_rate'
+AND 
+	cph.target_branch = 'master'
+GROUP by
+months
+order by
+months asc	
+)
+SELECT 
+*,
+   IFNULL(( t.current_month-t.before_month )/ t.before_month, 0) xiangBi,
+"新增单元测试覆盖率" as 'name'
+from
+(
+select 
+		temp.months,
+		temp.current_month,
+	    lag(temp.current_month, 1) over(
+order by
+	temp.months) before_month
+	-- 	    ( temp.current_month-lag(temp.current_month,12) over( order by  temp.months) )/lag(temp.current_month,12) over( order by  temp.months) xiangBi
+from
+	temp
+)t
+
+
+)
+
+union all
+
+(
+	with temp as( 	
+	with t as( 
+		select
+			z1.project_name ,
+			z1.profile_name ,
+			FROM_UNIXTIME(z1.red_start/1000) as red_start,
+			FROM_UNIXTIME(z1.red_end/1000) as red_end,
+			(z1.red_end-z1.red_start)/(60 * 1000) as spend_time
+		from
+			(
+			select
+				project_name,
+				target_branch,
+				profile_name,
+				min(red_time) as red_start,
+				repair_time as red_end
+			from
+				(
+				SELECT
+					t1.project_name,
+					t1.target_branch,
+					t1.profile_name,
+					t1.end_time_millis AS red_time,
+					MIN(h2.end_time_millis) AS repair_time
+				FROM
+					(
+					SELECT
+						h1.end_time_millis,
+						h1.project_name,
+						h1.target_branch,
+						h1.profile_id,
+						h1.status,
+						h1.source_branch ,
+						p1.name AS profile_name
+					FROM
+						ci_pipeline_history h1,
+						ci_pipeline_profile p1
+					WHERE
+						p1.id = h1.profile_id
+						and p1.team_name = :teamName
+						AND h1.status = 5
+						) t1,
+					ci_pipeline_history h2,
+					ci_project p2,
+					ci_team t2
+				WHERE
+					h2.project_name = t1.project_name
+					AND (h2.target_branch = t1.target_branch or h2.source_branch= t1.source_branch )
+					AND h2.profile_id = t1.profile_id
+					and h2.project_id=p2.id
+					and p2.team_id = t2.id 
+					and t2.name=:teamName
+					AND h2.status != 5
+					AND h2.end_time_millis>t1.end_time_millis
+				GROUP BY
+					t1.end_time_millis,
+					t1.project_name,
+					t1.target_branch,
+					t1.profile_name
+				order by
+					red_time desc
+				) z
+			group by
+				project_name,
+				target_branch,
+				profile_name,
+				red_end
+			) z1 
+			
+		)
+		
+		SELECT 
+		DATE_FORMAT(t.red_start,'%Y-%m') months,
+		avg(t.spend_time) current_month
+		from t
+		group by months
+		order by months asc	
+)
+
+SELECT 
+*,
+ IFNULL(( t.current_month-t.before_month )/t.before_month,0) xiangBi,
+  "红灯修复时长" as 'name'
+from (
+	select 
+		temp.months,
+		temp.current_month,
+	    lag(temp.current_month,1) over( order by  temp.months) before_month
+-- 	    ( temp.current_month-lag(temp.current_month,12) over( order by  temp.months) )/lag(temp.current_month,12) over( order by  temp.months) xiangBi
+	from temp
+)t	
+
+)
+
+union all
+
+(
+	with temp as( 	
+SELECT 
+	sum( mr) current_month,
+	DATE_FORMAT(t.time,'%Y-%m') months
+from
+	(
+		SELECT
+			sum(cus.mergedmrs) as 'mr',
+			cus.time as 'time'
+		from
+			(
+			select
+				STR_TO_DATE(cus.`day`,'%Y-%m-%d') as "time",
+				cus.*
+			FROM
+				ci_user_statistic cus,
+				ci_project p,
+				ci_team t
+			where cus.project_name =p.name and p.team_id =t.id and t.name=:teamName
+			) cus
+		where
+			name_space = :teamName
+			and user_name !='robot'
+		group by
+			cus.day
+		order by
+			cus.day
+		
+	)t	
+GROUP  by months
+	
+)
+
+SELECT 
+*,
+     if (IFNULL(( t.current_month-t.before_month )/t.before_month,0)<0,
+ ROUND(IFNULL(( t.current_month-t.before_month )/t.before_month,0),2),
+ ROUND( IFNULL(( t.current_month-t.before_month )/t.before_month,0),2) )
+ xiangBi,
+  "集成频率" as 'name'
+from (
+	select 
+		temp.months,
+		temp.current_month,
+	    lag(temp.current_month,1) over( order by  temp.months) before_month
+-- 	    ( temp.current_month-lag(temp.current_month,12) over( order by  temp.months) )/lag(temp.current_month,12) over( order by  temp.months) xiangBi
+	from temp
+)t	
+)
+
+union all
+
+(
+	with temp as( 	
+select
+	max(acr.coverage_rate) current_month,
+	DATE_FORMAT(acr.create_time,'%Y-%m') months
+from
+	grafana.api_coverage_rate acr 
+
+where 
+acr.team_id=(SELECT group_id from ci_team ct WHERE ct.name=:teamName)
+GROUP  by  months
+order by  months asc
+)
+
+SELECT 
+*,
+  if (IFNULL(( t.current_month-t.before_month )/t.before_month,0)<0,
+ concat(ROUND(IFNULL(( t.current_month-t.before_month )/t.before_month,0),2) ,"(下降)"),
+ ROUND( IFNULL(( t.current_month-t.before_month )/t.before_month,0),2) )
+ xiangBi,
+ '接口自动化测试覆盖率' as 'name'
+from (
+	select 
+		temp.months,
+		temp.current_month,
+	    lag(temp.current_month,1) over( order by  temp.months) before_month
+	from temp
+)t	
+)
+]]></sql><field name="months"/><field name="current_month"/><field name="before_month"/><field name="xiangBi"/><field name="name"/><parameter name="teamName" type="String" default-value="ipaas"/></dataset></datasource><paper type="A5" left-margin="90" right-margin="90"
+    top-margin="72" bottom-margin="72" paging-mode="fitpage" fixrows="0"
+    width="420" height="595" orientation="portrait" html-report-align="left" bg-image="" html-interval-refresh-value="0" column-enabled="false"></paper><search-form form-position="up"><grid show-border="false" type="Grid3x3x3" border-width="1" border-color="#cccccc"><col size="4"/><col size="4"/><col size="4"><grid show-border="false" type="Grid2X2" border-width="1" border-color="#eee"><col size="6"><input-select label="项目组名称：" type="Select" label-position="left" bind-parameter="teamName" use-dataset="true" dataset="teamName" label-field="name" value-field="name"><option label="选项1" value="选项1"/><option label="选项2" value="选项2"/><option label="选项3" value="选项3"/><option label="选项4" value="选项4"/></input-select></col><col size="6"><button-submit label="提交" align="left" type="Submit-button" style="btn-primary"/></col></grid></col></grid></search-form></ureport>

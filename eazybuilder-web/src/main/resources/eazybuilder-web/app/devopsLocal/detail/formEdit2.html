@@ -1,0 +1,252 @@
+<div class="modal" >
+	<div class="modal-dialog large" style="width:55vw;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">项目信息</h4>
+			</div>
+			<div class="modal-body" align="center">
+				<form class="form-horizontal">
+					<input type="hidden" ng-model="devopsProject.id"/>
+					<div class="block-content">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">项目中文名称:</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="devopsProject.projectName"
+									   required="required"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">项目英文名称:</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="devopsProject.description"
+									   ng-blur="createDeployConfig()"   required="required"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">源码仓库地址:</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" ng-model="devopsProject.scmUrl"
+									   ng-blur="sourceWrehouseAddress()"
+									   placeholder="默认http://gitlab.eazybuilder-devops.cn/项目组编号/项目英文名称.git"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">工程类型:</label>
+							<div class="col-sm-10">
+								<div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.projectType='java';createDeployConfig()"
+											ng-class="{'btn-success':devopsProject.projectType=='java'}">Java
+									</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.projectType='npm';createDeployConfig()"
+											ng-class="{'btn-success':devopsProject.projectType=='npm'}">前端
+									</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.projectType='net'"
+											ng-class="{'btn-success':devopsProject.projectType=='net'}">c#.net
+									</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.projectType='initDeploy'"
+											ng-class="{'btn-success':devopsProject.projectType=='initDeploy'}">项目初始化部署
+									</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.projectType='dataBaseScript'"
+											ng-class="{'btn-success':devopsProject.projectType=='dataBaseScript'}">数据库脚本
+									</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.projectType='config'"
+											ng-class="{'btn-success':devopsProject.projectType=='config'}">配置文件
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-group" ng-if="devopsProject.projectType!=null&&(devopsProject.projectType=='java'||devopsProject.projectType=='npm')">
+							<label class="col-sm-2 control-label">工程构建:</label>
+							<div class="col-sm-10">
+								<div class="btn-group pull-left col-xs-12" style="padding: 0 0;"
+									 ng-if="devopsProject.projectType=='java'">
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.legacyProject=false"
+											ng-class="{'btn-success':devopsProject.legacyProject==false}">Maven
+									</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.legacyProject=true"
+											ng-class="{'btn-warning':devopsProject.legacyProject==true}">非Maven
+									</button>
+								</div>
+								<div class="btn-group pull-left col-xs-12" style="padding: 0 0;"
+									 ng-if="devopsProject.projectType=='npm'">
+									<button type="button" class="btn btn-md btn-default"
+											ng-class="{'btn-success':true}">NPM
+									</button>
+								</div>
+							</div>
+							<div class="col-sm-6"
+								 ng-if="devopsProject.legacyProject==true&&devopsProject.projectType=='java'">
+								<label class="control-label"><font
+										color="red">注意：ANT构建请自定义构建参数，另外编译依赖的要素均要包含在源码路径中</font></label>
+							</div>
+						</div>
+						<div class="form-group"
+							 ng-if="!devopsProject.legacyProject&&devopsProject.projectType=='java'">
+							<label class="col-sm-2 control-label">POM位置:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model="devopsProject.pomPath"
+									   placeholder="pom.xml位置，不填默认当前目录"/>
+							</div>
+						</div>
+						<div class="form-group"
+							 ng-if="entity.projectType=='net'">
+							<label class="col-sm-2 control-label">net类型:</label>
+							<div class="col-sm-8">
+								<div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.netType='net5'"
+											ng-class="{'btn-success':devopsProject.netType=='net5'}">net5.0</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.netType='netcoreapp2'"
+											ng-class="{'btn-success':devopsProject.netType=='netcoreapp2'}">netcoreapp2.0</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.netType='netcoreapp3'"
+											ng-class="{'btn-success':devopsProject.netType=='netcoreapp3'}">netcoreapp3.0</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-group"
+							 ng-if="devopsProject.projectType=='net'">
+							<label class="col-sm-2 control-label">csproj位置:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model="devopsProject.netPath"
+									   placeholder="csproj位置，不填默认当前目录下src/{项目名}/{项目名}.Api.csproj"/>
+							</div>
+						</div>
+						<div class="form-group"
+							 ng-if="devopsProject.projectType=='net'">
+							<label class="col-sm-2 control-label">sln位置:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model="devopsProject.netSlnPath"
+									   placeholder="sln位置，不填默认当前目录下{项目名}.sln"/>
+							</div>
+						</div>
+						<div class="form-group"
+							 ng-if="devopsProject.projectType=='net'">
+							<label class="col-sm-2 control-label">单测csproj位置:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model="devopsProject.netTestPath"
+									   placeholder="单测csproj位置，不填默认当前目录下src/{项目名}.Test/{项目名}.Test.csproj"/>
+							</div>
+						</div>
+						<div class="form-group"
+							 ng-if="entity.projectType=='dataBaseScript'">
+							<label class="col-sm-2 control-label">sql类型:</label>
+							<div class="col-sm-8">
+								<div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.sqlType='tsql'"
+											ng-class="{'btn-success':devopsProject.sqlType=='tsql'}">T-SQL</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.sqlType='pssql'"
+											ng-class="{'btn-success':devopsProject.sqlType=='pssql'}">PostgreSQL</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.sqlType='mysql'"
+											ng-class="{'btn-success':devopsProject.sqlType=='mysql'}">MySQL</button>
+									<button type="button" class="btn btn-md btn-default"
+											ng-click="devopsProject.sqlType='vsql'"
+											ng-class="{'btn-success':devopsProject.sqlType=='vsql'}">VSQL</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-group"
+							 ng-if="entity.projectType=='dataBaseScript'">
+							<label class="col-sm-2 control-label">sql文件位置:</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" ng-model="entity.sqlPath"
+									   placeholder="sql位置，不填默认当前目录config文件夹下"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">k8s 参数:</label>
+							<div class="col-sm-10">
+								<div id="params" class="tab-pane fade in active">
+									<table class="table table-condensed table-bordered">
+										<thead>
+										<tr class="info">
+											<th width="10%">容器名</th>
+											<th width="20%">访问域名</th>
+											<th width="10%">服务类型</th>
+											<th width="10%">副本数</th>
+											<th width="10%">容器端口</th>
+											<th width="10%">镜像名称</th>
+											<th width="10%">cpu</th>
+											<th width="10%">内存</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr ng-repeat="deployConfig in devopsProject.deployConfigList">
+											<td>
+												<input class="form-control" type="text"
+													   ng-model="deployConfig.name" placeholder="ci-k8s">
+											</td>
+											<td>
+												<input class="form-control" type="text"
+													   ng-model="deployConfig.ingressHost"
+													   placeholder="ci-ingress.eazybuilder-devops.cn">
+											</td>
+											<td>
+												<select class="form-control" ng-model="deployConfig.appType" required="required">
+													<option value="deployment" selected = "selected">deployment</option>
+													<option value="statefulset">statefulset</option>
+													<option value="job">job</option>
+													<option value="configmap">configmap</option>
+												</select>
+											</td>
+											<td>
+												<input class="form-control" type="text"
+													   ng-model="deployConfig.replicas" placeholder="默认1">
+											</td>
+											<td>
+												<input class="form-control" type="text"
+													   ng-model="deployConfig.containerPort"
+													   placeholder="前端默认80，后端默认8080">
+											</td>
+											<td>
+												<input class="form-control" type="text"
+													   ng-model="deployConfig.imageTag"
+													   placeholder="core.eazybuilder.com/devops/pipeline-console:latest"/>
+											</td>
+											<td>
+												<input class="form-control" type="text"
+													   ng-model="deployConfig.limitsCpu" placeholder="100m"/>
+											</td>
+											<td>
+												<input class="form-control" type="text"
+													   ng-model="deployConfig.limitsMemory" placeholder="1Gi"/>
+											</td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="block-footer">
+						<div class="form-group">
+							<div class="col-sm-12">
+								<div class="col-sm-3 col-md-offset-3">
+									<button class="btn btn-primary" ng-click="saveProject()">保存</button>
+								</div>
+								<div class="col-sm-3">
+									<button class="btn btn-default"
+											ng-click="closeModal()">返回
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

@@ -201,6 +201,24 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			templateUrl:"app/jobOnline/form.html"
 		})
 
+		.state("userLocal",{
+			url:"/userLocal",
+			templateUrl:"app/userLocal/main.html"
+		})
+		.state("userLocal.list",{
+			url:"/userLocalList",
+			templateUrl:"app/userLocal/list.html"
+		})
+		.state("userLocal.add",{
+			url:"/userLocalAdd",
+			templateUrl:"app/userLocal/form.html"
+		})
+		.state("userLocal.edit",{
+			url:"/userLocalEdit",
+			templateUrl:"app/userLocal/form.html"
+		})
+
+
 	    .state("user",{
 	    	url:"/user",
 	    	templateUrl:"app/user/main.html"
@@ -470,7 +488,27 @@ app.config(function($stateProvider, $urlRouterProvider) {
 			url:"/deveopsEdit",
 			templateUrl:"app/devops/form.html",
 			css:"js/angularjs-datetime-picker/wui.min.css"
+		})
 
+		.state("deveopsLocal",{
+			url:"/deveopsLocal",
+			templateUrl:"app/devopsLocal/main.html",
+			css:"js/angularjs-datetime-picker/wui.min.css"
+		})
+		.state("deveopsLocal.list",{
+			url:"/deveopsLocalList",
+			templateUrl:"app/devopsLocal/list.html",
+			css:"js/angularjs-datetime-picker/wui.min.css"
+		})
+		.state("deveopsLocal.add",{
+			url:"/deveopsLocalAdd",
+			templateUrl:"app/devopsLocal/form.html",
+			css:"js/angularjs-datetime-picker/wui.min.css"
+		})
+		.state("deveopsLocal.edit",{
+			url:"/deveopsLocalEdit",
+			templateUrl:"app/devopsLocal/form.html",
+			css:"js/angularjs-datetime-picker/wui.min.css"
 		})
 
 		.state("release",{

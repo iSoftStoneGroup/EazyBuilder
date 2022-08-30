@@ -95,14 +95,14 @@
         </a>
         <ul class="dropdown-menu">
             <li class="submenu" ng-click="active($event)"
-                ng-if="haveRoles('admin') "><a ui-sref="deveops.list" title="项目组初始化">
+                ng-if="haveRoles('admin') "><a ui-sref="deveopsLocal.list" title="项目组初始化">
                 <div>
                     <i class="menu-icon fa fa-spinner"></i> <span>项目组初始化</span>
                 </div>
             </a></li>
 
             <li class="submenu" ng-click="active($event)"
-                ng-if="haveRoles('admin') "><a ui-sref="user.list" title="用户设置">
+                ng-if="haveRoles('admin') "><a ui-sref="userLocal.list" title="用户设置">
                 <div>
                     <i class="menu-icon fa fa-users"></i> <span>用户设置</span>
                 </div>
@@ -133,7 +133,7 @@
                 ng-if="haveRoles('admin') "><a ui-sref="mavenRepo"
                                                title="maven仓库管理">
                 <div>
-                    <i class="menu-icon fa fa-th-large"></i> <span>maven本地仓库管理</span>
+                    <i class="menu-icon fa fa-th-large"></i> <span>maven仓库管理</span>
                 </div>
             </a></li>
 

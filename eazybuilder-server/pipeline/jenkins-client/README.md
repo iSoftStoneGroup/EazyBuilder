@@ -7,7 +7,7 @@
 
 ### Lines 16~18, configure the database
 ````yaml
-    url: jdbc:mysql://mysql:3306/ci?useUnicode=true&useSSL=false&characterEncoding=utf-8
+    url: jdbc:mysql://mysql:33066/ci?useUnicode=true&useSSL=false&characterEncoding=utf-8
     username: xxx
     password: xxxx
 ````

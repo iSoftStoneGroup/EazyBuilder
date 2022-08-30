@@ -9,10 +9,23 @@
 					<input type="text" class="form-control" ng-model="entity.name" placeholder="任务备注" required="required"/>
 				</div>
 			</div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">报告发送至:</label>
+                <div class="col-sm-2">
+                    <select class="form-control" ng-model="entity.teamId"
+                            required="required"
+                            placeholder="项目组"
+                            ng-options="team.id as team.name for team in teams" ng-change="searchTeamJobs()">
+                    </select>
+                </div>
+
+            </div>
+
 			<div class="form-group">
 
                 <label class="col-sm-2 control-label">触发方式:</label>
-                <div class="col-sm-3">
+                <div class="col-sm-10">
                     <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
                         <button type="button" class="btn btn-md btn-default" title="按固定周期和时间计划执行"
                                 ng-click="entity.triggerType='cron'"
@@ -23,8 +36,33 @@
                         <button type="button" class="btn btn-md btn-default" title="手工触发任务"
                                 ng-click="entity.triggerType='manual'"
                                 ng-class="{'btn-info':entity.triggerType=='manual'}">手工触发</button>
+                        <button type="button" class="btn btn-md btn-default" title="监听任务执行完毕"
+                                ng-click="entity.triggerType='watch_job_executed';searchTeamJobs()"
+                                ng-class="{'btn-info':entity.triggerType=='watch_job_executed'}">监听其他任务</button>
                     </div>
                 </div>
+
+                </div>
+            <div class="form-group">
+                <div class="form-group" ng-if="entity.triggerType=='watch_job_executed'">
+                    <label class="col-sm-2 control-label">执行条件:</label>
+                    <div class="col-sm-4 btn-group">
+                        <button type="button" class="btn btn-md btn-default" title="前置任务全部成功"
+                                ng-click="entity.preTaskStatus='SUCCEED_ALL'"
+                                ng-class="{'btn-info':entity.preTaskStatus=='SUCCEED_ALL'}">前置任务全部成功</button>
+                        <button type="button" class="btn btn-md btn-default" title="最后前置任务成功"
+                                ng-click="entity.preTaskStatus='SUCCEED_PARTIAL'"
+                                ng-class="{'btn-info':entity.preTaskStatus=='SUCCEED_PARTIAL'}">前置任务部分成功</button>
+                    </div>
+
+                    <label class="col-sm-2 control-label">前置构建任务:</label>
+                    <div class="col-sm-4">
+                        <select  class="form-control" ng-model="entity.watchJobId"
+                                 required="required"
+                                 placeholder="项目组"
+                                 ng-options="job.id as job.name for job in teamJobs" ng-change="entity.watchJobName =  job.name" ></select>
+                    </div>
+            </div>
 
                 <label class="col-sm-2 control-label" ng-if="role=='admin'||role=='audit'">质量管理任务:</label>
                 <div class="col-sm-4" ng-if="role=='admin'||role=='audit'">
@@ -68,14 +106,7 @@
                                 </div>
              </div>
              <div class="form-group">
-                                <label class="col-sm-2 control-label">报告发送至:</label>
-                                <div class="col-sm-2">
-                                    <select class="form-control" ng-model="entity.teamId"
-                                        required="required" 
-                                        placeholder="项目组" 
-                                        ng-options="team.id as team.name for team in teams">
-                                    </select>
-                                </div>
+
                                 <label class="col-sm-2 control-label">仅在构建失败时报告:</label>
                                 <div class="col-sm-2">
                                  <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">

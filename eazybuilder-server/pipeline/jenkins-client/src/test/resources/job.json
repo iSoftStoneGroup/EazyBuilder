@@ -1,0 +1,69 @@
+{
+        "id": "14",
+        "name": "定时构建workflow-api 网银版jar包",
+        "projects": 
+        [
+            {
+                "id": "28",
+                "name": "ifinance-workflow-api",
+                "description": "workflow-api maven版",
+                "team": 
+                {
+                    "id": "9",
+                    "name": "平台-审批流",
+                    "members": 
+                    [
+                        {
+                            "id": "2",
+                            "name": "张三",
+                            "email": "zpzhaoa@eazybuilder.com",
+                            "role": "admin"
+                        },
+
+                        {
+                            "id": "10",
+                            "name": "那刚",
+                            "email": "gangnac@eazybuilder.com",
+                            "role": "developer"
+                        },
+
+                        {
+                            "id": "21",
+                            "name": "高正英",
+                            "email": "zygaod@eazybuilder.com",
+                            "role": "developer"
+                        }
+                    ]
+                },
+
+                "scm": 
+                {
+                    "id": "31",
+                    "type": "git",
+                    "url": "http://10.129.130.251:8080/cloud-workflow/workdesk",
+                    "tagName": "tag/v2.0.3_for_cpec",
+                    "user": "gangnac@eazybuilder.com",
+                    "password": "12345678"
+                },
+
+                "deployInfo": 
+                {
+                    "id": "16",
+                    "url": "无"
+                },
+
+                "registry": 
+                {
+                    "id": "1",
+                    "schema": "http",
+                    "url": "${registry_IP}:5000"
+                }
+            }
+        ],
+
+        "teamId": "9",
+        "cron": "0 0 23 * * ?",
+        "lastTrigger": 1539702097421,
+        "nextTime": 1539874800000,
+        "profileId": "16"
+    }

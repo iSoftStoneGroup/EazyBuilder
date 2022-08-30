@@ -1,4 +1,4 @@
-FROM openjdk:8-jre-slim
+FROM registry.eazybuilder-devops.cn/library/baseos:jdk8
 
 WORKDIR /opt/sql-validate
 COPY config/  /opt/sql-validate/config/

@@ -1,0 +1,141 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:8.0.19
+    container_name: mysql
+    # docker安全验证
+    security_opt:
+      - seccomp:unconfined
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./mysql/lib/data:/var/lib/mysql
+    privileged: true
+    ports:
+      - "33066:3306"
+    networks:
+      - eazybuilder
+
+  nacos:
+    image: nacos/nacos-server:v2.1.1
+    container_name: nacos-v2.1.1
+    privileged: true
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      #mysql数据库地址
+      - MYSQL_SERVICE_HOST=mysql
+      # mysql端口
+      - MYSQL_SERVICE_PORT=3306
+      # mysql用户
+      - MYSQL_SERVICE_USER=root
+      # mysql密码
+      - MYSQL_SERVICE_PASSWORD=root
+      # nacos数据库
+      - MYSQL_SERVICE_DB_NAME=nacos
+      - MYSQL_SERVICE_DB_PARAM=useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true
+    volumes:
+      - ./nacos/standalone-logs/:/home/nacos/logs
+    ports:
+      - "8848:8848"
+      - "9848:9848"
+      - "9849:9849"
+    depends_on:
+      - mysql
+    networks:
+      - eazybuilder
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+      - "36679:6379"
+    #指定挂载目录
+    #redis.conf文件和data目录分别映射了主机的redis.conf文件和主机的data目录
+    #使用command可以覆盖容器启动后默认执行的命令
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
+      - ./redis/data:/data:rw
+    privileged: true
+    command:
+      /bin/bash -c "redis-server /usr/local/etc/redis/redis.conf"
+    networks:
+      - eazybuilder
+
+
+  rabbitmq:
+    image: "rabbitmq:3.7.16-management"
+    environment:
+      RABBITMQ_DEFAULT_VHOST: "/devops"
+      RABBITMQ_DEFAULT_USER: "devops"
+      RABBITMQ_DEFAULT_PASS: "devops"
+    volumes:
+      - "./rabbitmq/data:/var/lib/rabbitmq"
+    privileged: true
+    ports:
+      - "35677:15672"
+      - "34369:4369"
+      - "35673:5672"
+      - "25672:25672"
+    networks:
+      - eazybuilder
+
+  # jenkins:
+  #   image: jenkins/jenkins:lts
+  #   volumes:
+  #     - ./jenkins/data/jenkins_home:/var/jenkins_home
+  #     - ./jenkins/run/docker.sock:/var/run/docker.sock
+  #     - ./jenkins/bin/docker:/usr/bin/docker
+  #     - ./jenkins/lib/x86_64-linux-gnu/libltdl.so.7:/usr/lib/x86_64-linux-gnu/libltdl.so.7
+  #   privileged: true
+  #   ports:
+  #     - "8090:8080"
+  #   expose:
+  #     - "8080"
+  #     - "50000"
+  #   user: root
+  #   restart: always
+  #   container_name: jenkins
+  #   environment:
+  #     JAVA_OPTS: '-Djava.util.logging.config.file=/var/jenkins_home/log.properties'
+  #   networks:
+  #    - eazybuilder    
+
+  # sonarqube:
+  #   image: sonarqube:8.9.2-community
+  #   restart: always
+  #   command: -Dsonar.web.context=/sonarqube -Dsonar.search.javaOpts=-Xmx2g -Dsonar.ce.javaOpts=-Xmx2g
+  #   environment:
+  #     - JAVA_OPTS=-Xmx1g
+  #     - SONARQUBE_JDBC_USERNAME=sonar
+  #     - SONARQUBE_JDBC_PASSWORD=sonar
+  #     - SONARQUBE_JDBC_URL=jdbc:postgresql://postgres:5432/sonar
+  #     - sonar.search.javaOpts=-Xms256m -Xmx256m -XX:+HeapDumpOnOutOfMemoryError
+  #   ports:
+  #     - "19000:9000"
+  #   volumes:
+  #     - ./sonarqube/data:/opt/sonarqube/data
+  #     - ./sonarqube/tmp:/opt/sonarqube/temp
+  #   privileged: true
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #    - eazybuilder 
+
+  # postgres:
+  #   image: postgres:13
+  #   ports:
+  #    - "35455:5432"
+  #   environment:
+  #    - POSTGRES_PASSWORD=sonar
+  #    - POSTGRES_USER=sonar
+  #    - POSTGRES_DB=sonar
+  #   volumes:
+  #    - ./postgresql/data:/var/lib/postgresql/data
+  #   privileged: true
+  #   networks:
+  #    - eazybuilder
+
+networks:
+  eazybuilder:

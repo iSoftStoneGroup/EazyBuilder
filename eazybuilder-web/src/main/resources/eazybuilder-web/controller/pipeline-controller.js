@@ -119,6 +119,7 @@ app.controller('pipelineController', function($scope,$http,$window,$state,$filte
 
 							if(response.data&&response.data!='null'){
 								if(response.data.buildStatus=='IN_PROGRESS'){
+									//var buildUrl="http://jenkins.eazybuilder-devops.cn/jenkins/job/"+row.jobName+"/";
 									var buildUrl=row.jenkinsUrl+"/job/"+row.jobName+"/";
 									window.open(buildUrl,'_blank');
 									// alert('正在执行，请稍候查看最新结果');
@@ -668,7 +669,12 @@ app.controller('pipelineController', function($scope,$http,$window,$state,$filte
 					show: true,
 					animation:'am-fade-and-scale',
 					controller:function($scope){
-						$scope.logUrl=backend.logUrl+"/resources/"+logId;
+						if(logId.indexOf("console.txt")!=-1){
+							$scope.logUrl=backend.logUrl+"/resources/"+logId;
+						}else {
+							$scope.logUrl=backend.url+"/resources/"+logId;
+						}
+
 						$scope.stages=response.data;
 						$scope.title = row.name;
 						$scope.status=row.status;
@@ -710,7 +716,11 @@ app.controller('pipelineController', function($scope,$http,$window,$state,$filte
 				show: true,
 				animation:'am-fade-and-scale',
 				controller:function($scope,$sce){
-					$scope.logUrl=backend.logUrl+"/resources/"+logId;
+					if(logId.indexOf("console.txt")!=-1){
+							$scope.logUrl=backend.logUrl+"/resources/"+logId;
+						}else {
+							$scope.logUrl=backend.url+"/resources/"+logId;
+						}
 					$scope.status=row.status;
 					$scope.stages=row.stages;
 					$scope.accessControls=[]

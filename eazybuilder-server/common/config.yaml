@@ -2,23 +2,23 @@ name: test
 developers: 
   - 
     name: dev1
-    email: xx@163.com
+    email: zpzhaoa@eazybuilder.com
   - 
     name: dev2
-    email: xx@163.com
+    email: zpzhaoa@eazybuilder.com
 scm: 
   type: svn
   url: http://localhost
-  user: zhangsan
-  password: password
-
+  user: zhaozhoupeng
+  password: 1111
+  
 deployInfo: 
   host: 127.0.0.1
   user: root
-  password: password
+  password: root
    
 registry: 
   schema: http
-  url: 0.0.0.0:5000
+  url: ${registry_IP}:5000
   user: 
   password: 

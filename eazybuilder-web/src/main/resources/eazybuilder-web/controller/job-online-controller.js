@@ -337,7 +337,11 @@ app.controller('jobOnlineController', function($scope,$http,$window,$state,$inte
 				show: true,
 				animation:'am-fade-and-scale',
 				controller:function($scope,$sce){
-					$scope.logUrl=backend.logUrl+"/resources/"+logId;
+					if(logId.indexOf("console.txt")!=-1){
+							$scope.logUrl=backend.logUrl+"/resources/"+logId;
+						}else {
+							$scope.logUrl=backend.url+"/resources/"+logId;
+						}
 					$scope.status=row.status;
 					$scope.stages=row.stages;
 					$scope.accessControls=[]

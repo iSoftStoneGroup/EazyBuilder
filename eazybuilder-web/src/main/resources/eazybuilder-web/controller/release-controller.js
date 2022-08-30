@@ -1030,7 +1030,11 @@ app.controller('releaseController', function ($scope, $http, $window, $state, $f
 				show: true,
 				animation:'am-fade-and-scale',
 				controller:function($scope,$sce){
-					$scope.logUrl=backend.logUrl+"/resources/"+logId;
+					if(logId.indexOf("console.txt")!=-1){
+							$scope.logUrl=backend.logUrl+"/resources/"+logId;
+						}else {
+							$scope.logUrl=backend.url+"/resources/"+logId;
+						}
 					console.log(typeof row.stages)
 					$scope.stages=row.stages;
 					$scope.accessControls=[]
@@ -1241,7 +1245,11 @@ app.controller('releaseController', function ($scope, $http, $window, $state, $f
 				show: true,
 				animation:'am-fade-and-scale',
 				controller:function($scope,$sce){
-					$scope.logUrl=backend.logUrl+"/resources/"+logId;
+					if(logId.indexOf("console.txt")!=-1){
+							$scope.logUrl=backend.logUrl+"/resources/"+logId;
+						}else {
+							$scope.logUrl=backend.url+"/resources/"+logId;
+						}
 					console.log(typeof row.stages)
 					$scope.stages=row.stages;
 					$scope.dtpTask = row.dtpTask

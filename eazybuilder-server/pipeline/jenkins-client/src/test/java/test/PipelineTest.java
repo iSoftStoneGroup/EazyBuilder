@@ -13,7 +13,7 @@ public class PipelineTest {
 
     @Test
     public  void sqlTakeMinJdbc() throws SQLException {
-        PipelineServiceImpl.sqlTakeMinJdbc("jdbc:mysql://" + properties.getProperty("mysql.url") + ":3306/ci_test?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&failOverReadOnly=false&serverTimezone=UTC",
+        PipelineServiceImpl.sqlTakeMinJdbc("jdbc:mysql://" + properties.getProperty("mysql.url") + ":33066/ci_test?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&failOverReadOnly=false&serverTimezone=UTC",
                 properties.getProperty("mysql.username"),
                 properties.getProperty("mysql.password"),
                         "UPDATE ci_user \n" +
