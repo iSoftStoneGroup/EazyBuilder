@@ -42,5 +42,6 @@ public class UpmsController {
         JSONObject jsonObject = JSONObject.fromObject(userData);
         List<UpmsUserVo> dataArr = JSONArray.parseArray(jsonObject.getJSONArray("data").toString(), UpmsUserVo.class);
         return dataArr;
+
     }
 }
