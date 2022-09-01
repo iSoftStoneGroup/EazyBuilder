@@ -11,8 +11,18 @@
     <div class="col-sm-8">
         <input type="text" ng-disabled="entity.id" class="form-control"
                ng-blur="matchTeamCode()"
-               ng-model="entity.teamCode" placeholder="小写英文字母，不能包含特殊字符，与gitllab和redmine工程关联"
+               ng-model="entity.teamCode" placeholder="小写英文字母，不能包含特殊字符，与gitllab和redmine(或禅道)工程关联"
                required="required"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">需求管理平台:</label>
+    <div class="col-sm-8">
+        <select class="form-control" ng-model="entity.projectManage" required>
+            <option value="redmine">Redmine</option>
+            <option value="zentao">禅道</option>
+        </select>
     </div>
 </div>
 

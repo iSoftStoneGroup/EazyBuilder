@@ -9,7 +9,7 @@ spring:
         driverClassName: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://tcla-mysql:3306/sonar?serverTimezone=CTT&characterEncoding=utf8&useUnicode=true&useSSL=false&allowPublicKeyRetrieval=true&autoReconnect=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
         username: root
-        password: mysql_123
+        password: root
       postgre:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: org.postgresql.Driver

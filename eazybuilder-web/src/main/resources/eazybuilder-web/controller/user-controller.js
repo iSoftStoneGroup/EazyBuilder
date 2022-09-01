@@ -124,6 +124,10 @@ app.controller('userController', function($scope,$http,$window,$state,$modal,$fi
 		$scope.entity={};
 		$state.go('user.add');
 	}
+	$scope.addLocal=function(){
+		$scope.entity={};
+		$state.go('userLocal.add');
+	}
 	
 	$scope.save=function(){
 		$http.post(backend.url+"/api/user",$scope.entity).then(function(response){
@@ -131,7 +135,13 @@ app.controller('userController', function($scope,$http,$window,$state,$modal,$fi
 			$state.go("user.list");
 		});
 	}
-	
+	$scope.saveLocal=function(){
+		$http.post(backend.url+"/api/user",$scope.entity).then(function(response){
+			alert("保存成功");
+			$state.go("userLocal.list");
+		});
+	}
+
 	$scope.viewDetail = function (row) {
 		$scope.entity=angular.copy(row);
 		$state.go('user.edit');
@@ -139,6 +149,9 @@ app.controller('userController', function($scope,$http,$window,$state,$modal,$fi
 	
 	$scope.back = function () {
 		$state.go('user.list');
+	}
+	$scope.backLocal = function () {
+		$state.go('userLocal.list');
 	}
 	$scope.resetPwd=function(){
 		var selected=jQuery("#table").bootstrapTable("getAllSelections")

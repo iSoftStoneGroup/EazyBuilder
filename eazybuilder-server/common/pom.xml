@@ -1,16 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>com.eazybuilder</groupId>
-    <artifactId>eazybuilder-server</artifactId>
-    <version>1.2.2-SNAPSHOT</version>
+      <groupId>com.eazybuilder</groupId>
+      <artifactId>eazybuilder-server</artifactId>
+      <version>1.2.2-SNAPSHOT</version>
   </parent>
   <artifactId>common</artifactId>
   <properties>
       <querydsl.version>4.1.4</querydsl.version>
   </properties>
     <dependencyManagement>
-
         <dependencies>
             <dependency>
                 <groupId>org.springframework.boot</groupId>

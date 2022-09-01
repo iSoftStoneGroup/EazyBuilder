@@ -740,7 +740,11 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 					show: true,
 					animation:'am-fade-and-scale',
 					controller:function($scope){
-						$scope.logUrl=backend.logUrl+"/resources/"+logId;
+						if(logId.indexOf("console.txt")!=-1){
+							$scope.logUrl=backend.logUrl+"/resources/"+logId;
+						}else {
+							$scope.logUrl=backend.url+"/resources/"+logId;
+						}
 						$scope.stages=response.data;
 						$scope.title = row.name;
 						$scope.status=row.status;
@@ -761,7 +765,11 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 				show: true,
 				animation:'am-fade-and-scale',
 				controller:function($scope,$sce){
-					$scope.logUrl=backend.logUrl+"/resources/"+logId;
+					if(logId.indexOf("console.txt")!=-1){
+							$scope.logUrl=backend.logUrl+"/resources/"+logId;
+						}else {
+							$scope.logUrl=backend.url+"/resources/"+logId;
+						}
 					$scope.status=row.status;
 					$scope.stages=row.stages;
 					$scope.accessControls=[]

@@ -9,8 +9,8 @@
   <packaging>pom</packaging>
   <modules>
   	<module>jenkins-client</module>
-        	<module>buildfile-decorator</module>
- <!--   	<module>pipeline-console</module>-->
+<!--        	<module>buildfile-decorator</module>-->
+<!--    	<module>pipeline-console</module>-->
 <!--  	<module>legacy-ant-adapter</module>-->
 <!--  	<module>sql-scanner</module>-->
 <!--  	<module>report-collector</module>-->

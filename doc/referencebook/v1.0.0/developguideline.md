@@ -31,7 +31,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/ci?useUnicode=true&useSSL=false&characterEncoding=utf-8
+    url: jdbc:mysql://mysql:33066/ci?useUnicode=true&useSSL=false&characterEncoding=utf-8
     username: xxxx
     password: xxxxx
 ```
@@ -132,7 +132,7 @@ spring:
     #        url: jdbc:h2:file:./h2/ci-client;AUTO_SERVER=TRUE;
     #mysql
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/ci?useUnicode=true&useSSL=false&characterEncoding=utf-8
+    url: jdbc:mysql://mysql:33066/ci?useUnicode=true&useSSL=false&characterEncoding=utf-8
     username: root
     password: xxxx
     maxActive: 50
@@ -186,7 +186,7 @@ ci:
   k8s-folder: D:/data/k8s-yaml
   hosts: http://xxxx/
   redis: 
-   address: ${redis_addr:redis://redis-plat.eazybuilder-devops.cn:16379}
+   address: ${redis_addr:redis://redis-plat.eazybuilder-devops.cn:8080}
   storage:
     typs: local
 #    type: obs

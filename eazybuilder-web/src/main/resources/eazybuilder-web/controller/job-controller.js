@@ -16,6 +16,14 @@ app.controller('jobController', function($scope,$http,$window,$state,$interval,$
 	basicService.getTeams().then(function(response){
 		$scope.teams=response.data;
 	});
+
+	$scope.searchTeamJobs = function(){
+		if($scope.entity.teamId &&  $scope.entity.triggerType=='watch_job_executed'){
+			$http.get(backend.url + "/api/job/findByQueryDlsList?teamId=" + $scope.entity.teamId).then(function(response){
+				$scope.teamJobs = response.data;
+			});
+		}
+	}
 	
 	$scope.tableControl={
 		options:{
@@ -56,6 +64,8 @@ app.controller('jobController', function($scope,$http,$window,$state,$interval,$
                 	return "Git钩子触发";
                 	case 'manual':
                 		return "人工执行";
+                	case 'watch_job_executed':
+                        return '监听其他任务';
                 	}
                 }
             },{
@@ -301,7 +311,8 @@ app.controller('jobController', function($scope,$http,$window,$state,$interval,$
 	}
 	
 	$scope.viewDetail = function (row) {
-		$scope.entity=angular.copy(row);
+		$scope.entity=angular.copy(row)
+		$scope.searchTeamJobs(row);
 		$state.go('job.edit');
 	}
 	

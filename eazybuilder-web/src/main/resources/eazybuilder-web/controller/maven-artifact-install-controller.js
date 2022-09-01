@@ -3,7 +3,7 @@ app.controller('mavenRepoController',function($scope,basicService,$window,$http)
 	if($window.sessionStorage.usePortal){
 		$http.post(backend.url+"/getTeamFromUpms"+"?token="+$window.sessionStorage.token).then(function(response){
 			$scope.teams=response.data;
-			$scope.baseRepoUrl='/ci/console/filemanager/main.html';
+			$scope.baseRepoUrl='/eazybuilder-web/filemanager/main.html';
 			$scope.currentTeamId=$scope.teams[0].id;
 			$scope.$watch('currentTeamId',function(){
 				$scope.repoUrl=$scope.baseRepoUrl+'?teamId='+$scope.currentTeamId;

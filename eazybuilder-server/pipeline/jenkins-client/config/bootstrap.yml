@@ -1,8 +1,8 @@
 nacos:
-  ip: 0.0.0.0
-  port: 28848
-  username: nacos
-  password: nacos
+  ip: ${NACOS_IP:10.137.25.90}
+  port: ${NACOS_PORT:8848}
+  username: ${NACOS_USER:nacos}
+  password: ${NACOS_PASSWORD:nacos}
 spring:
   application:
     name: jenkins-client
@@ -18,3 +18,21 @@ spring:
         group: DEFAULT_GROUP
         server-addr: ${nacos.ip}:${nacos.port}
         file-extension: yml
+        # 公用的配置文佳，如：redis,kafka的配置
+        shared-configs:
+          - data-id: rabbitmq.yml
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: redis-common.yml
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: cache.yml
+            group: DEFAULT_GROUP
+            refresh: true
+      discovery:
+        namespace: ${NACOS_SPACE:public}
+        enabled: true
+        server-addr: ${nacos.ip}:${nacos.port}
+        metadata:
+          swagger: http://${LOCAL_IP:${spring.cloud.client.ip-address}}:${server.port:}/swagger-resources
+          service.name: 持续集成-nacos
