@@ -98,7 +98,7 @@ services:
     volumes:
       - ./postgres/postgresql:/var/lib/postgresql
       - ./postgres/data:/var/lib/postgresql/data
-      - ./postgres/etc/localtime:/etc/localtime:ro
+    privileged: true
     environment:
       TZ: Asia/Shanghai
       POSTGRES_USER: sonar
@@ -117,6 +117,7 @@ services:
       - ./sonarqube/conf:/opt/sonarqube/conf
       # 设置与宿主机时间同步
       - /etc/localtime:/etc/localtime:ro
+    privileged: true
     ports:
       - 30004:9000
     command:
