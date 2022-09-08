@@ -92,7 +92,7 @@ EazyBuilder will be used with other tools in a cloud-native environment. Therefo
 
 # **Contact us**
 
-- Welcome to pay attention to eazybuilder, if you encounter problems in use, you can join the group discussion (the QR code picture will be updated weekly)
+- Welcome to pay attention to eazybuilder, if you encounter problems in use, you can join the group discussion)
 
 - **Welcome to join the communication group. You can scan WeChat QR code below and invite you to join the group. Please specify to join easybuilder**
 
