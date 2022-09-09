@@ -109,6 +109,13 @@
             </a></li>
 
             <li class="submenu" ng-click="active($event)"
+                ng-if="haveRoles('admin') "><a ui-sref="projectManage.list" title="需求管理平台配置">
+                <div>
+                    <i class="menu-icon fa fa-users"></i> <span>需求管理平台配置</span>
+                </div>
+            </a></li>
+
+            <li class="submenu" ng-click="active($event)"
                 ng-if="haveRoles('admin') "><a ui-sref="team.list" title="质量阈值管理">
                 <div>
                     <i class="menu-icon fa fa-sitemap"></i> <span>质量阈值管理</span>
@@ -221,11 +228,21 @@
                     </div>
                 </a>
             </li>
+
             <li class="submenu" ng-click="active($event)">
                 <a ui-sref="pipeline.list" title="运行流水线">
                     <div>
                         <i class="menu-icon fa fa-random"></i>
                         <span>运行流水线</span>
+                    </div>
+                </a>
+            </li>
+
+            <li class="submenu" ng-click="active($event)">
+                <a ui-sref="secondParty.list" title="二方包配置">
+                    <div>
+                        <i class="menu-icon fa fa-random"></i>
+                        <span>二方包配置</span>
                     </div>
                 </a>
             </li>
