@@ -106,6 +106,9 @@ The latest documentation for each release can be found at:
 - [EazyBuilder 1.0.0](./doc/referencebook/v1.0.0/referencebook_en.md)
 
 
+# **Download**
+
+- [Github Release](https://github.com/iSoftStoneGroup/EazyBuilder/releases)
 
 
 # **License**
