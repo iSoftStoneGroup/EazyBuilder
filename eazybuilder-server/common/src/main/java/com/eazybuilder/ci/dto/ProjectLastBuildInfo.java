@@ -46,9 +46,6 @@ public class ProjectLastBuildInfo {
 		 build.setJobName(project.getJobName());
 		 if(null!=project.getScm()) {
 			 build.setScmType(project.getScm().getType());
-//			 if(!StringUtils.isEmpty(project.getScm().getTagName())) {
-//				 build.setScmTag(project.getScm().getTagName());
-//			 }
 			 if(!StringUtils.isEmpty(project.getScm().getSourceBranch())) {
 				 build.setSourceBranch(project.getScm().getSourceBranch());
 			 }

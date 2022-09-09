@@ -4,6 +4,5 @@ import org.apache.maven.model.Model;
 
 public interface POMDecorator {
 
-	public void decorate(Model original);
-	
+	public void decorate(Model original,String nexusUrl);
 }

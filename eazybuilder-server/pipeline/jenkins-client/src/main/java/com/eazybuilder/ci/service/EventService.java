@@ -99,7 +99,25 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
                                             if (StringUtils.isNotBlank(rabbitmqData.getString("topCode")) && StringUtils.isNotBlank(rabbitmqData.getString("code"))) {
                                                 dockerImageTag = rabbitmqData.getString("topCode") + "-" + rabbitmqData.getString("code") + "-" + df.format(new Date());
                                             }
+
                                             projectBuildVo.setCreateTagVersion(dockerImageTag);
+
+
+                                            String tagVersion = "";
+                                            String branchVersion = "";
+                                            if(profile.isAddTag()) {
+                                                if (StringUtils.isNotBlank(profile.getTagPrefix())) {
+                                                    tagVersion = profile.getTagPrefix() + dockerImageTag;
+                                                }
+                                            }
+                                            if(profile.isCreateBranch()) {
+                                                if (StringUtils.isNotBlank(profile.getReleasePrefix())) {
+                                                    branchVersion = profile.getReleasePrefix() + dockerImageTag;
+                                                }
+                                            }
+                                            projectBuildVo.setCreteBranchVersion(branchVersion);
+                                            projectBuildVo.setReleaseDockerVersion(tagVersion);
+                                            projectBuildVo.setCreateTagVersion(tagVersion);
 
                                         }
                                         if(eventType!=null) {

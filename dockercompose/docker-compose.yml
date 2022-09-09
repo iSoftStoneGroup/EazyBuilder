@@ -127,7 +127,7 @@ services:
       # 设置服务代理路径
       - -Dsonar.web.context=/
       # 此设置用于集成gitlab时，回调地址设置
-      - -Dsonar.core.serverBaseURL=http://10.137.25.90:30004
+      - -Dsonar.core.serverBaseURL=http://0.0.0.0:30004
     environment:
       TZ: Asia/Shanghai
       SONARQUBE_JDBC_USERNAME: sonar

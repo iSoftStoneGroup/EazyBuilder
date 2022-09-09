@@ -7,7 +7,7 @@
 
 ### Lines 16~18, configure the database
 ````yaml
-    url: jdbc:mysql://mysql:33066/ci?useUnicode=true&useSSL=false&characterEncoding=utf-8
+    url: jdbc:mysql://mysql:3306/ci?useUnicode=true&useSSL=false&characterEncoding=utf-8
     username: xxx
     password: xxxx
 ````
@@ -88,7 +88,7 @@ maven:
 sonar:
   url: http://sonarqube.eazybuilder-devops.cn/sonarqube/
   user: admin
-  password: admin123
+  password: admin
   Query the languages ​​supported by sonarqube
   languagesListUrl: http://sonarqube.eazybuilder-devops.cn/api/languages/list
   The rule set corresponding to the query language

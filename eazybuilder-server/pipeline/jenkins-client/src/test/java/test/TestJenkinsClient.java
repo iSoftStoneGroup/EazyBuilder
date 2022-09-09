@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Properties;
 
-import com.eazybuilder.ci.config.LoadConfigYML;
 import com.eazybuilder.ci.jenkins.Jenkins;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -17,10 +15,9 @@ import com.offbytwo.jenkins.model.QueueReference;
 public class TestJenkinsClient {
     static Jenkins jenkins=null;
     static boolean crumbFlag=true;//crfs crumb 高版本jenkins需要
-    private static Properties properties = new LoadConfigYML().getConfigProperties();
     static{
         try {
-            jenkins=new Jenkins(new URI("http://" + properties.getProperty("jenkins.url") +"/jenkins/"), properties.getProperty("jenkins.username"), properties.getProperty("jenkins.password"));
+            jenkins=new Jenkins(new URI("http://jenkins.eazybuilder-devops.cn/jenkins/"), "admin", "admin");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

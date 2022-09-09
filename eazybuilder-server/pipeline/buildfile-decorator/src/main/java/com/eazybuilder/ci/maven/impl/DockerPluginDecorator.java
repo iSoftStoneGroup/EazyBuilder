@@ -62,7 +62,7 @@ public class DockerPluginDecorator implements POMDecorator{
 	}
 
 	@Override
-	public void decorate(Model original) {
+	public void decorate(Model original,String nexusUrl) {
 		if(pluginNotExist(original)){
 			if(original.getOrganization()!=null&&original.getOrganization().getName()!=null){
 				original.addProperty("docker.build.groupId", original.getOrganization().getName());
@@ -88,6 +88,7 @@ public class DockerPluginDecorator implements POMDecorator{
 			}
 		}
 	}
+
 
 	private boolean pluginNotExist(Model original) {
 		for(Plugin plugin:original.getBuild().getPlugins()){

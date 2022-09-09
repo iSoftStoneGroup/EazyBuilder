@@ -68,7 +68,9 @@ public class DevopsInit extends BaseEntry implements Serializable{
 	/**
 	 * 需求管理平台
 	 */
-	private String projectManage;
+	@Column(name="projectManage_id",columnDefinition="int(8)")
+	private String projectManageId;
+	private String projectManageName;
 
 	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@NotFound(action= NotFoundAction.IGNORE)
@@ -111,12 +113,20 @@ public class DevopsInit extends BaseEntry implements Serializable{
 		this.teamCode = teamCode;
 	}
 
-	public String getProjectManage() {
-		return projectManage;
+	public String getProjectManageId() {
+		return projectManageId;
 	}
 
-	public void setProjectManage(String projectManage) {
-		this.projectManage = projectManage;
+	public void setProjectManageId(String projectManageId) {
+		this.projectManageId = projectManageId;
+	}
+
+	public String getProjectManageName() {
+		return projectManageName;
+	}
+
+	public void setProjectManageName(String projectManageName) {
+		this.projectManageName = projectManageName;
 	}
 
 	public List<DevopsProject> getDevopsProjects() {

@@ -24,8 +24,9 @@ public class PipelineDoneListener {
 	
 	@Subscribe
 	public void onFinished(Pipeline pipeline){
-		if(pipeline==null)
+		if(pipeline==null){
 			return;
+		}
 		logger.info("pipeline finished with status:"+pipeline.getStatus());
 		if(pipeline.getStatus()==Status.SUCCESS||pipeline.getStatus()==Status.UNSTABLE){
 			

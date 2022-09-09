@@ -8,6 +8,7 @@ app.controller('pipelineProfileController', function($scope,$http,$window,$state
 	basicService.getHosts().then(function(response){
 		$scope.hosts=response.data;
 	});
+
 	$scope.tableControl={
 		options:{
             url:backend.url+"/api/pipelineProfile/page",
@@ -349,9 +350,15 @@ app.controller('pipelineProfileController', function($scope,$http,$window,$state
 
 				$scope.crackerSkipDeployOn = function () {
 					$scope.cracker.skipDeploy=false;
+
+				}
+				$scope.initK8sAction = function(){
+					$scope.cracker.skipDeploy=true;
 					$scope.cracker.restartDeploy=false;
 					$scope.cracker.assignYaml=false;
+					$scope.cracker.rollout = false;
 				}
+
 
 				$scope.crackerRestartDeployOn = function () {
 					$scope.cracker.restartDeploy = true;
@@ -366,6 +373,9 @@ app.controller('pipelineProfileController', function($scope,$http,$window,$state
 					$scope.teams=response.data;
 					$scope.getCheckedTeam();
 
+				});
+				basicService.getSecondPartys().then(function(response){
+					$scope.secondPartys=response.data;
 				});
 				if($scope.cracker.teamId){
 					$scope.getNamespacesByTeam();
@@ -383,6 +393,20 @@ app.controller('pipelineProfileController', function($scope,$http,$window,$state
 							}
 						}
 					}
+					if($scope.cracker.secondParty && $scope.cracker.secondParty.id){
+						for(var i=0;i<$scope.secondPartys.length;i++){
+							if($scope.cracker.secondParty.id==$scope.secondPartys[i].id){
+								$scope.cracker.secondParty.secondPartyName=$scope.secondPartys[i].secondPartyName;
+								$scope.cracker.secondParty.secondPartyType=$scope.secondPartys[i].secondPartyType;
+								$scope.cracker.secondParty.secondPartyPath=$scope.secondPartys[i].secondPartyPath;
+								$scope.cracker.secondParty.secondPartyUser=$scope.secondPartys[i].secondPartyUser;
+								$scope.cracker.secondParty.secondPartyPass=$scope.secondPartys[i].secondPartyPass;
+								$scope.cracker.secondParty.secondPartyKey=$scope.secondPartys[i].secondPartyKey;
+								break;
+							}
+						}
+					}
+
 					$http.post(backend.url+"/api/pipelineProfile",$scope.cracker).then(function(response){
 						alert("保存成功");
 						jQuery("#table").bootstrapTable("refresh");

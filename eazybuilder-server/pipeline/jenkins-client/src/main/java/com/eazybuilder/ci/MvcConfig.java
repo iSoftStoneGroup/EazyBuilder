@@ -71,7 +71,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 		ApiInfo apiInfo = new ApiInfo(
 				"Eazybuilder持续集成系统REST API接口",
 				"",
-				"",
+				"©2002-"+LocalDate.now().getYear()+" 软通动力",
 				"",
 				"",
 				"");

@@ -1,21 +1,18 @@
 package test;
 
-import com.eazybuilder.ci.config.LoadConfigYML;
 import com.eazybuilder.ci.service.PipelineServiceImpl;
 import org.junit.Test;
 
 import java.sql.SQLException;
-import java.util.Properties;
 
 
 public class PipelineTest {
-    private static Properties properties = new LoadConfigYML().getConfigProperties();
 
     @Test
     public  void sqlTakeMinJdbc() throws SQLException {
-        PipelineServiceImpl.sqlTakeMinJdbc("jdbc:mysql://" + properties.getProperty("mysql.url") + ":33066/ci_test?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&failOverReadOnly=false&serverTimezone=UTC",
-                properties.getProperty("mysql.username"),
-                properties.getProperty("mysql.password"),
+        PipelineServiceImpl.sqlTakeMinJdbc("jdbc:mysql://mysql.eazybuilder-devops.cn:3306/ci_test?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&failOverReadOnly=false&serverTimezone=UTC",
+                "root",
+                "mysql_123",
                         "UPDATE ci_user \n" +
                         "SET \n" +
                         "    `email` = (IF(LENGTH(email) > 2,\n" +

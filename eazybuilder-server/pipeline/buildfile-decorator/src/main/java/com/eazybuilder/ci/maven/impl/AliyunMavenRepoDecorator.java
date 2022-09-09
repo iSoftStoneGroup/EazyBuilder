@@ -1,11 +1,11 @@
 package com.eazybuilder.ci.maven.impl;
 
+import com.eazybuilder.ci.maven.LoadConfigYML;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.Repository;
 
 import com.eazybuilder.ci.maven.POMDecorator;
 
-import com.eazybuilder.ci.config.LoadConfigYML;
 
 import java.util.Properties;
 
@@ -20,7 +20,7 @@ public class AliyunMavenRepoDecorator implements POMDecorator{
 		ALIYUN_REPO.setUrl("http://" + properties.getProperty("nexus3.url") + "/repository/maven-public/");
 	}
 	@Override
-	public void decorate(Model original) {
+	public void decorate(Model original,String nexusUrl) {
 		for(Repository repo:original.getPluginRepositories()){
 			if(repo.getUrl().contains(properties.getProperty("nexus3.url"))){
 				return;

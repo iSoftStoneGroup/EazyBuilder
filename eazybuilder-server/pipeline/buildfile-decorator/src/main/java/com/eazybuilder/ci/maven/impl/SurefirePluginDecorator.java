@@ -26,7 +26,7 @@ public class SurefirePluginDecorator implements POMDecorator{
 		SUREFIRE_PLUGIN.setConfiguration(config);
 	}
 	@Override
-	public void decorate(Model original) {
+	public void decorate(Model original,String nexusUrl) {
 		//skip if already exsited
 		for(Plugin plugin:original.getBuild().getPlugins()){
 			if(plugin.getArtifactId().equals("maven-surefire-plugin")){
@@ -35,5 +35,6 @@ public class SurefirePluginDecorator implements POMDecorator{
 		}
 		original.getBuild().addPlugin(SUREFIRE_PLUGIN);
 	}
+
 
 }

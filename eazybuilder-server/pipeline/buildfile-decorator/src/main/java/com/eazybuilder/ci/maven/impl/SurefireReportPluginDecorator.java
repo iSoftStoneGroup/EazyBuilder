@@ -13,7 +13,7 @@ public class SurefireReportPluginDecorator  implements POMDecorator{
 		SUREFIRE_REPORT_PLUGIN.setVersion("2.21.0");
 	}
 	@Override
-	public void decorate(Model original) {
+	public void decorate(Model original,String nexusUrl) {
 		original.getReporting().addPlugin(SUREFIRE_REPORT_PLUGIN);
 		
 	}

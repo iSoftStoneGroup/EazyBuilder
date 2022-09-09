@@ -1,0 +1,86 @@
+<div class="content-block panel-block">
+    <div class="block-title">需求管理平台设置</div>
+    <form class="form-horizontal" name="form">
+        <input type="hidden" ng-model="entity.id"/>
+        <div class="block-content">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">名称:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="entity.name" placeholder="需求管理平台配置名称，支持中文"
+                           required="required"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">类型:</label>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-model="entity.type" required>
+                        <option value="redmine">redmine</option>
+                        <option value="zentao">zentao</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="width: 90%; margin-top: 20px; margin-bottom: 20px;margin-left:auto;margin-right:auto;border-top: solid #dcdccc 4px;"></div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">需求管理平台地址:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="entity.url" placeholder="需求管理平台地址"
+                           required="required"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户名:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="entity.userName" placeholder="需求管理平台用户名"
+                           required="required"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">密码:</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" ng-model="entity.password" placeholder="需求管理平台密码"
+                           required="required"/>
+                </div>
+            </div>
+
+            <div style="width: 90%; margin-top: 20px; margin-bottom: 20px; margin-left:auto;margin-right:auto;border-top: solid #dcdccc 4px;"></div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">数据库连接:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="entity.dbUrl" placeholder="请输入数据库连接地址"
+                           required="required"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">用户名:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="entity.dbName" placeholder="请输入数据库用户名"
+                           required="required"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">密码:</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" ng-model="entity.dbPassword" placeholder="请输入数据库密码"
+                           required="required"/>
+                </div>
+            </div>
+        </div>
+        <div class="block-footer">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <button  class="btn btn-orange" ng-click="test()" ng-disabled="(!entity.dbUrl) || (!entity.dbName) || (!entity.dbPassword)">连接测试</button>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" ng-click="save()" ng-disabled="form.$invalid">保存</button>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-default" ng-click="back()">返回</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

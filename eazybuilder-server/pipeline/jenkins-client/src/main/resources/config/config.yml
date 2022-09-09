@@ -14,27 +14,9 @@ nexus3:
 jenkins:
   maven:
     url: 127.0.0.1
-  url: jenkins.eazybuilder-devops.cn
-  username: admin
-  password: admin
-
 
 registry:
   url: registry.eazybuilder-devops.cn
 
-gitlabApi:
-  url: gitlab-api.eazybuilder-devops.cn
-
-mysql:
-  username: root
-  password: root
-  url: mysql.eazybuilder-devops.cn
-
-base:
-  url: ci-ingress.eazybuilder-devops.cn
-
-ingress:
-  host: hpa-web.eazybuilder-devops.cn
-
-nacos:
-  url: nacos.eazybuilder-devops.cn
+email:
+  suffix: '@eazybuilder.com'

@@ -6,17 +6,17 @@ public class WarnTeamReportVo {
 	
 	private String teamName;
 	
-	private Long bugBlockerSum=0l;
+	private Long bugBlockerSum=0L;
 	
-	private Long vulnerBlockerSum=0l;
+	private Long vulnerBlockerSum=0L;
 	
-	private Long codeSmellBlocker=0l;
+	private Long codeSmellBlocker=0L;
 	
-	private Long dcHighSum=0l;
+	private Long dcHighSum=0L;
 	
 	private Double unitTestCoverageRate=0d;
 	
-	private Long projectNum=0l;
+	private Long projectNum=0L;
 	
 	private List<ProjectQAReport> projectQAReports;
 	

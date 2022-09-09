@@ -12,11 +12,17 @@ package com.eazybuilder.ci.dto;
  */
 public class IssuesStatusDto {
 
-    //需求状态
+    /**
+     * 需求状态
+     */
     private String issuesStatus;
-    //修改人
+    /**
+     * 修改人
+     */
     private String userName;
-    //需求号
+    /**
+     * 需求号
+     */
     private String code;
 
     public String getIssuesStatus() {

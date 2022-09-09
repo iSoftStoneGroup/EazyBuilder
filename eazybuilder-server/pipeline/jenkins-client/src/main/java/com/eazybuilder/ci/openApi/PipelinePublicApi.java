@@ -32,7 +32,7 @@ public class PipelinePublicApi {
 	public void getLastBuildStatusSvg(@RequestParam("projectId")String projectId,HttpServletResponse response) throws IOException {
 		//ProjectLastBuildInfo lastBuild=service.getLastBuild(projectId);
 		Pipeline pipeline = service.getLastPipelineByProjectId(projectId);
-		Status status= (pipeline==null?Status.NOT_EXECUTED:pipeline.getStatus());
+		Status status= (pipeline==null || pipeline.getStatus() == null ?Status.NOT_EXECUTED:pipeline.getStatus());
 		String svg=BuildStatusSvgHolder.SVG_NOTRUN;
 		switch(status) {
 		case SUCCESS:

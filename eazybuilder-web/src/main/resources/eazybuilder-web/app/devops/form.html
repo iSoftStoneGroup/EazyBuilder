@@ -10,7 +10,7 @@
                 <div class="block-footer form-group toolbox">
                     <div class="col-sm-offset-3 col-sm-6">
                         <button class="btn btn-default pull-left" ui-sref="deveops.list">返回</button>
-                        <button class="btn btn-warning pull-right" wz-next  ng-disabled="dataForm.$invalid" >下一步</button>
+                        <button class="btn btn-warning pull-right" wz-next  ng-disabled="(!entity.teamName) || (!entity.teamCode)" >下一步</button>
                     </div>
                 </div>
             </div>

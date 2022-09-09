@@ -42,7 +42,9 @@ public class CustomStringSerializer extends NonTypedScalarSerializerBase<String>
     public void acceptJsonFormatVisitor(JsonFormatVisitorWrapper visitor, JavaType typeHint)
             throws JsonMappingException
     {
-        if (visitor != null) visitor.expectStringFormat(typeHint);
+        if (visitor != null){
+            visitor.expectStringFormat(typeHint);
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 package com.eazybuilder.ci.dto;
 
+import com.eazybuilder.ci.entity.ProjectManage;
 import com.eazybuilder.ci.entity.Upms.UpmsUserVo;
 import com.eazybuilder.ci.entity.devops.DevopsInit;
 
@@ -14,6 +15,7 @@ public class DevopsInitDto extends DevopsInit implements Serializable {
 	private String phone;
 	private String userName;
 	private List<UpmsUserVo> devopsUsers;
+	private ProjectManage projectManage;
 
 	public List<UpmsUserVo> getDevopsUsers() {
 		return devopsUsers;
@@ -55,4 +57,11 @@ public class DevopsInitDto extends DevopsInit implements Serializable {
 		this.phone = phone;
 	}
 
+	public ProjectManage getProjectManage() {
+		return projectManage;
+	}
+
+	public void setProjectManage(ProjectManage projectManage) {
+		this.projectManage = projectManage;
+	}
 }
