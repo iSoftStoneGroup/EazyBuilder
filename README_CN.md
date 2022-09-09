@@ -103,6 +103,9 @@ EazyBuilder 将在云原生环境中与其他工具一起使用。因此，将�
 - [EazyBuilder 1.0.0](./doc/referencebook/v1.0.0/referencebook_cn.md)
 
 
+# **下载**
+
+- [Github Release](https://github.com/iSoftStoneGroup/EazyBuilder/releases)
 
 
 # **许可**
