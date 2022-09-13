@@ -47,6 +47,8 @@ public class JenkinsPipelineEnv {
 	@Value("${gitlabApi.base_url}")
 	String gitLabApiBaseUrl;
 
+	@Value("${ci.harbor.url}")
+	String registryUrl;
 
 	public boolean clearLegacyWorkspace() {
 		return Boolean.parseBoolean(propService.getValue("pipeline.legacy.clear", "true"));
@@ -175,7 +177,9 @@ public class JenkinsPipelineEnv {
 	public String getBuildDevHost() {
 		return propService.getValue("build.dev.host", "");
 	}
-
+	public String getRegistryUrl() {
+		return propService.getValue("registry.url", registryUrl);
+	}
 	public Map<String,Object> initEnvParams(Map<String,Object> params) {
 
 		params.put("jenkinsDataPath",this.getJenkinsDataPath());
@@ -188,7 +192,7 @@ public class JenkinsPipelineEnv {
 		params.put("jenkinsTeamGitlabUrl",this.getJenkinsTeamGitlabUrl());
 		params.put("jenkinsTeamGitlabHost",this.getJenkinsTeamGitlabHost());
 		params.put("buildDevHost",this.getBuildDevHost());
-		
+		params.put("registryUrl",this.getRegistryUrl());
 		return params;
 	}
 	

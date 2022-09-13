@@ -15,7 +15,7 @@
                     [
                         {
                             "id": "2",
-                            "name": "张三",
+                            "name": "赵洲鹏",
                             "email": "zpzhaoa@eazybuilder.com",
                             "role": "admin"
                         },
@@ -40,7 +40,7 @@
                 {
                     "id": "31",
                     "type": "git",
-                    "url": "http://10.129.130.251:8080/cloud-workflow/workdesk",
+                    "url": "http://0.0.0.0:8080/cloud-workflow/workdesk",
                     "tagName": "tag/v2.0.3_for_cpec",
                     "user": "gangnac@eazybuilder.com",
                     "password": "12345678"

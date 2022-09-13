@@ -30,7 +30,7 @@ public class AuthUtils {
 	public static Team getDefaultTeam() {
 		return DEFAULT_TEAM.get();
 	}
-	
+
 	public static String encrypt(String passcode,String salt) throws Exception{
 		SHA256 sha=new SHA256();
 		sha.init();

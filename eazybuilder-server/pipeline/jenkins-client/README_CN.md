@@ -87,7 +87,7 @@ maven:
 sonar:
   url: http://sonarqube.eazybuilder-devops.cn/sonarqube/
   user: admin
-  password: admin123
+  password: admin
   查询sonarqube支持的语言
   languagesListUrl: http://sonarqube.eazybuilder-devops.cn/api/languages/list
   查询语言对应的规则集

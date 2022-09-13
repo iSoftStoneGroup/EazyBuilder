@@ -1,11 +1,11 @@
-<#if project.profile?? &&project.deployType?? && project.deployType=='k8s' && project.profile.skipDeploy?string == "false" && !project.profile.restartDeploy && !project.profile.rollout>
+<#if project.profile?? &&project.deployType?? && project.deployType=='k8s' && (project.profile.skipDeploy?string == "false" || project.profile.assignYaml)  && !project.profile.rollout>
                     //k8s deploy
                     stage('k8s deploy'){
                         steps {
                             echo '========k8s deploy start========'
                            <#if project.deployConfigList??>
 
-                             <#if (project.profile.assignYaml??&& project.profile.assignYaml)||(project.profile.restartDeploy??&& project.profile.restartDeploy)||(project.profile.rollout??&& project.profile.rollout)>
+                             <#if project.profile.assignYaml>
                                 script {
 
                                 echo 'begin to use project assign yaml to deploy'
@@ -39,7 +39,7 @@
                                  </#if>
                                }
                                
-                               </#if>
+                             </#if>
                            <#else>
                                script {
                                 echo 'skip k8s deploy  or k8s yaml is null'

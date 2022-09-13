@@ -1,5 +1,6 @@
 package com.eazybuilder.ci.controller;
 
+import com.eazybuilder.ci.util.JsonMapper;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.Lists;
@@ -12,6 +13,7 @@ import com.eazybuilder.ci.entity.report.Status;
 import com.eazybuilder.ci.service.BuildJobService;
 import com.eazybuilder.ci.service.PipelineServiceImpl;
 import com.eazybuilder.ci.util.AuthUtils;
+import com.querydsl.core.types.Predicate;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +23,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.scheduling.support.CronSequenceGenerator;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.scheduling.support.SimpleTriggerContext;
@@ -137,6 +140,11 @@ public class BuildJobController extends CRUDRestController<BuildJobService, Buil
 			status=Status.NOT_EXECUTED;
 		}
 		return status;
+	}
+
+	@RequestMapping(value="/findByQueryDlsList",method=RequestMethod.GET)
+	public Iterable<BuildJob> findByQueryDlsList(@QuerydslPredicate(root=BuildJob.class) Predicate predicate ){
+		return service.findAll(predicate);
 	}
 
 }

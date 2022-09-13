@@ -50,12 +50,12 @@ public class TestParsePOM {
 	}
 	
 //	@Test
-	public void testProcess(){
-		try {
-			POMProcessor.getInstance().processPOM("../../../ci-demo");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public void testProcess(){
+//		try {
+//			POMProcessor.getInstance().processPOM("../../../ci-demo");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 	
 }

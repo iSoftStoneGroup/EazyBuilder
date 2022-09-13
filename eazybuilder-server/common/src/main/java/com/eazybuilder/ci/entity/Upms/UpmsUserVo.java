@@ -83,8 +83,12 @@ public class UpmsUserVo implements Serializable{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o){
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()){
+            return false;
+        }
         UpmsUserVo that = (UpmsUserVo) o;
         return inTeam == that.inTeam &&
                 com.google.common.base.Objects.equal(userId, that.userId) &&

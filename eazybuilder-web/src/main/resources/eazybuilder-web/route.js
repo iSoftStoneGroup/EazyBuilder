@@ -259,6 +259,42 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	    	url:"/pipelineProfileList",
 	    	templateUrl:"app/pipelineProfile/list.html"
 	    })
+
+		.state("projectManage",{
+			url:"/projectManage",
+			templateUrl:"app/projectManage/main.html"
+		})
+
+		.state("projectManage.list",{
+			url:"/projectManageList",
+			templateUrl:"app/projectManage/list.html"
+		})
+		.state("projectManage.add",{
+			url:"/projectManageAdd",
+			templateUrl:"app/projectManage/form.html"
+		})
+		.state("projectManage.edit",{
+			url:"/projectManageEdit",
+			templateUrl:"app/projectManage/form.html"
+		})
+
+		.state("secondParty",{
+			url:"/secondParty",
+			templateUrl:"app/secondParty/main.html"
+		})
+		.state("secondParty.list",{
+			url:"/secondPartyList",
+			templateUrl:"app/secondParty/list.html"
+		})
+		.state("secondParty.add",{
+			url:"/secondPartyAdd",
+			templateUrl:"app/secondParty/form.html"
+		})
+		.state("secondParty.edit",{
+			url:"/secondPartyEdit",
+			templateUrl:"app/secondParty/form.html"
+		})
+
 	    .state("testEnvSet",{
 	    	url:"/testEnvSet",
 	    	templateUrl:"app/testEnvSet/main.html"

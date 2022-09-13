@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.eazybuilder</groupId>
@@ -65,25 +65,25 @@
 			</exclusions>
 		</dependency>
 		<!--nacos -->
-		<!--		<dependency>-->
-		<!--			<groupId>com.alibaba.cloud</groupId>-->
-		<!--			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
-		<!--			<version>2.2.3.RELEASE</version>-->
-		<!--			<exclusions>-->
-		<!--				<exclusion>-->
-		<!--					<artifactId>jsr311-api</artifactId>-->
-		<!--					<groupId>javax.ws.rs</groupId>-->
-		<!--				</exclusion>-->
-		<!--				<exclusion>-->
-		<!--					<artifactId>jersey-client</artifactId>-->
-		<!--					<groupId>com.sun.jersey</groupId>-->
-		<!--				</exclusion>-->
-		<!--				<exclusion>-->
-		<!--					<artifactId>jsr305</artifactId>-->
-		<!--					<groupId>com.google.code.findbugs</groupId>-->
-		<!--				</exclusion>-->
-		<!--			</exclusions>-->
-		<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>com.alibaba.cloud</groupId>-->
+<!--			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
+<!--			<version>2.2.3.RELEASE</version>-->
+<!--			<exclusions>-->
+<!--				<exclusion>-->
+<!--					<artifactId>jsr311-api</artifactId>-->
+<!--					<groupId>javax.ws.rs</groupId>-->
+<!--				</exclusion>-->
+<!--				<exclusion>-->
+<!--					<artifactId>jersey-client</artifactId>-->
+<!--					<groupId>com.sun.jersey</groupId>-->
+<!--				</exclusion>-->
+<!--				<exclusion>-->
+<!--					<artifactId>jsr305</artifactId>-->
+<!--					<groupId>com.google.code.findbugs</groupId>-->
+<!--				</exclusion>-->
+<!--			</exclusions>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>com.alibaba.cloud</groupId>
 			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
@@ -220,10 +220,10 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!--		<dependency>-->
-		<!--			<groupId>junit</groupId>-->
-		<!--			<artifactId>junit</artifactId>-->
-		<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>junit</groupId>-->
+<!--			<artifactId>junit</artifactId>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -398,6 +398,11 @@
 					</execution>
 				</executions>
 			</plugin>
+
+
+
+
+
 		</plugins>
 
 	</build>

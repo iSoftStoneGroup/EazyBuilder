@@ -92,7 +92,7 @@ public class JacocoPluginDecorator implements POMDecorator{
 	 * 仅针对parent
 	 */
 	@Override
-	public void decorate(Model original) {
+	public void decorate(Model original,String nexusUrl) {
 		//skip if already exsited
 		for(Plugin plugin:original.getBuild().getPlugins()){
 			if(plugin.getArtifactId().equals("jacoco-maven-plugin")){
@@ -101,7 +101,9 @@ public class JacocoPluginDecorator implements POMDecorator{
 		}
 		original.getBuild().addPlugin(JACOCO_PLUGIN);
 	}
-	
+
+
+
 	public void createReportModel(List<Model> models) throws Exception{
 		
 		try(InputStream is=getClass().getClassLoader().getResourceAsStream("report-module-plugin.xml");

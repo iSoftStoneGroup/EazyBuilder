@@ -43,8 +43,7 @@ public class PipelineProfileController extends CRUDRestController<PipelineProfil
     @Autowired
     TeamServiceImpl teamServiceImpl;
 
-    @RequestMapping(method={RequestMethod.POST,RequestMethod.PUT})
-    @ApiOperation("保存")
+    @Override
     @OperLog(module = "persist",opType = "save",opDesc = "保存")
     public PipelineProfile save(@RequestBody PipelineProfile entity){
         TeamNamespace teamNamespace = teamNamespaceService.findByNameSpaceName(entity);

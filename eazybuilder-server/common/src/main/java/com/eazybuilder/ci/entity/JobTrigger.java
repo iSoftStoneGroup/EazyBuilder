@@ -1,7 +1,20 @@
 package com.eazybuilder.ci.entity;
 
 public enum JobTrigger {
-	cron,//时间计划触发
-	git_web_hook,//git web hook
-	manual//手工触发
+	/**
+	 * 时间计划触发
+	 */
+	cron,
+	/**
+	 * git web hook
+	 */
+	git_web_hook,
+	/**
+	 * 手工触发
+	 */
+	manual,
+	/**
+	 * 其他任务结束
+	 */
+	watch_job_executed;
 }

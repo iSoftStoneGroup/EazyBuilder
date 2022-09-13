@@ -1,0 +1,19 @@
+sonarqube:
+  serverUrl: http://sonarqube.eazybuilder-devops.cn
+  user: admin
+  password: admin
+  url: http://sonarqube.eazybuilder-devops.cn/api/ce/task?id=AXvxxRD_0S3DvZAIEzr4
+
+
+project:
+  url: http://gitlab.eazybuilder-devops.cn/
+
+nexus3:
+  url: nexus3.eazybuilder-devops.cn
+
+jenkins:
+  maven:
+    url: 127.0.0.1
+
+registry:
+  url: registry.eazybuilder-devops.cn

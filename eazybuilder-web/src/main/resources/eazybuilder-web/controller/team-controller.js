@@ -137,11 +137,9 @@ app.controller('teamController', function($scope,$rootScope,$http,$window,$state
 		$scope.initData();
 		$state.go('team.edit');
 	}
-
-	// $http.get(backend.url+"/api/sonarqube/getQualityprofiles").then(function(response){
-	// 	$scope.qualityProfiles = response.data;
-	// });
-
+	$http.get(backend.url+"/api/sonarqube/getQualityprofiles").then(function(response){
+		$scope.qualityProfiles = response.data;
+	});
 	$scope.back = function () {
 		$state.go('team.list');
 	}

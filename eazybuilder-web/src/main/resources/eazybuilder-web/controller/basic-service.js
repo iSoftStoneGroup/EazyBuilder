@@ -51,6 +51,14 @@ app.service('basicService', function($http,$q) {
 	   this.getProjects=function(){
 		   return fetch(backend.url+"/api/project");
 	   }
+
+		this.getProjectManages=function(){
+			return fetch(backend.url+"/api/projectManage");
+		}
+
+		this.getSecondPartys=function(){
+			return fetch(backend.url+"/api/secondParty");
+		}
        this.getMembers=function(){
     	   return fetch(backend.url+"/api/user");
        }

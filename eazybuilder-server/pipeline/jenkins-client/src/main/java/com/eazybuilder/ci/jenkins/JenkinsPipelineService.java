@@ -80,7 +80,7 @@ public class JenkinsPipelineService {
 		Map<String,Object> params=Maps.newHashMap();
 		params.put("credentialsId", credentialId);
 		params.put("project",project);
-		params.put("registryUrl",properties.getProperty("registry.url"));
+		params.put("registryUrl",env.getRegistryUrl());
 		if(!project.getDeployConfigList().isEmpty()&&project.getDeployConfigList().size()>0) {
 			params.put("deployConfig", project.getDeployConfigList().get(0));
 			params.put("deployConfigList", project.getDeployConfigList());
@@ -93,7 +93,9 @@ public class JenkinsPipelineService {
 		params.put("sonarUrl",this.sonarUrl);
 		params.put("sonarUser",env.getSonarUser());
 		params.put("sonarPassword",env.getSonarPassword());
-		if(project.getScm().getType()==ScmType.git){
+		params.put("emailSuffix",properties.getProperty("email.suffix"));
+
+		if(buildParam!= null &&  project.getScm().getType()==ScmType.git){
 			buildParam.setEncodedUrl(project.getScm().getUrl());
 		}
 		params.put("buildVo",buildParam);
@@ -103,7 +105,7 @@ public class JenkinsPipelineService {
 			//构建ARM64镜像时 使用单独指定的docker host(ARM64平台)
 			params.put("gitlab_api_domain",project.getProfile().getGitlabApiDomain());
 		}else {
-			params.put("gitlab_api_domain",properties.getProperty("gitlabApi.url"));
+			params.put("gitlab_api_domain","gitlab-api.eazybuilder-devops.cn");
 		}
 
 //		params.put("jenkinsDataPath",env.getJenkinsDataPath());

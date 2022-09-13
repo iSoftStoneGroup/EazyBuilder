@@ -1,9 +1,9 @@
 package com.eazybuilder.ci.auth;
 
-import com.google.common.collect.Maps;
 import com.eazybuilder.ci.OperLog;
 import com.eazybuilder.ci.auth.ldap.LdapService;
 import com.eazybuilder.ci.auth.ldap.LdapUser;
+import com.eazybuilder.ci.config.LoadConfigYML;
 import com.eazybuilder.ci.constant.RoleEnum;
 import com.eazybuilder.ci.controller.vo.UserVo;
 import com.eazybuilder.ci.entity.User;
@@ -12,6 +12,7 @@ import com.eazybuilder.ci.service.TeamServiceImpl;
 import com.eazybuilder.ci.service.UserService;
 import com.eazybuilder.ci.util.AuthUtils;
 import com.eazybuilder.ci.util.HttpUtil;
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -23,12 +24,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
+import java.util.Properties;
 
 @RestController
 @RequestMapping("/login")
 public class LoginController {
 	private static final String USER_ADMIN = "admin";
 	private static Logger logger=LoggerFactory.getLogger(LoginController.class);
+	private static Properties properties = new LoadConfigYML().getConfigProperties();
 	@Autowired
 	AccessTokenService accessService;
 	
@@ -65,7 +68,7 @@ public class LoginController {
 		if(ldapService!=null&&!adminLogin(dto)){
 			//login by ldap
 			if(!dto.getLoginName().contains("@")) {
-				dto.setLoginName(dto.getLoginName()+"@eazybuilder.com");
+				dto.setLoginName(dto.getLoginName()+ properties.getProperty("email.suffix"));
 			}
 			try {
 				return authByLdap(dto);

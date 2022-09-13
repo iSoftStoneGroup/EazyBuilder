@@ -425,20 +425,47 @@
                                     <h3 class="panel-title">k8s部署</h3>
                                 </div>
                                 <div class="panel-body">
-                                    <div class="form-group col-sm-6">
-                                        <label class="col-sm-6 control-label">k8s自动发布/部署:</label>
-                                        <div class="col-sm-6">
-                                            <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                                    <div class="form-group col-sm-12">
+                                        <label class="col-sm-3 control-label" style="padding-right: 23px;"> 部署动作: </label>
+                                        <div class="col-sm-9">
+                                            <div class="btn-group pull-left col-xs-12" style="padding: 0 0;right: 8px;">
                                                 <button ng-disabled="expression" type="button"
                                                         class="btn btn-md btn-default"
-                                                        ng-click="crackerSkipDeployOn()"
-                                                        ng-class="{'btn-success':!cracker.skipDeploy}">开启
+                                                        ng-click="initK8sAction();crackerSkipDeployOn()"
+                                                        ng-class="{'btn-success':!cracker.skipDeploy}">k8s自动发布/部署
                                                 </button>
+
                                                 <button ng-disabled="expression" type="button"
                                                         class="btn btn-md btn-default"
-                                                        ng-click="cracker.skipDeploy=true"
-                                                        ng-class="{'btn-danger':cracker.skipDeploy}">关闭
+                                                        ng-click="initK8sAction();crackerRestartDeployOn()"
+                                                        ng-class="{'btn-success':cracker.restartDeploy}">k8s重启发布/部署
                                                 </button>
+
+                                                <button ng-disabled="expression" type="button"
+                                                        class="btn btn-md btn-default"
+                                                        ng-click="initK8sAction();crackerAssignYamlOn()"
+                                                        ng-class="{'btn-success':cracker.assignYaml}">指定yaml更新
+                                                </button>
+
+                                                <button ng-disabled="expression" type="button"
+                                                        class="btn btn-md btn-default"
+                                                        ng-click="initK8sAction();cracker.rollout=true"
+                                                        ng-class="{'btn-success':cracker.rollout}">k8s自动回滚
+                                                </button>
+
+
+                                            </div>
+                                            <div class="col-sm-12" ng-if="cracker.restartDeploy">
+                                                <label class="control-label"><font
+                                                        color="red">注意：此命令，不会重新部署，只会重启原有的应用，进行升级。</font></label>
+                                            </div>
+                                            <div class="col-sm-10" style="margin-top: 5px;" ng-if="cracker.assignYaml">
+                                                <input type="text" class="form-control" ng-model="cracker.assignYamlPath"
+                                                       placeholder="yml路径"></input>
+                                            </div>
+                                            <div class="col-xs-8" ng-if="cracker.rollout">
+                                                <label class="control-label"><font
+                                                        color="red">注意：只能自动回滚到上一个版本。</font></label>
                                             </div>
                                         </div>
                                     </div>
@@ -461,73 +488,6 @@
                                         </div>
                                         <div class="col-sm-12" ng-if="cracker.initDeploy">
                                             <label class="control-label"><font color="red">注意：此命令，会在应用部署之前，先启动初始化的应用，一般用于数据库脚本执行。</font></label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-sm-6">
-                                        <label class="col-sm-6 control-label">k8s重启发布/部署:</label>
-                                        <div class="col-sm-6">
-                                            <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">
-                                                <button ng-disabled="expression" type="button"
-                                                        class="btn btn-md btn-default"
-                                                        ng-click="crackerRestartDeployOn()"
-                                                        ng-class="{'btn-success':cracker.restartDeploy}">开启
-                                                </button>
-                                                <button ng-disabled="expression" type="button"
-                                                        class="btn btn-md btn-default"
-                                                        ng-click="cracker.restartDeploy=false"
-                                                        ng-class="{'btn-danger':!cracker.restartDeploy}">关闭
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12" ng-if="cracker.restartDeploy">
-                                            <label class="control-label"><font
-                                                    color="red">注意：此命令，不会重新部署，只会重启原有的应用，进行升级。</font></label>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group col-sm-6">
-                                        <label class="col-sm-6 control-label">指定yaml更新:</label>
-                                        <div class="col-sm-6">
-                                            <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">
-                                                <button ng-disabled="expression" type="button"
-                                                        class="btn btn-md btn-default"
-                                                        ng-click="crackerAssignYamlOn()"
-                                                        ng-class="{'btn-success':cracker.assignYaml}">开启
-                                                </button>
-                                                <button ng-disabled="expression" type="button"
-                                                        class="btn btn-md btn-default"
-                                                        ng-click="cracker.assignYaml=false"
-                                                        ng-class="{'btn-danger':!cracker.assignYaml}">关闭
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10" style="margin-top: 5px;" ng-if="cracker.assignYaml">
-                                            <input type="text" class="form-control" ng-model="cracker.assignYamlPath"
-                                                   placeholder="yml路径"></input>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="form-group col-sm-6">
-                                        <label class="col-sm-6 control-label">k8s自动回滚:</label>
-                                        <div class="col-sm-6">
-                                            <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">
-                                                <button ng-disabled="expression" type="button"
-                                                        class="btn btn-md btn-default"
-                                                        ng-click="cracker.rollout=true"
-                                                        ng-class="{'btn-success':cracker.rollout}">开启
-                                                </button>
-                                                <button ng-disabled="expression" type="button"
-                                                        class="btn btn-md btn-default"
-                                                        ng-click="cracker.rollout=false"
-                                                        ng-class="{'btn-danger':!cracker.rollout}">关闭
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-8" ng-if="cracker.rollout">
-                                            <label class="control-label"><font
-                                                    color="red">注意：只能自动回滚到上一个版本。</font></label>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6">
@@ -802,39 +762,13 @@
                                     </div>
 
                                     <div class="form-group col-sm-6" ng-if="cracker.secondPartySwitch">
-                                        <label class="col-sm-6 control-label">二方包类型:</label>
+                                        <label class="col-sm-6 control-label">二方包配置:</label>
                                         <div class="col-sm-6" style="padding: 0 0;">
-                                            <select class="form-control" ng-model="cracker.secondParty.secondPartyType" required="required">
-                                                <option value="mavenRelease">maven-release</option>
-                                                <option value="mavenSnapshot">maven-snapshot</option>
-                                                <option value="nuget">nuget</option>
+                                            <select class="form-control" ng-model="cracker.secondParty.id"
+                                                    required="required"
+                                                    placeholder="二方包配置"
+                                                    ng-options="secondParty.id as secondParty.secondPartyName for secondParty in secondPartys">
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-12" ng-if="cracker.secondPartySwitch">
-                                        <label class="col-sm-3 control-label">二方包推送仓库路径:</label>
-                                        <div class="col-sm-9" style="padding: 0 0;">
-                                            <input required="required" ng-disabled="expression" type="text"
-                                                   class="form-control" ng-model="cracker.secondParty.secondPartyPath"
-                                                   placeholder="http://nexus3.eazybuilder-devops.cn/repository/devops_repo"></input>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-6"  ng-if="cracker.secondParty.secondPartyType=='mavenRelease'||cracker.secondParty.secondPartyType=='mavenSnapshot'">
-                                        <label class="col-sm-6 control-label">用户:</label>
-                                        <div class="col-sm-6" style="padding: 0 0;">
-                                            <input type="text" class="form-control" ng-model="cracker.secondParty.secondPartyUser" required="required" placeholder="仓库用户名，需要有上传包的权限"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-6"  ng-if="cracker.secondParty.secondPartyType=='mavenRelease'||cracker.secondParty.secondPartyType=='mavenSnapshot'">
-                                        <label class="col-sm-6 control-label">密码:</label>
-                                        <div class="col-sm-6" style="padding: 0 0;">
-                                            <input  type="password" class="form-control" ng-model="cracker.secondParty.secondPartyPass" required="required" placeholder="仓库密码，需要有上传包的权限"/>
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-sm-6"  ng-if="cracker.secondParty.secondPartyType=='nuget'">
-                                        <label class="col-sm-6 control-label">仓库key:</label>
-                                        <div class="col-sm-6" style="padding: 0 0;">
-                                            <input  type="password" class="form-control" ng-model="cracker.secondParty.secondPartyKey" required="required" placeholder="仓库key"/>
                                         </div>
                                     </div>
                                 </div>

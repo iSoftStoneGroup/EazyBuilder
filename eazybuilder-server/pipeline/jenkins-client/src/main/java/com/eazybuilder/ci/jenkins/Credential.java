@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Credential {
     private String scope="GLOBAL";
     private String id;//": "svn",
-    private String username;//": "zhangs",
-    private String password;//": "xxxx",
+    private String username;//": "zhaozhoupeng",
+    private String password;//": "hhyy123",
     private String description;//": "test",
     @JsonProperty("$class")
     private String cls="com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl";

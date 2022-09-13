@@ -1,7 +1,6 @@
 package com.eazybuilder.ci.service;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.eazybuilder.ci.config.LoadConfigYML;
 import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -69,7 +68,6 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
         implements CommonService<Pipeline> {
 
     private static Logger logger = LoggerFactory.getLogger(PipelineServiceImpl.class);
-    private static Properties properties = new LoadConfigYML().getConfigProperties();
 
 
     public static  final String SUBLOG_BEGIN_SIGN = "========%s start========";
@@ -716,7 +714,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
                 params.put("deployConfig", deployConfig);
                 params.put("project", project);
                 params.put("profile", project.getProfile());
-                params.put("nacosUrl", properties.getProperty("nacos.url"));
+                
                 
 //        		params.put("jenkinsDataPath",env.getJenkinsDataPath());
 //        		params.put("jenkinsLimitMeory",env.getJenkinsLimitMeory());
@@ -950,6 +948,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
                     if (!"true".equalsIgnoreCase(result.getSuccess())) {
                         hasBuildError = true;
                     }
+                    result.setJobId(jobInfo.getId());
                     results.add(result);
                     done++;
                 } catch (Exception e) {
@@ -961,6 +960,7 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
                 if (event != null) {
                     model.put("event", event);
                 }
+                eventBus.postEvent(results);
                 if (jobInfo.isSendMailOnFail()) {
                     //send mail notify only when build failed or job failed
                     if (hasBuildError || errors) {
@@ -970,6 +970,8 @@ public class PipelineServiceImpl extends AbstractCommonServiceImpl<PipelineDao, 
                     renderBatchMailAndSend(results, jobInfo, model);
                 }
             }
+
+
         }
 
         private Project getCreateJenkinsProject (Project project, BuildJob jobInfo, GitEvent event){

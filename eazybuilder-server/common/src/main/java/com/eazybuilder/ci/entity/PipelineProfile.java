@@ -35,6 +35,10 @@ public class PipelineProfile {
 	private  String kubectlConfig;
 
 	/**
+	 * 是否开启二方包自动上传
+	 */
+	private boolean secondPartySwitch;
+	/**
 	 * 是否扫描静态代码
 	 */
 	private Boolean staticJs;
@@ -231,7 +235,9 @@ public class PipelineProfile {
 	private String mergeDesignee;
 
 	private String gitlabApiDomain;
-	
+
+	@OneToOne(cascade=CascadeType.ALL)
+    private SecondParty secondParty;
 	
 	
 	public boolean isDel() {
@@ -608,4 +614,21 @@ public class PipelineProfile {
 	public void setGitlabApiDomain(String gitlabApiDomain) {
 		this.gitlabApiDomain = gitlabApiDomain;
 	}
+
+	public boolean getSecondPartySwitch() {
+		return secondPartySwitch;
+	}
+
+	public void setSecondPartySwitch(boolean secondPartySwitch) {
+		this.secondPartySwitch = secondPartySwitch;
+	}
+
+	public SecondParty getSecondParty() {
+		return secondParty;
+	}
+
+	public void setSecondParty(SecondParty secondParty) {
+		this.secondParty = secondParty;
+	}
+
 }
