@@ -1,0 +1,225 @@
+#!/bin/bash
+
+echo "代码提交前的合规校验."
+validate_ref()
+	{
+		# --- Arguments
+		oldrev=$(git rev-parse $1)
+		newrev=$(git rev-parse $2)
+		echo $oldrev
+		echo $newrev
+		refname="$3"
+		echo 'Branch: '$refname
+		commitList=`git rev-list $oldrev..$newrev`
+		split=($commitList)
+		branchNameAll=`git rev-parse --symbolic --abbrev-ref $refname`
+		branchName=`echo ${branchNameAll##*/}`
+		for s in ${split[@]}
+		do
+			echo "@@@@@@@循环校验提交注释"
+			echo "注释id:"$s
+			{
+				note=`git cat-file commit $s | sed '1,/^$/d'`
+				author=$(git log -1 $s --pretty=%an)
+				committer=$(git log -1 $s --pretty=%cn)
+				echo author:$author
+				echo committer:$committer
+			} || {
+				echo "初次提交，跳过校验"
+				exit 0
+			}
+			echo "注释内容:"$note
+			if [[ $note == Merge* ]];then
+				echo "合并代码的动作(master合并，本地合并)，不需要钩子校验,退出循环校验"
+				break
+			else
+				message=`git cat-file commit $s`
+				author_except=`echo ${message#*author }`
+				username=`echo ${author_except%% <*}`
+				result=`curl -H "Content-Type: application/json" -X POST -d "{\"userName\":\"$committer\",\"branchName\":\"$branchName\",\"notes\":\"$note\",\"projectPath\":\"$GL_PROJECT_PATH\",\"commit\":\"$s\"}" http://XX:XX/XXXX/preReceive`
+				success_flag=`echo $result | sed 's/\"//g' | awk '{print $1}'`
+				result_message=`echo $result | sed 's/\"//g' | awk '{print $2}'`
+				echo $result
+				echo "note:"$note
+				echo "success_flag:"$success_flag
+				if [ $success_flag == "true" ];then
+					echo -e "check result:"$result_message
+				else
+					echo "check result:"$result_message
+					echo "GL-HOOK-ERR: 注释规范，详情参照:http://XX/XX/"
+					exit 1
+				fi
+			fi
+		done
+
+		newRevNote=`git cat-file commit $newrev | sed '1,/^$/d'`
+		ciUserName=`git log -1 $newrev --pretty=%cn`
+		echo "分支名: "$branchName
+		projectName=`echo ${GL_PROJECT_PATH##*/}`
+		groupName=`echo ${GL_PROJECT_PATH%%/*}`
+		echo $GL_PROJECT_PATH
+		echo "组名称："$groupName
+		gitFiles=`git diff --name-only $oldrev $newrev | grep -E "$projectName.properties|$projectName.yml|application.yml|application.properties"`
+		sqlFiles=`git diff --name-only $oldrev $newrev | grep -E ".sql|.SQL"`
+		if [ -n "sqlFiles" ];then
+			for sqlFile in $sqlFiles; do
+				sqlFileContent=`git show $newrev:$sqlFile`
+				sqlFileContentBase=`git show $newrev:$sqlFile | base64`
+				sqlFileName=`echo ${sqlFile##*/}`
+				sqlFullPath=`echo $sqlFile | base64`
+				echo $sqlFile
+				echo "检测到sql文件提交"
+				sql_result=`curl -H "Content-Type: application/json" -X POST -d "{\"fileName\":\"$sqlFileName\",\"baseSqlFile\":\"$sqlFileContentBase\",\"groupName\":\"$groupName\",\"fullPath\":\"$sqlFullPath\",\"branchName\":\"$branchName\"}" http://xx:xx/xxxx/parseSql`
+				sql_success_flag=`echo $sql_result | sed 's/\"//g' | awk '{print $1}'`
+				sql_result_message=`echo $sql_result | sed 's/\"//g' | awk '{print $2}'`
+				echo $sql_result_message
+			done;
+		fi
+
+		if [ -n "$gitFiles" ];then
+			for gitFile in $gitFiles; do
+				fileContent=`git show $newrev:$gitFile`
+				fileContentBase=`git show $newrev:$gitFile | base64`
+				fileName=`echo ${gitFile##*/}`
+				echo $fileName
+				echo "检测到配置文件更新，进行nacos自动发布"
+				nacos_result=`curl -H "Content-Type: application/json" -X POST -d "{\"fileName\":\"$fileName\",\"fileContentBase\":\"$fileContentBase\",\"groupName\":\"$groupName\",\"notes\":\"$newRevNote\",\"branchName\":\"$branchName\",\"userName\":\"$ciUserName\"}" http://xx:xx/xxxx/releaseConfig`
+				nacos_success_flag=`echo $nacos_result | sed 's/\"//g' | awk '{print $1}'`
+				nacos_result_message=`echo $nacos_result | sed 's/\"//g' | awk '{print $2}'`
+				if [ $nacos_success_flag == "false" ];then
+					echo "发布失败: "$nacos_result_message
+				else
+					echo "发布成功"
+				fi
+			done;
+		fi
+
+
+		if [[ $note == merge* ]] ;then
+			echo "开始发送CI任务,进行应用自动部署(k8s)......"
+		else
+			echo "开始发送CI任务，进行代码质量扫描......"
+		fi
+		ci_result=`curl -H "Content-Type: application/json" -X POST -d "{\"userName\":\"$ciUserName\",\"notes\":\"$note\",\"branchName\":\"$branchName\",\"projectPath\":\"$GL_PROJECT_PATH\"}" http://xx:xx/xxxx/`
+		ci_success_flag=`echo $ci_result | sed 's/\"//g' | awk '{print $1}'`
+		ci_result_message=`echo $ci_result | sed 's/\"//g' | awk '{print $2}'`
+		if [ $ci_success_flag == "false" ];then
+			echo "发送失败: "$ci_result_message
+		else
+			echo "发送成功: "$ci_result_message
+		fi
+	}
+	code_scan(){
+		echo "开始进行代码质量检查"
+		REJECT=0
+		JAVA_HOME=/opt/gitlab/embedded/service/gitlab-shell/hooks/jdk1.8.0_301/
+		CHECK_JAR_HOME=/opt/gitlab/embedded/service/gitlab-shell/hooks
+
+		oldrev=$1
+		newrev=$2
+		refname=$3
+		if [ "$oldrev" = "0000000000000000000000000000000000000000" ];then
+			oldrev="$newrev^"
+		fi
+
+		# 跳过merge request 操作
+		{
+			operate_log=`git log $oldrev..$newrev --pretty="%h $refname %B"`
+		} || {
+			echo "初次提交，跳过校验"
+			exit 0
+		}
+		if [[ $operate_log =~ "merge request" ]];then
+			echo "***merge request** continue"
+			echo "GL-HOOK-ERR: merge操作跳过校验"
+		else
+			files=`git diff --name-only $oldrev $newrev | grep -e ".java$"`
+			if [ -n "$files" ];then
+				TEMPDIR="tmp"
+				for file in $files; do
+					mkdir -p "$TEMPDIR/`dirname $file`" >/dev/null
+					git show $newrev:$file > $TEMPDIR/$file
+				done;
+				files_to_check=`find $TEMPDIR -name '*.java'`
+				echo $files_to_check
+				if [ ! -n "$files_to_check" ];then
+					echo 'pass....'
+				else
+					echo -e "p3c-pmd check starting......"
+					#-Dpmd.language=en
+					baseXml=`$JAVA_HOME/bin/java -Dfile.encoding=utf-8  -cp $CHECK_JAR_HOME/p3c-pmd-2.1.1-jar-with-dependencies.jar net.sourceforge.pmd.PMD -encoding UTF-8 -d $TEMPDIR   -R rulesets/java/ali-comment.xml,rulesets/java/ali-concurrent.xml,rulesets/java/ali-constant.xml,rulesets/java/ali-exception.xml,rulesets/java/ali-flowcontrol.xml,rulesets/java/ali-naming.xml,rulesets/java/ali-oop.xml,rulesets/java/ali-orm.xml,rulesets/java/ali-other.xml,rulesets/java/ali-set.xml -f xml | base64`
+
+					projectName=`echo ${GL_PROJECT_PATH##*/}`
+					groupName=`echo ${GL_PROJECT_PATH%%/*}`
+
+					check_result=`curl -H "Content-Type: application/json" -X POST -d "{\"baseXml\":\"$baseXml\",\"group\":\"$groupName\"}" http://xx:xx/xxxx/`
+					check_success_flag=`echo $check_result | sed 's/\"//g' | awk '{print $1}'`
+					check_result_message=`echo $check_result | sed 's/\"//g' | awk '{print $2}'`
+					if [ $check_success_flag == "false" ];then
+						echo -e "GL-HOOK-ERR: 检查拒绝: "$check_result_message
+						rm -rf $TEMPDIR
+					else
+						echo -e "检查通过: "$check_result_message
+					fi
+					rm -rf $TEMPDIR
+				fi
+			fi
+		fi
+	}
+	echo "STDIN: "STDIN
+
+
+	export LANG="zh_CN.UTF-8":
+
+	# Allow dual mode: run from the command line just like the update hook, or
+	# if no arguments are given then run as a hook script
+	if [ -n "$1" -a -n "$2" -a -n "$3" ]; then
+		code_scan $2 $3 $1
+		PAGER= validate_ref $2 $3 $1
+	else
+
+		while read oldrev newrev refname
+		do
+			echo $oldrev
+			echo $newrev
+			echo $refname
+			branchName=`echo ${refname##*/}`
+
+			if [[ $branchName == test* ]];then
+				echo "自动创建test分支，不需要钩子校验"
+				exit 0
+			fi
+			if [[ $branchName == TEST* ]];then
+				echo "自动创建TEST分支，不需要钩子校验"
+				exit 0
+			fi
+
+			if [[ $branchName == release* ]];then
+				echo "自动创建release分支，不需要钩子校验"
+				exit 0
+			fi
+			if [[ $branchName == RELEASE* ]];then
+				echo "自动创建RELEASE分支，不需要钩子校验"
+				exit 0
+			fi
+			branch_result=`curl -H "Content-Type: application/json" -X POST -d "{\"branchName\":\"$branchName\"}" http://XX:XX/xxxx/checkBranch`
+			branch_success_flag=`echo $branch_result | sed 's/\"//g' | awk '{print $1}'`
+			branch_result_message=`echo $branch_result | sed 's/\"//g' | awk '{print $2}'`
+			if [[ $branch_success_flag == "false" ]];then
+				echo -e "GL-HOOK-ERR: 检查拒绝: "$branch_result_message
+			else
+				echo -e "检查通过: "$branch_result_message
+			fi
+			if [ "$oldrev" = "0000000000000000000000000000000000000000" ];then
+				oldrev="$newrev^"
+			fi
+			{
+				operate_log=`git log $oldrev..$newrev --pretty="%h $refname %B"`
+			} || {
+				echo "初次提交，跳过校验"
+				exit 0
+			}
+			code_scan $oldrev $newrev $refname
+			validate_ref $oldrev $newrev $refname
+		done
+	fi
