@@ -24,6 +24,9 @@ public class JenkinsPipelineEnv {
 
 	String baseUrl="";
 
+	@Value("${mirror.url}")
+	String mirrorUrl;
+
 	@Value("${jenkins.url}")
 	String jenkinsUrl;
 
@@ -56,6 +59,14 @@ public class JenkinsPipelineEnv {
 
 	public boolean crumb() {
 		return Boolean.parseBoolean(propService.getValue("jenkins.csrf.crumb", "false"));
+	}
+
+	public String getMirrorUrl() {
+		return propService.getValue("mirror.url", mirrorUrl);
+	}
+
+	public void setMirrorUrl(String mirrorUrl) {
+		this.mirrorUrl = mirrorUrl;
 	}
 
 	public String getJenkinsUrl() {

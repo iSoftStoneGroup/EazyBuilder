@@ -10,7 +10,7 @@ public class PipelineTest {
 
     @Test
     public  void sqlTakeMinJdbc() throws SQLException {
-        PipelineServiceImpl.sqlTakeMinJdbc("jdbc:mysql://mysql.eazybuilder-devops.cn:3306/ci_test?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&failOverReadOnly=false&serverTimezone=UTC",
+        PipelineServiceImpl.sqlTakeMinJdbc("jdbc:mysql://mysql.iss-devops.cn:3306/ci_test?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&useSSL=false&failOverReadOnly=false&serverTimezone=UTC",
                 "root",
                 "mysql_123",
                         "UPDATE ci_user \n" +

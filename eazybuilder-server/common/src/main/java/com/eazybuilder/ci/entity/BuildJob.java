@@ -38,6 +38,9 @@ public class BuildJob implements Serializable {
 	@ManyToMany(fetch=FetchType.EAGER)
 	@NotFound(action=NotFoundAction.IGNORE)
 	private List<Project> projects;
+
+
+
 	/**
 	 * 任务类型 是否属于 上线类型
 	 */
@@ -50,6 +53,12 @@ public class BuildJob implements Serializable {
 	 * 上线id
 	 */
 	private String onLineId;
+
+
+	/**
+	 * 上线tag
+	 */
+	private String onlineTag;
 	/**
 	 * 任务所属项目组
 	 */
@@ -261,5 +270,13 @@ public class BuildJob implements Serializable {
 
 	public static String getArrangementJobRedisKey(String preJobId){
 		return String.format(ARRANGEMENT_JOB_REDIS_KEY_FORMATE,preJobId);
+	}
+
+	public String getOnlineTag() {
+		return onlineTag;
+	}
+
+	public void setOnlineTag(String onlineTag) {
+		this.onlineTag = onlineTag;
 	}
 }

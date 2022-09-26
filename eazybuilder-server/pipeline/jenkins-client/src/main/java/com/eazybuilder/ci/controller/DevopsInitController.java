@@ -90,6 +90,8 @@ public class DevopsInitController extends CRUDRestController<DevopsInitServiceIm
         JSONObject sendInitData = devopsInitServiceImpl.getSendInitData(deveopsInitDto);
         //3.2发送数据到mq中
         sendRabbitMq.sendMsg(sendInitData.toString(),broadcastExchange,"");
+        //3.3
+        projectManageService.save(projectManageService.findOne(devopsInit.getProjectManageId()));
         //4.ci进行初始化
         //把用户保存起来
         List<User> ciUser = devopsInitServiceImpl.getCiUser(deveopsInitDto);

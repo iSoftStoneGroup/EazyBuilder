@@ -123,20 +123,15 @@ public class OnLineController extends CRUDRestController<OnlineService, Online> 
         service.save(entity);
         //1.判断上线申请是否通过审核
         if (Status.SUCCESS == entity.getBatchStatus()) {
-            try {
-                Release release = releaseService.findOne(entity.getReleaseId());
-                service.saveJobOnlineEntity(entity, release);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException("保存立即上线任务时出现异常");
-            }
             //2.获取项目信息。拼装tag 具体描述
             Map<Project,List<ProjectBuildVo>> projectProfileMap = null;
             try {
                 projectProfileMap = service.getApplyOnlineProjects(entity);
+                Release release = releaseService.findOne(entity.getReleaseId());
+                service.saveJobOnlineEntity(entity, release);
             } catch (Exception e) {
-                logger.info("获取需要更新pom版本的项目地址 出现异常" + e.getMessage(), e);
-                throw new Exception("获取需要更新pom版本的项目地址 出现异常: " + e);
+                logger.info("上线审批通过后出现异常" + e.getMessage(), e);
+                throw new Exception("上线审批通过后出现异常: " + e);
             }
             //3.拉取需求代码，更新pom版本并且提交到master分支、创建tag标签
             service.updateOnline(projectProfileMap);

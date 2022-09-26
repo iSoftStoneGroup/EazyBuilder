@@ -17,7 +17,7 @@ public class TestJenkinsClient {
     static boolean crumbFlag=true;//crfs crumb 高版本jenkins需要
     static{
         try {
-            jenkins=new Jenkins(new URI("http://jenkins.eazybuilder-devops.cn/jenkins/"), "admin", "admin");
+            jenkins=new Jenkins(new URI("http://jenkins.iss-devops.cn/jenkins/"), "admin", "admin");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

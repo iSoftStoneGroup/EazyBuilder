@@ -97,7 +97,7 @@ public class DtpReportService extends AbstractCommonServiceImpl<DtpReportDao, Dt
              *   流水线状态设定为成功， 门禁判定设定为未执行还是 保持不变？
              */
             //这里的门禁装填应该怎么改
-            pipeline.setStatus(Status.IN_PROGRESS);
+            pipeline.setStatus(com.eazybuilder.ci.entity.report.Status.IN_PROGRESS);
             //存疑 这里需要更新门禁状态吗？
             if(StringUtils.equals(status,"BEGIN")){
                 //这里应该如何修改 包括前端提示自动化测试开始，以及执行测试计划数量

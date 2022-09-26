@@ -7,7 +7,7 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name="CI_SECOND_PARTY")
+@Table(name="CI_SECOND_PARTY",uniqueConstraints=@UniqueConstraint(columnNames="secondPartyName"))
 public class SecondParty {
 
 	@Id

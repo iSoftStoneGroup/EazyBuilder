@@ -8,9 +8,16 @@ import com.eazybuilder.ci.repository.ReleaseProjectDao;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ReleaseProjectService extends AbstractCommonServiceImpl<ReleaseProjectDao, ReleaseProject> implements CommonService<ReleaseProject> {
+
+
+    public List<ReleaseProject> findByLikeBranchVersionAndProjectUrl(String branchVersion, String projectUrl) {
+        return (List<ReleaseProject>) dao.findAll(QReleaseProject.releaseProject.creteBranchVersion.like(branchVersion).and(QReleaseProject.releaseProject.projectGitUrl.eq(projectUrl)));
+    }
 
 
     public ReleaseProject findByBranchVersionAndProjectUrl(String branchVersion,String projectUrl) {
