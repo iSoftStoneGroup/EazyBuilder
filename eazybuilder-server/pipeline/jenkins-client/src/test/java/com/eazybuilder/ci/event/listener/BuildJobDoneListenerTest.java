@@ -56,7 +56,7 @@ public class BuildJobDoneListenerTest {
         Config config = new Config();
         config.useSingleServer()
                 .setTimeout(1000000)
-                .setAddress("redis://redis-plat.eazybuild-devops..cn:16379");
+                .setAddress("redis://redis-plat.eazybuilder-devops.cn:16379");
         redissonClient = spy(Redisson.create(config));
     }
 
