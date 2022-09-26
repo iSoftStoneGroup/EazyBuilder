@@ -13,7 +13,7 @@
 				"cause": "Web 服务器或应用程序服务器是以不安全的方式配置的",
 				"risk": "可能会在 Web 服务器上上载、修改或删除 Web 页面、脚本和文件\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/"
+					"http://0.0.0.0:9080/ifinance-portal/"
 				]
 			},
 			{
@@ -24,12 +24,12 @@
 				"cause": "在生产环境中留下临时文件",
 				"risk": "可能会下载临时脚本文件，这会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/msg/initMessage.json",
-					"http://10.130.137.63:9080/ifinance-workbench/Eazybuilder_TAGLIB_TEMP/Select.tag",
-					"http://10.130.137.63:9080/ifinance-portal/login",
-					"http://10.130.137.63:9080/ifinance-portal/msg/initAnnounce.json",
-					"http://10.130.137.63:9080/ifinance-portal/welcome",
-					"http://10.130.137.63:9080/ifinance-workbench/workbench/myworkbench/queryToApprovalTaskCount.json"
+					"http://0.0.0.0:9080/ifinance-portal/msg/initMessage.json",
+					"http://0.0.0.0:9080/ifinance-workbench/Eazybuilder_TAGLIB_TEMP/Select.tag",
+					"http://0.0.0.0:9080/ifinance-portal/login",
+					"http://0.0.0.0:9080/ifinance-portal/msg/initAnnounce.json",
+					"http://0.0.0.0:9080/ifinance-portal/welcome",
+					"http://0.0.0.0:9080/ifinance-workbench/workbench/myworkbench/queryToApprovalTaskCount.json"
 				]
 			},
 			{
@@ -40,10 +40,10 @@
 				"cause": "在生产环境中留下临时文件",
 				"risk": "可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/msg/initMessage.json",
-					"http://10.130.137.63:9080/ifinance-workbench/Eazybuilder_TAGLIB_TEMP/Select.tag",
-					"http://10.130.137.63:9080/ifinance-portal/msg/initAnnounce.json",
-					"http://10.130.137.63:9080/ifinance-workbench/workbench/myworkbench/queryToApprovalTaskCount.json"
+					"http://0.0.0.0:9080/ifinance-portal/msg/initMessage.json",
+					"http://0.0.0.0:9080/ifinance-workbench/Eazybuilder_TAGLIB_TEMP/Select.tag",
+					"http://0.0.0.0:9080/ifinance-portal/msg/initAnnounce.json",
+					"http://0.0.0.0:9080/ifinance-workbench/workbench/myworkbench/queryToApprovalTaskCount.json"
 				]
 			},
 			{
@@ -54,8 +54,8 @@
 				"cause": "未安装第三方产品的最新补丁或最新修订程序",
 				"risk": "可能会检索服务器端脚本的源代码，这可能会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/portal/skip.jsp",
-					"http://10.130.137.63:9080/ifinance-portal/portal/systemOfficeTime.jsp"
+					"http://0.0.0.0:9080/ifinance-portal/portal/skip.jsp",
+					"http://0.0.0.0:9080/ifinance-portal/portal/systemOfficeTime.jsp"
 				]
 			},
 			{
@@ -66,8 +66,8 @@
 				"cause": "未安装第三方产品的最新补丁或最新修订程序",
 				"risk": "可能会检索服务器端脚本的源代码，这可能会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/portal/skip.jsp",
-					"http://10.130.137.63:9080/ifinance-portal/portal/systemOfficeTime.jsp"
+					"http://0.0.0.0:9080/ifinance-portal/portal/skip.jsp",
+					"http://0.0.0.0:9080/ifinance-portal/portal/systemOfficeTime.jsp"
 				]
 			},
 			{
@@ -78,8 +78,8 @@
 				"cause": "Web 服务器或应用程序服务器是以不安全的方式配置的",
 				"risk": "可能会检索服务器端脚本的源代码，这可能会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/portal/skip.jsp",
-					"http://10.130.137.63:9080/ifinance-portal/portal/systemOfficeTime.jsp"
+					"http://0.0.0.0:9080/ifinance-portal/portal/skip.jsp",
+					"http://0.0.0.0:9080/ifinance-portal/portal/systemOfficeTime.jsp"
 				]
 			},
 			{
@@ -90,8 +90,8 @@
 				"cause": "未安装第三方产品的最新补丁或最新修订程序",
 				"risk": "可能会检索服务器端脚本的源代码，这可能会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/portal/skip.jsp",
-					"http://10.130.137.63:9080/ifinance-portal/portal/systemOfficeTime.jsp"
+					"http://0.0.0.0:9080/ifinance-portal/portal/skip.jsp",
+					"http://0.0.0.0:9080/ifinance-portal/portal/systemOfficeTime.jsp"
 				]
 			},
 			{
@@ -102,8 +102,8 @@
 				"cause": "在生产环境中留下临时文件",
 				"risk": "可能会下载临时脚本文件，这会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/login",
-					"http://10.130.137.63:9080/ifinance-portal/welcome"
+					"http://0.0.0.0:9080/ifinance-portal/login",
+					"http://0.0.0.0:9080/ifinance-portal/welcome"
 				]
 			},
 			{
@@ -114,8 +114,8 @@
 				"cause": "Web 应用程序编程或配置不安全",
 				"risk": "可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-workbench/workbench/themepage/dirThemePage.web",
-					"http://10.130.137.63:9080/ifinance-portal/"
+					"http://0.0.0.0:9080/ifinance-workbench/workbench/themepage/dirThemePage.web",
+					"http://0.0.0.0:9080/ifinance-portal/"
 				]
 			},
 			{
@@ -126,8 +126,8 @@
 				"cause": "Web 服务器或应用程序服务器是以不安全的方式配置的",
 				"risk": "可能会升级用户特权并通过 Web 应用程序获取管理许可权\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-workbench/workbench/myworkbench/",
-					"http://10.130.137.63:9080/ifinance-portal/portal/"
+					"http://0.0.0.0:9080/ifinance-workbench/workbench/myworkbench/",
+					"http://0.0.0.0:9080/ifinance-portal/portal/"
 				]
 			},
 			{
@@ -138,7 +138,7 @@
 				"cause": "Web 应用程序编程或配置不安全",
 				"risk": "可能会绕开 Web 应用程序的认证机制\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/login"
+					"http://0.0.0.0:9080/ifinance-portal/login"
 				]
 			},
 			{
@@ -149,7 +149,7 @@
 				"cause": "程序员在 Web 页面上留下调试信息",
 				"risk": "可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/welcome"
+					"http://0.0.0.0:9080/ifinance-portal/welcome"
 				]
 			},
 			{
@@ -160,7 +160,7 @@
 				"cause": "Web 应用程序编程或配置不安全",
 				"risk": "可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/Eazybuilder_TAGLIB_TEMP/eazybuilder-base/Math.uuid.js"
+					"http://0.0.0.0:9080/ifinance-portal/Eazybuilder_TAGLIB_TEMP/eazybuilder-base/Math.uuid.js"
 				]
 			},
 			{
@@ -171,7 +171,7 @@
 				"cause": "Web 应用程序编程或配置不安全",
 				"risk": "可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-portal/login"
+					"http://0.0.0.0:9080/ifinance-portal/login"
 				]
 			},
 			{
@@ -182,7 +182,7 @@
 				"cause": "在生产环境中留下临时文件",
 				"risk": "可能会下载临时脚本文件，这会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
 				"urls": [
-					"http://10.130.137.63:9080/ifinance-workbench/workbench/myworkbench/"
+					"http://0.0.0.0:9080/ifinance-workbench/workbench/myworkbench/"
 				]
 			}
 		]

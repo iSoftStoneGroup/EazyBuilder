@@ -64,7 +64,7 @@ public class EventServiceTest {
     @Test
   public   void testGetEventProject() throws Exception {
         String  mesJson=
-                "{\"assigneeName\":\"qiujin\",\"authorName\":\"gangwangn\",\"code\":\"2660\",\"customFields\":{\"工程标识\":\"nacos-config\",\"仓库地址\":\"http://gitlab.iss-devops.cn/devops/nacos-config.git\",\"是否更新配置文件\":\"0\",\"配置文件内容\":\"\",\"指派测试人员\":\"\",\"镜像名称/版本\":\"registry.iss-devops.cn/devops/devops-config/2651-2660-202209221420\",\"SP\":\"\",\"是否更新sql\":\"0\"},\"gitPath\":\"http://gitlab.iss-devops.cn/devops/nacos-config.git\",\"imageTag\":\"\",\"profileType\":\"merge\",\"projectName\":\"Nacos Config\",\"sourceBranchName\":\"bugfix-2660\",\"tagName\":\"bugfix-2660\",\"targetBranchName\":\"master\",\"topCode\":\"2651\",\"userName\":\"gangwangn\"}";
+                "{\"assigneeName\":\"qiujin\",\"authorName\":\"gangwangn\",\"code\":\"2660\",\"customFields\":{\"工程标识\":\"nacos-config\",\"仓库地址\":\"http://gitlab.eazybuild-devops..cn/devops/nacos-config.git\",\"是否更新配置文件\":\"0\",\"配置文件内容\":\"\",\"指派测试人员\":\"\",\"镜像名称/版本\":\"registry.eazybuild-devops..cn/devops/devops-config/2651-2660-202209221420\",\"SP\":\"\",\"是否更新sql\":\"0\"},\"gitPath\":\"http://gitlab.eazybuild-devops..cn/devops/nacos-config.git\",\"imageTag\":\"\",\"profileType\":\"merge\",\"projectName\":\"Nacos Config\",\"sourceBranchName\":\"bugfix-2660\",\"tagName\":\"bugfix-2660\",\"targetBranchName\":\"master\",\"topCode\":\"2651\",\"userName\":\"gangwangn\"}";
         JSONObject jsonObject = JSON.parseObject(mesJson);
         final Project project = new Project();
         project.setImageTag("imageTag");

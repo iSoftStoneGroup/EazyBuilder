@@ -31,7 +31,7 @@ public class TestQuery {
 //	@Test
 //	public void queryPipelineHistory() throws Exception {
 //
-////		 http://ci-ingress.iss-devops.cn/ci/api/pipeline/projectPage?sort=startTimeMillis&order=asc&offset=10&limit=10&token=b7bfa3c4-746d-431b-89f8-de5427e8dedf&_=1645078111349
+////		 http://ci-ingress.eazybuild-devops..cn/ci/api/pipeline/projectPage?sort=startTimeMillis&order=asc&offset=10&limit=10&token=b7bfa3c4-746d-431b-89f8-de5427e8dedf&_=1645078111349
 //		List<String> projectIds = Lists.newArrayList();
 //		projectIds.add("75");
 //		projectIds.add("76");

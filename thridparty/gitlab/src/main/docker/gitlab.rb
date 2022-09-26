@@ -2215,11 +2215,11 @@ gitlab_rails['redis_host'] = "x.x.x.x"
 #     'default_replication_factor' => 3,
 #     'nodes' => {
 #       'praefect-internal-0' => {
-#         'address' => 'tcp://10.23.56.78:8075',
+#         'address' => 'tcp://0.0.0.0:8075',
 #         'token' => 'abc123'
 #       },
 #       'praefect-internal-1' => {
-#         'address' => 'tcp://10.76.23.31:8075',
+#         'address' => 'tcp://0.0.0.0:8075',
 #         'token' => 'xyz456'
 #       }
 #     }
@@ -2227,11 +2227,11 @@ gitlab_rails['redis_host'] = "x.x.x.x"
 #   'alternative' => {
 #     'nodes' => {
 #       'praefect-internal-2' => {
-#         'address' => 'tcp://10.34.1.16:8075',
+#         'address' => 'tcp://0.0.0.0:8075',
 #         'token' => 'abc321'
 #       },
 #       'praefect-internal-3' => {
-#         'address' => 'tcp://10.23.18.6:8075',
+#         'address' => 'tcp://0.0.0.0:8075',
 #         'token' => 'xyz890'
 #       }
 #     }
@@ -2711,7 +2711,7 @@ gitlab_rails['redis_host'] = "x.x.x.x"
 # patroni['log_level'] = 'INFO'
 
 ## Consul specific settings
-# patroni['consul']['url'] = 'http://127.0.0.1:8500'
+# patroni['consul']['url'] = 'http://0.0.0.0:8500'
 # patroni['consul']['service_check_interval'] = '10s'
 # patroni['consul']['register_service'] = true
 # patroni['consul']['checks'] = []
