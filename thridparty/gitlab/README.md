@@ -2,7 +2,7 @@
 
 
 
-总体分文三部分，
+总体分为三部分，
 
 1. 变量定义部分
 
@@ -30,6 +30,12 @@
 
 如39行所示，将提交人信息，分支名称，提交信息。项目等信息发送到微服务中做校验。比如这里可以进行检测提交人是否是公司账号，防止有不合法账号提交信息。
 
+```shell
+result=`curl -H "Content-Type: application/json" -X POST -d "{\"userName\":\"$committer\",\"branchName\":\"$branchName\",\"notes\":\"$note\",\"projectPath\":\"$GL_PROJECT_PATH\",\"commit\":\"$s\"}" http://XX:XX/XXXX/preReceive`
+
+```
+
+
 55-63行根据提交信息，查找出本次提交的有关的".sql"结尾的sql文件，和以一些“properties”或者“.yml”等结尾的配置文件。
 
 64-77
@@ -51,6 +57,9 @@
 136-166行判断如果不是MR操作，则查找出所有变化的".java"文件，将使用阿里的p3c工具进行扫描。
 
 155行是调用后台微服务，对扫描结果进行合规性校验。如果不合规则中断执行，且输出扫描数据。
+```shell
+check_result=`curl -H "Content-Type: application/json" -X POST -d "{\"baseXml\":\"$baseXml\",\"group\":\"$groupName\"}" http://xx:xx/xxxx/`
+```
 
 
 
