@@ -432,7 +432,7 @@
                                                 <button ng-disabled="expression" type="button"
                                                         class="btn btn-md btn-default"
                                                         ng-click="initK8sAction();crackerSkipDeployOn()"
-                                                        ng-class="{'btn-success':!cracker.skipDeploy}">k8s自动发布/部署
+                                                        ng-class="{'btn-success': cracker.skipDeploy==false}">k8s自动发布/部署
                                                 </button>
 
                                                 <button ng-disabled="expression" type="button"
@@ -451,6 +451,12 @@
                                                         class="btn btn-md btn-default"
                                                         ng-click="initK8sAction();cracker.rollout=true"
                                                         ng-class="{'btn-success':cracker.rollout}">k8s自动回滚
+                                                </button>
+
+                                                <button ng-disabled="expression" type="button"
+                                                        class="btn btn-md btn-default"
+                                                        ng-click="initK8sAction();"
+                                                        ng-class="{'btn-success': cracker.skipDeploy==true && !cracker.restartDeploy && !cracker.assignYaml &&  !cracker.rollout}">关闭
                                                 </button>
 
 

@@ -77,6 +77,24 @@ public class OnlineService extends AbstractCommonServiceImpl<OnlineDao, Online> 
 
     private static Logger logger = LoggerFactory.getLogger(OnlineService.class);
 
+    @Transactional
+    public List<DockerDigest> findDockerDigest(Project project) {
+        Team team = project.getTeam();
+        Set<TeamNamespace> teamNamespaceSet = teamService.getTeamNameSpace(team);
+        Set<String> teamNamespaceTestSet = new HashSet<String>();
+        if (null != teamNamespaceSet && teamNamespaceSet.size() > 0) {
+            for (TeamNamespace teamNamespace : teamNamespaceSet) {
+                if (NamespaceType.test.equals(teamNamespace.getNamespaceType())) {
+                    teamNamespaceTestSet.add(teamNamespace.getCode());
+                }
+            }
+        }
+        if (teamNamespaceTestSet.size() > 0) {
+            return (List<DockerDigest>) dockerDigestService.findDockerByProjectIdAndNamespaceAndTag(project.getId(), teamNamespaceTestSet, project.getDockerImageTag());
+        } else {
+            return new ArrayList<DockerDigest>();
+        }
+    }
 
     @Transactional
     public List<DockerDigest> findDockerDigest(String releaseId, String teamName) {
@@ -164,11 +182,6 @@ public class OnlineService extends AbstractCommonServiceImpl<OnlineDao, Online> 
                             onlineTagVersion= profile.getTagPrefix()+commonStr;
                             onlineTagVersion= onlineTagVersion+"_T"+createTagVersion.split("_")[2];
                         }
-//                        ReleaseProject releaseProject = new ReleaseProject();
-//                        releaseProject.setOnlineDockerVersion(onlineTagVersion);
-//                        releaseProject.setProjectId(project.getId());
-//                        releaseProject.setProjectGitUrl(project.getScm().getUrl());
-//                        releaseProjectService.save(releaseProject);
                         projectBuildVo.setCreateTagVersion(onlineTagVersion);
                         //如果是上线的话需要指定操作分支为提测的时候创建的test分支。
                         projectBuildVo.setArriveTagName(online.getImageTag().toLowerCase());
@@ -246,6 +259,7 @@ public class OnlineService extends AbstractCommonServiceImpl<OnlineDao, Online> 
         buildJob.setOnLine(true);
         buildJob.setOnLineId(entity.getId());
         buildJob.setImmedIatelyOnline(true);
+        buildJob.setOnlineTag(entity.getOnLineImageTag());
         //从系统参数里面取值
         PipelineProfile profile = pipelineProfileService.findByName(getJobOnlineProfile());
         buildJob.setProfileId(profile.getId());

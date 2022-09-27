@@ -229,7 +229,7 @@ CI支持Gitlab系统钩子设置，当gitlab仓库有push事件时，自动匹�
 - 参考以下信息添加gitlab系统钩子
 <table>
   <tr><td colspan="2">gitlab系统钩子设置</td></tr>
-  <tr><td>链接(URL)</td><td>http://127.0.0.1:8080/ci/wh/system</td></tr>
+  <tr><td>链接(URL)</td><td>http://0.0.0.0:8080/ci/wh/system</td></tr>
   <tr><td>安全令牌</td><td>Eazybuilder-CI</td></tr>
 <tr><td>触发器</td><td>勾选“推送事件”</td></tr>
 <tr><td>SSL 证书验证</td><td>不勾选</td></tr>

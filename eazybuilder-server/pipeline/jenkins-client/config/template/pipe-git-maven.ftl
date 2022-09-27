@@ -151,11 +151,10 @@
                       script{
                         def out = sh script: 'java -Dmaven.local.repo=/usr/share/maven-repo/teams/${project.team.id} -jar ci-tool/lib/buildfile-decorator*.jar maven ./<#if !project.legacyProject && project.pomPath?? && project.pomPath !="">${project.pomPath}</#if><#if project.profile.secondPartySwitch> ${project.profile.secondPartySwitchPath!'http://nexus3.eazybuilder-devops.cn/repository/devops_repo'}</#if>', returnStdout: true
                         println(out)
-
                         echo '修饰后的pom.xml'
                         <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">
-                        sh script:'cat ${project.pomPath}'
-                        <#else>
+                        sh script:'cat ${project.pomPath}/pom.xml'
+                        <#elseif !project.legacyProject&&project.projectType=='java'>
                         sh script:'cat pom.xml'
                         </#if>
 

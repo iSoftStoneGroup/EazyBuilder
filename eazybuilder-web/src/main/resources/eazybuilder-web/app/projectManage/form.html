@@ -10,14 +10,17 @@
                            required="required"/>
                 </div>
             </div>
-
             <div class="form-group">
                 <label class="col-sm-2 control-label">类型:</label>
                 <div class="col-sm-8">
-                    <select class="form-control" ng-model="entity.type" required>
-                        <option value="redmine">redmine</option>
-                        <option value="zentao">zentao</option>
-                    </select>
+                    <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                        <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.type='redmine'"
+                                ng-class="{'btn-success':entity.type=='redmine'}">redmine</button>
+                        <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.type='zentao'"
+                                ng-class="{'btn-success':entity.type=='zentao'}">zentao</button>
+                    </div>
                 </div>
             </div>
 
@@ -32,14 +35,12 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">用户名:</label>
-                <div class="col-sm-8">
+                <div class="col-xs-3">
                     <input type="text" class="form-control" ng-model="entity.userName" placeholder="需求管理平台用户名"
                            required="required"/>
                 </div>
-            </div>
-            <div class="form-group">
                 <label class="col-sm-2 control-label">密码:</label>
-                <div class="col-sm-8">
+                <div class="col-xs-3">
                     <input type="password" class="form-control" ng-model="entity.password" placeholder="需求管理平台密码"
                            required="required"/>
                 </div>
@@ -56,31 +57,34 @@
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">用户名:</label>
-                <div class="col-sm-8">
+                <div class="col-xs-3">
                     <input type="text" class="form-control" ng-model="entity.dbName" placeholder="请输入数据库用户名"
                            required="required"/>
                 </div>
-            </div>
-            <div class="form-group">
+
                 <label class="col-sm-2 control-label">密码:</label>
-                <div class="col-sm-8">
+                <div class="col-xs-3">
                     <input type="password" class="form-control" ng-model="entity.dbPassword" placeholder="请输入数据库密码"
                            required="required"/>
+                </div>
+
+                <div>
+                    <button  style="margin-left:40px"  class="btn btn-orange" ng-click="test()" ng-disabled="(!entity.dbUrl) || (!entity.dbName) || (!entity.dbPassword)">连接测试</button>
                 </div>
             </div>
         </div>
         <div class="block-footer">
             <div class="form-group">
-                <div class="col-sm-4">
-                    <button  class="btn btn-orange" ng-click="test()" ng-disabled="(!entity.dbUrl) || (!entity.dbName) || (!entity.dbPassword)">连接测试</button>
-                </div>
-                <div class="col-sm-4">
-                    <button class="btn btn-primary" ng-click="save()" ng-disabled="form.$invalid">保存</button>
-                </div>
-                <div class="col-sm-4">
-                    <button class="btn btn-default" ng-click="back()">返回</button>
+                <div class="col-sm-offset-3 col-sm-9">
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" ng-click="save()" ng-disabled="form.$invalid || (!entity.type)">保存</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-default" ng-click="back()">返回</button>
+                    </div>
                 </div>
             </div>
+
         </div>
     </form>
 </div>

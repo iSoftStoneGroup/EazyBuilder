@@ -117,7 +117,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
             			return 'N/A';
             		var val=getMetric('bug_blocker',row.metrics);
             		if(val!='N/A'){
-            			var bugDetail=baseServer+"/sonarqube/project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG";
+            			var bugDetail=baseServer+"project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG";
             			return "<a href='"+bugDetail+"' target='_blank'>"+val+"</a>";
             		}else{
             			return val;
@@ -131,7 +131,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
             			return 'N/A';
             		var val=getMetric('bug_critical',row.metrics);
             		if(val!='N/A'){
-            			var bugDetail=baseServer+"/sonarqube/project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG";
+            			var bugDetail=baseServer+"project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG";
             			return "<a href='"+bugDetail+"' target='_blank'>"+val+"</a>";
             		}else{
             			return val;
@@ -145,7 +145,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
             			return 'N/A';
             		var val=getMetric('vulner_blocker',row.metrics);
             		if(val!='N/A'){
-            			var vulnerDetail=baseServer+"/sonarqube/project/issues?id="+row.project.sonarKey+"&resolved=false&types=VULNERABILITY";
+            			var vulnerDetail=baseServer+"project/issues?id="+row.project.sonarKey+"&resolved=false&types=VULNERABILITY";
                 		return "<a href='"+vulnerDetail+"' target='_blank'>"+val+"</a>";
             		}else{
             			return val;
@@ -160,7 +160,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
             			return 'N/A';
             		var val=getMetric('vulner_critical',row.metrics);
             		if(val!='N/A'){
-            			var vulnerDetail=baseServer+"/sonarqube/project/issues?id="+row.project.sonarKey+"&resolved=false&types=VULNERABILITY";
+            			var vulnerDetail=baseServer+"project/issues?id="+row.project.sonarKey+"&resolved=false&types=VULNERABILITY";
                 		return "<a href='"+vulnerDetail+"' target='_blank'>"+val+"</a>";
             		}else{
             			return val;

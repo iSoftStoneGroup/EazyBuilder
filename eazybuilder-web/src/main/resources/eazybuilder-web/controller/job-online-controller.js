@@ -78,21 +78,13 @@ app.controller('jobOnlineController', function($scope,$http,$window,$state,$inte
             		return '--';
             	}
             },{
-				field:'onLineId',
+				field:'onlineTag',
 				title:'上线tag',
 				formatter:function(val){
 					if(!val){
 						return '--';
 					}
-					if($scope.onLineTags){
-						for(var i=0;i<$scope.onLineTags.length;i++){
-							if(val==$scope.onLineTags[i].id){
-								return $scope.onLineTags[i].onLineImageTag;
-							}
-						}
-					}else {
-						jQuery("#table").bootstrapTable("refresh");
-					}
+					return '<span title="'+val+'">'+val+'</span>' ;
 				}
 			}],
             clickToSelect:true, //设置支持行多选

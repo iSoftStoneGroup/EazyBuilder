@@ -15,7 +15,7 @@
   <properties>
         <compiler.version>1.8</compiler.version>
         <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
-        <docker.build.host>127.0.0.1:22375</docker.build.host>
+        <docker.build.host>0.0.0.0:22375</docker.build.host>
         <docker.registry>registry.eazybuilder-devops.cn</docker.registry>
         <skip.docker.build>true</skip.docker.build>
         <docker.build.version>latest</docker.build.version>

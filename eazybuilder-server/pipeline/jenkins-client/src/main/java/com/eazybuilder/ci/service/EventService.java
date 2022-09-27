@@ -1,6 +1,7 @@
 package com.eazybuilder.ci.service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.eazybuilder.ci.entity.devops.*;
 import com.google.common.collect.Lists;
 import com.eazybuilder.ci.base.AbstractCommonServiceImpl;
 import com.eazybuilder.ci.base.CommonService;
@@ -8,10 +9,6 @@ import com.eazybuilder.ci.constant.RoleEnum;
 import com.eazybuilder.ci.controller.vo.ProjectBuildVo;
 import com.eazybuilder.ci.controller.vo.UserVo;
 import com.eazybuilder.ci.entity.*;
-import com.eazybuilder.ci.entity.devops.Event;
-import com.eazybuilder.ci.entity.devops.EventType;
-import com.eazybuilder.ci.entity.devops.QEvent;
-import com.eazybuilder.ci.entity.devops.ReleaseProject;
 import com.eazybuilder.ci.repository.EventDao;
 import com.eazybuilder.ci.util.AuthUtils;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -25,11 +22,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class EventService extends AbstractCommonServiceImpl<EventDao, Event> implements CommonService<Event>{
@@ -51,6 +46,11 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
     @Resource
     UserService userService;
 
+    @Resource
+    BuildJobService buildJobService;
+
+    @Autowired
+    SystemPropertyService propService;
     /**
      * 根据mq传过来的json进行事件判定
      */
@@ -85,6 +85,92 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
                                 for(ProjectBuildVo projectBuildVo:projectBuildVos){
                                     if(projectBuildVo.getProfile()!=null){
                                         PipelineProfile profile = pipelineProfileService.findOne(projectBuildVo.getProfile());
+                                        if(StringUtils.isBlank(projectBuildVo.getCreateTagVersion())) {
+                                            //生成镜像版本号 如果打镜像的话，就会用这个版本
+                                            if (StringUtils.isNotBlank(rabbitmqData.getString("topCode")) && StringUtils.isNotBlank(rabbitmqData.getString("code"))) {
+                                                dockerImageTag = rabbitmqData.getString("topCode") + "-" + rabbitmqData.getString("code") + "-" + df.format(new Date());
+                                            }
+                                            projectBuildVo.setCreateTagVersion(dockerImageTag);
+                                        }
+                                        if(eventType!=null) {
+                                            if(eventType==EventType.merge) {
+                                                projectBuildVo.setPipelineType(PipelineType.merge);
+                                            }else if(eventType==EventType.push){
+                                                projectBuildVo.setPipelineType(PipelineType.push);
+                                            }else if(eventType==EventType.applyOntestAllowed){
+                                                projectBuildVo.setPipelineType(PipelineType.release);
+                                                String tagVersion = "";
+                                                String branchVersion = "";
+                                                if(profile.isAddTag()) {
+                                                    if (StringUtils.isNotBlank(profile.getTagPrefix())) {
+                                                        tagVersion = profile.getTagPrefix()+"-" + dockerImageTag;
+                                                    }
+                                                }
+                                                if(profile.isCreateBranch()) {
+                                                    if (StringUtils.isNotBlank(profile.getReleasePrefix())) {
+                                                        branchVersion = profile.getReleasePrefix()+"-" + dockerImageTag;
+                                                    }
+                                                }
+                                                projectBuildVo.setCreteBranchVersion(branchVersion);
+                                                projectBuildVo.setReleaseDockerVersion(tagVersion);
+                                                projectBuildVo.setCreateTagVersion(tagVersion);
+
+                                                ReleaseProject releaseProject = new ReleaseProject();
+                                                releaseProject.setCreteBranchVersion(branchVersion);
+                                                releaseProject.setReleaseDockerVersion(tagVersion);
+                                                releaseProject.setCreateTagVersion(tagVersion);
+                                                releaseProject.setProjectId(project.getId());
+                                                releaseProject.setProjectGitUrl(project.getScm().getUrl());
+                                                releaseProject.setNameSpace(profile.getNameSpace());
+                                                //在这里保存一下releaseProject
+                                                releaseProjectService.save(releaseProject);
+                                            }else if(eventType==EventType.applyOnlineAllowed){
+                                                if(profile.isUpgradeDocker()) {
+                                                    logger.info("上线命中的构建过程开启了制品晋级");
+                                                    projectBuildVo.setPipelineType(PipelineType.online);
+                                                    //1.找到之前的提测版本信息
+                                                    List<ReleaseProject> releaseProjects = releaseProjectService.
+                                                            findByLikeBranchVersionAndProjectUrl("%" +
+                                                                    StringUtils.substringBeforeLast(dockerImageTag,"-") + "%", project.getScm().getUrl());
+                                                    logger.info("根据任务号和git路径找到的提测信息：{}",releaseProjects.size());
+
+                                                    if(!releaseProjects.isEmpty()) {
+                                                        if(releaseProjects.size()>1) {
+                                                            listSort(releaseProjects);
+                                                        }
+                                                        ReleaseProject releaseProject = releaseProjects.get(0);
+                                                        String onlineTagVersion =profile.getTagPrefix() +"-"+dockerImageTag+
+                                                                "-T"+StringUtils.substringAfterLast(releaseProject.getCreateTagVersion(),"-");
+                                                        project.setImageTag(onlineTagVersion);
+                                                        project.setNameSpace(releaseProject.getNameSpace());
+                                                        projectBuildVo.setCreateTagVersion(onlineTagVersion);
+                                                        //如果是上线的话需要指定操作分支为提测的时候创建的test分支。
+                                                        projectBuildVo.setArriveTagName(releaseProject.getCreteBranchVersion());
+                                                        //提测的docker版本
+                                                        projectBuildVo.setReleaseDockerVersion(releaseProject.getCreateTagVersion());
+                                                        projectBuildVo.setNameSpace(releaseProject.getNameSpace());
+                                                        logger.info("新增上线部署任务");
+                                                        BuildJob buildJob = new BuildJob();
+                                                        buildJob.setName(project.getDescription()+"-"+df.format(new Date()));
+                                                        buildJob.setOnLine(true);
+//                                                    buildJob.setOnLineId(entity.getId());
+                                                        buildJob.setImmedIatelyOnline(true);
+                                                        //从系统参数里面取值
+                                                        buildJob.setProfileId(pipelineProfileService.findByName(propService.getValue("job.online.profile.name", "ipaas生产环境部署")).getId());
+                                                        List<Project> projectList = new ArrayList<>();
+                                                        projectList.add(project);
+                                                        buildJob.setProjects(projectList);
+                                                        buildJob.setTriggerType(JobTrigger.manual);
+                                                        buildJob.setTeamId(project.getTeam().getId());
+                                                        buildJob.setOnlineTag(onlineTagVersion);
+                                                        buildJobService.save(buildJob);
+                                                    }
+
+                                                }
+
+
+                                            }
+                                        }
                                         if(profile.isUpdateTag()) {
                                             ReleaseProject releaseProject = releaseProjectService.findByBranchVersionAndProjectUrl(targetBranchName, project.getScm().getUrl());
                                             if (releaseProject!=null &&StringUtils.isNotBlank(releaseProject.getCreateTagVersion())) {
@@ -94,38 +180,6 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
                                                 releaseProjectService.save(releaseProject);
                                             }
                                             logger.info("构建过程中需要更新标签:{},{}", profile, project.getImageTag());
-                                        }else {
-                                            //生成镜像版本号 如果打镜像的话，就会用这个版本
-                                            if (StringUtils.isNotBlank(rabbitmqData.getString("topCode")) && StringUtils.isNotBlank(rabbitmqData.getString("code"))) {
-                                                dockerImageTag = rabbitmqData.getString("topCode") + "-" + rabbitmqData.getString("code") + "-" + df.format(new Date());
-                                            }
-
-                                            projectBuildVo.setCreateTagVersion(dockerImageTag);
-
-
-                                            String tagVersion = "";
-                                            String branchVersion = "";
-                                            if(profile.isAddTag()) {
-                                                if (StringUtils.isNotBlank(profile.getTagPrefix())) {
-                                                    tagVersion = profile.getTagPrefix() + dockerImageTag;
-                                                }
-                                            }
-                                            if(profile.isCreateBranch()) {
-                                                if (StringUtils.isNotBlank(profile.getReleasePrefix())) {
-                                                    branchVersion = profile.getReleasePrefix() + dockerImageTag;
-                                                }
-                                            }
-                                            projectBuildVo.setCreteBranchVersion(branchVersion);
-                                            projectBuildVo.setReleaseDockerVersion(tagVersion);
-                                            projectBuildVo.setCreateTagVersion(tagVersion);
-
-                                        }
-                                        if(eventType!=null) {
-                                            if(eventType==EventType.merge) {
-                                                projectBuildVo.setPipelineType(PipelineType.merge);
-                                            }else if(eventType==EventType.push){
-                                                projectBuildVo.setPipelineType(PipelineType.push);
-                                            }
                                         }
                                         if(rabbitmqData.containsKey("code")){
                                             projectBuildVo.setRedmineCode(rabbitmqData.getString("code"));
@@ -159,6 +213,29 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
         }
         return null;
     }
+
+    public List<ReleaseProject> listSort(List<ReleaseProject> releaseProjects) {
+        Collections.sort(releaseProjects, new Comparator<ReleaseProject>() {
+            @Override
+            public int compare(ReleaseProject o1, ReleaseProject o2) {
+                SimpleDateFormat format = new SimpleDateFormat("yyyyMMddHHmm");
+                try {
+                    Date date1 = format.parse(StringUtils.substringAfterLast(o1.getCreteBranchVersion(),"-"));
+                    Date date2 = format.parse(StringUtils.substringAfterLast(o2.getCreteBranchVersion(),"-"));
+                    if(date1.getTime()>date2.getTime()){
+                        return -1;//大的放前面
+                    }else{
+                        return 1;
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return 0;
+            }
+        });
+        return releaseProjects;
+    }
+
     /**
      * 是否是英文
      *

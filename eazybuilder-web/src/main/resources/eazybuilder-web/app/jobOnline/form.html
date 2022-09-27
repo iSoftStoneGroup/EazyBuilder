@@ -25,14 +25,7 @@
 
                 <label ng-show="entity.onLine" class="col-sm-2 control-label">请选择上线tag:</label>
                 <div class="col-sm-2" ng-if="entity.onLine">
-                    <select class="form-control" ng-model="entity.onLineId"
-                            required="required"
-                            placeholder="上线tag"
-                            ng-change="getProjectByOnLineTag()"
-                            readonly="readonly"
-                            disabled="disabled"
-                            ng-options="onLineTag.id as onLineTag.onLineImageTag for onLineTag in onLineTags">
-                    </select>
+                    <input type="text" class="form-control" ng-model="entity.onlineTag" placeholder="上线tag" required="required"/>
                 </div>
                 <label class="col-sm-2 control-label" ng-if="role=='admin'||role=='audit'">质量管理任务:</label>
                 <div class="col-sm-4" ng-if="role=='admin'||role=='audit'">
