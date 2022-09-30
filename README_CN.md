@@ -49,6 +49,9 @@ EazyBuilder聚焦多团队多工程统一编译、构建、扫描、部署等持
 
 访问http://localhost/console/index.html 即可
 
+#### Kubernetes安装
+参照详情教程进行安装:[k8s/install-by-k8s.md](./k8s/install-by-k8s.md)
+
 - 构建机器
 
   EazyBuilder中流水线执行，依耐于jenkins，需要提前在jenkins中初始化构建环境，详情可以参照[jenkins dockerfile](./eazybuilder-server/thridparty/jenkins/src/main/docker/Dockerfile)
