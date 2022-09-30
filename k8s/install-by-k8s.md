@@ -60,3 +60,7 @@ kubectl apply -f eazybuilder-web.yaml
 ```shell
 kubectl apply -f eazybuilder-ingress.yaml -n es
 ```
+访问地址：http://es-web.eazybuilder.com/eazybuilder-web/login.html
+
+注意：es-web.eazybuilder.com是k8s的集群假域名，本地访问，需要配置host映射到集群中的服务器中
+
