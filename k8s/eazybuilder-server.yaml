@@ -24,14 +24,14 @@ spec:
       containers:
       - env:
         - name: NACOS_SPACE
-          value: test
+          value: public
         - name: NACOS_IP
-          value: nacos.eazybuilder.cn
+          value: nacos-headless
         - name: NACOS_PORT
-          value: "80"
+          value: "8848"
         - name: TZ
           value: Asia/Shanghai
-        image: jenkins-client
+        image: jinqiu8810/eazybuilder-server:v0.0.7
         imagePullPolicy: Always
         name: eazybuilderserver
         ports:
@@ -50,9 +50,13 @@ spec:
             cpu: 500m
             memory: 4Gi
           requests:
-            cpu: 100m
-            memory: 100Mi
+            cpu: 1m
+            memory: 10Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
       dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: harbor
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
@@ -76,3 +80,4 @@ spec:
   sessionAffinity: None
   type: ClusterIP
 ---
+

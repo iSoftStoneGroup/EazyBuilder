@@ -25,14 +25,14 @@ spec:
       containers:
       - env:
         - name: NACOS_SPACE
-          value: test
+          value: ${NAMESPACE}
         - name: NACOS_IP
-          value: nacos.eazybuilder.cn
+          value: nacos.iss-devops.cn
         - name: NACOS_PORT
           value: "80"
         - name: TZ
           value: Asia/Shanghai
-        image: eazybuilder-web
+        image: jinqiu8810/eazybuilder-web:v0.0.7
         imagePullPolicy: Always
         name: eazybuilderweb
         ports:
@@ -48,12 +48,14 @@ spec:
           timeoutSeconds: 10
         resources:
           limits:
-            cpu: 100m
+            cpu: 1m
             memory: 1Gi
           requests:
-            cpu: 100m
-            memory: 100Mi
+            cpu: 1m
+            memory: 10Mi
       dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: harbor
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
@@ -77,3 +79,4 @@ spec:
   sessionAffinity: None
   type: ClusterIP
 ---
+

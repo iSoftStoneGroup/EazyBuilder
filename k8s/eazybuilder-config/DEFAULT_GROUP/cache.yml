@@ -1,0 +1,24 @@
+ftc:
+  cache:
+    # CAFFEINE | REDIS
+    type: REDIS
+    # 全局配置【最终key: key-prefix + 缓存注解cacheNames/value + 注解key】
+    def:
+      # 过期时间【单位毫秒，默认一天】
+      time-to-live: 2000000
+      # 是否允许缓存null值
+      cache-null-values: false
+      # key的前缀
+      key-prefix: global_test
+      # 写入redis时，是否使用key前缀
+      use-key-prefix: true
+      # 最大缓存个数
+      max-Size: 50
+    # 特殊key配置【最终key: key-prefix + 缓存注解cacheNames/value + 注解key】
+    configs:
+      customInfoIdCache:
+        time-to-live: 2000000
+        cache-null-values: true
+        key-prefix: custom_info_id
+        use-key-prefix: true
+        max-Size: 10
