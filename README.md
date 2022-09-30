@@ -51,7 +51,8 @@ EazyBuilder focuses on multi-team and multi-project unified compilation, build, 
 
   Use default compose file: [dockercompose/docker-compose.yml](./dockercompose/docker-compose.yml)
 
-  
+ #### Kubernetes Installation
+Install according to the detailed tutorial : [k8s/install-by-k8s. md](./k8s/install-by-k8s.md)
 
 Just visit http://localhost/console/index.html
 
