@@ -1,0 +1,55 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-plat
+  labels:
+    app: redis-plat
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+spec:
+  ports:
+    - port: 16379
+      name: client
+      protocol: TCP
+      targetPort: 6379
+  clusterIP: None
+  selector:
+    app: redis-plat
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: redis-plat
+spec:
+  serviceName: redis-plat
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis-plat
+    spec:  
+      containers:
+        - name: redis
+          imagePullPolicy: Always
+          image: redis:6.0.6
+          resources:
+            requests:
+              cpu: "1m" 
+              memory: "5m"              
+            limits:
+              cpu: "100m"
+              memory: "5G"  
+          ports:
+            - containerPort: 6379
+              name: client
+          command: 
+            - "redis-server"         
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+  selector:
+    matchLabels:
+      app: redis-plat

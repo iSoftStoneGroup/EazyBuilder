@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: eazybuilder-ingress
+  namespace: es
+spec:
+  rules:
+  - host: upms-web.dev-iss-devops.cn
+    http:
+      paths:
+      - backend:
+          serviceName: nacos-headless
+          servicePort: 8848
+        path: /nacos
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: eazybuilderserver
+          servicePort: 8080
+        path: /ci
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: eazybuilderweb
+          servicePort: 80
+        path: /eazybuilder-web
+        pathType: ImplementationSpecific
+      - backend:
+          serviceName: jenkins-headless
+          servicePort: 8080
+        path: /jenkins
+        pathType: ImplementationSpecific
