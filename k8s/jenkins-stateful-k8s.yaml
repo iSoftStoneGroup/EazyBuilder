@@ -34,15 +34,6 @@ spec:
       labels:
         app: jenkins
     spec:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - jenkins
-            topologyKey: kubernetes.io/hostname
       containers:
       - env:
         - name: JAVA_OPTS
