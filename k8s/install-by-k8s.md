@@ -1,4 +1,9 @@
-1.安装mysql
+
+首选创建命名空间(这一步不是必选的，也可以将eazybuilder部署在其他命名空间)
+kubectl apply -f namespace.yaml
+
+
+# 1.安装mysql
 
 kubectl apply -f mysql.yaml -n es
 
@@ -9,19 +14,19 @@ kubectl apply -f mysql.yaml -n es
  alter user 'root'@'%' identified with mysql_native_password BY 'mysql_123';
 flush privileges;
  
-2.创建数据库
+# 2.创建数据库
 create database ci;
 
-3.安装nacos
+# 3.安装nacos
 kubectl apply -f nacos-quick-start.yaml -n es
 
-4.导入nacos日志文件
+# 4.导入nacos日志文件
 在nacos中创建命名空间 devops
 
-5.安装redis
+# 5.安装redis
 kubectl apply -f redis.yaml -n es
 
-6.安装rabbitmq
+# 6.安装rabbitmq
 kubectl apply -f rbac.yaml -n es
 kubectl apply -f rabbitmq.yaml -n es
 
@@ -31,6 +36,9 @@ kubectl apply -f rabbitmq-network -n es
 
 创建管理员用户/密码：devops/devops
 
-7.安装eazybuilder前后端
+# 7.安装eazybuilder前后端
 kubectl apply -f eazybuilder-server.yaml
 kubectl apply -f eazybuilder-web.yaml
+
+# 8.创建eazybuilder ingress
+kubectl apply -f eazybuilder-ingress.yaml -n es
