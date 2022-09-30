@@ -29,6 +29,7 @@ create database ci;
 # 3.安装nacos
 ```shell
 kubectl apply -f nacos-quick-start.yaml -n es
+```
 
 # 4.导入nacos日志文件
 
