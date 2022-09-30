@@ -5,7 +5,7 @@ metadata:
   namespace: es
 spec:
   rules:
-  - host: upms-web.dev-iss-devops.cn
+  - host: es-web.eazybuilder.com
     http:
       paths:
       - backend:
