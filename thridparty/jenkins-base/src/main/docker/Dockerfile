@@ -63,3 +63,7 @@ COPY executors.groovy /usr/share/jenkins/ref/init.groovy.d/executors.groovy
 ENV MAVEN_OPTS="-Xmx2g"
 ENV LANG="zh_CN.UTF-8"
 ENV LC_ALL="zh_CN.UTF-8"
+
+#安装离线插件 http request
+COPY  http_request /var/jenkins_home/plugins
+COPY  http_request.jpi /var/jenkins_home/plugins
