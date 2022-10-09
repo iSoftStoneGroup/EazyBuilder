@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Hudson-Version: 2.249.1
+Plugin-Dependencies: workflow-basic-steps:2.22,workflow-durable-task-s
+ tep:2.40,workflow-step-api:2.24;resolution:=optional,apache-httpcompo
+ nents-client-4-api:4.5.13-1.0,credentials:2.6.1,script-security:1.78
+Implementation-Title: HTTP Request Plugin
+Long-Name: HTTP Request Plugin
+Implementation-Version: 1.16
+Group-Id: org.jenkins-ci.plugins
+Plugin-License-Name: MIT License
+Specification-Title: HTTP Request Plugin
+Plugin-ScmUrl: https://github.com/jenkinsci/http-request-plugin
+Plugin-Version: 1.16
+Jenkins-Version: 2.249.1
+Url: https://github.com/jenkinsci/http-request-plugin
+Short-Name: http_request
+Plugin-License-Url: https://opensource.org/licenses/MIT
+Compatible-Since-Version: 1.16
+Plugin-Developers: Janario Oliveira:janario:janario.oliveira@gmail.com
+Build-Jdk-Spec: 1.8
+Created-By: Maven Archiver 3.6.0
+Specification-Version: 1.16
+

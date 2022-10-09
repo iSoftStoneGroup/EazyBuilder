@@ -1,0 +1,7 @@
+<div>
+	How response should be handled.<br/>
+	STRING(default) will transform the response in string.<br/>
+	NONE will not read the response content and will close the response after the job execution.<br/>
+	LEAVE_OPEN will not read the response content but leaves an open input stream to be read outside the job execution.
+	Using LEAVE_OPEN it is your responsibility to close it after use. 'response.close();'<br/>
+</div>
