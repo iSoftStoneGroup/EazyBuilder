@@ -50,7 +50,7 @@ EazyBuilder聚焦多团队多工程统一编译、构建、扫描、部署等持
 访问http://localhost/console/index.html 即可
 
 #### Kubernetes安装
-参照详情教程进行安装:[k8s/install-by-k8s.md](./k8s/install-by-k8s.md)
+参照详情教程进行安装:[k8s/README.md](./k8s/README.md)
 
 - 构建机器
 
