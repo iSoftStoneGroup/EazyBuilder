@@ -1,0 +1,135 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-headless
+ 
+  labels:
+    app: jenkins
+  annotations:
+    service.alpha.kubernetes.io/tolerate-unready-endpoints: "true"
+spec:
+  ports:
+    - port: 8080
+      name: server
+      targetPort: 8080
+  clusterIP: None
+  selector:
+    app: jenkins
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: jenkins
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: jenkins
+  serviceName: jenkins-headless
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - jenkins
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - env:
+        - name: JAVA_OPTS
+          value: -Dfile.encoding=utf-8
+        - name: TZ
+          value: Asia/Shanghai
+        image: jinqiu8810/eazybuilder-jenkins-base:v0.0.7
+        imagePullPolicy: Always
+        name: jenkins
+        ports:
+        - containerPort: 8080
+          name: server
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "4"
+            memory: 8Gi
+          requests:
+            cpu: 1m
+            memory: 1737m
+        securityContext:
+          capabilities: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /usr/share/maven-repo
+          name: jenkins
+        - mountPath: /var/jenkins_home
+          name: jenkins
+        - mountPath: /opt/ci-tool
+          name: jenkins
+        - mountPath: /usr/local/bin/kubectl
+          name: bin-path
+        - mountPath: /root/.kube/
+          name: kube-path
+        - mountPath: /usr/bin/docker
+          name: docker-bin
+        - mountPath: /var/run/docker.sock
+          name: docker-sock
+      dnsConfig: {}
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: harbor
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccount: nfs-client-provisioner
+      serviceAccountName: nfs-client-provisioner
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - hostPath:
+          path: /usr/local/bin/kubectl
+          type: ""
+        name: bin-path
+      - hostPath:
+          path: /root/.kube/
+          type: ""
+        name: kube-path
+      - hostPath:
+          path: /usr/bin/docker
+          type: ""
+        name: docker-bin
+      - hostPath:
+          path: /var/run/docker.sock
+          type: ""
+        name: docker-sock
+      - hostPath:
+          path: /usr/bin/docker
+          type: ""
+        name: docker
+      - hostPath:
+          path: /var/run/docker.sock
+          type: ""
+        name: dockersock
+  volumeClaimTemplates:
+    - metadata:
+        name: jenkins
+        annotations:
+          volume.beta.kubernetes.io/storage-class: "managed-nfs-storage"
+      spec:
+        accessModes: [ "ReadWriteMany" ]
+        resources:
+          requests:
+            storage: 20Gi  		
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate 
+---
