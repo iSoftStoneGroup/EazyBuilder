@@ -26,6 +26,8 @@ kubectl apply -f mysql.yaml -n es
 create database ci;
 ```
 
+## 注意，这一步，可以采用初始化sql完成，直接执行[initsql](../initsql)目录下的sql，可以将eazybuilder与nacos的数据，一次性全部导入
+
 # 3.安装nacos
 ```shell
 kubectl apply -f nacos-quick-start.yaml -n es
