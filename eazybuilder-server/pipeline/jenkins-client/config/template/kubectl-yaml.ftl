@@ -38,46 +38,15 @@ spec:
                 values:
                   - ${deployConfig.hostname!'ecs-ce00-0001'}
 </#if>
-      dnsPolicy: ClusterFirst       
+      dnsPolicy: ClusterFirst
+      <#if deployConfig.deployConfigDetailHosts?? && (deployConfig.deployConfigDetailHosts?size>0)>
       hostAliases:
+      <#list deployConfig.deployConfigDetailHosts as deployConfigDetailHost>
       - hostnames:
-        - registryxxxxx
-        ip: ${jenkinsNetworkHost}
-      - hostnames:
-        - nexus3xxxxx
-        ip: ${jenkinsNetworkHost}
-      - hostnames:
-        - gitlabxxxxx
-        ip: ${jenkinsNetworkHost}
-      - hostnames:
-        - eazybuilder-devops.cn
-        ip: ${jenkinsNetworkHost}
-      - hostnames:
-        - upms-webxxxxx
-        ip: ${jenkinsNetworkHost}
-      - hostnames:
-        - smtp.eazybuilder.com
-        ip: 10.10.15.16
-      - hostnames:
-        - redis-platxxxxx
-        ip: ${jenkinsNetworkHost}
-      - hostnames:
-        - rabbitmqxxxxx
-        ip: ${jenkinsNetworkHost}
-      - hostnames:
-        - mysqlxxxxx
-        ip: ${jenkinsNetworkHost}   
-      - hostnames:
-        - nacosxxxxx
-        ip: ${jenkinsNetworkHost} 
-      - hostnames:
-        - nexus3xxxxx
-        ip: ${jenkinsMavenUrl}    
-  <#if jenkinsTeamGitlabUrl?? && jenkinsTeamGitlabUrl !="">    
-      - hostnames:
-        - ${jenkinsTeamGitlabUrl}
-        ip: ${jenkinsTeamGitlabHost}    
-  </#if>                                     
+         - ${deployConfigDetailHost.name}
+        ip: ${deployConfigDetailHost.data}
+      </#list>
+      </#if>
       containers:
       - env:
         - name: NACOS_SPACE
@@ -110,7 +79,7 @@ spec:
             cpu: ${deployConfig.limitsCpu!'500m'}
             memory: ${deployConfig.limitsMemory!'1Gi'}
           requests:
-            cpu: 100m
+            cpu: 1m
             memory: 100Mi
       imagePullSecrets:
       - name: harbor

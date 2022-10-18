@@ -331,7 +331,7 @@ a {
                                                                 <td>项目</td><td>构建状态</td><td class="alignleft">检查项</td><td colspan="2">情况</td>
                                                             </tr>
                                                             <#list results as result>
-                                                                <#if result.success?? && result.success?string=="true">
+                                                                <#if result.success?? && result.success?string("true","false")=="true">
                                                                         <#assign firstRowPended=false>
                                                                         <#assign totalRow=0>
                                                                         <tr class="project">

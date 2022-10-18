@@ -1,4 +1,4 @@
-<#if project.projectType??&&project.projectType=="npm">
+<#if project.projectType?? && project.projectType=="npm" && !project.profile.skipMvnBuild>
                 stage('npm build') {
                         steps {
                            //get svn revision and build
@@ -11,15 +11,27 @@
                            }
                         }
                 }
-<#elseif project.projectType??&&project.projectType=="net">
+<#elseif project.projectType?? && project.projectType=="net" && !project.profile.skipMvnBuild>
                 stage('net build') {
                         steps {
-                            echo '========ms build========'
-                            sh '''echo `pwd`'''
-                            sh '''dotnet publish `pwd`/<#if project.netPath !="">${project.netPath}<#else>src/${project.name}.Api/${project.name}.Api.csproj</#if>  -c Release'''
+                            echo '========net build start========'
+                        <#if referenceSource?? && referenceSource != "" >
+                             println('使用自定义NuGet源: ${referenceSource}');
+                             sh '''dotnet nuget add source  ${referenceSource}'''
+                             sh '''dotnet nuget remove source  nuget.org'''
+                             sh '''dotnet nuget list source '''
+                        </#if>
+                             sh '''echo `pwd`'''
+                             sh '''dotnet publish `pwd`/<#if project.netPath !="">${project.netPath}<#else>src/${project.name}.Api/${project.name}.Api.csproj</#if>  -c Release'''
+<#--                             <#if project.profile.secondPartySwitch>-->
+<#--                             sh '''nuget spec '''-->
+<#--                             sh '''nuget pack '''-->
+<#--                             sh script: 'dotnet nuget push "*.nupkg"  -k  ${project.profile.secondParty.secondPartyKey} -s ${project.profile.secondParty.secondPartyPath!'http://nexus3.iss-devops.cn/repository/ipsa-net-test/'}',returnStdout: false-->
+<#--                             </#if>-->
+                             echo '========net build end========'
                         }
                 }
-<#elseif project.legacyProject && project.profile?? && buildParam?? && buildParam != "" && buildParam?starts_with("ant ")>
+<#elseif project.legacyProject && project.profile?? && buildParam?? && buildParam != "" && buildParam?starts_with("ant ") && !project.profile.skipMvnBuild && !project.profile.skipMvnBuild>
                 //build ANT project 
                 stage('ant build') {
                         steps {
@@ -57,17 +69,20 @@
                             echo '========maven build start========'
                             echo '修饰后的pom.xml'
                             <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">
-<#--                            sh script:'cat ${project.pomPath}/pom.xml'-->
-                            <#else>
-<#--                             sh script:'cat pom.xml'-->
+                            sh script:'cat ${project.pomPath}/pom.xml'
+                            <#elseif !project.legacyProject&&project.projectType=='java'>
+                             sh script:'cat pom.xml'
                             </#if>
                             
                    
                                <#if project.profile?? && buildParam?? && buildParam != "" >
-                                    sh script: '${buildParam} -Dmaven.test.skip=${project.profile.skipUnitTest ?string("true","false")} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
+                                    sh script: '${buildParam} -Dmaven.test.skip=${project.profile.skipUnitTest ?string("true","false")} -Dmirror.url=${mirrorUrl} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
                                <#else>
-                                    sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=${project.profile.skipUnitTest?string("true","false")} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
+                                    sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=${project.profile.skipUnitTest?string("true","false")} -Dmirror.url=${mirrorUrl} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
                                </#if>
+<#--                               <#if project.profile?? && project.profile.secondPartySwitch  >-->
+<#--                                   sh script: 'mvn deploy -Ddocker.registry.serverId=<#if project.profile.secondParty.secondPartyType =='mavenRelease'>iss-releases</#if> <#if project.profile.secondParty.secondPartyType =='mavenSnapshot'>iss-snapshots</#if>   -Ddocker.registry.username=${project.profile.secondParty.secondPartyUser} -Ddocker.registry.password=${project.profile.secondParty.secondPartyPass}',returnStdout: false-->
+<#--                               </#if>-->
                              echo '========maven build end========'
                            }
                            
@@ -108,11 +123,18 @@
 <#--                             sh script:'cat pom.xml'-->
                             </#if>
                                    def revision=sh(returnStdout: true, script: 'git rev-parse HEAD')
+                                   String buildPrefix=null;
                                    <#if project.profile?? && buildParam?? && buildParam != "" >
-                                        sh script: '${buildParam} -Dmaven.test.skip=${project.profile.skipUnitTest?string("true","false")} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.GIT_COMMIT='+revision,returnStdout: false
+                                        buildPrefix="${buildParam}  ";
                                    <#else>
-                                        sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean org.jacoco:jacoco-maven-plugin:prepare-agent <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=${project.profile.skipUnitTest?string("true","false")} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.GIT_COMMIT='+revision,returnStdout: false
+                                        buildPrefix="mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean org.jacoco:jacoco-maven-plugin:prepare-agent <#if project.legacyProject>compile<#else>install</#if>  ";
                                    </#if>
+                                   String buildSuffix="-Dmaven.test.skip=${project.profile.skipUnitTest?string("true","false")} -Dmirror.url=${mirrorUrl} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.GIT_COMMIT="+revision ;
+                                   <#if buildProperty?? && buildProperty !="">
+                                        buildSuffix=" ${buildProperty} " +buildSuffix;
+                                   </#if>
+                                   String commandLine=buildPrefix+buildSuffix;
+                                    sh script: commandLine,returnStdout: false
                        echo '========maven build end========'
                                 }
                             }

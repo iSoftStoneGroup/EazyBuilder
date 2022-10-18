@@ -1,4 +1,4 @@
-<#if project.projectType??&&project.projectType=="npm">
+<#if project.projectType??&&project.projectType=="npm" && !project.profile.skipMvnBuild>
                 stage('npm build') {
                         steps {
                            //get svn revision and build
@@ -13,7 +13,7 @@
                             echo '========npm build end========'
                         }
                 }
-            <#elseif project.legacyProject && project.profile?? && buildParam?? && buildParam != "" && buildParam?starts_with("ant ")>
+            <#elseif project.legacyProject && project.profile?? && buildParam?? && buildParam != "" && buildParam?starts_with("ant ") && !project.profile.skipMvnBuild>
                 //build ANT project 
                 stage('ant build') {
                         steps {
@@ -34,7 +34,7 @@
                             }
                         }
                 }
-            <#else>
+            <#elseif !project.profile.skipMvnBuild>
                     <#if project.legacyProject>
                     stage('convert legacy project'){
                         steps {
@@ -53,9 +53,9 @@
                            //get svn revision and build
                            script{
                                <#if project.profile?? && buildParam?? && buildParam != "" >
-                                    sh script: '${buildParam} -Dmaven.test.skip=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
+                                    sh script: '${buildParam} -Dmaven.test.skip=true -Dmirror.url=${mirrorUrl} -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
                                <#else>
-                                    sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
+                                    sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=true -Dmirror.url=${mirrorUrl} -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
                                </#if>
                            }
                            
@@ -77,9 +77,9 @@
                                     returnStdout: true
                                )
                                <#if project.profile?? && buildParam?? && buildParam != "" >
-                                    sh script: '${buildParam} -Dmaven.test.skip=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.SVN_REVISION='+revision,returnStdout: false
+                                    sh script: '${buildParam} -Dmaven.test.skip=true -Dmirror.url=${mirrorUrl} -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.SVN_REVISION='+revision,returnStdout: false
                                <#else>
-                                    sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.SVN_REVISION='+revision,returnStdout: false
+                                    sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=true -Dmirror.url=${mirrorUrl} -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.SVN_REVISION='+revision,returnStdout: false
                                </#if>
                            }
                         echo '========maven build end========'
