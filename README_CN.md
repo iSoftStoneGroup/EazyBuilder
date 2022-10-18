@@ -120,4 +120,4 @@ EazyBuilder 将在云原生环境中与其他工具一起使用。因此，将�
 我们遵循[CNCF行为准则](./CODE_OF_CONDUCT.md).
 
 ## 路线图
-<img width="400" alt="image" src="docs/eazybuilder.png" width="400"  height="200" >
+<img width="1000" alt="image" src="docs/eazybuilder.png"   height="800" >
