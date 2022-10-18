@@ -30,7 +30,33 @@ public class PipelinePublicApi {
 
 	@RequestMapping(method=RequestMethod.GET,value="/buildStatus/svg")
 	public void getLastBuildStatusSvg(@RequestParam("projectId")String projectId,HttpServletResponse response) throws IOException {
-
+		//ProjectLastBuildInfo lastBuild=service.getLastBuild(projectId);
+		Pipeline pipeline = service.getLastPipelineByProjectId(projectId);
+		Status status= (pipeline==null || pipeline.getStatus() == null ?Status.NOT_EXECUTED:pipeline.getStatus());
+		String svg=BuildStatusSvgHolder.SVG_NOTRUN;
+		switch(status) {
+		case SUCCESS:
+		case UNSTABLE:
+			svg=BuildStatusSvgHolder.SVG_PASSING;
+			break;
+		case ASSERT_WARNRULE_FAILED:
+		case FAILED:
+			svg=BuildStatusSvgHolder.SVG_FAILING;
+			break;
+		case IN_PROGRESS:
+		case WAIT_AUTO_TEST_RESULT:
+			svg=BuildStatusSvgHolder.SVG_RUNNING;
+			break;
+		case ABORTED:
+			svg=BuildStatusSvgHolder.SVG_ABORTED;
+			break;
+		default :
+			svg=BuildStatusSvgHolder.SVG_NOTRUN;
+			break;
+		}
+		response.setHeader("Content-Type", "image/svg+xml");
+		response.getWriter().write(svg);
+		response.getWriter().flush();
 	}
 	
 	

@@ -2,9 +2,7 @@ package com.eazybuilder.ci.service.async;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.base.Charsets;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
+import com.eazybuilder.ci.config.LoadConfigYML;
 import com.eazybuilder.ci.constant.AutoTestSwitch;
 import com.eazybuilder.ci.constant.MetricType;
 import com.eazybuilder.ci.constant.RoleEnum;
@@ -21,8 +19,14 @@ import com.eazybuilder.ci.rabbitMq.SendRabbitMq;
 import com.eazybuilder.ci.service.*;
 import com.eazybuilder.ci.storage.ResourceStorageService;
 import com.eazybuilder.ci.util.DingtalkWebHookUtil;
+import com.eazybuilder.ci.util.FreemakerUtils;
 import com.eazybuilder.ci.util.HttpUtil;
-import freemarker.template.*;
+import com.google.common.base.Charsets;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.EnumUtils;
@@ -40,8 +44,26 @@ import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 
 public class PipelineWorkResultTracker implements Callable<PipelineExecuteResult> {
+
+
+    private static String dingTalkPipeline = "### 流水线执行结果\n" +
+            "\n" +
+            "\n" +
+            "- 项目名称： ${result.project.name}(${result.project.description})；\n" +
+            "\n" +
+            "- 构建结果： ${result.pipeline.status}；\n" +
+            "\n" +
+            "- 构建过程：  ${result.pipeline.profileName}；\n" +
+            "\n" +
+            "- 触发类型：  ${result.pipeline.pipelineType}；\n" +
+            "\n" +
+            "- 操作分支:     ${editBranch}；\n" +
+            "\n" +
+            "- 查看日志:   ${logUrl}；\n" ;
+
     private static Logger logger = LoggerFactory.getLogger(PipelineWorkResultTracker.class);
 
+    private static Properties properties = new LoadConfigYML().getConfigProperties();
 
     private DockerImageService dockerImageService;
     private ProjectService projectService;
@@ -114,8 +136,8 @@ public class PipelineWorkResultTracker implements Callable<PipelineExecuteResult
         //在这里做一次判断，看此次任务是由客户在页面触发的，还是gitlab触发的
         if (StringUtils.isNotBlank(redmineUser)) {
             user = new User();
-            if (!redmineUser.contains("@eazybuilder.com")) {
-                user.setEmail(redmineUser + "@eazybuilder.com");
+            if (!redmineUser.contains(properties.getProperty("email.suffix"))) {
+                user.setEmail(redmineUser + properties.getProperty("email.suffix"));
             } else {
                 user.setEmail(redmineUser);
             }
@@ -275,7 +297,38 @@ public class PipelineWorkResultTracker implements Callable<PipelineExecuteResult
             } catch (Exception e) {
                 logger.error("拼装rabbitmq数据出现异常：{}-{}",e.getMessage(),e);
             }
+            try {
+                sendDingTalkPipeline(result);
+            } catch (Exception e) {
+                logger.error("发送流水线执行结果出现异常：{}-{}",e.getMessage(),e);
+            }
         }
+    }
+
+    private void sendDingTalkPipeline(PipelineExecuteResult results) {
+        Map<String,Object> model = new HashMap<>();
+        model.put("result", results);
+        model.put("logUrl", ciHost + "/ci/resources/" + results.getPipeline().getLogId());
+        String sourceBranch = results.getPipeline().getSourceBranch();
+        String targetBranch = results.getPipeline().getTargetBranch();
+        if(StringUtils.isBlank(targetBranch)&&StringUtils.isBlank(sourceBranch)){
+            model.put("editBranch","--");
+        }
+        if(StringUtils.isNotBlank(sourceBranch)&&StringUtils.isBlank(targetBranch)){
+            model.put("editBranch",sourceBranch);
+        }
+        if(StringUtils.isNotBlank(targetBranch)&&StringUtils.isBlank(sourceBranch)){
+            model.put("editBranch",targetBranch);
+        }
+
+        if(StringUtils.isNotBlank(sourceBranch)&&StringUtils.isNotBlank(targetBranch)){
+            model.put("editBranch",sourceBranch+"-->"+targetBranch);
+        }
+//        Template dingtalkTemplate = configuration.getTemplate("dingtalk-pipeline.ftl");
+        String markdownMsg = FreemakerUtils.generateByModelAndTemplate(model, dingTalkPipeline);
+        String[] receiverMailList = getReceiverMailList(results.getProject());
+        DingtalkWebHookUtil.sendDingtalkPrivateMsgBymq("流水线执行结果", markdownMsg, results.getProject().getTeam().getCode(),
+                Arrays.asList(receiverMailList),MsgProfileType.pipelineFail,sendRabbitMq);
     }
 
     private StringBuilder genEmailMsg(Map<String, Report> typedReport) {
@@ -311,7 +364,7 @@ public class PipelineWorkResultTracker implements Callable<PipelineExecuteResult
             logger.info("ci未开启发送邮件");
             return;
         }
-        if (result.isSuccess()||result.getSuccess().equals("WAIT_AUTO_TEST_RESULT")) {
+        if (StringUtils.equals(result.getSuccess(),Boolean.toString(true))||result.getSuccess().equals("WAIT_AUTO_TEST_RESULT")) {
             renderMailAndSend(name, result.getProject(), result.getPipeline(), typedReport);
         } else {
             renderFailedMailAndSend(name, result.getProject(), result.getPipeline());
@@ -786,7 +839,7 @@ public class PipelineWorkResultTracker implements Callable<PipelineExecuteResult
             if(redmineUser.indexOf("@")>-1) {
                 jsonData.put("userName", redmineUser);
             }else{
-                jsonData.put("userName", redmineUser+"@eazybuilder.com");
+                jsonData.put("userName", redmineUser+ properties.getProperty("email.suffix"));
             }
             jsonData.put("code", redmineCode);
         } else {
@@ -795,7 +848,7 @@ public class PipelineWorkResultTracker implements Callable<PipelineExecuteResult
                 jsonData.put("userName", user.getEmail());
                 logger.info("转换后的user:{}", jsonData.getString("userName"));
             }else{
-                jsonData.put("userName", "xxx@eamil.com");
+                jsonData.put("userName", "d-fesci"+ properties.getProperty("email.suffix"));
             }
             String tagName= "";
             if(StringUtils.isNotBlank(pipeline.getTargetBranch())) {
@@ -818,11 +871,17 @@ public class PipelineWorkResultTracker implements Callable<PipelineExecuteResult
         sendRabbitMq.sendMsg(jsonData.toString());
         pipelineServiceImpl.save(pipeline);
         if (pipelineProfile.getTestSwitch() != AutoTestSwitch.CLOSED) {
-            logger.info("CI消息发送完成，本消息触发自动化测试，进行监控");
-            DingtalkWebHookUtil.sendDingtalkMsgBymq(devopsEventType.getName(),
-                    "CI完成自动构建，发送通知给自动化测试平台，开启监控：" + jsonData.toString(),
-                    pipelineExecuteService.getDingtalkSecret(), pipelineExecuteService.getAccessToken(),
-                    sendRabbitMq,MsgProfileType.monitoringDtpTestRun);
+            try {
+                int testDelayTime = pipelineProfile.getTestDelayTime() == null ? 3 : pipelineProfile.getTestDelayTime();
+                Thread.sleep(testDelayTime * 60 * 1000);
+                logger.info("CI消息发送完成，本消息触发自动化测试，进行监控");
+                DingtalkWebHookUtil.sendDingtalkGroupMsgBymq(devopsEventType.getName(),
+                        "CI完成自动构建，发送通知给自动化测试平台，开启监控：" + jsonData.toString(),
+                        pipelineExecuteService.getDingtalkSecret(), pipelineExecuteService.getAccessToken(),
+                        sendRabbitMq,MsgProfileType.monitoringDtpTestRun);
+            } catch (InterruptedException e) {
+               logger.error("发起自动化测试休眠中断",e);
+            }
         }
     }
 

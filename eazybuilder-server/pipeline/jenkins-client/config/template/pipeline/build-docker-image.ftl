@@ -4,8 +4,8 @@
                         steps {
                            echo '========build docker image start========'
                            sh '''docker login -u ${project.registry.user}  -p ${project.registry.password}  ${project.registry.url}''' 
-                           echo 'eazybuilder devops docker image namespace is: ${project.profile.nameSpace}'
-                           echo 'eazybuilder devops docker image tag are: ${dockerImageTag},latest'
+                           echo 'iss devops docker image namespace is: ${project.profile.nameSpace}'     
+                           echo 'iss devops docker image tag are: ${dockerImageTag},latest'                   
                            <#if project.registry?? && project.registry.url??>
                                 <#if project.projectType?? && project.projectType=="net">
                                     sh '''docker build -t ${project.registry.url}/${project.profile.nameSpace}/${project.name}:latest -f ./Dockerfile .'''

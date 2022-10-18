@@ -4,16 +4,13 @@ import java.io.File;
 import java.io.FileWriter;
 import java.util.List;
 
+import com.eazybuilder.ci.maven.impl.*;
+import org.apache.maven.model.DistributionManagement;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.ModelBase;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
 
 import com.google.common.collect.Lists;
-import com.eazybuilder.ci.maven.impl.AliyunMavenRepoDecorator;
-import com.eazybuilder.ci.maven.impl.DockerPluginDecorator;
-import com.eazybuilder.ci.maven.impl.JacocoPluginDecorator;
-import com.eazybuilder.ci.maven.impl.SurefirePluginDecorator;
-import com.eazybuilder.ci.maven.impl.SurefireReportPluginDecorator;
-import com.eazybuilder.ci.maven.impl.WarDockerImageDecorator;
 
 public class POMProcessor {
 
@@ -27,18 +24,19 @@ public class POMProcessor {
 	private POMProcessor() {
 		decorators.add(new WarDockerImageDecorator());
 		decorators.add(new DockerPluginDecorator());
+		decorators.add(new DistributionManagementDecorator());
 	}
 
 	public synchronized static POMProcessor getInstance(){
 		return INSTANCE;
 	}
 	
-	public void processPOM(String workspace) throws Exception{
+	public void processPOM(String workspace,String nexusUrl) throws Exception{
 		List<Model> models=POMParser.listPom(new File(workspace));
 		if(models!=null&&models.size()>0){
 			models.forEach(model->{
 				decorators.forEach(decorator->{
-					decorator.decorate(model);
+					decorator.decorate(model,nexusUrl);
 				});
 				//write 
 				try(FileWriter writer=new FileWriter(model.getPomFile())){
@@ -50,10 +48,10 @@ public class POMProcessor {
 			});
 			//parent
 			Model parentModel=models.get(0);
-			surefire.decorate(parentModel);
-			surefireReport.decorate(parentModel);
-			aliyunRepo.decorate(parentModel);
-			jacocoPluginDecorator.decorate(parentModel);
+			surefire.decorate(parentModel,"");
+			surefireReport.decorate(parentModel,"");
+			aliyunRepo.decorate(parentModel,"");
+			jacocoPluginDecorator.decorate(parentModel,"");
 			//jacocoPluginDecorator.createReportModel(models);
 		}
 		

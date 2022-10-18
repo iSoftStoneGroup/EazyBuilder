@@ -20,10 +20,8 @@ public class AuthUtils {
 	
 	public static UserVo getCurrentUser(){
 		UserVo user = ACCESS_USER.get();
-		if(user!=null) {
-			logger.info("获取当前登录用户信息：{}", user.toString());
-		}else{
-			logger.error("当前登录用户信息为空");
+		if(logger.isDebugEnabled()){
+			logger.debug("获取当前登录用户信息：{}", user.toString());
 		}
 		return user;
 	}
@@ -32,7 +30,7 @@ public class AuthUtils {
 	public static Team getDefaultTeam() {
 		return DEFAULT_TEAM.get();
 	}
-	
+
 	public static String encrypt(String passcode,String salt) throws Exception{
 		SHA256 sha=new SHA256();
 		sha.init();

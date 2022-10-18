@@ -30,7 +30,7 @@
                                 depthOption: &apos;infinity&apos;, 
                                 ignoreExternalsOption: true, 
                                 local: &apos;.&apos;,
-                                remote: &apos;https://10.129.131.5/svn/eazybuilder/Products/eazybuilder/%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/%E6%BA%90%E7%A0%81/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90&apos;
+                                remote: &apos;https://0.0.0.0/svn/Eazybuilder/Products/Eazybuilder/%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0/%E6%BA%90%E7%A0%81/%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/ci-demo&apos;
                                 ]], 
                             quietOperation: true, 
                             workspaceUpdater: [$class: &apos;UpdateWithCleanUpdater&apos;]])
@@ -96,9 +96,9 @@
                     stage(&apos;build docker image&apos;){
                         steps {
                            //build
-                           sh &apos;&apos;&apos;mvn -Ddocker.build.host=0.0.0.0:2375 -Ddocker.build.groupId=ats -Ddocker.build.version=latest -Ddocker.registry=xxxx  -Ddocker.registry.serverId=docker-4 -Ddocker.registry.username=cn-north-1@SZIKDB82ITDURHYUFP6Z -Ddocker.registry.password=c473732fc7f549e45ce44a12f8217bcf75607236e93921929c762dc31bfb0066 -Ddocker.registry.email=xx@eazybuilder.com   docker:build -DdockerImageTags=latest&apos;&apos;&apos;
+                           sh &apos;&apos;&apos;mvn -Ddocker.build.host=0.0.0.0:2375 -Ddocker.build.groupId=ats -Ddocker.build.version=latest -Ddocker.registry=swr.cn-north-1.myhuaweicloud.com  -Ddocker.registry.serverId=docker-4 -Ddocker.registry.username=cn-north-1@SZIKDB82ITDURHYUFP6Z -Ddocker.registry.password=c473732fc7f549e45ce44a12f8217bcf75607236e93921929c762dc31bfb0066 -Ddocker.registry.email=zxliu@eazybulider.com   docker:build -DdockerImageTags=latest&apos;&apos;&apos;
                            //push
-                           sh &apos;&apos;&apos;mvn -Ddocker.build.host=0.0.0.0:2375 -Ddocker.build.groupId=ats -Ddocker.build.version=latest -Ddocker.registry=xxxx  -Ddocker.registry.serverId=docker-4 -Ddocker.registry.username=cn-north-1@SZIKDB82ITDURHYUFP6Z -Ddocker.registry.password=c473732fc7f549e45ce44a12f8217bcf75607236e93921929c762dc31bfb0066 -Ddocker.registry.email=xx@eazybuilder.com   docker:push&apos;&apos;&apos;
+                           sh &apos;&apos;&apos;mvn -Ddocker.build.host=0.0.0.0:2375 -Ddocker.build.groupId=ats -Ddocker.build.version=latest -Ddocker.registry=swr.cn-north-1.myhuaweicloud.com  -Ddocker.registry.serverId=docker-4 -Ddocker.registry.username=cn-north-1@SZIKDB82ITDURHYUFP6Z -Ddocker.registry.password=c473732fc7f549e45ce44a12f8217bcf75607236e93921929c762dc31bfb0066 -Ddocker.registry.email=zxliu@eazybulider.com   docker:push&apos;&apos;&apos;
                         }
                     }
                 //deploy

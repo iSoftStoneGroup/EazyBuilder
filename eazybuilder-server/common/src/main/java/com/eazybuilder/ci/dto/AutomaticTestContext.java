@@ -8,9 +8,12 @@ import com.eazybuilder.ci.entity.test.EnvSet;
 /**
  * 自动化测试的DTO，Jenkins通过调用QTP/Selenium Agent进行测试时传输
  *
+ *
  */
 public class AutomaticTestContext {
-	//测试环境变量
+	/**
+	 * 测试环境变量
+	 */
 	private EnvSet env;
 	private List<AutomaticScript> scripts;
 	private String uuid;

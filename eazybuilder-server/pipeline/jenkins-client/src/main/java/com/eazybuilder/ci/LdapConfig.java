@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.core.support.LdapContextSource;
 
-import com.eazybuilder.ci.auth.ldap.EazybuilderLdapServiceImpl;
+import com.eazybuilder.ci.auth.ldap.ISSLdapServiceImpl;
 import com.eazybuilder.ci.auth.ldap.LdapService;
 
 @Configuration
@@ -37,7 +37,7 @@ public class LdapConfig {
     
     @Bean
     public LdapService  ldapService() {
-    	return new EazybuilderLdapServiceImpl();
+    	return new ISSLdapServiceImpl();
     }
     
     /*

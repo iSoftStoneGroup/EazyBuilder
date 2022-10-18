@@ -1,13 +1,17 @@
 package com.eazybuilder.ci.controller.vo;
 
 import com.eazybuilder.ci.entity.PipelineType;
-import com.eazybuilder.ci.entity.devops.EventType;
 
 import javax.persistence.Lob;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.List;
 
 public class ProjectBuildVo {
+
+
+	private String releaseId;
 
 	private String redmineCode;
 	private String redmineUser;
@@ -82,6 +86,11 @@ public class ProjectBuildVo {
 	 * docker镜像版本 上线的时候生成的镜像版本
 	 */
 	private String onlineDockerVersion;
+
+	/**
+	 * url encode之后的git 地址
+	 */
+	private String encodedUrl;
 
 	public String getNameSpace() {
 		return nameSpace;
@@ -265,5 +274,25 @@ public class ProjectBuildVo {
 
 	public void setRedmineUser(String redmineUser) {
 		this.redmineUser = redmineUser;
+	}
+
+	public String getEncodedUrl() {
+		return encodedUrl;
+	}
+
+	public void setEncodedUrl(String encodedUrl) {
+		try {
+			this.encodedUrl = URLEncoder.encode(encodedUrl,"utf-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String getReleaseId() {
+		return releaseId;
+	}
+
+	public void setReleaseId(String releaseId) {
+		this.releaseId = releaseId;
 	}
 }

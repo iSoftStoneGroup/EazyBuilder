@@ -3,6 +3,8 @@ package com.eazybuilder.ci.controller.vo;
 import com.eazybuilder.ci.entity.ScmType;
 /**
  * 用于批量导入工程信息的VO
+ *
+ *
  */
 public class ScmVO {
 	private String id;

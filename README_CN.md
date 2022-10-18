@@ -23,10 +23,10 @@ EazyBuilder聚焦多团队多工程统一编译、构建、扫描、部署等持
 - **流水线监控预警**：内置丰富预警手段，对流水线状况进行全方位监控，主动发送异常日志，通过数据驱动流水线持续改进。
 - **事件驱动**：支持通配符，对不同的代码分支，配置不同的事件类型，触发不同的流水线。
 
-EazyBuilder 由 [云原生计算基金会 (CNCF)](https://cncf.io) 托管.
 
 # **入门**
 
+- Eazybulider包含一个前端与一个后端应用，代码目录分别为：eazybuilder-web,eazybuilder-server
 
 #### Docker安装
 
@@ -48,6 +48,9 @@ EazyBuilder 由 [云原生计算基金会 (CNCF)](https://cncf.io) 托管.
   
 
 访问http://localhost/console/index.html 即可
+
+#### Kubernetes安装
+参照详情教程进行安装:[k8s/README.md](./k8s/README.md)
 
 - 构建机器
 
@@ -89,11 +92,11 @@ EazyBuilder 将在云原生环境中与其他工具一起使用。因此，将�
 # **联系我们**
 
 
--「欢迎大家关注eazybuilder，在使用中遇到问题，可以加群讨论（二维码图片会保持每周更新）」
+-「欢迎大家关注eazybuilder，在使用中遇到问题，可以加群讨论」
 
-- **下方为交流沟通群二维码，欢迎扫码加入**
+- **欢迎加入交流群。您可以扫描下方微信二维码，邀请您入群。请注明加入easybuilder**
 
-查看 [二维码](https://github.com/iSoftStoneGroup/EazyBuilder/issues/15).
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/1069092/189043893-fe653257-3180-464b-85e1-c91876b29df4.jpg">
 
 
 # **资源**
@@ -103,6 +106,9 @@ EazyBuilder 将在云原生环境中与其他工具一起使用。因此，将�
 - [EazyBuilder 1.0.0](./doc/referencebook/v1.0.0/referencebook_cn.md)
 
 
+# **下载**
+
+- [Github Release](https://github.com/iSoftStoneGroup/EazyBuilder/releases)
 
 
 # **许可**

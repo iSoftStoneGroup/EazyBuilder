@@ -21,7 +21,7 @@
                 <#if project.profile.secondPartySwitch>
                     sh '''nuget spec '''
                     sh '''nuget pack '''
-                    sh script: 'dotnet nuget push "*.nupkg"  -k  ${project.profile.secondParty.secondPartyKey} -s ${project.profile.secondParty.secondPartyPath!'http://nexus3.iss-devops.cn/repository/ipsa-net-test/'}',returnStdout: false
+                    sh script: 'dotnet nuget push "*.nupkg"  -k  ${project.profile.secondParty.secondPartyKey} -s ${project.profile.secondParty.secondPartyPath!'http://nexus3.eazybuilder-devops.cn/repository/ipsa-net-test/'}',returnStdout: false
                 </#if>
                 echo '========net pack end========'
             }

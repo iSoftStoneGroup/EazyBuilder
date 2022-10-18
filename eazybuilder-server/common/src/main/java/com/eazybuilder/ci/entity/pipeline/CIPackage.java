@@ -1,7 +1,5 @@
 package com.eazybuilder.ci.entity.pipeline;
 
-import com.eazybuilder.ci.constant.ProfileType;
-
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,6 +39,7 @@ public class CIPackage {
     private String gitPath;
 
     private String profileType;
+
 
     @ElementCollection
     @MapKeyColumn(name="name")

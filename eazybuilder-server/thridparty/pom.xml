@@ -6,7 +6,6 @@
   <version>1.0</version>
   <modules>
   	<module>mysql</module>
-  	<module>jenkins</module>
   	<module>sonarqube</module>
   	<module>postgres</module>
 	<module>jenkins-inbound-agent</module>

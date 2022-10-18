@@ -30,6 +30,8 @@ import com.eazybuilder.ci.util.AuthUtils;
 
 /**
  * CI对外部提供的回调钩子
+ *
+ *
  */
 @RestController
 @RequestMapping("/wh")
@@ -103,7 +105,7 @@ public class WebHookController {
 			response.setStatus(HttpStatus.FORBIDDEN.value());
 			return;
 		}
-		if(!token.equals(sysPropService.getValue(CI_TOKEN_DEFINE, "eazybuilder-CI"))){
+		if(!token.equals(sysPropService.getValue(CI_TOKEN_DEFINE, "Eazybuilder-CI"))){
 			logger.warn("WRONG TOKEN");
 			response.setStatus(HttpStatus.FORBIDDEN.value());
 			return;

@@ -324,11 +324,11 @@ a {
                     <table width="100%">
                         <tr>
                             <td class="content-block">
-                                <li>1.邮件中的链接如果无法访问则需要配置hosts （0.0.0.0 measure-consolexxxxx），如果您使用外网请通过VPN/开通访问权限；</li>
+                                <li>1.邮件中的链接如果无法访问则需要配置hosts，如果您使用外网请通过VPN/开通访问权限；</li>
                             </td>
                         </tr>
                         <tr>
-                            <td class="aligncenter content-block">有任何疑问，请发送邮件至<a href="mailto:xxx@eazybuilder.com">DevOps项目组</a></td>
+                            <td class="aligncenter content-block">有任何疑问，请发送邮件至<a href="mailto:zpzhaoa@eazybuilder.com">DevOps项目组</a></td>
                         </tr>
                     </table>
                 </div></div>

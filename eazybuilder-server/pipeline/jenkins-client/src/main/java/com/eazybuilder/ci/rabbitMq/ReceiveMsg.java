@@ -40,14 +40,13 @@ import javax.annotation.Resource;
 @Component
 public class ReceiveMsg {
     private static Logger logger = LoggerFactory.getLogger(ReceiveMsg.class);
-    // 队列名称
+
     @Value("${message.queue}")
     public String ITEM_QUEUE;
     @Autowired
     private StringRedisTemplate redisTemplate;
     @Autowired
     PipelineServiceImpl pipelineServiceImpl;
-
     @Autowired
     Configuration configuration;
     @Autowired
@@ -101,7 +100,7 @@ public class ReceiveMsg {
     }
 
     @RabbitListener(queues = "#{queue.name}")
-    public void msg(Message message, Channel channel) {
+    public void msg(Message message, Channel channel) throws Exception{
         Long tag = null;
         String payload = "";
         PipelineLog pipelineLog = new PipelineLog();
@@ -124,23 +123,19 @@ public class ReceiveMsg {
                 logger.info("消息payload：{}", message.getPayload());
                 jsonObject = JSONObject.parseObject(message.getPayload().toString());
             }
-
-
             logger.info("消费者收到消息了：{},msgId:{},tag:{}", jsonObject, msgId, tag);
             // 当redis中存在此消息ID时,说明此消息已让消费过(用于幂等性的处理)
-            if (redisTemplate.opsForHash().entries("rancherMessageCache").containsKey(msgId)) {
-                logger.info("[{}]消息已消费过", msgId);
-                channel.basicAck(tag, false);
-            }
+//            if (redisTemplate.opsForHash().entries("rancherMessageCache").containsKey(msgId)) {
+//                logger.info("[{}]消息已消费过", msgId);
+//                channel.basicAck(tag, false);
+//            }
             logger.info("[{}]消息没有被消费过，继续后续流程", msgId);
-            redisTemplate.opsForHash().put("rancherMessageCache", msgId, msgId);
+//            redisTemplate.opsForHash().put("rancherMessageCache", msgId, msgId);
 
             CIPackage ciPackage = JSON.toJavaObject(jsonObject, CIPackage.class);
             ciPackage.setCreateDate(new Date());
             logger.info("保存CIPackage表：{}", JSON.toJSON(ciPackage));
             ciPackageService.save(ciPackage);
-            // 手动确认消息已消费
-            channel.basicAck(tag, false);
             jsonObject.put("ciPackageId", ciPackage.getId());
 
             Map<Project, List<ProjectBuildVo>> eventProject = eventService.getEventProject(jsonObject);
@@ -149,6 +144,7 @@ public class ReceiveMsg {
         } catch (Exception e) {
             logger.error("处理消息出现异常:{}", e);
             pipelineLog.setExceptionLog("流水线执行异常:" + e.getMessage());
+            throw new IllegalArgumentException("事件设定匹配出现异常");
         } finally {
             try {
                 channel.basicAck(tag, false);
@@ -161,7 +157,7 @@ public class ReceiveMsg {
             if (!StringUtils.isEmpty(pipelineLog.getExceptionLog())) {
                 msg = msg + ",流水线出现异常:" + pipelineLog.getExceptionLog();
             }
-            DingtalkWebHookUtil.sendDingtalkMsgBymq("流水线通知", msg, dingtalkSecret, accessToken, sendRabbitMq, MsgProfileType.monitoringJobRun);
+            DingtalkWebHookUtil.sendDingtalkGroupMsgBymq("流水线通知", msg, dingtalkSecret, accessToken, sendRabbitMq, MsgProfileType.monitoringJobRun);
         }
     }
 
@@ -215,7 +211,7 @@ public class ReceiveMsg {
                 logger.error("手动确认消息已消费出现异常:{}", e);
             }
             //保存流水线日志，发送钉钉消息
-            DingtalkWebHookUtil.sendDingtalkMsgBymq("流水线通知", "CI收到dtp自动化测试结果:" + jsonObject.toString() + ",处理详情:" + result, dingtalkSecret, accessToken, sendRabbitMq, MsgProfileType.monitoringDtpTestStatus);
+            DingtalkWebHookUtil.sendDingtalkGroupMsgBymq("流水线通知", "CI收到dtp自动化测试结果:" + jsonObject.toString() + ",处理详情:" + result, dingtalkSecret, accessToken, sendRabbitMq, MsgProfileType.monitoringDtpTestStatus);
         }
     }
 
@@ -269,7 +265,7 @@ public class ReceiveMsg {
                 logger.error("手动确认消息已消费出现异常:{}", e);
             }
             //保存流水线日志，发送钉钉消息
-            DingtalkWebHookUtil.sendDingtalkMsgBymq("流水线通知", "CI收到dtp自动化测试结果:" + jsonObject.toString() + ",处理详情:" + result, dingtalkSecret, accessToken, sendRabbitMq, MsgProfileType.monitoringDtpTestStatus);
+            DingtalkWebHookUtil.sendDingtalkGroupMsgBymq("流水线通知", "CI收到dtp自动化测试结果:" + jsonObject.toString() + ",处理详情:" + result, dingtalkSecret, accessToken, sendRabbitMq, MsgProfileType.monitoringDtpTestStatus);
         }
     }
 

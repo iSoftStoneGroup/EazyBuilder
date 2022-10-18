@@ -1,11 +1,8 @@
-FROM openjdk:8-jre-slim
+FROM openjdk:8
 RUN mkdir -p /opt/ci/resources
 WORKDIR /opt/ci
-VOLUME ["/opt/ci/resources"]
-RUN apk add --no-cache git
-RUN apk add --update ttf-dejavu fontconfig
 COPY config/  /opt/ci/config/
-ADD eazybuilder*.jar /opt/ci/eazybuilder.jar
-
-ENV JAVA_OPTS="-Xmx1g"
-CMD java $JAVA_OPTS -jar eazybuilder.jar
+ADD jenkins-client*.jar /opt/ci/jenkins-client.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar"]
+CMD ["jenkins-client.jar"]

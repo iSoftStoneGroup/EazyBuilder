@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace必须指向Dao接口 -->
+<mapper namespace="com.eazybuilder.icip.core.adapter.dao.AdapterDao">
+<!--集成二级缓存-->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+    <resultMap type="AdapterInfo" id="AdapterInfoResult">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="adapterCode" column="adapterCode"/>
+        <result property="serviceType" column="EXCHANGESERVICETYPE"/>
+        <result property="inOnly" column="isRequestResponseMode"/>
+        <result property="exchangeImplClass" column="exchangeImplClass" />
+        <result property="threshold" column="threshold"/>
+        <result property="logicControlClass" column="LOGICCONTROLCLASS"/>
+        <result property="requestTemplateName" column="requestTemplateName"/>
+        <result property="responseTemplateName" column="responseTemplateName"/>
+        <result property="remarks" column="remarks"/>
+        <result property="trans_code" column="trans_code" />
+        <result property="loggingType" column="LOGGINGMODE" />
+        <association property="recipientRule" column="recipientruleid" javaType="RecipientInfo" select="com.eazybuilder.icip.core.route.dao.RecipientDao.findById"/>
+        <collection property="subProcessTemplateNames" ofType="string" column="id" select="com.eazybuilder.icip.core.adapter.dao.SubProcessTemplateDao.findByAdapterId">
+        </collection>
+    </resultMap>
+    <select id="findByCode" parameterType="string" resultMap="AdapterInfoResult">
+        select * from icip_adapter where
+                adapterCode = #{_parameter}
+    </select>
+    
+</mapper> 

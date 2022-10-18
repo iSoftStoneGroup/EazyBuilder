@@ -1,5 +1,6 @@
 package com.eazybuilder.ci.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,13 +13,15 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.eazybuilder.ci.constant.PreTaskStatus;
 import com.eazybuilder.ci.entity.report.Status;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 
 @Entity
 @Table(name="CI_JOB")
-public class BuildJob {
+public class BuildJob implements Serializable {
+	public  static final String ARRANGEMENT_JOB_REDIS_KEY_FORMATE = "ARRANGEMENT_JOB_%s";
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id",columnDefinition="int(8)")
@@ -35,6 +38,9 @@ public class BuildJob {
 	@ManyToMany(fetch=FetchType.EAGER)
 	@NotFound(action=NotFoundAction.IGNORE)
 	private List<Project> projects;
+
+
+
 	/**
 	 * 任务类型 是否属于 上线类型
 	 */
@@ -47,6 +53,12 @@ public class BuildJob {
 	 * 上线id
 	 */
 	private String onLineId;
+
+
+	/**
+	 * 上线tag
+	 */
+	private String onlineTag;
 	/**
 	 * 任务所属项目组
 	 */
@@ -60,7 +72,20 @@ public class BuildJob {
 	 * 如何触发
 	 */
 	private JobTrigger triggerType;
-	//X-Gitlab-Token
+
+	/**
+	 * 触发条件--前置任务执行状态
+	 */
+	private PreTaskStatus preTaskStatus;
+
+
+	private String watchJobId;
+
+	private String watchJobName;
+
+	/**
+	 * X-Gitlab-Token
+	 */
 	private String webHookToken;
 	
 	/**
@@ -96,7 +121,7 @@ public class BuildJob {
 	 */
 	@OneToOne(cascade = CascadeType.ALL)
 	private DingtalkWebhook dingtalkWebHook;
-	
+
 	public String getId() {
 		return id;
 	}
@@ -212,5 +237,46 @@ public class BuildJob {
 
 	public void setImmedIatelyOnline(boolean immedIatelyOnline) {
 		this.immedIatelyOnline = immedIatelyOnline;
+	}
+
+
+	public PreTaskStatus getPreTaskStatus() {
+		return preTaskStatus;
+	}
+
+	public void setPreTaskStatus(PreTaskStatus preTaskStatus) {
+		this.preTaskStatus = preTaskStatus;
+	}
+
+	public String getWatchJobId() {
+		return watchJobId;
+	}
+
+	public void setWatchJobId(String watchJobId) {
+		this.watchJobId = watchJobId;
+	}
+
+	public String getWatchJobName() {
+		return watchJobName;
+	}
+
+	public void setWatchJobName(String watchJobName) {
+		this.watchJobName = watchJobName;
+	}
+
+	public String getArrangementJobRedisKey(){
+		return String.format(ARRANGEMENT_JOB_REDIS_KEY_FORMATE,watchJobId);
+	}
+
+	public static String getArrangementJobRedisKey(String preJobId){
+		return String.format(ARRANGEMENT_JOB_REDIS_KEY_FORMATE,preJobId);
+	}
+
+	public String getOnlineTag() {
+		return onlineTag;
+	}
+
+	public void setOnlineTag(String onlineTag) {
+		this.onlineTag = onlineTag;
 	}
 }

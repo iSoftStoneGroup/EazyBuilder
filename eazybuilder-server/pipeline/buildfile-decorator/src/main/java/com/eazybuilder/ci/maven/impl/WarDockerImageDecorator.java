@@ -35,7 +35,7 @@ public class WarDockerImageDecorator implements POMDecorator{
 	}
 	
 	@Override
-	public void decorate(Model original) {
+	public void decorate(Model original,String nexusUrl) {
 		
 		//check dockerfile existence
 		File dockerfile=new File(original.getPomFile().getParentFile(),

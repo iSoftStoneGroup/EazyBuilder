@@ -4,7 +4,6 @@ package com.eazybuilder.ci.entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name="CI_PIPELINE_BUILD_HISTORY")

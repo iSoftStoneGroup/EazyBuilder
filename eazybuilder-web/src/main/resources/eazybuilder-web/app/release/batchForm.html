@@ -1,0 +1,127 @@
+<link rel="stylesheet" href="js/angularjs-datetime-picker/wui.min.css"/>
+<div class="content-block panel-block">
+    <div class="block-title">项目提测信息</div>
+    <div class="block-content">
+        <form class="form-horizontal" name="form">
+            <input type="hidden" ng-model="entity.id"/>
+            <ul id="myTab" class="nav nav-tabs" role="tablist" style="margin-top:14px;">
+                <li class="active"><a href="#config-info" role="tab" data-toggle="tab">提测配置信息</a></li>
+                <li><a href="#history" role="tab" data-toggle="tab">历史构建记录</a></li>
+            </ul>
+            <div id="myTabContent" class="tab-content">
+                <div class="tab-pane fade in active" id="config-info" style="padding-top:20px;">
+                    <div class="form-group col-sm-6">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">提测标题:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="entity.title" readonly="readonly" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">提测申请人:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="entity.releaseUserName" readonly="readonly" required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">提测时间:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" ng-model="entity.releaseDate" readonly="readonly" readonly="readonly"  required="required"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">项目组:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="entity.teamId"
+                                        required="required"
+                                        placeholder="请选择redmine上对应的项目组"
+                                        readonly="readonly"
+                                        disabled="disabled"
+                                        ng-options="team.id as team.name for team in redmine.teams">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="entity.imageTag">
+                            <label class="col-sm-2 control-label">提测版本:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" readonly="readonly"  ng-model="entity.imageTag" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">迭代版本:</label>
+                            <div class="col-sm-10">
+                                <select class="form-control" ng-model="entity.sprintId"
+                                        required="required"
+                                        placeholder="sprint"
+                                        readonly="readonly"
+                                        disabled="disabled"
+                                        ng-options="sprint.id as sprint.name for sprint in redmine.sprints">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">镜像harbor地址:</label>
+                            <div class="col-sm-10"><div  id="digest" class="tab-pane fade in active" >
+                                <table class="table table-condensed table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th>digest</th>
+                                        <th>项目名</th>
+                                        <th>镜像名称</th>
+                                        <th>tag</th>
+                                        <th>命名空间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="dockerDigest in dockerDigests">
+                                        <td><a target="_blank" ng-href="{{dockerDigest.url}}">{{dockerDigest.digest | text_length_set: 10}}</a></td>
+                                        <td>{{dockerDigest.projectName}}</td>
+                                        <td>{{dockerDigest.imageName}}</td>
+                                        <td>{{dockerDigest.tag}}</td>
+                                        <td>{{dockerDigest.namespace}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">提测描述:</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" ng-model="entity.releaseDetail" readonly="readonly" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="entity.batchDetail">
+                            <label class="col-sm-2 control-label">审批建议:</label>
+                            <div class="col-sm-10">
+                                <textarea  class="form-control" readonly="readonly" ng-model="entity.batchDetail"  rows="5"></textarea>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div  class="form-group col-sm-6">
+                        <div class="zTreeDemoBackground col-sm-11">
+                            <ul id="issuesTreeBatch" class="ztree" ng-init="initBatchTree()"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="history">
+                    <div class="form-group col-sm-12">
+                        <table id="historyTableControl"  bs-table-control="historyTableControl"></table>
+                    </div>
+                </div>
+            </div> 
+        </form>
+    </div>
+    <div class="block-footer" >
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9" >
+                <div class="col-sm-4">
+                    <button class="btn btn-primary" ng-disabled="(entity.batchStatus  == 'SUCCESS'? true:false)||!haveRoles('audit','admin','teamleader')" ng-class="{'btn-success':entity.batchStatus=='SUCCESS'}" ng-click="updateRelease('SUCCESS')" >同意</button>
+                </div>
+                <div class="col-sm-4">
+                    <button class="btn btn-default" ng-disabled="(entity.batchStatus  == 'FAILED'? true:false)||!haveRoles('audit','admin','teamleader')"  ng-class="{'btn-warning':entity.batchStatus=='FAILED'}" ng-click="updateRelease('FAILED')" >拒绝</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

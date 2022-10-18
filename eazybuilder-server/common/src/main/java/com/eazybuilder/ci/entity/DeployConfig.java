@@ -14,7 +14,10 @@ public class DeployConfig {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id",columnDefinition="int(5)")
     private String id;
-
+    /**
+     * yaml文件保存方式
+     */
+    private String storageType;
 
     /**
      * k8s imagetag
@@ -103,6 +106,13 @@ public class DeployConfig {
     @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
     @Fetch(FetchMode.SUBSELECT)
     private List<DeployConfigDetailEnv> deployConfigDetailEnvs;
+    /**
+     * 环境变量
+     * @return
+     */
+    @OneToMany(fetch = FetchType.EAGER,cascade=CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
+    private List<DeployConfigDetailEnv> deployConfigDetailHosts;
     public AppType getAppType() {
 		return appType;
 	}
@@ -229,5 +239,21 @@ public class DeployConfig {
 
     public void setLimitsMemory(String limitsMemory) {
         this.limitsMemory = limitsMemory;
+    }
+
+    public List<DeployConfigDetailEnv> getDeployConfigDetailHosts() {
+        return deployConfigDetailHosts;
+    }
+
+    public void setDeployConfigDetailHosts(List<DeployConfigDetailEnv> deployConfigDetailHosts) {
+        this.deployConfigDetailHosts = deployConfigDetailHosts;
+    }
+
+    public String getStorageType() {
+        return storageType;
+    }
+
+    public void setStorageType(String storageType) {
+        this.storageType = storageType;
     }
 }

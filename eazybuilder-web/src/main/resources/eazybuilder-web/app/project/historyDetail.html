@@ -1,0 +1,337 @@
+<div class="modal">
+	<div class="modal-dialog large" style="width:80%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">变更历史明细</h4>
+			</div>
+			<div class="modal-body" align="center">
+<div class="content-block">
+	<form class="form-horizontal" name="dataForm">
+		<input type="hidden" ng-model="entity.id"/>
+		<div class="block-content">
+			<div class="form-group">
+				<label class="col-sm-2 control-label">英文名/缩写:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="entity.name" name="name" readonly="readonly" required="required" placeholder="工程名/英文"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">中文名称:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="entity.description" required="required" placeholder="工程的中文名称"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">工程类型:</label>
+				<div class="col-sm-8">
+					<div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.projectType='java';entity.legacyProject=false;"
+								ng-class="{'btn-success':entity.projectType=='java'&&!entity.legacyProject}">Java(Maven)</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.projectType='gradle'"
+								ng-class="{'btn-success':entity.projectType=='gradle'}">Java(Gradle)</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.projectType='java';entity.legacyProject=true;"
+								ng-class="{'btn-success':entity.projectType=='java'&&entity.legacyProject}">Java(其他)</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.projectType='npm'"
+								ng-class="{'btn-success':entity.projectType=='npm'}">前端</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.projectType='net'"
+								ng-class="{'btn-success':entity.projectType=='net'}">c#.net
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-if="entity.legacyProject==true&&entity.projectType=='java'">
+				<label class="col-sm-2 control-label">:</label>
+				<div class="col-sm-6" >
+					<label class="control-label"><font color="red">注意：ANT构建请自定义构建参数，另外编译依赖的要素均要包含在源码路径中</font></label>
+				</div>
+			</div>
+			<div class="form-group" ng-if="entity.projectType=='gradle'">
+				<label class="col-sm-2 control-label">build文件位置:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.pomPath"  placeholder="默认当前目录./build.gradle"/>
+				</div>
+			</div>
+			<div class="form-group" ng-if="!entity.legacyProject&&entity.projectType=='java'">
+				<label class="col-sm-2 control-label">POM位置:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.pomPath"  placeholder="pom.xml位置，不填默认当前目录"/>
+				</div>
+			</div>
+			<div class="form-group"
+				 ng-if="entity.projectType=='net'">
+				<label class="col-sm-2 control-label">net类型:</label>
+				<div class="col-sm-8">
+					<div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.netType='net5'"
+								ng-class="{'btn-success':entity.netType=='net5'}">net5.0</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.netType='netcoreapp2'"
+								ng-class="{'btn-success':entity.netType=='netcoreapp2'}">netcoreapp2.0</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.netType='netcoreapp3'"
+								ng-class="{'btn-success':entity.netType=='netcoreapp3'}">netcoreapp3.0</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-group"
+				 ng-if="entity.projectType=='net'">
+				<label class="col-sm-2 control-label">csproj位置:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.netPath"
+						   placeholder="csproj位置，不填默认当前目录下src/{项目名}.Api/{项目名}.Api.csproj"/>
+				</div>
+			</div>
+			<div class="form-group"
+				 ng-if="entity.projectType=='net'">
+				<label class="col-sm-2 control-label">sln位置:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.netSlnPath"
+						   placeholder="sln位置，不填默认当前目录下{项目名}.sln"/>
+				</div>
+			</div>
+			<div class="form-group"
+				 ng-if="entity.projectType=='net'">
+				<label class="col-sm-2 control-label">单测csproj位置:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.netTestPath"
+						   placeholder="单测csproj位置，不填默认当前目录下src/{项目名}.Test/{项目名}.Test.csproj"/>
+				</div>
+			</div>
+			<div class="form-group"
+				 ng-if="entity.projectType=='dataBaseScript'">
+				<label class="col-sm-2 control-label">sql类型:</label>
+				<div class="col-sm-8">
+					<div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.sqlType='tsql'"
+								ng-class="{'btn-success':entity.sqlType=='tsql'}">T-SQL</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.sqlType='pssql'"
+								ng-class="{'btn-success':entity.sqlType=='pssql'}">PostgreSQL</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.sqlType='mysql'"
+								ng-class="{'btn-success':entity.sqlType=='mysql'}">MySQL</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.sqlType='vsql'"
+								ng-class="{'btn-success':entity.sqlType=='vsql'}">VSQL</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-group"
+				 ng-if="entity.projectType=='dataBaseScript'">
+				<label class="col-sm-2 control-label">sql文件位置:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.sqlPath"
+						   placeholder="sql位置，不填默认当前目录config文件夹下"/>
+				</div>
+			</div>
+			<div class="form-group" ng-if="entity.projectType!=null">
+				<label class="col-sm-2 control-label">部署方式:</label>
+				<div class="col-sm-4">
+					<div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+						<!--                        <button type="button" class="btn btn-md btn-default"-->
+						<!--                                ng-click="entity.deployType='dockerCompose'"-->
+						<!--                                ng-class="{'btn-success':entity.deployType=='dockerCompose'}">dockerCompose</button>-->
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.deployType='k8s'"
+								ng-class="{'btn-warning':entity.deployType=='k8s'}">k8s</button>
+					</div>
+				</div>
+				<div class="col-sm-6" ng-if="entity.deployType=='k8s'">
+					<label class="control-label"><font color="red">注意：当选择部署方式为k8s时，ci会在构建时自动部署容器。部署结果可以在redmine中或者ci日志里查看。</font></label>
+				</div>
+			</div>
+			<div class="form-group" ng-if="entity.deployType=='k8s'">
+				<label class="col-sm-2 control-label">k8s 参数:</label>
+				<div class="col-sm-10"><div  id="params" class="tab-pane fade in active" >
+					<table class="table table-condensed table-bordered">
+						<thead>
+						<tr class="info">
+							<th width="10%">容器名<i class="fa fa-plus-circle" ng-click="addQueryParam('entity.deployConfigList')"></i></th>
+							<th width="10%">命名空间</th>
+							<th width="20%">访问域名</th>
+							<th width="10%">副本数</th>
+							<th width="10%">cpu</th>
+							<th width="10%">内存</th>
+							<th width="10%">容器端口</th>
+							<th width="100%">镜像名称</th>
+							<th width="10%">操作</th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr ng-repeat="deployConfig in entity.deployConfigList">
+							<td>
+								<input class="form-control" type="text"
+									   ng-model="deployConfig.name" placeholder="ci-k8s">
+							</td>
+							<td>
+								<input class="form-control" type="text"
+									   ng-model="deployConfig.nameSpace" placeholder="测试dev">
+							</td>
+							<td>
+								<input class="form-control" type="text"
+									   ng-model="deployConfig.ingressHost" placeholder="ci-ingress.eazybuilder-devops.cn">
+							</td>
+							<td>
+								<input class="form-control" type="text"
+									   ng-model="deployConfig.replicas" placeholder="默认1">
+							</td>
+							<td>
+								<input class="form-control" type="text"
+									   ng-model="deployConfig.limitsCpu"  placeholder="cpu默认100m">
+							</td>
+							<td>
+								<input class="form-control" type="text"
+									   ng-model="deployConfig.limitsMemory"  placeholder="内存默认1000m">
+							</td>
+							<td>
+								<input class="form-control" type="text"
+									   ng-model="deployConfig.containerPort"  placeholder="前端默认80，后端默认8080">
+							</td>
+							<td>
+								<input class="form-control" type="text"
+									   ng-model="deployConfig.imageTag" placeholder="不需要仓库的域名与命名空间等前缀，只需要配上镜像名称即可：pipeline-console/">
+							</td>
+							<td><a href="#" role="button"
+								   ng-click="delQueryParam($index,entity.deployConfigList)">删除</a></td>
+						</tbody>
+					</table>
+				</div></div>
+			</div>
+
+
+			<div class="form-group" ng-if="entity.legacyProject==true&&entity.projectType=='java'">
+				<label class="col-sm-2 control-label">项目风格:</label>
+				<div class="col-sm-6">
+					<div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.eazybuilderEjbProject=true"
+								ng-class="{'btn-success':entity.eazybuilderEjbProject==true}">Eazybuilder4.x/Eazybuilder5.x</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.eazybuilderEjbProject=false;entity.eazybuilderStyleProject=true;"
+								ng-class="{'btn-warning':entity.eazybuilderEjbProject==false&&entity.eazybuilderStyleProject==true}">Eazybuilder工程</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.eazybuilderEjbProject=false;entity.eazybuilderStyleProject=false;"
+								ng-class="{'btn-warning':entity.eazybuilderEjbProject==false&&entity.eazybuilderStyleProject==false}">其他</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-group" ng-if="!entity.eazybuilderEjbProject && entity.legacyProject && !entity.eazybuilderStyleProject &&entity.projectType=='java'">
+				<label class="col-sm-2 control-label">源码位置:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.srcPath" required="required" placeholder="Java源代码位置(相对于资源库地址)"/>
+				</div>
+				<label class="col-sm-2 control-label">lib位置:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.libPath" required="required" placeholder="lib库位置(相对于资源库地址)"/>
+				</div>
+			</div>
+			<div class="form-group" ng-if="!entity.eazybuilderEjbProject && entity.legacyProject && !entity.eazybuilderStyleProject &&entity.projectType=='java'">
+				<label class="col-sm-2 control-label">字符集:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.codeCharset"  placeholder="源代码字符集，默认GBK"/>
+				</div>
+				<label class="col-sm-2 control-label">编译版本:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.jdk"  placeholder="编译JDK版本,默认1.6"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">源码仓库类型:</label>
+				<div class="col-sm-4">
+					<div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.scm.type='svn'"
+								ng-class="{'btn-success':entity.scm.type=='svn'}">SVN</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.scm.type='git'"
+								ng-class="{'btn-success':entity.scm.type=='git'}">GIT</button>
+					</div>
+				</div>
+
+			</div>
+			<div class="form-group" ng-if="entity.scm.type=='git'">
+				<label class="col-sm-2 control-label">标签/Tag:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.scm.tagName"  placeholder="指定标签名，空则使用*/master" ng-if="entity.scm.type=='git'"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">源码仓库地址:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="entity.scm.url" required="required" placeholder="工程源代码地址" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">用户:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.scm.user" required="required" placeholder="SVN/GIT用户(只需要项目读取权限)"/>
+				</div>
+				<label class="col-sm-2 control-label" ng-if="entity.id"><input type="checkbox" ng-model="entity.scm.changePwd">修改密码</input></label>
+				<label class="col-sm-2 control-label" ng-if="!entity.id">密码:</label>
+				<div class="col-sm-4">
+					<input ng-if="!entity.id||entity.scm.changePwd" type="password" class="form-control" ng-model="entity.scm.password" required="required" placeholder="SVN/GIT密码"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">所属项目组:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="entity.team.name" required="required" placeholder="所属项目组" />
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">默认构建过程:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.defaultProfile.name" required="required" placeholder="默认构建过程" />
+				</div>
+				<label class="col-sm-2 control-label">自动构建(仓库钩子触发):</label>
+				<div class="col-sm-4">
+					<div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.autoBuild=false"
+								ng-class="{'btn-info':!entity.autoBuild}">关闭</button>
+						<button type="button" class="btn btn-md btn-default"
+								ng-click="entity.autoBuild=true"
+								ng-class="{'btn-info':entity.autoBuild}">开启</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group" ng-if="entity.projectType=='java'">
+				<label class="col-sm-2 control-label">镜像仓库:</label>
+				<div class="col-sm-4">
+					<select class="form-control" ng-model="entity.registry.id" ng-options="registry.id as registry.url for registry in dockerRegistrys" ></select>
+				</div>
+				<label class="col-sm-2 control-label">命名空间:</label>
+				<div class="col-sm-4">
+					<input type="text" class="form-control" ng-model="entity.imageSchema" placeholder="镜像仓库命名空间,默认为organization.name或groupId"/>
+				</div>
+			</div>
+			<div class="form-group" ng-if="entity.deployType!='k8s'">
+				<label class="col-sm-2 control-label">访问地址:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" ng-model="entity.deployInfo.url" placeholder="自动部署完成后的访问地址"/>
+				</div>
+			</div>
+		</div>
+		<div class="block-footer">
+			<div class="form-group">
+				<div class="col-sm-offset-6 col-sm-6">
+					<div class="col-sm-4 pull-right">
+						<button  class="btn btn-default" ng-click="closeModal()">返回</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+</div>
+</div>
+</div>
+</div>

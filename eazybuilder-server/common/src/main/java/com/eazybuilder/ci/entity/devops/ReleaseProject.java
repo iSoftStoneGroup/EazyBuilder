@@ -11,6 +11,9 @@ public class ReleaseProject {
 	@Column(name="id",columnDefinition="int(5)")
 	private String id;
 
+	private String nameSpace;
+
+
 	private String releaseId;
 
 	/**
@@ -130,5 +133,13 @@ public class ReleaseProject {
 
 	public void setReleaseId(String releaseId) {
 		this.releaseId = releaseId;
+	}
+
+	public String getNameSpace() {
+		return nameSpace;
+	}
+
+	public void setNameSpace(String nameSpace) {
+		this.nameSpace = nameSpace;
 	}
 }

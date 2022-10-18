@@ -54,6 +54,7 @@ public class TeamController extends CRUDRestController<TeamServiceImpl, Team>{
 		team.setTeamThresholds(entity.getTeamThresholds());
 		team.setSprintMultiTest(entity.getSprintMultiTest());
 		team.setCheckReleasePipeline(entity.getCheckReleasePipeline());
+		team.setQualityprofilesJson(entity.getQualityprofilesJson());
 		service.save(team);
 		return team;
 	}

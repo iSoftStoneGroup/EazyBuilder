@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Credential {
     private String scope="GLOBAL";
     private String id;//": "svn",
-    private String username;//": "zhangsan",
+    private String username;//": "zhaozhoupeng",
     private String password;//": "hhyy123",
     private String description;//": "test",
     @JsonProperty("$class")

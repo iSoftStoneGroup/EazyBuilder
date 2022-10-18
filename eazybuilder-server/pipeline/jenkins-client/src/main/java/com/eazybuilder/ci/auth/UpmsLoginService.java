@@ -22,7 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -32,13 +32,13 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
- //配置文件自动刷新
+@RefreshScope //配置文件自动刷新
 @Service
 public class UpmsLoginService {
 
     private Logger logger= LoggerFactory.getLogger(UpmsLoginService.class);
 
-    public static final String ROLE_KEY_PREFIX = "eazybuilder:ci";
+    public static final String ROLE_KEY_PREFIX = "eazybuilder";
 
     public static final String UPMS_TOKEN = "upmsToken";
 

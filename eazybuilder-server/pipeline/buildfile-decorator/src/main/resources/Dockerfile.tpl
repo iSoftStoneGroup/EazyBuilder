@@ -1,4 +1,4 @@
-FROM tomcat:latest
+FROM swr.cn-north-1.myhuaweicloud.com/eazybuilder/docker-tomcat:latest
 
 ENV APP_NAME="%s"
 

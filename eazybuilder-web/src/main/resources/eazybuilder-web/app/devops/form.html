@@ -1,0 +1,57 @@
+
+<div class="content-block Wizard-panel">
+    <div class="block-title">项目组信息</div>
+    <form class="form-horizontal" name="dataForm"  novalidate>
+        <wizard on-finish="finishedWizard()" on-cancel="cancelledWizard()"
+                indicators-position="top"> <wz-step wz-title="基本信息"
+                                                    canexit="exitValidation">
+            <div class="block-content" style="margin-top: 38px;">
+                <div ng-include="'app/devops/detail/form1.html'"></div>
+                <div class="block-footer form-group toolbox">
+                    <div class="col-sm-offset-3 col-sm-6">
+                        <button class="btn btn-default pull-left" ui-sref="deveops.list">返回</button>
+                        <button class="btn btn-warning pull-right" wz-next  ng-disabled="(!entity.teamName) || (!entity.teamCode)" >下一步</button>
+                    </div>
+                </div>
+            </div>
+        </wz-step>
+            <wz-step wz-title="用户信息" ng-init="bindTempCss">
+                <div class="block-content" style="margin-top: 38px;">
+                    <div ng-include="'app/devops/detail/form3.html'"></div>
+                    <div class="block-footer form-group toolbox">
+                        <div class="col-sm-offset-3 col-sm-6">
+                            <button class="btn btn-warning pull-left" wz-previous ng-click="clearKeywords()">上一步</button>
+                            <button class="btn btn-warning pull-right" wz-next >下一步</button>
+                        </div>
+                    </div>
+                </div>
+            </wz-step>
+            <wz-step wz-title="消息通知" ng-init="bindTempCss">
+                <div class="block-content" style="margin-top: 38px;">
+                    <div ng-include="'app/devops/detail/msgProfileForm.html'"></div>
+                    <div class="block-footer form-group toolbox">
+                        <div class="col-sm-offset-3 col-sm-6">
+                            <button class="btn btn-warning pull-left" wz-previous ng-click="clearKeywords()">上一步</button>
+                            <button class="btn btn-warning pull-right" wz-next >下一步</button>
+                        </div>
+                    </div>
+                </div>
+            </wz-step>
+            <wz-step wz-title="项目信息" ng-init="bindTempCss">
+                <div class="block-content" style="margin-top: 38px;">
+                    <div ng-include="'app/devops/detail/form2.html'"></div>
+                    <div class="block-footer form-group toolbox">
+                        <div class="col-sm-offset-3 col-sm-6">
+                            <button class="btn btn-warning pull-left" wz-previous ng-click="clearKeywords()">上一步</button>
+                            <button class="btn btn-primary pull-right"  ng-click="sendInit()">保存</button>
+                            <!--                            <button class="btn btn-primary pull-right" ng-if="!entity.id" ng-click="sendInit()">保存</button>-->
+                            <!--                            <button class="btn btn-primary pull-right" ng-if="entity.id"  ng-click="back()">返回</button>-->
+
+                        </div>
+                    </div>
+                </div>
+
+            </wz-step>
+        </wizard>
+    </form>
+</div>

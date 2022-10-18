@@ -10,6 +10,7 @@ import javax.persistence.Table;
 /**
  * 项目组对应的CI资源（用于指定项目专用的CI服务器）
  *
+ *
  */
 @Entity
 @Table(name="CI_TEAM_RESOURCE")
@@ -26,13 +27,34 @@ public class TeamResource implements Serializable{
 	@Column(name="jenkins_k8s_support",columnDefinition="int(1) default 0")
 	private boolean jenkinsK8sSupport;
 	private String sonarUrl;
-	
+	private String referenceSource;
+	private String k8sYmlPath;
+	private String jenkinsWorkPath;
+	private String jenkinsWorkType;
+
 	public String getJenkinsUrl() {
 		return jenkinsUrl;
 	}
 	public void setJenkinsUrl(String jenkinsUrl) {
 		this.jenkinsUrl = jenkinsUrl;
 	}
+
+	public String getJenkinsWorkPath() {
+		return jenkinsWorkPath;
+	}
+
+	public void setJenkinsWorkPath(String jenkinsWorkPath) {
+		this.jenkinsWorkPath = jenkinsWorkPath;
+	}
+
+	public String getJenkinsWorkType() {
+		return jenkinsWorkType;
+	}
+
+	public void setJenkinsWorkType(String jenkinsWorkType) {
+		this.jenkinsWorkType = jenkinsWorkType;
+	}
+
 	public String getSonarUrl() {
 		return sonarUrl;
 	}
@@ -62,5 +84,21 @@ public class TeamResource implements Serializable{
 	}
 	public void setJenkinsK8sSupport(boolean jenkinsK8sSupport) {
 		this.jenkinsK8sSupport = jenkinsK8sSupport;
+	}
+
+	public String getReferenceSource() {
+		return referenceSource;
+	}
+
+	public void setReferenceSource(String referenceSource) {
+		this.referenceSource = referenceSource;
+	}
+
+	public String getK8sYmlPath() {
+		return k8sYmlPath;
+	}
+
+	public void setK8sYmlPath(String k8sYmlPath) {
+		this.k8sYmlPath = k8sYmlPath;
 	}
 }

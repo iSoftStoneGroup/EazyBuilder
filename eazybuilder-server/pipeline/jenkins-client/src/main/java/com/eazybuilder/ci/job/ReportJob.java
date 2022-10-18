@@ -134,10 +134,10 @@ public class ReportJob {
 						WarnTeamReportVo vo = new WarnTeamReportVo();
 						vo.setProjectNum((long) projects.size());
 						vo.setTeamName(group.getName());
-						Long bugBlockerSum=0l;
-						Long vulnerBlockerSum=0l;
-						Long codeSmellBlocker=0l;
-						Long dcHighSum=0l;
+						Long bugBlockerSum=0L;
+						Long vulnerBlockerSum=0L;
+						Long codeSmellBlocker=0L;
+						Long dcHighSum=0L;
 						Double unitTestCoverageRate=0d;
 						List<ProjectQAReport> reports=Lists.newArrayList();
 						List<ProjectQAReport> warnReports=Lists.newArrayList();
@@ -257,10 +257,10 @@ public class ReportJob {
 					WarnTeamReportVo vo = new WarnTeamReportVo();
 					vo.setProjectNum((long) projects.size());
 					vo.setTeamName(group.getName());
-					Long bugBlockerSum=0l;
-					Long vulnerBlockerSum=0l;
-					Long codeSmellBlocker=0l;
-					Long dcHighSum=0l;
+					Long bugBlockerSum=0L;
+					Long vulnerBlockerSum=0L;
+					Long codeSmellBlocker=0L;
+					Long dcHighSum=0L;
 					Double unitTestCoverageRate=0d;
 					
 					List<ProjectQAReport> reports=Lists.newArrayList();

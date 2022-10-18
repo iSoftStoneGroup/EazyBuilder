@@ -1,0 +1,86 @@
+<link rel="stylesheet" href="js/angularjs-datetime-picker/wui.min.css"/>
+<div class="form-group">
+    <label class="col-sm-2 control-label">名称:</label>
+    <div class="col-sm-8">
+        <input type="text" class="form-control" ng-model="entity.teamName" placeholder="项目组概述，支持中文"
+               required="required"/>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">组名:</label>
+    <div class="col-sm-8">
+        <input type="text" ng-disabled="entity.id" class="form-control"
+               ng-blur="matchTeamCode()"
+               ng-model="entity.teamCode" placeholder="小写英文字母，不能包含特殊字符，与gitllab和redmine工程关联"
+               required="required"/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">需求管理平台:</label>
+    <div class="col-sm-8">
+        <select class="form-control" ng-model="entity.projectManage" required>
+            <option value="redmine">Redmine</option>
+            <option value="zentao">禅道</option>
+        </select>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">项目开始日期:</label>
+    <div class="col-sm-2">
+        <wui-date
+                format="yyyy-mm-dd"
+                placeholder="请选择或输入起始日期"
+                id="date1"
+                btns="{'ok':'确定','now':'此刻'}"
+                ng-model="entity.teamBeginDate"
+        >
+        </wui-date>
+    </div>
+
+    <label class="col-sm-2 control-label">项目结束日期:</label>
+    <div class="col-sm-2">
+        <wui-date
+                format="yyyy-mm-dd"
+                placeholder="请选择或输入起始日期"
+                id="date2"
+                btns="{'ok':'确定','now':'此刻'}"
+                ng-model="entity.teamEndDate"
+        >
+        </wui-date>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-sm-2 control-label">各环境命名空间设定：</label>
+    <div class="col-sm-8">
+        <table class="table table-condensed table-bordered">
+            <thead>
+            <tr class="info">
+                <th width="30%">环境类型<i class="fa fa-plus-circle" ng-click="addSpace()"></i></th>
+                <th width="30%">空间名称</th>
+                <th width="20%">gitlab-api域名</th>
+                <th width="20%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="namespace in entity.teamNamespaces">
+                <td>
+                    <select class="show-tick form-control" required="required"
+                            ng-model="namespace.namespaceType" ng-options="key as value for (key, value) in namespaceTypes" ng-change="changeName(namespace)"/>
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="namespace.code" placeholder="小写英文字母，不能包含特殊字符"
+                           required="required"/>
+                </td>
+                <td>
+                    <input type="text" class="form-control" ng-model="namespace.gitlabApiDomain" placeholder="例：gitlab-api.eazybuilder-devops.cn"
+                           required="required"/>
+                </td>
+                <td><a href="#" role="button"
+                       ng-click="delSpace($index)" >删除</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -2,10 +2,12 @@ package com.eazybuilder.ci.util;
 
 import java.net.URLEncoder;
 import java.util.Base64;
+import java.util.List;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.alibaba.fastjson.JSON;
 import com.eazybuilder.ci.entity.MsgProfileType;
 import com.eazybuilder.ci.entity.MsgType;
 import org.slf4j.Logger;
@@ -20,13 +22,13 @@ public class DingtalkWebHookUtil {
 
 
     /**
-     * 以消息队列的形式，发送钉钉消息
+     * 以消息队列的形式，发送钉钉消息,群发
      *
      * @param title
      * @param markdownContent
      * @throws Exception
      */
-    public static void sendDingtalkMsgBymq(String title, String markdownContent, String dingtalkSecret, String accessToken, SendRabbitMq sendRabbitMq, MsgProfileType msgProfileType) {
+    public static void sendDingtalkGroupMsgBymq(String title, String markdownContent, String dingtalkSecret, String accessToken, SendRabbitMq sendRabbitMq, MsgProfileType msgProfileType) {
 
 		JSONObject msgJson = new JSONObject();
 		msgJson.put("title", title);
@@ -41,7 +43,31 @@ public class DingtalkWebHookUtil {
 
 	}
 
+//	public static void get
 
+
+    /**
+     * 以消息队列的形式，发送钉钉消息,私发
+     *
+     * @param title
+     * @param markdownContent
+     * @throws Exception
+     */
+    public static void sendDingtalkPrivateMsgBymq(String title, String markdownContent, String teamCode,
+                                                  List<String> emails, MsgProfileType msgProfileType,SendRabbitMq sendRabbitMq) {
+        JSONObject content = new JSONObject();
+        content.put("title", title);
+        content.put("text",markdownContent);
+        JSONObject msgJson = new JSONObject();
+        msgJson.put("content", JSON.toJSONString(content));
+        msgJson.put("msgType", "ding");
+        msgJson.put("msgProfile", msgProfileType);
+        msgJson.put("emailArray",emails );
+        msgJson.put("chatMethods", "private");
+        msgJson.put("teamCode", teamCode);
+        logger.info("发送钉钉消息：{}", msgJson.toJSONString());
+        sendRabbitMq.publish(msgJson.toJSONString());
+    }
     /**
      * 推送钉钉消息
      *

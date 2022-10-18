@@ -65,7 +65,7 @@
 
 **权限认证**
 
-EazyBuilder支持本地认证与Ldap认证，初始密码admin/admin123
+EazyBuilder支持本地认证与Ldap认证，初始密码admin/admin
 
 
 LDAP认证需要手工开启，配置项（jenkins-cleint.yml）如下：

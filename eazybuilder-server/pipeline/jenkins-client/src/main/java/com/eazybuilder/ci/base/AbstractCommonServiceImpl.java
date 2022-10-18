@@ -62,11 +62,11 @@ public abstract class AbstractCommonServiceImpl<E extends BaseDao<T,String>,T> i
 
 
 	/**
-	 * 从{@link com.eazybuilder.ci.base.PageSearch}
+	 * 从{@link PageSearch}
 	 * 中获取Q类以及需要查询属性名，创建like语句的predicate，多个以or语句组合
 	 *
 	 * @param search
-	 * @return 该实现类未标记{@link PageSearch}或者fileds为空时返回null
+	 * @return 该实现类未标记{@link com.eazybuilder.ci.base.PageSearch}或者fileds为空时返回null
 	 * @throws Exception
 	 */
 	private Predicate createSearchCondition(String search) throws Exception {

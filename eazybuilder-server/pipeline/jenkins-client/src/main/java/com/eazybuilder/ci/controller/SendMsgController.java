@@ -1,8 +1,8 @@
-//package com.eazybuilder.ci.controller;
+package com.eazybuilder.ci.controller;//package com.eazybuilder.ci.controller;
 //
 //import com.alibaba.fastjson.JSONObject;
 //import com.eazybuilder.ci.entity.Project;
-//import JsonMapper;
+//import com.eazybuilder.ci.util.JsonMapper;
 //import com.rabbitmq.client.Channel;
 //import com.rabbitmq.client.Connection;
 //import org.slf4j.Logger;
@@ -30,7 +30,7 @@
 //
 //	// 注入RabbitMQ的模板
 //	@Resource
-//	@Qualifier(value = "issRabbitTemplate")
+//	@Qualifier(value = "eazybuilderRabbitTemplate")
 //	private RabbitTemplate rabbitTemplate;
 //	// 交换机名称
 //	@Value("${message.topicExchange}")
@@ -47,7 +47,7 @@
 //		 key = "redmine.addNote";
 //		 msg ="{\"data\":{\n" +
 //				 "  \"flag\": \"1\",\n" +
-//				 "  \"message\": \"步骤:checkout from scm 执行耗时: 0秒 执行状态：SUCCESS\\n步骤:update ci-tools 执行耗时: 1秒 执行状态：SUCCESS\\n步骤:maven build 执行耗时: 30秒 执行状态：SUCCESS\\n步骤:decorate project 执行耗时: 2秒 执行状态：SUCCESS\\n步骤:k8s deploy 执行耗时: 0秒 执行状态：SUCCESS\\n步骤:ansible deploy 执行耗时: 0秒 执行状态：SUCCESS\\n步骤:Declarative: Post Actions 执行耗时: 0秒 执行状态：SUCCESS\\n\\nk8s自动部署结果：成功\\nci详细日志：http://ci-ingressxxxxx//ci/resources/ebf83a12-640f-4a65-85a0-8eb054e836d9\\n详细日志：http://ci-ingressxxxxx//ci/resources/ebf83a12-640f-4a65-85a0-8eb054e836d9\",\n" +
+//				 "  \"message\": \"步骤:checkout from scm 执行耗时: 0秒 执行状态：SUCCESS\\n步骤:update ci-tools 执行耗时: 1秒 执行状态：SUCCESS\\n步骤:maven build 执行耗时: 30秒 执行状态：SUCCESS\\n步骤:decorate project 执行耗时: 2秒 执行状态：SUCCESS\\n步骤:k8s deploy 执行耗时: 0秒 执行状态：SUCCESS\\n步骤:ansible deploy 执行耗时: 0秒 执行状态：SUCCESS\\n步骤:Declarative: Post Actions 执行耗时: 0秒 执行状态：SUCCESS\\n\\nk8s自动部署结果：成功\\nci详细日志：http://ci-ingress.eazybuilder-devops.cn//ci/resources/ebf83a12-640f-4a65-85a0-8eb054e836d9\\n详细日志：http://ci-ingress.eazybuilder-devops.cn//ci/resources/ebf83a12-640f-4a65-85a0-8eb054e836d9\",\n" +
 //				 "  \"userName\": \"qiujin\",\n" +
 //				 "  \"code\": \"1,2,3,4,6,7,8\"\n" +
 //				 "}}";

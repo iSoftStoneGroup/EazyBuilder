@@ -10,9 +10,9 @@ spec:
   containers:
   - name: jnlp
   <#if project.projectType?? && project.projectType=="net">
-  image: registryxxxxx/dev/jenkins-inbound-agent
+  image: ${registryUrl}/prod/jenkins-inbound-agent-net
   <#else>
-  image: registryxxxxx/devops/jenkins-inbound-agent
+  image: ${registryUrl}/prod/jenkins-inbound-agent-java
   </#if>
     resources:
       requests:

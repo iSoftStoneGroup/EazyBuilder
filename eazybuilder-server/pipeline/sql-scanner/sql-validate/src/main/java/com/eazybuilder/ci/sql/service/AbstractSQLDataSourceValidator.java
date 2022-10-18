@@ -14,8 +14,6 @@ import com.eazybuilder.ci.sql.vo.SQLValidateResult;
  * 目前的局限性：
  * 
  * 1.MySQL 简单函数无法判定,比如to_date,to_char
- * 
-
  *
  */
 public abstract class AbstractSQLDataSourceValidator {

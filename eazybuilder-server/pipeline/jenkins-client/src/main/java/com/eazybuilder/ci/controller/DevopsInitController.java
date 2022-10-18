@@ -41,6 +41,9 @@ public class DevopsInitController extends CRUDRestController<DevopsInitServiceIm
     @Resource
     DevopsProjectServiceImpl devopsProjectService;
     @Resource
+    ProjectManageService projectManageService;
+
+    @Resource
     SendRabbitMq sendRabbitMq;
     @Resource
     QueryUpmsData queryUpmsData;
@@ -83,9 +86,12 @@ public class DevopsInitController extends CRUDRestController<DevopsInitServiceIm
         //3.1将upms的user字段改为deveops约定的字段
         deveopsInitDto.setId(devopsInit.getId());
         deveopsInitDto.setDevopsProjects(devopsInit.getDevopsProjects());
+        deveopsInitDto.setProjectManage(projectManageService.findOne(devopsInit.getProjectManageId()));
         JSONObject sendInitData = devopsInitServiceImpl.getSendInitData(deveopsInitDto);
         //3.2发送数据到mq中
         sendRabbitMq.sendMsg(sendInitData.toString(),broadcastExchange,"");
+        //3.3
+        projectManageService.save(projectManageService.findOne(devopsInit.getProjectManageId()));
         //4.ci进行初始化
         //把用户保存起来
         List<User> ciUser = devopsInitServiceImpl.getCiUser(deveopsInitDto);

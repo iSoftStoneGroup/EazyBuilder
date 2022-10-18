@@ -1,0 +1,192 @@
+{
+	"executeUid": "e78f3962-220e-36b4-e723-fe576a489739",
+	"scanPlanId": "33",
+	"startExecuteTime": 1537423750394,
+	"endExecuteTime": 1537423827451,
+	"summarys": {
+		"test": [
+			{
+				"severity": "Medium",
+				"count": 1,
+				"name": "启用了不安全的 HTTP 方法",
+				"type": "内容电子欺骗",
+				"cause": "Web 服务器或应用程序服务器是以不安全的方式配置的",
+				"risk": "可能会在 Web 服务器上上载、修改或删除 Web 页面、脚本和文件\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/"
+				]
+			},
+			{
+				"severity": "Low",
+				"count": 6,
+				"name": "临时文件下载",
+				"type": "可预测资源位置",
+				"cause": "在生产环境中留下临时文件",
+				"risk": "可能会下载临时脚本文件，这会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/msg/initMessage.json",
+					"http://0.0.0.0:9080/ifinance-workbench/Eazybuilder_TAGLIB_TEMP/Select.tag",
+					"http://0.0.0.0:9080/ifinance-portal/login",
+					"http://0.0.0.0:9080/ifinance-portal/msg/initAnnounce.json",
+					"http://0.0.0.0:9080/ifinance-portal/welcome",
+					"http://0.0.0.0:9080/ifinance-workbench/workbench/myworkbench/queryToApprovalTaskCount.json"
+				]
+			},
+			{
+				"severity": "Low",
+				"count": 4,
+				"name": "检测到文件替代版本",
+				"type": "信息泄露",
+				"cause": "在生产环境中留下临时文件",
+				"risk": "可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/msg/initMessage.json",
+					"http://0.0.0.0:9080/ifinance-workbench/Eazybuilder_TAGLIB_TEMP/Select.tag",
+					"http://0.0.0.0:9080/ifinance-portal/msg/initAnnounce.json",
+					"http://0.0.0.0:9080/ifinance-workbench/workbench/myworkbench/queryToApprovalTaskCount.json"
+				]
+			},
+			{
+				"severity": "Low",
+				"count": 2,
+				"name": "IBM WebSphere Commerce Suite（WCS）源代码泄露",
+				"type": "信息泄露",
+				"cause": "未安装第三方产品的最新补丁或最新修订程序",
+				"risk": "可能会检索服务器端脚本的源代码，这可能会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/portal/skip.jsp",
+					"http://0.0.0.0:9080/ifinance-portal/portal/systemOfficeTime.jsp"
+				]
+			},
+			{
+				"severity": "Low",
+				"count": 2,
+				"name": "Microsoft IIS UNC 映射的虚拟主机源代码泄露",
+				"type": "信息泄露",
+				"cause": "未安装第三方产品的最新补丁或最新修订程序",
+				"risk": "可能会检索服务器端脚本的源代码，这可能会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/portal/skip.jsp",
+					"http://0.0.0.0:9080/ifinance-portal/portal/systemOfficeTime.jsp"
+				]
+			},
+			{
+				"severity": "Low",
+				"count": 2,
+				"name": "Microsoft IIS“Translate: f”源代码公开",
+				"type": "信息泄露",
+				"cause": "Web 服务器或应用程序服务器是以不安全的方式配置的",
+				"risk": "可能会检索服务器端脚本的源代码，这可能会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/portal/skip.jsp",
+					"http://0.0.0.0:9080/ifinance-portal/portal/systemOfficeTime.jsp"
+				]
+			},
+			{
+				"severity": "Low",
+				"count": 2,
+				"name": "Microsoft IIS“Translate: f”源代码泄露",
+				"type": "信息泄露",
+				"cause": "未安装第三方产品的最新补丁或最新修订程序",
+				"risk": "可能会检索服务器端脚本的源代码，这可能会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/portal/skip.jsp",
+					"http://0.0.0.0:9080/ifinance-portal/portal/systemOfficeTime.jsp"
+				]
+			},
+			{
+				"severity": "Low",
+				"count": 2,
+				"name": "归档文件下载",
+				"type": "可预测资源位置",
+				"cause": "在生产环境中留下临时文件",
+				"risk": "可能会下载临时脚本文件，这会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/login",
+					"http://0.0.0.0:9080/ifinance-portal/welcome"
+				]
+			},
+			{
+				"severity": "Low",
+				"count": 2,
+				"name": "在参数值中找到了内部 IP 公开模式",
+				"type": "信息泄露",
+				"cause": "Web 应用程序编程或配置不安全",
+				"risk": "可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-workbench/workbench/themepage/dirThemePage.web",
+					"http://0.0.0.0:9080/ifinance-portal/"
+				]
+			},
+			{
+				"severity": "Low",
+				"count": 2,
+				"name": "直接访问管理页面",
+				"type": "可预测资源位置",
+				"cause": "Web 服务器或应用程序服务器是以不安全的方式配置的",
+				"risk": "可能会升级用户特权并通过 Web 应用程序获取管理许可权\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-workbench/workbench/myworkbench/",
+					"http://0.0.0.0:9080/ifinance-portal/portal/"
+				]
+			},
+			{
+				"severity": "Low",
+				"count": 1,
+				"name": "自动填写未对密码字段禁用的 HTML 属性",
+				"type": "信息泄露",
+				"cause": "Web 应用程序编程或配置不安全",
+				"risk": "可能会绕开 Web 应用程序的认证机制\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/login"
+				]
+			},
+			{
+				"severity": "Informational",
+				"count": 2,
+				"name": "HTML 注释敏感信息泄露",
+				"type": "信息泄露",
+				"cause": "程序员在 Web 页面上留下调试信息",
+				"risk": "可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/welcome"
+				]
+			},
+			{
+				"severity": "Informational",
+				"count": 1,
+				"name": "发现电子邮件地址模式",
+				"type": "信息泄露",
+				"cause": "Web 应用程序编程或配置不安全",
+				"risk": "可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/Eazybuilder_TAGLIB_TEMP/eazybuilder-base/Math.uuid.js"
+				]
+			},
+			{
+				"severity": "Informational",
+				"count": 1,
+				"name": "发现内部 IP 泄露模式",
+				"type": "信息泄露",
+				"cause": "Web 应用程序编程或配置不安全",
+				"risk": "可能会收集有关 Web 应用程序的敏感信息，如用户名、密码、机器名和/或敏感文件位置\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-portal/login"
+				]
+			},
+			{
+				"severity": "Informational",
+				"count": 1,
+				"name": "检测到应用程序测试脚本",
+				"type": "可预测资源位置",
+				"cause": "在生产环境中留下临时文件",
+				"risk": "可能会下载临时脚本文件，这会泄露应用程序逻辑及其他诸如用户名和密码之类的敏感信息\n",
+				"urls": [
+					"http://0.0.0.0:9080/ifinance-workbench/workbench/myworkbench/"
+				]
+			}
+		]
+	},
+	"reportFileId": "161",
+	"status": "SUCCESS"
+}

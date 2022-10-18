@@ -17,7 +17,7 @@ import com.eazybuilder.ci.dto.SearchResult;
 /**
  * 通过jar checksum检索https://search.maven.org/ 得到pom
  * 
-
+ *
  *
  */
 public class CentralMavenSearchService {

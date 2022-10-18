@@ -1,5 +1,7 @@
 package com.eazybuilder.ci.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.eazybuilder.ci.OperLog;
 import com.eazybuilder.ci.base.CRUDRestController;
 import com.eazybuilder.ci.controller.vo.ProjectBuildVo;
 import com.eazybuilder.ci.entity.*;
@@ -37,6 +39,29 @@ public class OnLineController extends CRUDRestController<OnlineService, Online> 
 
     @Resource
     PipelineServiceImpl pipelineService;
+
+    @Resource
+    UserService  userService;
+
+
+    @Override
+    @RequestMapping(method={RequestMethod.POST,RequestMethod.PUT})
+    @ApiOperation("保存并发送上线申请给审批人")
+    @OperLog(module = "persist",opType = "save",opDesc = "保存并发送上线申请给审批人")
+    public Online save(@RequestBody Online entity){
+        if(logger.isDebugEnabled()){
+            logger.debug("保存并发送上线申请给审批人!");
+            logger.debug(JSON.toJSONString(entity));
+        }
+        service.save(entity);
+        return entity;
+    }
+
+
+
+
+
+
 
     @RequestMapping(value = "/getProjectByOnLineTag", method = RequestMethod.GET)
     public List<Project> getProjectByOnLineTag(@RequestParam(value = "onLineId") String onLineId) {
@@ -86,35 +111,7 @@ public class OnLineController extends CRUDRestController<OnlineService, Online> 
 
     @RequestMapping(value="/findDockerDigest",method=RequestMethod.GET)
     public List<DockerDigest> findDockerDigest(@RequestParam(value = "releaseId") String releaseId,@RequestParam(value = "teamName") String teamName) {
-        Release release = releaseService.findOne(releaseId);
-        List<Project> projectList = release.getProjectList();
-        Team team = teamService.findByName(teamName);
-        Set<TeamNamespace> teamNamespaceSet = teamService.getTeamNameSpace(team);
-        Set<String> teamNamespaceTestSet = new HashSet<String>();
-
-        if(null!=projectList&&projectList.size()>0){
-            Set<String> projectIds = new HashSet<String>();
-            for(Project project:projectList){
-                projectIds.add(project.getId());
-            }
-
-            if(null!=teamNamespaceSet && teamNamespaceSet.size()>0){
-                for(TeamNamespace teamNamespace:teamNamespaceSet){
-                    if(NamespaceType.test.equals(teamNamespace.getNamespaceType())){
-                        teamNamespaceTestSet.add(teamNamespace.getCode());
-                    }
-                }
-            }
-
-            if(teamNamespaceTestSet.size()>0){
-                return (List<DockerDigest>) dockerDigestService.findDockerByProjectIdAndNamespaceAndTag(projectIds,teamNamespaceTestSet,release.getImageTag());
-            }else{
-                return new ArrayList<DockerDigest>();
-            }
-
-        }else{
-            return new ArrayList<DockerDigest>();
-        }
+       return service.findDockerDigest(releaseId,teamName);
     }
 
 
@@ -126,26 +123,26 @@ public class OnLineController extends CRUDRestController<OnlineService, Online> 
         service.save(entity);
         //1.判断上线申请是否通过审核
         if (Status.SUCCESS == entity.getBatchStatus()) {
-            try {
-                Release release = releaseService.findOne(entity.getReleaseId());
-                service.saveJobOnlineEntity(entity, release);
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new RuntimeException("保存立即上线任务时出现异常");
-            }
             //2.获取项目信息。拼装tag 具体描述
             Map<Project,List<ProjectBuildVo>> projectProfileMap = null;
             try {
                 projectProfileMap = service.getApplyOnlineProjects(entity);
+                Release release = releaseService.findOne(entity.getReleaseId());
+                service.saveJobOnlineEntity(entity, release);
             } catch (Exception e) {
-                logger.info("获取需要更新pom版本的项目地址 出现异常" + e.getMessage(), e);
-                throw new Exception("获取需要更新pom版本的项目地址 出现异常: " + e);
+                logger.info("上线审批通过后出现异常" + e.getMessage(), e);
+                throw new Exception("上线审批通过后出现异常: " + e);
             }
             //3.拉取需求代码，更新pom版本并且提交到master分支、创建tag标签
             service.updateOnline(projectProfileMap);
             //4.给指定执行用户发送通知邮件。 上线哪些应用，对应的镜像名，是否涉及变更数据脚本，计划实施时间  、tag对应的测试报告
 //            service.sendOnLineMail(entity,projects);
-
+        }
+        //审批成功或者失败都发送消息提醒
+        try {
+            service.sendDingTalkAfterPassedRease(entity);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

@@ -1,0 +1,79 @@
+<div class="modal">
+	<div class="modal-dialog large" style="width:60%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">k8s详细配置参数</h4>
+			</div>
+			<div class="modal-body" align="center">
+				<form class="form-horizontal" name="dataForm">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">系统环境变量:</label>
+						<div class="col-sm-10"><div  id="params" class="tab-pane fade in active" >
+							<table class="table table-condensed table-bordered">
+								<thead>
+								<tr class="info">
+									<th width="10%">名称<i class="fa fa-plus-circle" ng-click="addModelQueryParam(deployConfig.deployConfigDetailEnvs)"></i></th>
+									<th width="10%">值</th>
+									<th width="10%">操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="deployConfigDetailEnv in deployConfig.deployConfigDetailEnvs">
+									<td>
+										<input class="form-control" type="text"
+											   ng-model="deployConfigDetailEnv.name" placeholder="TZ">
+									</td>
+									<td>
+										<input class="form-control" type="text"
+											   ng-model="deployConfigDetailEnv.data" placeholder="Asia/Shanghai">
+									</td>
+									<td><a href="#" role="button"
+										   ng-click="delModelQueryParam($index,deployConfig.deployConfigDetailEnvs)">删除</a></td>
+								</tbody>
+							</table>
+						</div></div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">hosts映射:</label>
+						<div class="col-sm-10"><div  id="paramsHosts" class="tab-pane fade in active" >
+							<table class="table table-condensed table-bordered">
+								<thead>
+								<tr class="info">
+									<th width="10%">名称<i class="fa fa-plus-circle" ng-click="addModelQueryParam(deployConfig.deployConfigDetailHosts)"></i></th>
+									<th width="10%">值</th>
+									<th width="10%">操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								<tr ng-repeat="deployConfigDetailHosts in deployConfig.deployConfigDetailHosts">
+									<td>
+										<input class="form-control" type="text"
+											   ng-model="deployConfigDetailHosts.name" placeholder="TZ">
+									</td>
+									<td>
+										<input class="form-control" type="text"
+											   ng-model="deployConfigDetailHosts.data" placeholder="Asia/Shanghai">
+									</td>
+									<td><a href="#" role="button"
+										   ng-click="delModelQueryParam($index,deployConfig.deployConfigDetailHosts)">删除</a></td>
+								</tbody>
+							</table>
+						</div></div>
+					</div>
+				</form>
+			</div>
+
+			<div class="modal-footer">
+				<div class="col-sm-offset-3 col-sm-9">
+					<div class="col-sm-4">
+						<button class="btn btn-primary" ng-click="confirmAdd()"
+								ng-disabled="dataForm.$invalid">保存</button>
+					</div>
+					<div class="col-sm-4">
+						<button class="btn btn-default" ng-click="closeModal()">关闭</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

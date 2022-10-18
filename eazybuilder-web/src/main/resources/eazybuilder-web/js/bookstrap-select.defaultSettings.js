@@ -1,0 +1,15 @@
+$.fn.selectpicker.Constructor.DEFAULTS = {
+    liveSearch:true,
+    actionsBox:true,
+    selectedTextFormat:"count > 2",
+    width:"180px",
+    size:"8",
+    selectAllText:"全选",
+    deselectAllText:"全部取消",
+    countSelectedText:"已选择{0}条，共{1}条信息",
+    tickIcon:"glyphicon-ok",
+    noneResultsText:"查询无果，根据关键字：",
+    noneSelectedText:"&nbsp;&nbsp;&nbsp;&nbsp;---请选择信息---",
+    iconBase:"glyphicon",
+    multipleSeparator:"、",
+}

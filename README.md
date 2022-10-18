@@ -1,5 +1,5 @@
 
-
+# A completely free enterprise level continuous integration platform
 
 # Welcome to the EazyBuilder project!
 
@@ -30,6 +30,7 @@ EazyBuilder focuses on multi-team and multi-project unified compilation, build, 
 
 # **Getting Started**
 
+- Eazybulider includes a front-end and a back-end application, the code directories are: eazybuilder-web, eazybuilder-server
 
 #### Docker installation
 
@@ -50,7 +51,8 @@ EazyBuilder focuses on multi-team and multi-project unified compilation, build, 
 
   Use default compose file: [dockercompose/docker-compose.yml](./dockercompose/docker-compose.yml)
 
-  
+ #### Kubernetes Installation
+Install according to the detailed tutorial : [k8s/README. md](./k8s/README.md)
 
 Just visit http://localhost/console/index.html
 
@@ -91,11 +93,12 @@ EazyBuilder will be used with other tools in a cloud-native environment. Therefo
 
 # **Contact us**
 
-- Welcome to pay attention to eazybuilder, if you encounter problems in use, you can join the group discussion (the QR code picture will be updated weekly)
+- Welcome to pay attention to eazybuilder, if you encounter problems in use, you can join the group discussion)
 
-- **The following is the QR code of the communication group, welcome to scan the code to join**
+- **Welcome to join the communication group. You can scan WeChat QR code below and invite you to join the group. Please specify to join easybuilder**
 
-See [QRCode](https://github.com/iSoftStoneGroup/EazyBuilder/issues/15).
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/1069092/189043893-fe653257-3180-464b-85e1-c91876b29df4.jpg">
+
 
 # **Resource**
 
@@ -104,6 +107,9 @@ The latest documentation for each release can be found at:
 - [EazyBuilder 1.0.0](./doc/referencebook/v1.0.0/referencebook_en.md)
 
 
+# **Download**
+
+- [Github Release](https://github.com/iSoftStoneGroup/EazyBuilder/releases)
 
 
 # **License**

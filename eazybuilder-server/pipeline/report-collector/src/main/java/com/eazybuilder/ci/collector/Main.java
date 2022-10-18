@@ -21,8 +21,6 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 		
-		 
-		
 		if(args==null||args.length!=2) {
 			System.err.println("usage: java -jar report-collector.jar ${WORKSPACE} ${RESOURCE_BASE_URL}");
 			System.exit(0);

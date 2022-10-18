@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE ureport [
+        <!ELEMENT ureport (cell|row|column|datasource|paper)*>
+        <!ELEMENT cell (cell-style|chart-value|simple-value|dataset-value)*>
+        <!ATTLIST cell
+                col CDATA #REQUIRED
+                col-span CDATA #IMPLIED
+                expand CDATA #REQUIRED
+                link-target-window CDATA #IMPLIED
+                name CDATA #REQUIRED
+                row CDATA #REQUIRED>
+        <!ELEMENT cell-style (left-border|right-border|top-border|bottom-border)*>
+        <!ATTLIST cell-style
+                align CDATA #REQUIRED
+                font-family CDATA #REQUIRED
+                font-size CDATA #REQUIRED
+                forecolor CDATA #REQUIRED
+                valign CDATA #REQUIRED>
+        <!ELEMENT chart-value (dataset|xaxes|yaxes|option|plugin)*>
+        <!ELEMENT dataset (sql|field)*>
+        <!ATTLIST dataset
+                category-property CDATA #IMPLIED
+                collect-type CDATA #IMPLIED
+                dataset-name CDATA #IMPLIED
+                name CDATA #IMPLIED
+                series-text CDATA #IMPLIED
+                series-type CDATA #IMPLIED
+                type CDATA #REQUIRED
+                value-property CDATA #IMPLIED>
+        <!ELEMENT xaxes (scale-label)*>
+        <!ATTLIST xaxes
+                rotation CDATA #REQUIRED>
+        <!ELEMENT scale-label (#PCDATA)>
+        <!ATTLIST scale-label
+                display CDATA #REQUIRED>
+        <!ELEMENT yaxes (scale-label)*>
+        <!ELEMENT option (#PCDATA)>
+        <!ATTLIST option
+                display CDATA #REQUIRED
+                text CDATA #IMPLIED
+                type CDATA #REQUIRED>
+        <!ELEMENT plugin (#PCDATA)>
+        <!ATTLIST plugin
+                name CDATA #REQUIRED
+                display CDATA #REQUIRED>
+        <!ELEMENT left-border (#PCDATA)>
+        <!ATTLIST left-border
+                color CDATA #REQUIRED
+                style CDATA #REQUIRED
+                width CDATA #REQUIRED>
+        <!ELEMENT right-border (#PCDATA)>
+        <!ATTLIST right-border
+                color CDATA #REQUIRED
+                style CDATA #REQUIRED
+                width CDATA #REQUIRED>
+        <!ELEMENT top-border (#PCDATA)>
+        <!ATTLIST top-border
+                color CDATA #REQUIRED
+                style CDATA #REQUIRED
+                width CDATA #REQUIRED>
+        <!ELEMENT bottom-border (#PCDATA)>
+        <!ATTLIST bottom-border
+                color CDATA #REQUIRED
+                style CDATA #REQUIRED
+                width CDATA #REQUIRED>
+        <!ELEMENT simple-value (#PCDATA)>
+        <!ELEMENT dataset-value (#PCDATA)>
+        <!ATTLIST dataset-value
+                aggregate CDATA #REQUIRED
+                dataset-name CDATA #REQUIRED
+                mapping-type CDATA #REQUIRED
+                order CDATA #REQUIRED
+                property CDATA #REQUIRED>
+        <!ELEMENT row (#PCDATA)>
+        <!ATTLIST row
+                height CDATA #REQUIRED
+                row-number CDATA #REQUIRED>
+        <!ELEMENT column (#PCDATA)>
+        <!ATTLIST column
+                col-number CDATA #REQUIRED
+                width CDATA #REQUIRED>
+        <!ELEMENT datasource (dataset)*>
+        <!ATTLIST datasource
+                name CDATA #REQUIRED
+                type CDATA #REQUIRED
+                username CDATA #REQUIRED
+                password CDATA #REQUIRED
+                url CDATA #REQUIRED
+                driver CDATA #REQUIRED>
+        <!ELEMENT sql (#PCDATA)>
+        <!ELEMENT field (#PCDATA)>
+        <!ATTLIST field
+                name CDATA #REQUIRED>
+        <!ELEMENT paper (#PCDATA)>
+        <!ATTLIST paper
+                type CDATA #REQUIRED
+                left-margin CDATA #REQUIRED
+                right-margin CDATA #REQUIRED
+                top-margin CDATA #REQUIRED
+                bottom-margin CDATA #REQUIRED
+                paging-mode CDATA #REQUIRED
+                fixrows CDATA #REQUIRED
+                width CDATA #REQUIRED
+                height CDATA #REQUIRED
+                orientation CDATA #REQUIRED
+                html-report-align CDATA #REQUIRED
+                bg-image CDATA #REQUIRED
+                html-interval-refresh-value CDATA #REQUIRED
+                column-enabled CDATA #REQUIRED>
+        ]>
+<ureport><cell expand="None" name="A1" row="1" col="1" col-span="2" link-target-window="_blank"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><chart-value><dataset dataset-name="grafana-index_business.ureport" type="line" category-property="time" series-type="text" series-text="平均耗时（分钟）" value-property="分析平均时间(分钟)" collect-type="select"/><xaxes rotation="43"><scale-label display="false"/></xaxes><yaxes><scale-label display="false"/></yaxes><option type="title" display="false" text="项目组分析平均耗时"/><option type="legend" display="false"/><plugin name="data-labels" display="false"/></chart-value></cell><cell expand="None" name="A2" row="2" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[time]]></simple-value></cell><cell expand="None" name="B2" row="2" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[分析平均时间]]></simple-value></cell><cell expand="Down" name="A3" row="3" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="grafana-index_business.ureport" aggregate="group" property="time" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="B3" row="3" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="grafana-index_business.ureport" aggregate="group" property="分析平均时间(分钟)" order="none" mapping-type="simple"></dataset-value></cell><row row-number="1" height="179"/><row row-number="2" height="19"/><row row-number="3" height="19"/><column col-number="1" width="236"/><column col-number="2" width="179"/><datasource name="grafana" type="jdbc" username="root" password="root" url="jdbc:mysql://mysql.eazybuilder-devops.cn:3306/grafana?useUnicode=true&amp;useSSL=false&amp;characterEncoding=utf-8" driver="com.mysql.cj.jdbc.Driver"><dataset name="test" type="sql"><sql><![CDATA[SELECT id, name, description, is_in_chlog, `position`, is_in_roadmap, fields_bits, default_status_id
+FROM grafana.redmine_trackers]]></sql><field name="id"/><field name="name"/><field name="description"/><field name="is_in_chlog"/><field name="position"/><field name="is_in_roadmap"/><field name="fields_bits"/><field name="default_status_id"/></dataset><dataset name="grafana-index_business.ureport" type="sql"><sql><![CDATA[SELECT
+        UNIX_TIMESTAMP(iv.`date`) as 'time',
+        iv.value/60 as '分析平均时间(分钟)'
+FROM
+        index_value iv
+left join index_business ib on
+        iv.id = ib.index_value_id
+WHERE
+        index_id = 20
+        and ib.index_lever_name = "devops"
+order by
+        iv.`date` desc
+]]></sql><field name="time"/><field name="分析平均时间(分钟)"/></dataset></datasource><paper type="A4" left-margin="90" right-margin="90"
+                                                                                     top-margin="72" bottom-margin="72" paging-mode="fitpage" fixrows="0"
+                                                                                     width="595" height="842" orientation="portrait" html-report-align="left" bg-image="" html-interval-refresh-value="0" column-enabled="false"></paper></ureport>

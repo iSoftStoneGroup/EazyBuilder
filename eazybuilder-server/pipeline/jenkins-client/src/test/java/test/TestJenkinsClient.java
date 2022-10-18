@@ -17,7 +17,7 @@ public class TestJenkinsClient {
     static boolean crumbFlag=true;//crfs crumb 高版本jenkins需要
     static{
         try {
-            jenkins=new Jenkins(new URI("http://jenkinsxxxxx/jenkins/"), "admin", "xxxx");
+            jenkins=new Jenkins(new URI("http://jenkins.eazybuilder-devops.cn/jenkins/"), "admin", "admin");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -33,7 +33,7 @@ public class TestJenkinsClient {
     public void addCredential(){
         try {
             String credentialId="18a52f67-e829-4b85-82f3-12977595aead";
-            jenkins.addCredential("18a52f67-e829-4b85-82f3-12977595aead", "backup", "xxxxxxx@", "",crumbFlag);
+            jenkins.addCredential("18a52f67-e829-4b85-82f3-12977595aead", "backup", "1q2w3e4r@", "",crumbFlag);
         } catch (IOException e) {
             e.printStackTrace();
         }

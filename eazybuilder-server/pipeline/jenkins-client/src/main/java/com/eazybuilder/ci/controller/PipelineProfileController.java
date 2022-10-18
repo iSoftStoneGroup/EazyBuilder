@@ -1,28 +1,27 @@
 package com.eazybuilder.ci.controller;
 
+import com.eazybuilder.ci.OperLog;
+import com.eazybuilder.ci.entity.*;
+import com.eazybuilder.ci.service.*;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.util.Assert;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.*;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.eazybuilder.ci.base.CRUDRestController;
 import com.eazybuilder.ci.base.PageResult;
-import com.eazybuilder.ci.entity.PipelineProfile;
-import com.eazybuilder.ci.entity.ProfileHistory;
-import com.eazybuilder.ci.entity.ProjectHistory;
-import com.eazybuilder.ci.service.PipelineProfileService;
-import com.eazybuilder.ci.service.ProfileHistoryService;
 import com.eazybuilder.ci.upms.QueryUpmsData;
 import com.wordnik.swagger.annotations.ApiOperation;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/pipelineProfile")
@@ -34,6 +33,25 @@ public class PipelineProfileController extends CRUDRestController<PipelineProfil
     
     @Autowired
 	QueryUpmsData queryUpmsData;
+
+    @Autowired
+    ProjectService projectService;
+
+    @Autowired
+    TeamNamespaceService teamNamespaceService;
+
+    @Autowired
+    TeamServiceImpl teamServiceImpl;
+
+    @Override
+    @OperLog(module = "persist",opType = "save",opDesc = "保存")
+    public PipelineProfile save(@RequestBody PipelineProfile entity){
+        TeamNamespace teamNamespace = teamNamespaceService.findByNameSpaceName(entity);
+        entity.setGitlabApiDomain(teamNamespace.getGitlabApiDomain());
+        service.save(entity);
+        return entity;
+    }
+
 
     @RequestMapping(value="/history",method= RequestMethod.GET)
     @ApiOperation("按页查询，查询指定项目的历史数据")
@@ -90,6 +108,19 @@ public class PipelineProfileController extends CRUDRestController<PipelineProfil
     	
     	
     	
+    }
+    @GetMapping(value = "/getFromBelongsTeamsAndNameSpace")
+    @ApiOperation("根据用户所在项目组查询profile")
+    public Iterable<PipelineProfile> getFromBelongsTeamsAndNameSpace(@RequestParam String teamId,
+                                                         @RequestParam String nameSpace){
+        List<Team> teams = (List)teamServiceImpl.findAll(QTeam.team.devopsTeamId.eq(teamId));
+        BooleanExpression or = QPipelineProfile.pipelineProfile.nameSpace.isEmpty().or(
+                QPipelineProfile.pipelineProfile.teamId.eq(teams.get(0).getId()).and(QPipelineProfile.pipelineProfile.nameSpace.eq(nameSpace))
+        );
+
+        Iterable<PipelineProfile> all = service.findAll( or   );
+        return all;
+
     }
 
 

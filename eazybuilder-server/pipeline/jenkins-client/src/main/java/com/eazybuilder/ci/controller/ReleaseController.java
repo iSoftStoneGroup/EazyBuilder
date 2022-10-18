@@ -1,17 +1,15 @@
 package com.eazybuilder.ci.controller;
 
+import com.eazybuilder.ci.OperLog;
 import com.eazybuilder.ci.base.CRUDRestController;
 import com.eazybuilder.ci.controller.vo.ProjectBuildVo;
-import com.eazybuilder.ci.entity.Pipeline;
-import com.eazybuilder.ci.entity.Project;
-import com.eazybuilder.ci.entity.Team;
+import com.eazybuilder.ci.entity.*;
 import com.eazybuilder.ci.entity.devops.Release;
 import com.eazybuilder.ci.entity.devops.Status;
 import com.eazybuilder.ci.entity.report.StatusGuard;
-import com.eazybuilder.ci.service.DockerDigestService;
-import com.eazybuilder.ci.service.PipelineServiceImpl;
-import com.eazybuilder.ci.service.ReleaseService;
-import com.eazybuilder.ci.service.TeamServiceImpl;
+import com.eazybuilder.ci.rabbitMq.SendRabbitMq;
+import com.eazybuilder.ci.service.*;
+import com.eazybuilder.ci.util.DingtalkWebHookUtil;
 import com.wordnik.swagger.annotations.ApiOperation;
 import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Hibernate;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -42,6 +41,12 @@ public class ReleaseController extends CRUDRestController<ReleaseService, Releas
 
     @Resource
     PipelineServiceImpl pipelineService;
+
+    @Resource
+    SendRabbitMq sendRabbitMq;
+
+    @Resource
+    UserService userService;
 
     @RequestMapping(value = "/getPipelineByGitPath", method = RequestMethod.POST)
     public ReleaseVO getPipelineByGitPath(@RequestBody List<String> gitPathList){
@@ -87,6 +92,7 @@ public class ReleaseController extends CRUDRestController<ReleaseService, Releas
         return true;
     }
 
+
     @RequestMapping(value = "/updateRelease", method = {RequestMethod.POST})
     @ApiOperation("更新发版页面审核状态，并且进行一系列自动化操作")
     public void updateRelease(@RequestBody Release release) throws Exception {
@@ -105,12 +111,39 @@ public class ReleaseController extends CRUDRestController<ReleaseService, Releas
             //3.拉取需求代码，更新pom版本并且提交到master分支、创建tag标签
             releaseService.updateRelease(release, projectProfileMap);
         }
+        //发送钉钉提醒
+        try {
+            releaseService.sendDingTalkAfterPassedRease(release);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @RequestMapping(value = "/getApplyOnlineTags", method = {RequestMethod.GET})
     @ApiOperation("上线时是查看板下的 提测tag")
     public List<Release> getApplyOnlineTags(@RequestParam(value = "sprintId") String sprintId) throws Exception {
         return releaseService.findBySprintId(sprintId);
+    }
+
+    @Override
+    @RequestMapping(method={RequestMethod.POST,RequestMethod.PUT})
+    @ApiOperation("保存")
+    @OperLog(module = "persist",opType = "save",opDesc = "保存")
+    public Release save(@RequestBody Release entity){
+        service.save(entity);
+        User user = userService.findOne(entity.getBatchUserId().toString());
+        StringBuilder sb=new StringBuilder();
+        sb.append("**").append("提测标题:").append("**").append(entity.getTitle()).append("\n");
+        sb.append("\n");
+        sb.append("**").append("提测申请号:").append("**").append(null!=entity.getReleaseCode()?entity.getReleaseCode():"获取失败！").append("\n");
+        sb.append("\n");
+        sb.append("**").append("审批人:").append("**").append(user.getName()).append("\n");
+        sb.append("\n");
+        sb.append("**").append("内容:").append("**").append(entity.getReleaseUserName()).append("申请提测，请及时处理！").append("\n");
+        Team team = teamService.findByName(entity.getTeamName());
+        List<String> emails = Arrays.asList(user.getEmail());
+        DingtalkWebHookUtil.sendDingtalkPrivateMsgBymq("申请提测",sb.toString(),team.getCode(),emails, MsgProfileType.releaseApply,sendRabbitMq);
+        return entity;
     }
 
     class ReleaseVO {

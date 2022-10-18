@@ -20,4 +20,7 @@ public class DockerDigestService extends AbstractCommonServiceImpl<DockerDigestD
         return dao.findAll(QDockerDigest.dockerDigest.projectId.in(projectIds).and(QDockerDigest.dockerDigest.namespace.in(namespace)).and(QDockerDigest.dockerDigest.tag.eq(imageTag)));
     }
 
+    public Iterable<DockerDigest> findDockerByProjectIdAndNamespaceAndTag(String projectId,Collection<String> namespace,String imageTag){
+        return dao.findAll(QDockerDigest.dockerDigest.projectId.eq(projectId).and(QDockerDigest.dockerDigest.namespace.in(namespace)).and(QDockerDigest.dockerDigest.tag.eq(imageTag)));
+    }
 }

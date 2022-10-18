@@ -3,7 +3,6 @@ package com.eazybuilder.ci.util;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -43,7 +42,9 @@ public class CustomStringSerializer extends NonTypedScalarSerializerBase<String>
     public void acceptJsonFormatVisitor(JsonFormatVisitorWrapper visitor, JavaType typeHint)
             throws JsonMappingException
     {
-        if (visitor != null) visitor.expectStringFormat(typeHint);
+        if (visitor != null){
+            visitor.expectStringFormat(typeHint);
+        }
     }
 }
 

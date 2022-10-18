@@ -1,14 +1,13 @@
 package com.eazybuilder.ci.service.async;
 
-import java.util.Map;
-
 import com.eazybuilder.ci.entity.Pipeline;
 import com.eazybuilder.ci.entity.Project;
 import com.eazybuilder.ci.entity.report.Report;
-import org.apache.commons.lang3.StringUtils;
+
+import java.util.Map;
 
 public class PipelineExecuteResult {
-
+	private String jobId;
 	private String success;
 	private Pipeline pipeline;
 	private Project project;
@@ -16,13 +15,13 @@ public class PipelineExecuteResult {
 	
 	public static PipelineExecuteResult newSuccess() {
 		PipelineExecuteResult result=new PipelineExecuteResult();
-		result.success();
+		result.setSuccess("SUCCESS");
 		return result;
 	}
 	
 	public static PipelineExecuteResult newFailed(){
 		PipelineExecuteResult result=new PipelineExecuteResult();
-		result.failed();
+		result.setSuccess("FAILED");
 		return result;
 	}
 	public static PipelineExecuteResult newUnkown() {
@@ -43,11 +42,6 @@ public class PipelineExecuteResult {
 		this.setSuccess("unkown");
 	}
 
-	public boolean isSuccess(){
-		return StringUtils.equals(this.getSuccess(),Boolean.toString(true));
-	}
-
-	
 	public Pipeline getPipeline() {
 		return pipeline;
 	}
@@ -75,4 +69,11 @@ public class PipelineExecuteResult {
 		this.success = success;
 	}
 
+	public String getJobId() {
+		return jobId;
+	}
+
+	public void setJobId(String jobId) {
+		this.jobId = jobId;
+	}
 }
