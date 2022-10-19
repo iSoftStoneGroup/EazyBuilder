@@ -119,3 +119,6 @@ See [license](./LICENSE) for more information.
 ## Guidelines
 
 We follow the [CNCF Code of Conduct](./CODE_OF_CONDUCT_EN.md).
+
+## Road Map
+<img width="1000" alt="image" src="docs/eazybuilder.png"   height="800" >
