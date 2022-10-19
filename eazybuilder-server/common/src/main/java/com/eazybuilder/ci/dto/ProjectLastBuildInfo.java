@@ -54,6 +54,7 @@ public class ProjectLastBuildInfo {
 			 }
 		 }
 		 build.setSonarKey(project.getSonarKey());
+		 build.setSonarUrl(project.getTeam().getTeamResource().getSonarUrl());
 		 build.setProjectType(project.getProjectType());
 		 return build;
 	 }

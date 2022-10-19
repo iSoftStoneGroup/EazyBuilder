@@ -1,0 +1,74 @@
+<div class="content-block panel-block">
+    <div class="block-title">二方包设置</div>
+    <form class="form-horizontal" name="form">
+        <input type="hidden" ng-model="entity.id"/>
+        <div class="block-content">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">名称:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="entity.secondPartyName" placeholder="二方包配置名称，支持中文"
+                           required="required"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">类型:</label>
+                <div class="col-sm-8">
+                    <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                        <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.secondPartyType='mavenRelease'"
+                                ng-class="{'btn-success':entity.secondPartyType=='mavenRelease'}">maven-release</button>
+                        <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.secondPartyType='mavenSnapshot'"
+                                ng-class="{'btn-success':entity.secondPartyType=='mavenSnapshot'}">maven-snapshot</button>
+                        <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.secondPartyType='nuget'"
+                                ng-class="{'btn-success':entity.secondPartyType=='nuget'}">nuget</button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 90%; margin-top: 20px; margin-bottom: 20px;margin-left:auto;margin-right:auto;border-top: solid #dcdccc 4px;"></div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">二方包推送仓库路径:</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" ng-model="entity.secondPartyPath" placeholder="请输入二方包推送仓库路径"
+                           required="required"/>
+                </div>
+            </div>
+            <div class="form-group" ng-if="entity.secondPartyType!='nuget'">
+                <label class="col-sm-2 control-label">用户名:</label>
+                <div class="col-xs-3">
+                    <input type="text" class="form-control" ng-model="entity.secondPartyUser" placeholder="请输入二方包仓库用户名"
+                           required="required"/>
+                </div>
+
+                <label class="col-sm-2 control-label">密码:</label>
+                <div class="col-xs-3">
+                    <input type="password" class="form-control" ng-model="entity.secondPartyPass" placeholder="请输入二方包仓库密码"
+                           required="required"/>
+                </div>
+            </div>
+            <div class="form-group" ng-if="entity.secondPartyType=='nuget'">
+                <label class="col-sm-2 control-label">仓库Key:</label>
+                <div class="col-sm-8">
+                    <input type="test" class="form-control" ng-model="entity.secondPartyKey" placeholder="请输入仓库Key"
+                           required="required"/>
+                </div>
+            </div>
+
+        </div>
+        <div class="block-footer">
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <div class="col-sm-4">
+                        <button  class="btn btn-primary" ng-click="save()" ng-disabled="form.$invalid || (!entity.secondPartyType)">保存</button>
+                    </div>
+                    <div class="col-sm-4">
+                        <button  class="btn btn-default" ng-click="back()">返回</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
