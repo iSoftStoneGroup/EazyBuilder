@@ -1,8 +1,11 @@
 # [中文说明](./README_CN.md)
 # The platform backend adopts springboot architecture
 # The directory where application.yml is located is:
-- 配置文件示例：[application.yml](EazyBuilder/config-example/application.yml)
-- [Sample configuration file](#application.yml)
+- [Sample configuration file] (#application.yml)
+
+## application.yml
+
+
 
 ## The configuration file is desensitized, such as database user password and other information, which needs to be configured by the user
 
@@ -166,7 +169,7 @@ guard:
   bug_blocker_name_thresholdMin: 30
   bug_blocker_name_th
   
-## application.yml
+
 
 
 
