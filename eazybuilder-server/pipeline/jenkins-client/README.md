@@ -1,7 +1,7 @@
 # [中文说明](./README_CN.md)
 # The platform backend adopts springboot architecture
 # The directory where application.yml is located is:
-- pipeline/jenkins-client/config/application.yml
+- 配置文件示例：[./application.yml](./application.yml)
 
 ## The configuration file is desensitized, such as database user password and other information, which needs to be configured by the user
 
