@@ -3,13 +3,16 @@ package com.eazybuilder.ci.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name="CI_PROJECT_MANAGE")
+@Table(name="CI_PROJECT_MANAGE",uniqueConstraints=@UniqueConstraint(columnNames="NAME"))
 public class ProjectManage {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id",columnDefinition="int(8)")
 	private String id;
+
+	private String createDate;
+
 
 	/**
 	 * 需求管理平台配置名称
@@ -112,5 +115,13 @@ public class ProjectManage {
 
 	public void setDbPassword(String dbPassword) {
 		this.dbPassword = dbPassword;
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
 	}
 }

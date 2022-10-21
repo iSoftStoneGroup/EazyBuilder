@@ -1,7 +1,7 @@
 package com.eazybuilder.ci.constant;
 
 /**
- * @author: mlxuef
+ * @author: sanzhang
  * @createTime: 2022/8/16
  * @description:
  **/

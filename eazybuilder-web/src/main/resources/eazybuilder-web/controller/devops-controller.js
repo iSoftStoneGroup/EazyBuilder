@@ -43,10 +43,13 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
         $scope.entity.teamNamespaces.splice(index, 1);
     }
 
+
     basicService.getUpmsAllUsers().then(function (response) {
         $scope.upmsUsers = response.data;
         $scope.upmsUsersAll = response.data;
     });
+
+
 
     $scope.tableControl = {
         options: {
@@ -89,6 +92,93 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                 formatter:function(value){
                     if(!value){
                         return '--';
+                    }
+                    return '<span title="'+value+'">'+value+'</span>' ;
+                }
+            }, {
+                field: 'teamEndDate',
+                title: '项目组结束时间',
+                formatter:function(value){
+                    if(!value){
+                        return '--';
+                    }
+                    return '<span title="'+value+'">'+value+'</span>' ;
+                }
+            }, {
+                field: 'projectInitStatuses',
+                title: '初始化情况',
+                formatter:function(value){
+                    if (!value || value.length == 0) {
+                        return '';
+                    }
+                    var result = [];
+                    for (var i = 0; i < value.length; i++) {
+                        let data = value[i].status=="SUCCESS"?"成功":"失败";
+                        result.push(value[i].projectCode+":"+data);
+                    }
+                    return result.join(',');
+                }
+            }],
+            clickToSelect: true, //设置支持行多选
+            search: true, //显示搜索框
+            searchOnEnterKey: true,//enter时才search
+            toolbar: '#toolbar', //关联工具栏
+            showHeader: true,
+            showColumns: true, //显示列
+            showRefresh: true, //显示刷新按钮
+            showToggle: true, //显示切换视图按钮
+            showPaginationSwitch: true, //显示数据条数框
+            pagination: true, //设置为 true 会在表格底部显示分页条
+            paginationLoop: true, //设置为 true 启用分页条无限循环的功能。
+            sidePagination: 'server', //设置在哪里进行分页，可选值为 'client' 或者 'server'。
+            pageSize: 10,
+            pageList: [10, 15, 20, 25, 50],
+            paginationHAlign: 'right' //分页条位置
+        }
+    };
+
+    $scope.tableControlLocal = {
+        options: {
+            url: backend.url + "/api/deveops/getDeveopsPage",
+            cache: false,
+            idField: 'id',
+            queryParams: function (params) {
+                var queryParam = angular.extend({}, params, $scope.condition);
+                return queryParam;
+            },
+            columns: [{
+                field: 'state',
+                checkbox: true //设置多选
+            }, {
+                field: 'teamName',
+                title: '项目组',
+                align: 'center',
+                valign: 'bottom',
+                sortable: true,
+                formatter: function (value, row, index) {
+                    return "<a>" + value + "</a>";
+                },
+                events: {
+                    'click a': function (e, value, row, index) {
+                        $scope.viewDetailLocal(row);
+                    }
+                }
+            }, {
+                field: 'teamCode',
+                title: '项目组编号',
+                formatter:function(value){
+                    if(!value){
+                        return '--';
+                    }
+                    return '<span title="'+value+'">'+value+'</span>' ;
+                }
+            }, {
+                field: 'teamBeginDate',
+                title: '项目组开始时间',
+                formatter:function(value){
+                    if(!value){
+                        return '--';
+
                     }
                     return '<span title="'+value+'">'+value+'</span>' ;
                 }
@@ -196,6 +286,14 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
             alert("项目组名仅支持小写英文");
         }else {
             // $scope.entity.devopsUsers = $scope.upmsUsers.users;
+            if($scope.entity.projectManageId){
+                for(var i=0;i<$scope.projectManages.length;i++){
+                    if($scope.entity.projectManageId==$scope.projectManages[i].id){
+                        $scope.entity.projectManageName=$scope.projectManages[i].name;
+                        break;
+                    }
+                }
+            }
             $http.post(backend.url + "/api/deveops/init", $scope.entity).then(function (response) {
                 alert("初始化信息已成功发送到各个平台");
                 $state.go('deveopsLocal.list');
@@ -429,12 +527,15 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                         if (!$scope.entity.devopsUsers) {
                             $scope.entity.devopsUsers = [];
                         }
+                        // for (var i = 0; i < selected.length; i++) {
+                        //     $scope.entity.devopsUsers.push(selected[i]);
+                        // }
                         for (var i = 0; i < selected.length; i++) {
                             selected[i].userName=selected[i].name;
                             selected[i].phoneNumber=selected[i].phone;
                             selected[i].nickName=selected[i].name;
                             selected[i].inTeam=false;
-                            selected[i].userId=parseInt(selected[i].id);
+                            selected[i].userId=selected[i].id;
                             selected[i].deptName=selected[i].department;
                             console.log(selected[i]);
                             $scope.entity.devopsUsers.push(selected[i]);
@@ -846,6 +947,7 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
             method: "GET",
             success: function (data, status) {
                 $scope.entity.devopsUsers = JSON.parse(data);
+                console.log(JSON.parse(data));
             }
         });
         $scope.tableControlUser = {
@@ -959,6 +1061,161 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
             }
         };
         $state.go('deveops.edit');
+    }
+
+    $scope.viewDetailLocal = function (row) {
+        $scope.entity = angular.copy(row);
+        $scope.entity.teamNamespaces = $scope.entity.teamNamespaces? $scope.entity.teamNamespaces : [];
+        $.ajax({
+            url: backend.url+"/api/local/getLocalUsers?groupId="+row.groupId,
+            async: false,
+            method: "GET",
+            success: function (data, status) {
+                var json = JSON.parse(data);
+                console.log(json);
+                for(var i = 0; i < json.length; i++) {
+                    json[i]['phone'] = json[i]['phoneNumber'];
+                    json[i]['name'] = json[i]['userName'];
+                    // delete json[i]['phoneNumber'];
+                    // delete json[i]['userName'];
+                }
+                $scope.entity.devopsUsers = json;
+                console.log($scope.entity.devopsUsers);
+
+            }
+        });
+        $scope.tableControlUser = {
+            options: {
+                data:$scope.entity.devopsUsers,
+                cache: false,
+                idField: 'id',
+                // data:ids,
+                queryParams:function(params){
+                    var queryParam=angular.extend({},params,$scope.condition);
+                    return queryParam;
+                },
+                columns: [{
+                    field:'state',
+                    checkbox:true, //设置多选
+                }, {
+                    field: 'name',
+                    title: '用户名',
+                    align: 'center',
+                    valign: 'bottom',
+                    sortable: true,
+                    formatter:function(value){
+                        if(!value){
+                            return '--';
+                        }
+                        return '<span title="'+value+'">'+value+'</span>' ;
+                    }
+                },{
+                    field:'email',
+                    title:'邮箱',
+                    formatter:function(value){
+                        if(!value){
+                            return '--';
+                        }
+                        return '<span title="'+value+'">'+value+'</span>' ;
+                    }
+                },{
+                    field:'phone',
+                    title:'手机号',
+                    formatter:function(value){
+                        if(!value){
+                            return '--';
+                        }
+                        return '<span title="'+value+'">'+value+'</span>' ;
+                    }
+                },{
+                    field:'department',
+                    title:'机构名称',
+                    formatter:function(value){
+                        if(!value){
+                            return '--';
+                        }
+                        return '<span title="'+value+'">'+value+'</span>' ;
+                    }
+                }],
+                clickToSelect: true, //设置支持行多选
+                search: false, //显示搜索框
+                searchOnEnterKey: true,//enter时才search
+                toolbar: '#toolbar', //关联工具栏
+                showHeader: true,
+                showColumns: false, //显示列
+                showRefresh: false, //显示刷新按钮
+                showToggle: false, //显示切换视图按钮
+                showPaginationSwitch: false, //显示数据条数框
+                pagination: true, //设置为 true 会在表格底部显示分页条
+                paginationLoop: true, //设置为 true 启用分页条无限循环的功能。
+                sidePagination: 'client', //设置在哪里进行分页，可选值为 'client' 或者 'server'。
+                pageSize: 10,
+                pageList: [10, 15, 20, 25, 50],
+                paginationHAlign: 'right' //分页条位置
+            }
+        };
+        $scope.tableControlProject = {
+            options: {
+                // url:backend.url+"/api/devopsProject/getProjectPageById?teamId="+$scope.entity.deveopsTeamId,
+                data: $scope.entity.devopsProjects,
+                cache: false,
+                idField: 'id',
+                // data:ids,
+                queryParams: function (params) {
+                    var queryParam = angular.extend({}, params, $scope.condition);
+                    return queryParam;
+                },
+                columns: [{
+                    field: 'state',
+                    checkbox: true //设置多选
+                }, {
+                    field: 'description',
+                    title: '工程缩写/英文',
+                    align: 'center',
+                    sortable: true,
+                    formatter: function (value, row, index) {
+                        return "<a>" + value + "</a>";
+                    },
+                    events: {
+                        'click a': function (e, value, row, index) {
+                            $scope.viewDetailProject(row);
+                        }
+                    }
+                }, {
+                    field: 'projectName',
+                    title: '中文名称'
+                }, {
+                    field: 'projectType',
+                    title: '项目类型'
+                }, {
+                    field: 'legacyProject',
+                    title: '类型',
+                    formatter: function (value) {
+                        if (value) {
+                            return 'ANT';
+                        } else {
+                            return 'Maven';
+                        }
+                    }
+                }],
+                clickToSelect: true, //设置支持行多选
+                search: false, //显示搜索框
+                searchOnEnterKey: false,//enter时才search
+                toolbar: '#toolbar', //关联工具栏
+                showHeader: true,
+                showColumns: false, //显示列
+                showRefresh: false, //显示刷新按钮
+                showToggle: false, //显示切换视图按钮
+                showPaginationSwitch: false, //显示数据条数框
+                pagination: true, //设置为 true 会在表格底部显示分页条
+                paginationLoop: true, //设置为 true 启用分页条无限循环的功能。
+                sidePagination: 'client', //设置在哪里进行分页，可选值为 'client' 或者 'server'。
+                pageSize: 10,
+                pageList: [10, 15, 20, 25, 50],
+                paginationHAlign: 'right' //分页条位置
+            }
+        };
+        $state.go('deveopsLocal.edit');
     }
 
     $scope.back = function () {

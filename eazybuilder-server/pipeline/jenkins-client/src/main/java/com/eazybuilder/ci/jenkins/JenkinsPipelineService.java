@@ -89,6 +89,9 @@ public class JenkinsPipelineService {
 		params.put("pipelineUID", pipeLineUid);
 		params.put("toolGitUrl",env.getToolGitUrl());
 		params.put("baseUrl", env.getBaseUrl());
+
+		params.put("mirrorUrl", env.getMirrorUrl());
+
 		params.put("k8sSupport", this.k8sCloudSupport);
 		params.put("sonarUrl",this.sonarUrl);
 		params.put("sonarUser",env.getSonarUser());
@@ -205,7 +208,12 @@ public class JenkinsPipelineService {
 		}
 
 		if(project.getProfile()!=null&&project.getProfile().isUpgradeDocker()) {
-			List<DockerDigest> dockerDigests = onlineService.findDockerDigest(buildParam.getReleaseId(), project.getTeam().getName());
+			List<DockerDigest> dockerDigests = new ArrayList<>();
+			if(StringUtils.isNotBlank(buildParam.getReleaseId())) {
+				 dockerDigests = onlineService.findDockerDigest(buildParam.getReleaseId(), project.getTeam().getName());
+			}else{
+				 dockerDigests = onlineService.findDockerDigest(project);
+			}
 			if(dockerDigests!=null&&dockerDigests.size()>0) {
 				params.put("dockerDigests", dockerDigests);
 			}

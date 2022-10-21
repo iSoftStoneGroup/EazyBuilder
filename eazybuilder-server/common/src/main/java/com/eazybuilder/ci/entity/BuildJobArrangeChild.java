@@ -3,7 +3,7 @@ package com.eazybuilder.ci.entity;
 import com.eazybuilder.ci.constant.PreTaskStatus;
 
 /**
- * @author: mlxuef
+ * @author: sanzhang
  * @createTime: 2022/8/17
  * @description:
  **/

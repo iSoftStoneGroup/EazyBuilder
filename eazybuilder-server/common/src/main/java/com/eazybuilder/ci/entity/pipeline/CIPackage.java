@@ -40,6 +40,7 @@ public class CIPackage {
 
     private String profileType;
 
+
     @ElementCollection
     @MapKeyColumn(name="name")
     @Column(name="value")

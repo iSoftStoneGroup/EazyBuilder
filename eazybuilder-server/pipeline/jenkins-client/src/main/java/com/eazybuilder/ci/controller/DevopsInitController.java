@@ -9,6 +9,7 @@ import com.eazybuilder.ci.entity.Team;
 import com.eazybuilder.ci.entity.Upms.UpmsUserVo;
 import com.eazybuilder.ci.entity.User;
 import com.eazybuilder.ci.entity.devops.*;
+import com.eazybuilder.ci.local.QueryLocalData;
 import com.eazybuilder.ci.rabbitMq.SendRabbitMq;
 import com.eazybuilder.ci.service.*;
 import com.eazybuilder.ci.upms.QueryUpmsData;
@@ -48,34 +49,50 @@ public class DevopsInitController extends CRUDRestController<DevopsInitServiceIm
     @Resource
     QueryUpmsData queryUpmsData;
     @Resource
+    QueryLocalData queryLocalData;
+    @Resource
     ProjectService projectService;
 
 
     @Value("${message.broadcastExchange}")
     public  String broadcastExchange;
 
-
+    @Value("${portal.used:false}")
+    private Boolean used;
 
 
     @RequestMapping(value = "/init",method={RequestMethod.POST,RequestMethod.PUT})
     public void init(@RequestBody DevopsInitDto deveopsInitDto) throws Exception {
         logger.info("初始化项目组开始{}：",JSONObject.fromObject(deveopsInitDto));
-        //1.同步数据到upms中
-        //1.1判断当前项目组是否已经在upms中存在
-        try {
+
+        if(used) {
+            //1.同步数据到upms中
+            //1.1判断当前项目组是否已经在upms中存在
+            try {
+                if (null == deveopsInitDto.getGroupId()) {
+                    Long groupId = queryUpmsData.createGroup(deveopsInitDto.getTeamName());
+                    if (null != groupId) {
+                        deveopsInitDto.setGroupId(groupId);
+                    }
+                }
+                //1.2绑定用户到群组下
+                logger.info("初始化绑定用户到群组下");
+                List<String> userId = deveopsInitDto.getDevopsUsers().stream().map(UpmsUserVo::getUserId).collect(Collectors.toList());
+                queryUpmsData.bindUserToGroup(deveopsInitDto.getGroupId(), userId);
+            } catch (Exception e) {
+                logger.error("ci初始化时和upms接口交互出现异常:{}", e.getMessage(), e);
+            }
+        }
+        else{
+            //判断当前项目组是否在本地Team中存在
             if (null == deveopsInitDto.getGroupId()) {
-                Long groupId = queryUpmsData.createGroup(deveopsInitDto.getTeamName());
+                Long groupId = queryLocalData.createGroup(deveopsInitDto.getTeamName());
                 if (null != groupId) {
                     deveopsInitDto.setGroupId(groupId);
                 }
             }
-            //1.2绑定用户到群组下
-            logger.info("初始化绑定用户到群组下");
-            List<String> userId = deveopsInitDto.getDevopsUsers().stream().map(UpmsUserVo::getUserId).collect(Collectors.toList());
-            queryUpmsData.bindUserToGroup(deveopsInitDto.getGroupId(), userId);
-        } catch (Exception e) {
-            logger.error("ci初始化时和upms接口交互出现异常:{}",e.getMessage(),e);
         }
+
         //2.将数据保存到数据库中
         //将deveopsDto转换成 DeveopsInit
         DevopsInit devopsInit = DtoEntityUtil.trans(deveopsInitDto, DevopsInit.class);
@@ -90,6 +107,8 @@ public class DevopsInitController extends CRUDRestController<DevopsInitServiceIm
         JSONObject sendInitData = devopsInitServiceImpl.getSendInitData(deveopsInitDto);
         //3.2发送数据到mq中
         sendRabbitMq.sendMsg(sendInitData.toString(),broadcastExchange,"");
+        //3.3
+        projectManageService.save(projectManageService.findOne(devopsInit.getProjectManageId()));
         //4.ci进行初始化
         //把用户保存起来
         List<User> ciUser = devopsInitServiceImpl.getCiUser(deveopsInitDto);

@@ -103,7 +103,9 @@ public class DevopsInitServiceImpl extends AbstractCommonServiceImpl<DevopsInitD
     public DevopsInit findByDevopsTeamId(String uid){
         return dao.findOne(QDevopsInit.devopsInit.groupId.eq(Long.valueOf(uid))).get();
     }
-
+    public List<DevopsInit> findByProjectManageId(String id){
+        return (List<DevopsInit>) dao.findAll(QDevopsInit.devopsInit.projectManageId.eq(id));
+    }
     public Team getCiTeam(DevopsInit devopsInit,List<User> users) {
         Team team = teamService.findByName(devopsInit.getTeamName());
         if(null ==team){

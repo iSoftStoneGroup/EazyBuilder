@@ -9,7 +9,7 @@
     <skip.docker.build>false</skip.docker.build>
 	<compiler.version>1.8</compiler.version>
     <spring-boot.version>1.5.6.RELEASE</spring-boot.version>
-    <docker.build.host>127.0.0.1:22375</docker.build.host>
+    <docker.build.host>0.0.0.0:22375</docker.build.host>
     <docker.registry>registry.eazybuilder-devops.cn</docker.registry>
     <skip.docker.build>true</skip.docker.build>
     <docker.build.version>latest</docker.build.version>
@@ -32,7 +32,7 @@
         <version>1.9.1</version>
         <configuration>
           <nodeDownloadRoot>https://registry.npmmirror.com/binary.html?path=node/</nodeDownloadRoot>
-          <npmRegistryURL>http://nexus3.eazybuilder-devops.cn/repository/npm-iss-devops-group/</npmRegistryURL>
+          <npmRegistryURL>http://nexus3.eazybuilder-devops.cn/repository/npm-eazybuilder-devops-group/</npmRegistryURL>
         </configuration>
         <executions>
         </executions>

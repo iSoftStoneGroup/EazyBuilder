@@ -79,7 +79,7 @@ spec:
             cpu: ${deployConfig.limitsCpu!'500m'}
             memory: ${deployConfig.limitsMemory!'1Gi'}
           requests:
-            cpu: 100m
+            cpu: 1m
             memory: 100Mi
       imagePullSecrets:
       - name: harbor

@@ -61,7 +61,7 @@ public class RedmineService {
         if(email.contains("@")) {
             userName = email.substring(0, email.indexOf("@"));
         }else {
-            userName = "kunyangu";
+            userName = "eazybuilde";
         }
         logger.info("调用redmine查询项目组开始 Url:{} param:{}",getProjectsUrl,userName);
         String data = HttpUtil.getJson(getProjectsUrl, "userName="+userName);

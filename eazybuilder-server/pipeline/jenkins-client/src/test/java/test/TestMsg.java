@@ -49,7 +49,7 @@ public class TestMsg {
 		msgJson.put("msgType", MsgType.ding);
 		msgJson.put("chatMethods", "private");
 		msgJson.put("msgProfile", MsgProfileType.issuesStatusUpdate);
-		String[] emailArray = new String[]{"kunyangu@eazybuilder.com"};
+		String[] emailArray = new String[]{"eazybuilde@eazybuilder.com"};
 		msgJson.put("emailArray",emailArray);
 		logger.info("发送钉钉消息：{}", msgJson.toJSONString());
 

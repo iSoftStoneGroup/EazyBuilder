@@ -113,7 +113,7 @@ public class SendRabbitMq {
                     if(null!=user) {
                         issuesStatusDto.setUserName(user.getEmail().split("@")[0]);
                     }else{
-                        issuesStatusDto.setUserName("kunyangu");
+                        issuesStatusDto.setUserName("eazybuilde");
                     }
                     data.add(issuesStatusDto);
                 }
@@ -124,7 +124,7 @@ public class SendRabbitMq {
                 if(null!=user) {
                     issuesStatusDto.setUserName(user.getEmail().split("@")[0]);
                 }else{
-                    issuesStatusDto.setUserName("kunyangu");
+                    issuesStatusDto.setUserName("eazybuilde");
                 }
                 data.add(issuesStatusDto);
             }

@@ -123,23 +123,19 @@ public class ReceiveMsg {
                 logger.info("消息payload：{}", message.getPayload());
                 jsonObject = JSONObject.parseObject(message.getPayload().toString());
             }
-
-
             logger.info("消费者收到消息了：{},msgId:{},tag:{}", jsonObject, msgId, tag);
             // 当redis中存在此消息ID时,说明此消息已让消费过(用于幂等性的处理)
-            if (redisTemplate.opsForHash().entries("rancherMessageCache").containsKey(msgId)) {
-                logger.info("[{}]消息已消费过", msgId);
-                channel.basicAck(tag, false);
-            }
+//            if (redisTemplate.opsForHash().entries("rancherMessageCache").containsKey(msgId)) {
+//                logger.info("[{}]消息已消费过", msgId);
+//                channel.basicAck(tag, false);
+//            }
             logger.info("[{}]消息没有被消费过，继续后续流程", msgId);
-            redisTemplate.opsForHash().put("rancherMessageCache", msgId, msgId);
+//            redisTemplate.opsForHash().put("rancherMessageCache", msgId, msgId);
 
             CIPackage ciPackage = JSON.toJavaObject(jsonObject, CIPackage.class);
             ciPackage.setCreateDate(new Date());
             logger.info("保存CIPackage表：{}", JSON.toJSON(ciPackage));
             ciPackageService.save(ciPackage);
-            // 手动确认消息已消费
-            channel.basicAck(tag, false);
             jsonObject.put("ciPackageId", ciPackage.getId());
 
             Map<Project, List<ProjectBuildVo>> eventProject = eventService.getEventProject(jsonObject);
