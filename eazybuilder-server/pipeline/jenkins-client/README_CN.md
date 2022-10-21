@@ -1,6 +1,6 @@
 #  平台后端采用springboot架构
 #  配置文件示例：
-
+## application.yml
 ````yaml
 server:
   port: 8080
@@ -201,7 +201,7 @@ gitlabApi:
 mirror:
   url: http://nexus3.eazybuilder.com/repository/maven-public/
 ````
-- pipeline/jenkins-client/config/application.yml
+
 
 ## 配置文件经过脱敏，如数据库用户密码等信息，需要用户自行配置
 
