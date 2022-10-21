@@ -121,6 +121,7 @@ message:
     #生产者 需求状态
     ciStatusExchange: ci.status.exchange
     dtpReport: ci.ATSReceive.devqueue
+    ciDataSyncExchange: ""
     ciGuardExchange: ci.guard.exchange
     broadcastExchange: ci.datasync.exchange
     topicExchange: devops.plat.exchange
@@ -196,3 +197,6 @@ gitlabApi:
   ##必备参数，代码编译的流水线会从此地址下载依赖包
 mirror:
   url: http://nexus3.eazybuilder.com/repository/maven-public/
+errorDingTalk:
+  emails: ""  
+  
