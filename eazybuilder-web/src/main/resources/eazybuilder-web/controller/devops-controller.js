@@ -43,11 +43,31 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
         $scope.entity.teamNamespaces.splice(index, 1);
     }
 
-
-    basicService.getUpmsAllUsers().then(function (response) {
-        $scope.upmsUsers = response.data;
-        $scope.upmsUsersAll = response.data;
+    //先判断是否使用统一登录门户
+    $.get(backend.url+"/getPortalInfo", function(response){
+        $window.sessionStorage.portal=JSON.stringify(response);
+        if(response.used){
+            basicService.getUpmsAllUsers().then(function (response) {
+                $scope.upmsUsers = response.data;
+                $scope.upmsUsersAll = response.data;
+            });
+        }else{
+            basicService.getAllUsers().then(function (response) {
+                $scope.upmsUsers = response.data;
+                $scope.upmsUsersAll = response.data;
+            });
+        }
     });
+
+    // basicService.getUpmsAllUsers().then(function (response) {
+    //     $scope.upmsUsers = response.data;
+    //     $scope.upmsUsersAll = response.data;
+    // });
+    //
+    // basicService.getAllUsers().then(function (response) {
+    //     $scope.upmsUsers = response.data;
+    //     $scope.upmsUsersAll = response.data;
+    // });
 
 
 
@@ -244,7 +264,7 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                 entity.devopsUsers = JSON.parse(data);
             }
         });
-            $http.post(backend.url + "/api/deveops/init", entity).then(function (response) {
+        $http.post(backend.url + "/api/deveops/init", entity).then(function (response) {
             alert("已重新执行,稍后请在列表中查看初始化结果");
             jQuery("#table").bootstrapTable("refresh");
         });
@@ -371,9 +391,9 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                                 field: 'email',
                                 title: '邮箱'
                             }, {
-                                 field: 'employeeId',
-                                 title: '工号'
-                             }, {
+                                field: 'employeeId',
+                                title: '工号'
+                            }, {
                                 field: 'phoneNumber',
                                 title: '手机号'
                             },{
@@ -430,7 +450,7 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
         if ($scope.entity.devopsUsers) {
             for (var i = 0; i < upmsUsers.length; i++) {
                 for (var ii = 0; ii < $scope.entity.devopsUsers.length; ii++) {
-                    if ($scope.entity.devopsUsers[ii].userId == upmsUsers[i].userId) {
+                    if ($scope.entity.devopsUsers[ii].email == upmsUsers[i].email) {
                         upmsUsers.splice(i, 1);
                         i--;
                         break;
@@ -447,9 +467,10 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                     $scope.entity = entity;
                     $scope.addUserTableControl = {
                         options:{
-                            url:backend.url+"/api/user/page",
+                            // url:backend.url+"/api/user/page",
+                            data: upmsUsers,
                             cache:false,
-                            idField:'id',
+                            idField: 'email',
                             queryParams:function(params){
                                 var queryParam=angular.extend({},params,$scope.condition);
                                 return queryParam;
@@ -573,7 +594,7 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                         }else{
                             $scope.devopsProject.deployConfigList = [{
                                 name: $scope.devopsProject.description,
-                                ingressHost: $scope.devopsProject.description + ".eazybuilder-devops.cn",
+                                ingressHost: $scope.devopsProject.description + ".iss-devops.cn",
                                 imageTag: $scope.devopsProject.description,
                                 appType:"deployment",
                                 limitsCpu: "100m",
@@ -717,8 +738,8 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                     field: 'email',
                     title: '邮箱'
                 },{
-                      field: 'employeeId',
-                      title: '工号'
+                    field: 'employeeId',
+                    title: '工号'
                 }, {
                     field: 'phoneNumber',
                     title: '手机号'

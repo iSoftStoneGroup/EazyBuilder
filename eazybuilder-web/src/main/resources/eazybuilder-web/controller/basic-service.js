@@ -1,7 +1,7 @@
 if (typeof String.prototype.startWith != 'function') {
-	 String.prototype.startWith = function (prefix){
-	  return this.slice(0, prefix.length) === prefix;
-	 };
+	String.prototype.startWith = function (prefix){
+		return this.slice(0, prefix.length) === prefix;
+	};
 }
 let portal =JSON.parse(window.sessionStorage.portal);
 
@@ -22,96 +22,100 @@ const actionScopeGuardTypes = {
 const statusTypes = {SUCCESS:'成功',FAILED:'失败',IN_PROGRESS:'执行中',UNSTABLE:'成功(不稳定)',ABORTED:'已取消',ASSERT_WARNRULE_FAILED:'门禁判定失败',WAIT_AUTO_TEST_RESULT:'等待测试结果',NOT_EXECUTED:'未执行'};
 
 app.service('basicService', function($http,$q) {
-	   var fetch=function(url,header){
-		   var d = $q.defer();
-           $http.get(url,header)
-  	         .then(function(response){
-  	    	 d.resolve(response);
-  	       },function(){
-  	    	 d.reject("query error");
-  	       });
-           return d.promise;
-	   }
+	var fetch=function(url,header){
+		var d = $q.defer();
+		$http.get(url,header)
+			.then(function(response){
+				d.resolve(response);
+			},function(){
+				d.reject("query error");
+			});
+		return d.promise;
+	}
 
-	   this.getOnlineTags=function(){
-	   	  return fetch(backend.url+"/api/onLine/getOnlineTags");
-	   }
+	this.getOnlineTags=function(){
+		return fetch(backend.url+"/api/onLine/getOnlineTags");
+	}
 
-	   this.getRedmineTeam = function(){
-		  return fetch(backend.url+"/api/redmine/getRedmineTeams");
-	   }
-	  //  this.getDockerImages = function(){
-		//  return fetch(backend.url+"/api/dockerImage");
-	  // }
-	   this.getUpmsAllUsers = function(){
-		 return fetch(backend.url+"/api/upms/getUpmsAllUsers");
-	   }
+	this.getRedmineTeam = function(){
+		return fetch(backend.url+"/api/redmine/getRedmineTeams");
+	}
+	//  this.getDockerImages = function(){
+	//  return fetch(backend.url+"/api/dockerImage");
+	// }
+	this.getUpmsAllUsers = function(){
+		return fetch(backend.url+"/api/upms/getUpmsAllUsers");
+	}
+
+	this.getAllUsers = function(){
+		return fetch(backend.url+"/api/user");
+	}
 
 
-	   this.getProjects=function(){
-		   return fetch(backend.url+"/api/project");
-	   }
+	this.getProjects=function(){
+		return fetch(backend.url+"/api/project");
+	}
 
-		this.getProjectManages=function(){
-			return fetch(backend.url+"/api/projectManage");
-		}
+	this.getProjectManages=function(){
+		return fetch(backend.url+"/api/projectManage");
+	}
 
-		this.getSecondPartys=function(){
-			return fetch(backend.url+"/api/secondParty");
-		}
-       this.getMembers=function(){
-    	   return fetch(backend.url+"/api/user");
-       }
-       
-       this.getHosts=function(){
-    	   return fetch(backend.url+"/api/hostInfo");
-       }
-       
-       this.getTeams=function(){
-    	   return fetch(backend.url+"/api/team");
-       }
-       this.getMyTeams=function(){
-    	   return fetch(backend.url+"/api/team/my");
-	   }
-       
-       this.getProjectGroups=function(){
-    	   return fetch(backend.url+"/api/project-group")
-       }
-       
-       this.getWarnRules=function(){
-    	   return fetch(backend.url+"/api/warnRule");
-       }
-       
-       
-       this.getDockerRegistrys = function(){
-    	   return fetch(backend.url+"/api/dockerRegistry");
-       };
-       
-       this.getTotalPorject=function(){
-    	   return fetch(backend.url+"/api/chart/totalProject");
-       }
-       
-       this.getTotalCodeLine=function(){
-    	   return fetch(backend.url+"/api/chart/totalCodeLine");
-       }
-       
-       this.getTotalBuild=function(){
-    	   return fetch(backend.url+"/api/chart/totalBuild");
-       }
-       this.getTotalDevelopers=function(){
-    	   return fetch(backend.url+"/api/chart/totalDevelopers");
-       }
-       
-       this.getPipelineProfile=function(){
-    	   return fetch(backend.url+"/api/pipelineProfile")
-       }
-       this.getGuards=function(){
+	this.getSecondPartys=function(){
+		return fetch(backend.url+"/api/secondParty");
+	}
+	this.getMembers=function(){
+		return fetch(backend.url+"/api/user");
+	}
+
+	this.getHosts=function(){
+		return fetch(backend.url+"/api/hostInfo");
+	}
+
+	this.getTeams=function(){
+		return fetch(backend.url+"/api/team");
+	}
+	this.getMyTeams=function(){
+		return fetch(backend.url+"/api/team/my");
+	}
+
+	this.getProjectGroups=function(){
+		return fetch(backend.url+"/api/project-group")
+	}
+
+	this.getWarnRules=function(){
+		return fetch(backend.url+"/api/warnRule");
+	}
+
+
+	this.getDockerRegistrys = function(){
+		return fetch(backend.url+"/api/dockerRegistry");
+	};
+
+	this.getTotalPorject=function(){
+		return fetch(backend.url+"/api/chart/totalProject");
+	}
+
+	this.getTotalCodeLine=function(){
+		return fetch(backend.url+"/api/chart/totalCodeLine");
+	}
+
+	this.getTotalBuild=function(){
+		return fetch(backend.url+"/api/chart/totalBuild");
+	}
+	this.getTotalDevelopers=function(){
+		return fetch(backend.url+"/api/chart/totalDevelopers");
+	}
+
+	this.getPipelineProfile=function(){
+		return fetch(backend.url+"/api/pipelineProfile")
+	}
+	this.getGuards=function(){
 		return fetch(backend.url+"/api/guard")
-	   }
-       
-       this.getTestEnvSet=function(){
-    	   return fetch(backend.url+"/api/testEnvSet")
-       }
+	}
+
+	this.getTestEnvSet=function(){
+		return fetch(backend.url+"/api/testEnvSet")
+	}
 
 
 	/**
