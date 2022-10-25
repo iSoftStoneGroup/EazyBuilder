@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><ureport><cell expand="None" name="A1" row="1" col="1"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[项目名称：]]></simple-value></cell><cell expand="Down" name="B1" row="1" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="sprint" aggregate="group" property="teamName" order="none" mapping-type="simple"></dataset-value><condition-property-item name="tiao_jian1"><cell-style for-condition="true" font-size-scope="cell" forecolor-scope="cell" font-family-scope="cell" bgcolor-scope="cell" bold-scope="cell" italic-scope="cell" underline-scope="cell" align-scope="cell" valign-scope="cell"></cell-style></condition-property-item></cell><cell expand="None" name="C1" row="1" col="3" row-span="6" col-span="6"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><chart-value><dataset dataset-name="Line_chart" type="line" category-property="n" series-property="name" series-type="property" value-property="surplus" collect-type="select"/><xaxes><scale-label display="true" label-string="日期"/></xaxes><yaxes><scale-label display="true" label-string="剩余SP数量"/></yaxes><option type="title" position="top" display="true" text="PBI燃尽图（横轴：日期，纵轴：剩余SP）"/><option type="legend" position="top" display="false"/><plugin name="data-labels" display="true"/></chart-value></cell><cell expand="None" name="A2" row="2" col="1"><cell-style font-size="10" forecolor="0,0,0" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[迭代名称：]]></simple-value></cell><cell expand="Down" name="B2" row="2" col="2"><cell-style font-size="10" forecolor="0,0,0" bold="false" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="sprint" aggregate="group" property="sprintName" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="A3" row="3" col="1"><cell-style font-size="10" forecolor="0,0,0" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[迭代开始日期：]]></simple-value></cell><cell expand="Down" name="B3" row="3" col="2"><cell-style font-size="10" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="sprint" aggregate="group" property="sprint_start_date" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="A4" row="4" col="1"><cell-style font-size="10" forecolor="0,0,0" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[迭代截止日期：]]></simple-value></cell><cell expand="Down" name="B4" row="4" col="2"><cell-style font-size="10" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="sprint" aggregate="group" property="sprint_end_date" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="A5" row="5" col="1"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[迭代进度（按sp）：]]></simple-value></cell><cell expand="Down" name="B5" row="5" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="progress" aggregate="group" property="iterationProgress" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="A6" row="6" col="1"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[进展状态：]]></simple-value></cell><cell expand="Down" name="B6" row="6" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="status" aggregate="group" property="status" order="none" mapping-type="simple"><mapping-item value="0" label="延期"/><mapping-item value="1" label="正常"/></dataset-value><condition-property-item name="正常-绿色-背景"><cell-style for-condition="true" font-size-scope="cell" forecolor-scope="cell" font-family-scope="cell" bgcolor="92,184,92" bgcolor-scope="cell" bold-scope="cell" italic-scope="cell" underline-scope="cell" align-scope="cell" valign-scope="cell"></cell-style><condition property="status" op="==" id="undefined" type="property"><value><![CDATA[1]]></value></condition></condition-property-item><condition-property-item name="延期-红色-背景"><cell-style for-condition="true" font-size-scope="cell" forecolor-scope="cell" font-family-scope="cell" bgcolor="255,0,0" bgcolor-scope="cell" bold-scope="cell" italic-scope="cell" underline-scope="cell" align-scope="cell" valign-scope="cell"></cell-style><condition property="status" op="==" id="undefined" type="property"><value><![CDATA[0]]></value></condition></condition-property-item></cell><cell expand="None" name="A7" row="7" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="B7" row="7" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="C7" row="7" col="3"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="D7" row="7" col="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="E7" row="7" col="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="F7" row="7" col="6"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="G7" row="7" col="7"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="H7" row="7" col="8"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="A8" row="8" col="1"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bgcolor="51,122,183" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[PBI]]></simple-value></cell><cell expand="None" name="B8" row="8" col="2"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bgcolor="51,122,183" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[PBI完成百分比(%）]]></simple-value></cell><cell expand="None" name="C8" row="8" col="3"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bgcolor="51,122,183" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[任务项]]></simple-value></cell><cell expand="None" name="D8" row="8" col="4"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bgcolor="51,122,183" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[任务开始时间]]></simple-value></cell><cell expand="None" name="E8" row="8" col="5"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bgcolor="51,122,183" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[任务完成时间]]></simple-value></cell><cell expand="None" name="F8" row="8" col="6"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bgcolor="51,122,183" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[任务耗时（h）]]></simple-value></cell><cell expand="None" name="G8" row="8" col="7"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bgcolor="51,122,183" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[当前状态]]></simple-value></cell><cell expand="None" name="H8" row="8" col="8"><cell-style font-size="10" forecolor="0,0,0" font-family="宋体" bgcolor="51,122,183" bold="true" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><simple-value><![CDATA[任务指派人]]></simple-value></cell><cell expand="Down" name="A9" row="9" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="issues" aggregate="group" property="PBI_name" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="B9" row="9" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="issues" aggregate="group" property="finished_ratio" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="C9" row="9" col="3"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="issues" aggregate="select" property="subject" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="D9" row="9" col="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="issues" aggregate="group" property="created_on" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="E9" row="9" col="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="issues" aggregate="select" property="closed_on" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="F9" row="9" col="6"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="issues" aggregate="select" property="spend_time" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="G9" row="9" col="7"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="issues" aggregate="select" property="status_name" order="none" mapping-type="simple"></dataset-value></cell><cell expand="Down" name="H9" row="9" col="8"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"><left-border width="1" style="solid" color="0,0,0"/><right-border width="1" style="solid" color="0,0,0"/><top-border width="1" style="solid" color="0,0,0"/><bottom-border width="1" style="solid" color="0,0,0"/></cell-style><dataset-value dataset-name="issues" aggregate="select" property="assigned" order="none" mapping-type="simple"></dataset-value></cell><cell expand="None" name="A10" row="10" col="1"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="B10" row="10" col="2"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="C10" row="10" col="3"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="D10" row="10" col="4"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="E10" row="10" col="5"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="F10" row="10" col="6"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="G10" row="10" col="7"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><cell expand="None" name="H10" row="10" col="8"><cell-style font-size="9" forecolor="0,0,0" font-family="宋体" align="center" valign="middle"></cell-style><simple-value><![CDATA[]]></simple-value></cell><row row-number="1" height="25"/><row row-number="2" height="27"/><row row-number="3" height="25"/><row row-number="4" height="23"/><row row-number="5" height="24"/><row row-number="6" height="23"/><row row-number="7" height="19"/><row row-number="8" height="19"/><row row-number="9" height="19"/><row row-number="10" height="19"/><column col-number="1" width="105"/><column col-number="2" width="86"/><column col-number="3" width="299"/><column col-number="4" width="167"/><column col-number="5" width="167"/><column col-number="6" width="115"/><column col-number="7" width="115"/><column col-number="8" width="115"/><datasource name="生产环境-grafana" type="jdbc" username="develop" password="develop_123" url="jdbc:mysql://0.0.0.0:3306/grafana?allowMultiQueries=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=Asia/Shanghai&amp;allowPublicKeyRetrieval=true" driver="com.mysql.jdbc.Driver"><dataset name="sprint" type="sql"><sql><![CDATA[SELECT
+	:sprintName as 'sprintName',
+    :teamName as 'teamName',
+    sprint_start_date,
+    sprint_end_date
+from
+	redmine_sprints s
+WHERE
+	s.project_id =(
+	select
+		id
+	from
+		redmine_projects p
+	WHERE
+		p.identifier = :teamName
+		)
+	and name =:sprintName]]></sql><field name="sprintName"/><field name="teamName"/><field name="sprint_start_date"/><field name="sprint_end_date"/><parameter name="teamName" type="String" default-value=""/><parameter name="sprintName" type="String" default-value=""/></dataset><dataset name="progress" type="sql"><sql><![CDATA[
+SELECT CONCAT(
+(
+	SELECT  count(id) as 'count' from  redmine_issues ri  WHERE
+	ri.project_id =(SELECT id from redmine_projects rp WHERE rp.identifier=:teamName)
+	AND 
+	ri.tracker_id =(SELECT id from redmine_trackers rt WHERE name='需求')
+	AND 
+	ri.sprint_id =(SELECT id from  redmine_sprints rs WHERE rs.name=:sprintName  and rs.project_id=(SELECT id from redmine_projects rp WHERE rp.identifier=:teamName))
+	and
+	ri.status_id =(SELECT id from issue_statuses is2 WHERE is2.name='已上线')
+)
+,"/",
+(
+	SELECT  count(id)as 'count' from  redmine_issues ri  WHERE
+	ri.project_id =(SELECT id from redmine_projects rp WHERE rp.identifier=:teamName)
+	AND 
+	ri.tracker_id =(SELECT id from redmine_trackers rt WHERE name='需求')
+	AND 
+	ri.sprint_id =(SELECT id from  redmine_sprints rs WHERE rs.name=:sprintName and rs.project_id=(SELECT id from redmine_projects rp WHERE rp.identifier=:teamName) )
+)
+
+) as "iterationProgress"]]></sql><field name="iterationProgress"/><parameter name="teamName" type="String" default-value=""/><parameter name="sprintName" type="String" default-value=""/></dataset><dataset name="status" type="sql"><sql><![CDATA[select :status as 'status']]></sql><field name="status"/><parameter name="status" type="Boolean" default-value=""/></dataset><dataset name="issues" type="sql"><sql><![CDATA[	
+SELECT 
+*,
+SUM(temp3.status) OVER (PARTITION BY temp3.PBI_name)/temp3.group_count*100 as 'finished_ratio'
+from (
+	SELECT  
+		temp.subject as 'PBI_name',
+		ri2.subject,
+		ri2.created_on ,
+		ri2.closed_on ,
+		TIMESTAMPDIFF(HOUR, ri2.created_on, ri2.closed_on)-TIMESTAMPDIFF(DAY, ri2.created_on, ri2.closed_on)*16 as 'spend_time',
+		(SELECT name from issue_statuses is2 WHERE is2.id=ri2.status_id) as 'status_name',
+		(SELECT CONCAT(lastname,firstname)   from redmine_users ru  WHERE  ru.id=ri2.assigned_to_id) as 'assigned',
+		count(temp.id) OVER (PARTITION BY temp.subject) 'group_count',
+		(CASE ri2.status_id	WHEN 6 THEN 1	ELSE 0		END) 'status'		
+	from 
+	(
+		SELECT 
+		ri.id ,ri.subject,status_id 
+		from  redmine_issues ri  WHERE
+		ri.project_id =(SELECT id from redmine_projects rp WHERE rp.identifier=:teamName)
+		AND 
+		ri.tracker_id =(SELECT id from redmine_trackers rt WHERE name='需求')
+		AND 
+		ri.sprint_id =(SELECT id from  redmine_sprints rs WHERE rs.name=:sprintName  and rs.project_id=(SELECT id from redmine_projects rp WHERE rp.identifier=:teamName)  )
+	) temp
+	LEFT join 
+		redmine_issues ri2
+	on 
+		temp.id=ri2.parent_id
+)temp3]]></sql><field name="PBI_name"/><field name="subject"/><field name="created_on"/><field name="closed_on"/><field name="spend_time"/><field name="status_name"/><field name="assigned"/><field name="group_count"/><field name="status"/><field name="finished_ratio"/><parameter name="teamName" type="String" default-value=""/><parameter name="sprintName" type="String" default-value=""/></dataset><dataset name="Line_chart" type="sql"><sql><![CDATA[with recursive t as (
+	select  
+		rs.sprint_start_date  as n
+
+	from
+		redmine_sprints rs
+	WHERE
+		rs.name=:sprintName
+		AND 
+		rs.project_id=(SELECT id from redmine_projects rp WHERE rp.name=:teamName)	
+union all
+
+		select  
+			DATE_ADD(n,INTERVAL 1 DAY) 
+		from
+			redmine_sprints rs,t
+		WHERE		
+			rs.name=:sprintName
+		AND 
+			rs.project_id=(SELECT id from redmine_projects rp WHERE rp.name=:teamName)
+		AND
+		 n < rs.sprint_end_date
+)
+,
+ temp1 AS(
+	SELECT 
+		ri.id ,
+		ri.subject,
+		date(ri.closed_on) as  "closed_on" ,
+	    count(id) OVER( ) AS 'count_all'
+	from  redmine_issues ri  WHERE
+		ri.project_id =(SELECT id from redmine_projects rp WHERE rp.name=:teamName)
+	AND 
+		ri.tracker_id =(SELECT id from redmine_trackers rt WHERE name='需求')
+	AND 
+		ri.sprint_id =(SELECT id from  redmine_sprints rs WHERE rs.name=:sprintName and rs.project_id=(SELECT id from redmine_projects rp WHERE rp.identifier=:teamName)   )
+	order by ri.created_on asc
+)
+, temp2 AS(
+		SELECT 
+			n,
+			sum(CASE temp1.closed_on IS NULL	when true then  0	ELSE 1		END) num
+		from temp1
+		right JOIN  t
+		on temp1.closed_on=t.n
+		GROUP  by n
+		order by n asc
+)
+, temp3 AS(
+	SELECT a.n,SUM(lt.num)  as cum
+	
+	FROM temp2 a JOIN temp2 lt 
+	
+	ON a.n >= lt.n
+	
+	GROUP BY a.n
+	
+	ORDER BY n
+)
+
+
+
+select  
+n,
+cum,
+sum_all.all_issues,
+sum_all.all_issues-cum as surplus,
+'日期' as 'name'
+
+from temp3,(SELECT  temp1.count_all as 'all_issues' from  temp1 limit 1) sum_all ;
+
+
+]]></sql><field name="n"/><field name="cum"/><field name="all_issues"/><field name="surplus"/><field name="name"/><parameter name="teamName" type="String" default-value=""/><parameter name="sprintName" type="String" default-value=""/></dataset></datasource><paper type="A5" left-margin="90" right-margin="90"
+    top-margin="72" bottom-margin="72" paging-mode="fitpage" fixrows="0"
+    width="420" height="595" orientation="portrait" html-report-align="left" bg-image="" html-interval-refresh-value="0" column-enabled="false"></paper><search-form form-position="up"><grid show-border="false" type="Grid3x3x3" border-width="1" border-color="#cccccc"><col size="4"><input-text label="工程名称" type="Text" label-position="left" bind-parameter="teamName"/></col><col size="4"><input-text label="看板名称" type="Text" label-position="left" bind-parameter="sprintName"/></col><col size="4"/></grid></search-form></ureport>

@@ -1,5 +1,5 @@
 
-
+# A completely free enterprise level continuous integration platform
 
 # Welcome to the EazyBuilder project!
 
@@ -51,7 +51,8 @@ EazyBuilder focuses on multi-team and multi-project unified compilation, build, 
 
   Use default compose file: [dockercompose/docker-compose.yml](./dockercompose/docker-compose.yml)
 
-  
+ #### Kubernetes Installation
+Install according to the detailed tutorial : [k8s/README. md](./k8s/README.md)
 
 Just visit http://localhost/console/index.html
 
@@ -118,3 +119,6 @@ See [license](./LICENSE) for more information.
 ## Guidelines
 
 We follow the [CNCF Code of Conduct](./CODE_OF_CONDUCT_EN.md).
+
+## Road Map
+<img width="1000" alt="image" src="docs/eazybuilder.png"   height="800" >

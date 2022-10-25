@@ -1,0 +1,6 @@
+#!/bin/bash
+#post-receive script
+#set -x #for debugging
+commitmsg=$1
+echo "代码成功提交."
+echo "提交信息: " $commitmsg
