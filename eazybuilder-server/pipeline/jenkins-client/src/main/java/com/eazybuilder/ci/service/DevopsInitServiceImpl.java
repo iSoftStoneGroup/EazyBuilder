@@ -170,7 +170,7 @@ public class DevopsInitServiceImpl extends AbstractCommonServiceImpl<DevopsInitD
         List<Project> projects = new ArrayList<>();
         List<DeployConfig> listTemp=null;
         for(DevopsProject devopsProject : devopsProjects){
-            listTemp=new ArrayList<DeployConfig>();
+        	listTemp=new ArrayList<DeployConfig>();
             Project project = projectService.findByName(devopsProject.getDescription());
             if(project==null){
                 project = new Project();

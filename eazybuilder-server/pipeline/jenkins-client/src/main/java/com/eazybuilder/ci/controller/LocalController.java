@@ -1,9 +1,5 @@
 package com.eazybuilder.ci.controller;
 
-import com.eazybuilder.ci.entity.Team;
-import com.eazybuilder.ci.entity.Upms.UpmsUserVo;
-import com.eazybuilder.ci.entity.User;
-import com.eazybuilder.ci.local.LocalGroupReturn;
 import com.eazybuilder.ci.local.QueryLocalData;
 import com.eazybuilder.ci.service.TeamServiceImpl;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -16,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/local")

@@ -264,7 +264,7 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                 entity.devopsUsers = JSON.parse(data);
             }
         });
-        $http.post(backend.url + "/api/deveops/init", entity).then(function (response) {
+            $http.post(backend.url + "/api/deveops/init", entity).then(function (response) {
             alert("已重新执行,稍后请在列表中查看初始化结果");
             jQuery("#table").bootstrapTable("refresh");
         });
@@ -391,9 +391,9 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                                 field: 'email',
                                 title: '邮箱'
                             }, {
-                                field: 'employeeId',
-                                title: '工号'
-                            }, {
+                                 field: 'employeeId',
+                                 title: '工号'
+                             }, {
                                 field: 'phoneNumber',
                                 title: '手机号'
                             },{
@@ -594,7 +594,7 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                         }else{
                             $scope.devopsProject.deployConfigList = [{
                                 name: $scope.devopsProject.description,
-                                ingressHost: $scope.devopsProject.description + ".iss-devops.cn",
+                                ingressHost: $scope.devopsProject.description + ".eazybuilder-devops.cn",
                                 imageTag: $scope.devopsProject.description,
                                 appType:"deployment",
                                 limitsCpu: "100m",
@@ -738,8 +738,8 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                     field: 'email',
                     title: '邮箱'
                 },{
-                    field: 'employeeId',
-                    title: '工号'
+                      field: 'employeeId',
+                      title: '工号'
                 }, {
                     field: 'phoneNumber',
                     title: '手机号'

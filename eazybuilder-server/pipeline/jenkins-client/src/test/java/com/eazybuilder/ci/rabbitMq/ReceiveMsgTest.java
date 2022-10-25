@@ -63,7 +63,7 @@ public  class ReceiveMsgTest {
     @Test
     public    void msg() throws Exception {
 
-//        String ciPackageJson="{\"code\":\"2660\",\"createDate\":1663837267029,\"customFields\":{\"工程标识\":\"nacos-config\",\"仓库地址\":\"http://gitlab.eazybuilder-devops.cn/devops/nacos-config.git\",\"是否更新配置文件\":\"0\",\"配置文件内容\":\"\",\"指派测试人员\":\"\",\"镜像名称/版本\":\"registry.eazybuilder-devops.cn/devops/devops-config/2651-2660-202209221420\",\"SP\":\"\",\"是否更新sql\":\"0\"},\"gitPath\":\"http://gitlab.eazybuilder-devops.cn/devops/nacos-config.git\",\"imageTag\":\"\",\"profileType\":\"merge\",\"projectName\":\"Nacos Config\",\"sourceBranchName\":\"bugfix-2660\",\"tagName\":\"bugfix-2660\",\"targetBranchName\":\"master\",\"topCode\":\"2651\",\"userName\":\"eazybuilde\"}";
+//        String ciPackageJson="{\"code\":\"2660\",\"createDate\":1663837267029,\"customFields\":{\"工程标识\":\"nacos-config\",\"仓库地址\":\"http://gitlab.eazybuilder-devops.cn/devops/nacos-config.git\",\"是否更新配置文件\":\"0\",\"配置文件内容\":\"\",\"指派测试人员\":\"\",\"镜像名称/版本\":\"registry.eazybuilder-devops.cn/devops/devops-config/2651-2660-202209221420\",\"SP\":\"\",\"是否更新sql\":\"0\"},\"gitPath\":\"http://gitlab.eazybuilder-devops.cn/devops/nacos-config.git\",\"imageTag\":\"\",\"profileType\":\"merge\",\"projectName\":\"Nacos Config\",\"sourceBranchName\":\"bugfix-2660\",\"tagName\":\"bugfix-2660\",\"targetBranchName\":\"master\",\"topCode\":\"2651\",\"userName\":\"gangwangn\"}";
 
         GenericMessage genericMessage = PowerMockito.mock(GenericMessage.class);
         PublisherCallbackChannelImpl publisherCallbackChannelImpl = PowerMockito.mock(PublisherCallbackChannelImpl.class);
@@ -77,7 +77,7 @@ public  class ReceiveMsgTest {
 //        byte[] bytes=new byte[]{2,2,3};
 //        String mesJson="{\"code\":\"0\",\"executePlanCount\":0,\"end\":true,\"userName\":\"xhwange@eazybuilder.com\",\"pipelineHistoryId\":\"df0c233b-27c4-4a42-93ef-5e4731610210\",\"gitUrl\":\"http://gitlab.eazybuilder-devops.cn/ipsa/project-api.git\",\"begin\":true,\"status\":\"MISS\"}";
         String  mesJson=
-                "{\"assigneeName\":\"eazybuilde\",\"authorName\":\"eazybuilde\",\"code\":\"2660\",\"customFields\":{\"工程标识\":\"nacos-config\",\"仓库地址\":\"http://gitlab.eazybuilder-devops.cn/devops/nacos-config.git\",\"是否更新配置文件\":\"0\",\"配置文件内容\":\"\",\"指派测试人员\":\"\",\"镜像名称/版本\":\"registry.eazybuilder-devops.cn/devops/devops-config/2651-2660-202209221420\",\"SP\":\"\",\"是否更新sql\":\"0\"},\"gitPath\":\"http://gitlab.eazybuilder-devops.cn/devops/nacos-config.git\",\"imageTag\":\"\",\"profileType\":\"merge\",\"projectName\":\"Nacos Config\",\"sourceBranchName\":\"bugfix-2660\",\"tagName\":\"bugfix-2660\",\"targetBranchName\":\"master\",\"topCode\":\"2651\",\"userName\":\"eazybuilde\"}";
+                "{\"assigneeName\":\"qiujin\",\"authorName\":\"gangwangn\",\"code\":\"2660\",\"customFields\":{\"工程标识\":\"nacos-config\",\"仓库地址\":\"http://gitlab.eazybuilder-devops.cn/devops/nacos-config.git\",\"是否更新配置文件\":\"0\",\"配置文件内容\":\"\",\"指派测试人员\":\"\",\"镜像名称/版本\":\"registry.eazybuilder-devops.cn/devops/devops-config/2651-2660-202209221420\",\"SP\":\"\",\"是否更新sql\":\"0\"},\"gitPath\":\"http://gitlab.eazybuilder-devops.cn/devops/nacos-config.git\",\"imageTag\":\"\",\"profileType\":\"merge\",\"projectName\":\"Nacos Config\",\"sourceBranchName\":\"bugfix-2660\",\"tagName\":\"bugfix-2660\",\"targetBranchName\":\"master\",\"topCode\":\"2651\",\"userName\":\"gangwangn\"}";
 
         byte[] bytes = mesJson.getBytes("utf-8");
         PowerMockito.when(genericMessage,"getPayload").thenReturn(bytes);

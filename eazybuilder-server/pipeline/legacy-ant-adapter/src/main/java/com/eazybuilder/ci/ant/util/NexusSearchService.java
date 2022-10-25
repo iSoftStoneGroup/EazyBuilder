@@ -18,7 +18,7 @@ import com.eazybuilder.ci.dto.NexusAnswer;
 
 public class NexusSearchService {
 
-	private static final String SEARCH_URL=System.getProperty("nexus.url", "http://0.0.0.0:8082/nexus")+"/service/local/identify/sha1/{0}";
+	private static final String SEARCH_URL=System.getProperty("nexus.url", "http://10.9.80.149:8082/nexus")+"/service/local/identify/sha1/{0}";
 	
 	static Map<String,Artifact> result_cache=Maps.newConcurrentMap();
 	static{

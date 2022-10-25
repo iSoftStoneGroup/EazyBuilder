@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +48,7 @@ public class QueryLocalData {
      *
      * @return:{groupId=107533985382400, tenantId=101781516320768,
      *                                   groupName=DevOps项目组, users=[{userId=17760,
-     *                                   tenantId=101781516320768, userName=张三,
+     *                                   tenantId=101781516320768, userName=薛孟琳,
      *                                   nickName=, email=mlxuef@eazybuilder.com}]}
      *
      */
@@ -74,5 +73,4 @@ public class QueryLocalData {
         localGroupReturn.setUsers(upmsUserVos);
         return JSON.toJSONString(localGroupReturn);
     }
-
 }
