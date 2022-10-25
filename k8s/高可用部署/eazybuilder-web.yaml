@@ -24,12 +24,6 @@ spec:
     spec:
       containers:
       - env:
-        - name: NACOS_SPACE
-          value: ${NAMESPACE}
-        - name: NACOS_IP
-          value: nacos.iss-devops.cn
-        - name: NACOS_PORT
-          value: "80"
         - name: TZ
           value: Asia/Shanghai
         image: jinqiu8810/eazybuilder-web
