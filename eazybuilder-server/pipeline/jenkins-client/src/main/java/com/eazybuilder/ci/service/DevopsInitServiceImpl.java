@@ -41,6 +41,8 @@ public class DevopsInitServiceImpl extends AbstractCommonServiceImpl<DevopsInitD
     String harborUrl;
     @Value("${ci.harbor.password}")
     String harborPassword;
+    @Value("${portal.used:false}")
+    private Boolean used;
 
 
     @Resource
@@ -263,7 +265,9 @@ public class DevopsInitServiceImpl extends AbstractCommonServiceImpl<DevopsInitD
             jsonUser.put("name", upmsUserVo.getUserName().substring(1));
             jsonUser.put("employeeId", upmsUserVo.getEmployeeId());
             //根据userId调用upms接口查询角色
-            jsonUser.put("role",queryUpmsData.getRoleByUserId(Long.valueOf(upmsUserVo.getUserId())));
+            if(used) {
+                jsonUser.put("role", queryUpmsData.getRoleByUserId(Long.valueOf(upmsUserVo.getUserId())));
+            }
             map.put(Long.valueOf(upmsUserVo.getUserId()),jsonUser);
             jsonArray.add(jsonUser);
         }

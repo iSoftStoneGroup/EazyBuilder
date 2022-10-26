@@ -51,13 +51,18 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
 
     @Autowired
     SystemPropertyService propService;
+
     /**
      * 根据mq传过来的json进行事件判定
      */
     public Map<Project,List<ProjectBuildVo>> getEventProject(JSONObject rabbitmqData) throws Exception {
         //根据.git路径来匹配项目
         if (rabbitmqData.containsKey("gitPath") && StringUtils.isNotBlank("gitPath")) {
-            List<Project> projects = projectService.findByRepo(rabbitmqData.getString("gitPath"));
+            String gitPath = rabbitmqData.getString("gitPath");
+            if(!gitPath.endsWith(".git")){
+                gitPath=gitPath+".git";
+            }
+            List<Project> projects = projectService.findByRepo(gitPath);
             List<Event>  events= null;
             if (projects != null && !projects.isEmpty()) {
                 Map<Project,List<ProjectBuildVo>> projectProfileMap = new HashedMap();
@@ -184,7 +189,7 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
                                         if(rabbitmqData.containsKey("code")){
                                             projectBuildVo.setRedmineCode(rabbitmqData.getString("code"));
                                         }
-                                        projectBuildVo.setGitlabApiUrl(rabbitmqData.getString("gitPath"));
+                                        projectBuildVo.setGitlabApiUrl(gitPath);
                                         projectBuildVo.setEncodedUrl(projectBuildVo.getGitlabApiUrl());
                                         if(rabbitmqData.containsKey("userName")){
                                             String redmineUser = rabbitmqData.getString("userName");
@@ -208,7 +213,7 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
                 }
                 return projectProfileMap;
             } else {
-                throw new IllegalArgumentException("项目: " + rabbitmqData.getString("gitPath") + "不存在");
+                throw new IllegalArgumentException("项目: " + gitPath + "不存在");
             }
         }
         return null;
@@ -256,7 +261,7 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
                 if(event.getProjectType()== ProjectType.all || event.getProjectType()== project.getProjectType()){
                     //如果没有配置或者在前端页面上选的是默认 选默认的话值就是空的，则采用项目自带的默认流水线
                     //如果传了目标分支，则根据目标分支执行流水线，如果没用则用来源分支。
-                    //判断一下分支条件
+                    //判断一下分支条件k
                     if(isEventBranchRules(project,event,targetBranchName,sourceBranchName)) {
                         ProjectBuildVo projectBuildVo = new ProjectBuildVo();
                         if (StringUtils.isNotBlank(sourceBranchName)) {
