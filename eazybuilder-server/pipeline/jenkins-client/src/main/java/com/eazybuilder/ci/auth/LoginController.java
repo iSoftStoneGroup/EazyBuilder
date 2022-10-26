@@ -49,7 +49,10 @@ public class LoginController {
 	
 	@Value("${admin.passwd:admin}")
 	String passwd;
-	
+
+	@Value("${portal.used:false}")
+	private Boolean used;
+
 	@PostConstruct
 	public void initSuper(){
 		User user=userService.findByEmail(USER_ADMIN);
@@ -113,28 +116,34 @@ public class LoginController {
 	}
 
 	private Map authByLdap(LoginDTO dto) throws Exception {
-		//如果设置了ldap服务地址，尝试通过ldap认证
-		if(!ldapService.authenticate(dto.getLoginName().substring(0, dto.getLoginName().indexOf("@")), 
-				dto.getPasswd())) {
-			throw new AuthorizeFailedException();
+		User user = new User();
+		if(used) {
+			//如果设置了ldap服务地址，尝试通过ldap认证
+			if (!ldapService.authenticate(dto.getLoginName().substring(0, dto.getLoginName().indexOf("@")),
+					dto.getPasswd())) {
+				throw new AuthorizeFailedException();
+			}
+
+			//从LDAP同步用户信息
+			LdapUser ldapUser = ldapService.getUserInfo(dto.getLoginName());
+			user.setDepartment(ldapUser.getDepartment());
+			user.setEmail(dto.getLoginName());
+			user.setName(ldapUser.getCn());
+			user.setPassword(AuthUtils.encrypt(dto.getPasswd(), dto.getLoginName()));
+			user.setPhone(ldapUser.getMobile());
+			user.setTitle(ldapUser.getTitle());
+			user.setRoles(user.getRoleByTitle());
 		}
-		
-		//从LDAP同步用户信息
-		LdapUser ldapUser=ldapService.getUserInfo(dto.getLoginName());
-		User user=new User();
-		user.setDepartment(ldapUser.getDepartment());
-		user.setEmail(dto.getLoginName());
-		user.setName(ldapUser.getCn());
-		user.setPassword(AuthUtils.encrypt(dto.getPasswd(), dto.getLoginName()));
-		user.setPhone(ldapUser.getMobile());
-		user.setTitle(ldapUser.getTitle());		
-		user.setRoles(user.getRoleByTitle());
 		User existUser=userService.findByEmail(dto.getLoginName());
-		user.setRoles(existUser.getRoles()!=null?existUser.getRoles():user.getRoleByTitle());
+		if(used) {
+			user.setRoles(existUser.getRoles() != null ? existUser.getRoles() : user.getRoleByTitle());
+		}
 		if(existUser!=null) {
 			//update user info by ldap
-			BeanUtils.copyProperties(user, existUser, "id","role");
-			userService.save(existUser);
+			if(used) {
+				BeanUtils.copyProperties(user, existUser, "id","role");
+				userService.save(existUser);
+			}
 			Map tokenMap=Maps.newHashMap(); 
 			tokenMap.put("access_token", accessService.createToken(existUser));
 			tokenMap.put("user",existUser);

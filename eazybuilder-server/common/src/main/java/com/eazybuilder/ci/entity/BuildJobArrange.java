@@ -6,7 +6,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * @author: mlxuef
+ * @author: sanzhang
  * @createTime: 2022/8/17
  * @description:
  **/

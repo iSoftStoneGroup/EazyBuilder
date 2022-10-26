@@ -70,7 +70,7 @@
             $("#login-message").addClass("hidden");
             $http.post(backend.url+"/login",{loginName:$scope.loginName,passwd:$scope.passwd})
                 .then(function(response){
-                        console.log(response);
+
                 	  $("#login-message").text("登录成功，请稍候...");
                 	  $("#login-progress").addClass("hidden");
                       $("#login-message").removeClass("hidden");

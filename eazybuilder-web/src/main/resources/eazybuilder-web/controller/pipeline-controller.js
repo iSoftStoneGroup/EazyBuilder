@@ -628,7 +628,7 @@ app.controller('pipelineController', function($scope,$http,$window,$state,$filte
 		var val=getMetric(flag,metrics);
 		if(val!='N/A'){
 			let branch = row.targetBranch? '&branch='+row.targetBranch: '&branch=master';
-			var bugDetail=sonarServer+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG"+ branch +"";
+			var bugDetail=row.project.team.teamResource.sonarUrl+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG"+ branch +"";
 			return "<a href='"+bugDetail+"' target='_blank'>"+val+"</a>";
 		}
 		return null;
@@ -637,7 +637,7 @@ app.controller('pipelineController', function($scope,$http,$window,$state,$filte
 		var val=getMetric(flag,metrics);
 		if(val!='N/A'){
 			let branch = row.targetBranch? '&branch='+row.targetBranch: '&branch=master';
-			var vulnerDetail=sonarServer+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=VULNERABILITY"+ branch +"";
+			var vulnerDetail=row.project.team.teamResource.sonarUrl+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=VULNERABILITY"+ branch +"";
 			return  "<a href='"+vulnerDetail+"' target='_blank'>"+val+"</a>";
 		}
 		return null;
@@ -646,7 +646,7 @@ app.controller('pipelineController', function($scope,$http,$window,$state,$filte
 		var val=getMetric(flag,metrics);
 		if(val!='N/A'){
 			  let branch = row.targetBranch? '&branch='+row.targetBranch: '&branch=master';
-			  var vulnerDetail=sonarServer+"/dashboard?id="+row.project.sonarKey+ branch +"";
+			  var vulnerDetail=row.project.team.teamResource.sonarUrl+"/dashboard?id="+row.project.sonarKey+ branch +"";
 			  return "<a href='"+vulnerDetail+"' target='_blank'>"+val+"%"+"</a>";
 		}
 		return null;
@@ -654,7 +654,7 @@ app.controller('pipelineController', function($scope,$http,$window,$state,$filte
 	function code_smell_blocker(row,metrics,flag){
             var val=getMetric(flag,metrics);
             if(val!='N/A'){
-    			var vulnerDetail=sonarServer+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=CODE_SMELL&severities=BLOCKER";
+    			var vulnerDetail=row.project.team.teamResource.sonarUrl+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=CODE_SMELL&severities=BLOCKER";
                   return "<a href='"+vulnerDetail+"' target='_blank'>"+val+"</a>";
             }
             return null;
