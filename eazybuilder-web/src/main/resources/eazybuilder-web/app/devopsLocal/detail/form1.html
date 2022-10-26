@@ -17,14 +17,16 @@
 </div>
 
 <div class="form-group">
-    <label class="col-sm-2 control-label">需求管理平台:</label>
+    <label class="col-sm-2 control-label">需求管理平台配置:</label>
     <div class="col-sm-8">
-        <select class="form-control" ng-model="entity.projectManage" required>
-            <option value="redmine">Redmine</option>
-            <option value="zentao">禅道</option>
+        <select class="form-control" ng-model="entity.projectManageId"
+                required="required"
+                placeholder="需求管理平台配置"
+                ng-options="projectManage.id as projectManage.name for projectManage in projectManages">
         </select>
     </div>
 </div>
+
 <div class="form-group">
     <label class="col-sm-2 control-label">项目开始日期:</label>
     <div class="col-sm-2">
