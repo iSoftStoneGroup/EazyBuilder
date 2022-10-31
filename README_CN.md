@@ -41,6 +41,17 @@ EazyBuilder从需求创建，代码开发，自动化测试，到最终的上线
 
 EazyBuilder采用四横两纵的维度，分别从产品，研发，测试，部署维度，以及研发人员，项目管理人员的维度，提供精准客观全面的效能度量数据，满足不同角色不同的管理要求，精准分析研发效能短板，促进稳步提升。
 
+![image](https://user-images.githubusercontent.com/110450580/198972506-b21b63e6-c994-49fe-8ff7-acf0ba757163.png)
+
+![image](https://user-images.githubusercontent.com/110450580/198972786-3b418976-ebc2-41b4-9255-dafd66947a0e.png)
+
+![image](https://user-images.githubusercontent.com/110450580/198972908-75b76534-e2db-4385-ac3d-91c0f749410d.png)
+
+![image](https://user-images.githubusercontent.com/110450580/198973053-2c711591-9139-4c39-9790-1d210c10fe03.png)
+
+![image](https://user-images.githubusercontent.com/110450580/198973189-10a79569-f331-465d-a72d-cda7acb2c970.png)
+
+
 
 ### **云原生 IDE 插件**
 开发者无需平台切换，在 IDE 中即可获得 EazyBuilder 产品核心能力。编写代码后，即可实现代码质量扫描，自动编译打包，一键热部署到自测环境，快速完成自测、联调和集成验证，开发效率倍增。
