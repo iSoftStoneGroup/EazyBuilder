@@ -8,9 +8,9 @@ Our goal is through the use of native technology and integration of cloud, makes
 
 # Features and Advantages
 
-# # features
+## features
 
-### ### ** Portable and safe high efficiency assembly line **
+###### ** Portable and safe high efficiency assembly line **
 
 Event-driven, support wildcard, for different code branches, configure different event types, trigger different pipeline. The operation procedure is simple. You do not need to be familiar with pipeline script syntax, visual layout, and quickly create efficient pipelines. It does not rely on three-party tools, and uses modular design to solve the problem of pipeline sharing and reuse. Provides fine-grained access control, single sign-on (SSO), and audit functions based on roles, records each user's operations, and pipeline change history to meet user security requirements. Built-in rich warning means, comprehensive monitoring of pipeline status, active sending of abnormal logs, continuous improvement of the pipeline through data-driven.
 
@@ -53,7 +53,7 @@ Developers can get the core capabilities of EazyBuilder in the IDE without switc
 
 -Eazybulider contains a front end and a back end application, code directories are: eazybuilder-web,eazybuilder-server
 
-# # # # Docker installation
+## ## Docker installation
 
 - Docker version: 1.13.0+
 
@@ -74,7 +74,7 @@ Use the default compose file :[dockercompose/docker-compose.yml](./dockercompose
 
 Visit http://localhost/console/index.html to
 
-# # # # Kubernetes installation
+## ## Kubernetes installation
 See the details tutorial for installation :[k8s/README.md](./k8s/README.md)
 
 - Build machine
@@ -88,7 +88,7 @@ The pipeline execution in EazyBuilder, which is compatible with jenkins, needs t
 Welcome contributors to the EazyBuilder project. Check [CONTRIBUTING](./CONTRIBUTING.md) to see how to contribute to the project.
 
 
-Scope of # #
+Scope of ##
 
 
 ### Scope of application
@@ -140,11 +140,11 @@ The latest documentation for each release can be found at:
 
 See [LICENSE](./LICENSE) for more information.
 
-Rule of # #
+Rule of ##
 
 We follow the CNCF Code of Conduct (./CODE_OF_CONDUCT.md).
 
-# # roadmap
+## roadmap
 <img width="1000" alt="image" src="docs/eazybuilder.png" height="800">
 
 ## Roadmap design details
@@ -185,11 +185,11 @@ User-defined events, such as code submission, code merge. For each type of event
 
 Docking with nacos api, the user also puts the configuration file in the code warehouse. After the configuration file is changed, the corresponding pipeline is triggered, and nacos is called in the pipeline to update the configuration file in nacos
 
-### # Database script management
+#### Database script management
 
 Connect to liqiubase and use liqiubase as the sql management platform
 
-### # Quality safety management
+#### Quality safety management
 
 #### LDAP Login authentication
 
@@ -211,7 +211,7 @@ Hooks are set in gitlab to verify the comments of the submitted code. The commen
 
 Design an alert configuration page that allows users to subscribe to message types such as code commit/merge, pipeline success/failure; The form of message sending can be Dingtai, email or wechat
 
-### # R&D process management
+#### R&D process management
 
 #### Assembly line warning
 
