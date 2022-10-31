@@ -3,7 +3,7 @@
 
 
 EazyBuilder是一个事件驱动的编排引擎,基于 Kubernetes 自主设计、研发的开源分布式DevOps平台产品，它降低了持续交付流水线的复杂度，具备灵活易用,安全可靠的流水线、健全的变更管理体系，全链路的双向可追溯，小巧智能的审批流，云原生的 IDE 插件,它将云原生应用中的各种操作联系起来，提供插拔式对接，并将过程数据度量化、客观精确的效能洞察，为企业提供统一的DevOps协作平面,让其更加轻松便捷的管理云原生基础架构上的应用，落地DevOps文化，从而更高效地开发和发布高质量的，安全的软件。EazyBuilder内置了jenkins/Buddy,K8s YAML、Harbor、redmine/zentao/tapd等复杂场景最佳实践，适用敏稳双态，高频稳定交付等场景。
-
+<img alt="image" src="docs/init.png"  >
 
 我们的目标是通过云原生技术的运用和整合，打造极致简约、高效易用的云原生工作平台，规范开发流程，简化开发难度，提高开发效率，增强代码质量， 支撑软件开发整个生命周期（开发，单元测试，集成测试，文档，生产发布，配置等), 提供完整的云原生开发生态环境和生态体系，让企业快速拥抱云原生，提升研发效能，进而反哺云原生市场。
 
@@ -14,6 +14,9 @@ EazyBuilder是一个事件驱动的编排引擎,基于 Kubernetes 自主设计�
 ### **轻便安全的高效率流水线**
 
 事件驱动，支持通配符，对不同的代码分支，配置不同的事件类型，触发不同的流水线。操作步骤简单，无需熟悉流水线脚本语法，可视化编排，快速创建高效流水线；不依赖于三方工具，使用模块化设计，解决流水线共享复用问题。基于角色提供细粒度的访问控制、单点登录和审计功能，记录每个用户的操作内容，流水线变更历史，满足用户的安全需求。内置丰富预警手段，对流水线状况进行全方位监控，主动发送异常日志，通过数据驱动流水线持续改进。
+
+<img alt="image" src="docs/easypipeline.png"  >
+
 
 - **灵活易用**:仅需提供工程SVN/GIT 资源库信息，即可体验从打包构建、单元测试、覆盖率扫描、质量漏洞扫描、构件仓库推送、自动部署全过程标准化处理；
 - **精准提醒**:流水线过程和扫描报告，代码提交与合并，支持邮件、钉钉等方式实时推送，支持精准订阅配置；
@@ -27,32 +30,31 @@ EazyBuilder是一个事件驱动的编排引擎,基于 Kubernetes 自主设计�
 ### **友好的云原生环境**
 
 分钟级环境复制，提供开箱即用的云原生插件，例如：redis,mongodb,rabbitmq,mysql。使用标准k8s yaml管理基础中间件，易于扩展，使用便捷。
+<img alt="image" src="docs/k8s-yaml.png"  >
 
 
 ### **全方位的自动化测试保障**
 
 内置了sonarqube,jmeter,liqiubase等质量管控工具，以安全为准绳，将安全检测（代码审查、分析、测试等）移动到软件开发生命周期早期阶段，从而更高效地开发和发布高质量的，安全的软件。
 
+<img alt="image" src="docs/sonarqube.png"  >
+<img alt="image" src="docs/jmeter.png"  >
 
 ### **全生命周期的双向可追溯**
 
 EazyBuilder从需求创建，代码开发，自动化测试，到最终的上线部署，设置了丰富的埋点，可在研发全生命周期任何一个环节，做到双向可追溯，整合了云原生开发中的海量消息，避免了信息孤岛。
-
+<img alt="image" src="docs/trace1.png"  >
+<img alt="image" src="docs/trace2.png"  >
 
 ### **多维度的度量监控平台**
 
 EazyBuilder采用四横两纵的维度，分别从产品，研发，测试，部署维度，以及研发人员，项目管理人员的维度，提供精准客观全面的效能度量数据，满足不同角色不同的管理要求，精准分析研发效能短板，促进稳步提升。
 
-![image](https://user-images.githubusercontent.com/110450580/198972506-b21b63e6-c994-49fe-8ff7-acf0ba757163.png)
-
-![image](https://user-images.githubusercontent.com/110450580/198972786-3b418976-ebc2-41b4-9255-dafd66947a0e.png)
-
-![image](https://user-images.githubusercontent.com/110450580/198972908-75b76534-e2db-4385-ac3d-91c0f749410d.png)
-
-![image](https://user-images.githubusercontent.com/110450580/198973053-2c711591-9139-4c39-9790-1d210c10fe03.png)
-
-![image](https://user-images.githubusercontent.com/110450580/198973189-10a79569-f331-465d-a72d-cda7acb2c970.png)
-
+<img alt="image" src="docs/measure0.png"  >
+<img alt="image" src="docs/measure1.png"  >
+<img alt="image" src="docs/measure2.png"  >
+<img alt="image" src="docs/measure3.png"  >
+<img alt="image" src="docs/measure4.png"  >
 
 
 ### **云原生 IDE 插件**
@@ -246,3 +248,8 @@ EazyBuilder 将在云原生环境中与其他工具一起使用。因此，将�
 #### 流水线集成Grafana度量报表
 
 集成Grafana,将平台的过程数据，制作Grafana报表，不同的角色，可以看到不同的度量报表
+
+#### IDE插件
+
+发布IDE插件，开发人员可以在本地运行插件，一键部署自测环境
+
