@@ -10,50 +10,50 @@ Our goal is through the use of native technology and integration of cloud, makes
 
 ## features
 
-###### ** Portable and safe high efficiency assembly line **
+###### **Portable and safe high efficiency assembly line**
 
 Event-driven, support wildcard, for different code branches, configure different event types, trigger different pipeline. The operation procedure is simple. You do not need to be familiar with pipeline script syntax, visual layout, and quickly create efficient pipelines. It does not rely on three-party tools, and uses modular design to solve the problem of pipeline sharing and reuse. Provides fine-grained access control, single sign-on (SSO), and audit functions based on roles, records each user's operations, and pipeline change history to meet user security requirements. Built-in rich warning means, comprehensive monitoring of pipeline status, active sending of abnormal logs, continuous improvement of the pipeline through data-driven.
 
-- ** flexible and easy to use **: only provide project SVN/GIT resource library information, you can experience the whole process of standardized processing from packaging construction, unit testing, coverage scanning, quality vulnerability scanning, component warehouse push, automatic deployment;
-- ** Precise reminder **: pipelined process and scan report, code submission and merger, real-time push by email and pinning, accurate subscription configuration is supported;
-- ** Rich integration methods **: Support Webhook, timed automatic build, event or through OpenAPI integration and trigger continuous integration pipeline;
-- ** Plug-in enhancements **: Quality, vulnerability scanning, and other extension pipeline steps are based on automated plug-in decoration and enhancement techniques, with no additional plug-in installation, configuration file, or directory structure requirements for the source code project, and no impact on the build output;
-** Visual Orchestration: The on-off visual orchestration of pipeline, with a large number of processing templates for common CI processes such as build, test and deployment, supports rapid customization and extension of continuous integration pipeline;
-- ** Elastic Resource scheduling: supports load balancing and K8S elastic scheduling for large-scale parallel construction processing and resource scheduling, making full use of hardware resources.
-- ** Mainstream development framework support **: compatible with mainstream Java, C# and front-end development project code compilation build and release mode; Support Docker image repository, Maven repository and NPM repository push;
-- ** Project quality control **: Fully master all kinds of project quality index data scanned in the process of assembly line operation, can customize quality access control, red light repair reminder, support custom statistical analysis dimensions, and provide online quality reports or email reports.
+- **flexible and easy to use**: only provide project SVN/GIT resource library information, you can experience the whole process of standardized processing from packaging construction, unit testing, coverage scanning, quality vulnerability scanning, component warehouse push, automatic deployment;
+- **Precise reminder**: pipelined process and scan report, code submission and merger, real-time push by email and pinning, accurate subscription configuration is supported;
+- **Rich integration methods**: Support Webhook, timed automatic build, event or through OpenAPI integration and trigger continuous integration pipeline;
+- **Plug-in enhancements**: Quality, vulnerability scanning, and other extension pipeline steps are based on automated plug-in decoration and enhancement techniques, with no additional plug-in installation, configuration file, or directory structure requirements for the source code project, and no impact on the build output;
+- **Visual Orchestration: The on-off visual orchestration of pipeline, with a large number of processing templates for common CI processes such as build, test and deployment, supports rapid customization and extension of continuous integration pipeline;
+- **Elastic Resource scheduling: supports load balancing and K8S elastic scheduling for large-scale parallel construction processing and resource scheduling, making full use of hardware resources.
+- **Mainstream development framework support**: compatible with mainstream Java, C# and front-end development project code compilation build and release mode; Support Docker image repository, Maven repository and NPM repository push;
+- **Project quality control**: Fully master all kinds of project quality index data scanned in the process of assembly line operation, can customize quality access control, red light repair reminder, support custom statistical analysis dimensions, and provide online quality reports or email reports.
 
 
 
-### ** Friendly cloud native environment **
+### **Friendly cloud native environment**
 
 Copy minutes level environment, provide out-of-the-box cloud native plug-ins, such as: redis, directing, rabbitmq, mysql. Using standard k8s yaml management infrastructure middleware, easy to extend and easy to use.
 
 
-### **A full range of automated testing guarantee **
+### **A full range of automated testing guarantee**
 
 With built-in sonarqube jmeter, liqiubase quality control tools, such as with safety as the criterion, the safety testing (code review, analysis, testing, etc.) move to the early stages of software development life cycle, so as to more effectively develop and publish high quality, the security software.
 
 
-### ** Two-way traceability throughout the life cycle **
+### **Two-way traceability throughout the life cycle**
 
 EazyBuilder from requirements creation, code development, automated testing, to the final online deployment, set a rich buried point, can be in the development of the whole life cycle of any link, do two-way traceability, integration of the cloud native development of massive messages, to avoid the information island.
 
 
-### ** Multi-dimensional measurement monitoring platform **
+### **Multi-dimensional measurement monitoring platform**
 
 EazyBuilder adopts four horizontal and two vertical dimensions, respectively from the product, research and development, testing, deployment dimension, as well as R & D personnel, project management personnel dimension, to provide accurate objective and comprehensive performance measurement data, to meet the different roles of different management requirements, accurate analysis of R & D performance shortcomings, promote steady improvement.
 
 
-### ** Cloud native IDE plugin **
+### **Cloud native IDE plugin**
 Developers can get the core capabilities of EazyBuilder in the IDE without switching platforms. After coding, it can realize code quality scanning, automatic compilation and packaging, one-click hot deployment to the self-test environment, quickly complete self-test, joint investigation and integration verification, and double the development efficiency.
 
 
-# ** Getting Started **
+# **Getting Started**
 
 -Eazybulider contains a front end and a back end application, code directories are: eazybuilder-web,eazybuilder-server
 
-## ## Docker installation
+#### Docker installation
 
 - Docker version: 1.13.0+
 
@@ -74,7 +74,7 @@ Use the default compose file :[dockercompose/docker-compose.yml](./dockercompose
 
 Visit http://localhost/console/index.html to
 
-## ## Kubernetes installation
+#### Kubernetes installation
 See the details tutorial for installation :[k8s/README.md](./k8s/README.md)
 
 - Build machine
@@ -83,7 +83,7 @@ The pipeline execution in EazyBuilder, which is compatible with jenkins, needs t
 
 
 
-# ** Contribute to **
+# **Contribute to**
 
 Welcome contributors to the EazyBuilder project. Check [CONTRIBUTING](./CONTRIBUTING.md) to see how to contribute to the project.
 
@@ -114,29 +114,29 @@ EazyBuilder will be used with other tools in a cloud native environment. Therefo
 * [Demand Management]
 * [Product Management]
 
-# ** Contact us **
+# **Contact us**
 
 
 - "Welcome everyone to pay attention to eazybuilder, in the use of problems, you can add group discussion"
 
-- ** Welcome to the exchange group. You can scan the QR code below to invite you to join the group. Please indicate to join easybuilder**
+- **Welcome to the exchange group. You can scan the QR code below to invite you to join the group. Please indicate to join easybuilder**
 
 <img width="400" alt="image" <="" span=""> src="https://user-images.githubusercontent.com/1069092/189043893-fe653257-3180-464b-85e1-c91876b29df4.jpg">
 
 
-# ** Resources **
+# **Resources**
 
 The latest documentation for each release can be found at:
 
 - [EazyBuilder 1.0.0] (. / doc/referencebook/v1.0.0 referencebook_cn. Md)
 
 
-# ** Download **
+# **Download**
 
 - [Github Release](https://github.com/iSoftStoneGroup/EazyBuilder/releases)
 
 
-# ** Permission **
+# **Permission**
 
 See [LICENSE](./LICENSE) for more information.
 
