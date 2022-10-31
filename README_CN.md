@@ -30,32 +30,31 @@ EazyBuilder是一个事件驱动的编排引擎,基于 Kubernetes 自主设计�
 ### **友好的云原生环境**
 
 分钟级环境复制，提供开箱即用的云原生插件，例如：redis,mongodb,rabbitmq,mysql。使用标准k8s yaml管理基础中间件，易于扩展，使用便捷。
+<img alt="image" src="docs/k8s-yaml.png"  >
 
 
 ### **全方位的自动化测试保障**
 
 内置了sonarqube,jmeter,liqiubase等质量管控工具，以安全为准绳，将安全检测（代码审查、分析、测试等）移动到软件开发生命周期早期阶段，从而更高效地开发和发布高质量的，安全的软件。
 
+<img alt="image" src="docs/sonarqube.png"  >
+<img alt="image" src="docs/jmeter.png"  >
 
 ### **全生命周期的双向可追溯**
 
 EazyBuilder从需求创建，代码开发，自动化测试，到最终的上线部署，设置了丰富的埋点，可在研发全生命周期任何一个环节，做到双向可追溯，整合了云原生开发中的海量消息，避免了信息孤岛。
-
+<img alt="image" src="docs/trace1.png"  >
+<img alt="image" src="docs/trace2.png"  >
 
 ### **多维度的度量监控平台**
 
 EazyBuilder采用四横两纵的维度，分别从产品，研发，测试，部署维度，以及研发人员，项目管理人员的维度，提供精准客观全面的效能度量数据，满足不同角色不同的管理要求，精准分析研发效能短板，促进稳步提升。
 
-![image](https://user-images.githubusercontent.com/110450580/198972506-b21b63e6-c994-49fe-8ff7-acf0ba757163.png)
-
-![image](https://user-images.githubusercontent.com/110450580/198972786-3b418976-ebc2-41b4-9255-dafd66947a0e.png)
-
-![image](https://user-images.githubusercontent.com/110450580/198972908-75b76534-e2db-4385-ac3d-91c0f749410d.png)
-
-![image](https://user-images.githubusercontent.com/110450580/198973053-2c711591-9139-4c39-9790-1d210c10fe03.png)
-
-![image](https://user-images.githubusercontent.com/110450580/198973189-10a79569-f331-465d-a72d-cda7acb2c970.png)
-
+<img alt="image" src="docs/measure0.png"  >
+<img alt="image" src="docs/measure1.png"  >
+<img alt="image" src="docs/measure2.png"  >
+<img alt="image" src="docs/measure3.png"  >
+<img alt="image" src="docs/measure4.png"  >
 
 
 ### **云原生 IDE 插件**
