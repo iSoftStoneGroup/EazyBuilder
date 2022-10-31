@@ -1,218 +1,255 @@
-Welcome to the EazyBuilder project!
+# Welcome to the EazyBuilder project!
 
-EazyBuilder is an event-driven orchestration engine, which is based on the open-source distributed DevOps platform products independently designed and developed by Kubernetes. It reduces the complexity of continuous delivery pipeline, has flexible and easy to use, safe and reliable pipeline, sound change management system, two-way traceability of the whole link. Small smart approval flow, cloud native IDE plugin, it will be linked to various operations in the cloud native applications, provide butt plug type, degree of quantitative, objective and process data accurately and effectiveness of insight, provide enterprises with a unified enterprise collaboration plane, make it more easy and convenient management cloud native application on infrastructure, enterprise culture, landing To develop and distribute high quality, secure software more efficiently. EazyBuilder built-in jenkins/Buddy,K8s YAML, Harbor, redmine/zentao/tapd and other complex scenario best practices, suitable for sensitive and stable two-state, high-frequency stable delivery scenarios.
 
-Our goal is through the use of native technology and integration of cloud, makes the acme contracted, efficient and easy to use the cloud native work platform, standardize the development process, simplify the development difficulty, improve the efficiency of development, enhance the code quality, support the entire software development life cycle (development, unit testing, integration testing, documentation, production release, To provide a complete cloud native development ecological environment and ecological system, so that enterprises can quickly embrace cloud native, improve research and development efficiency, and then feed back the cloud native market.
+EazyBuilder is an event-driven orchestration engine, an open-source distributed DevOps platform product based on Kubernetes' independent design and research and development. It reduces the complexity of continuous delivery pipelines, has flexible and easy-to-use, safe and reliable pipelines, and a sound change management system. Two-way traceability of links, small and intelligent approval flow, cloud-native IDE plug-in, which connects various operations in cloud-native applications, provides plug-in connection, quantifies process data, and provides objective and accurate performance insights , provides a unified DevOps collaboration plane for enterprises, making it easier and more convenient to manage applications on cloud-native infrastructure, and implement a DevOps culture, so as to develop and release high-quality and secure software more efficiently. EazyBuilder has built-in best practices for complex scenarios such as jenkins/Buddy, K8s YAML, Harbor, redmine/zentao/tapd, etc. It is suitable for scenarios such as sensitive and stable dual-state and high-frequency stable delivery.
+<img alt="image" src="docs/init.png" >
+
+Our goal is to create an extremely simple, efficient and easy-to-use cloud-native work platform through the application and integration of cloud-native technologies, standardize the development process, simplify development difficulty, improve development efficiency, enhance code quality, and support the entire software development life cycle (development , unit testing, integration testing, documentation, production release, configuration, etc.), provide a complete cloud-native development ecological environment and ecosystem, allowing enterprises to quickly embrace cloud-native, improve R&D efficiency, and then feed back the cloud-native market.
 
 # [中文概述](./README_CN.md)
 
-# Features and Advantages
+# Features and Benefits
 
-## features
+## Features
 
-###### **Portable and safe high efficiency assembly line**
+### **Light and safe high-efficiency assembly line**
 
-Event-driven, support wildcard, for different code branches, configure different event types, trigger different pipeline. The operation procedure is simple. You do not need to be familiar with pipeline script syntax, visual layout, and quickly create efficient pipelines. It does not rely on three-party tools, and uses modular design to solve the problem of pipeline sharing and reuse. Provides fine-grained access control, single sign-on (SSO), and audit functions based on roles, records each user's operations, and pipeline change history to meet user security requirements. Built-in rich warning means, comprehensive monitoring of pipeline status, active sending of abnormal logs, continuous improvement of the pipeline through data-driven.
+Event-driven, supports wildcards, configures different event types for different code branches, and triggers different pipelines. The operation steps are simple, no need to be familiar with the pipeline script syntax, visual arrangement, and quickly create an efficient pipeline; it does not rely on third-party tools, and uses a modular design to solve the problem of pipeline sharing and reuse. Provides fine-grained access control, single sign-on and auditing functions based on roles, records the operation content of each user, and changes the pipeline change history to meet the security requirements of users. Built-in rich early warning methods, comprehensively monitor the pipeline status, actively send abnormal logs, and continuously improve the pipeline through data-driven.
 
-- **flexible and easy to use**: only provide project SVN/GIT resource library information, you can experience the whole process of standardized processing from packaging construction, unit testing, coverage scanning, quality vulnerability scanning, component warehouse push, automatic deployment;
-- **Precise reminder**: pipelined process and scan report, code submission and merger, real-time push by email and pinning, accurate subscription configuration is supported;
-- **Rich integration methods**: Support Webhook, timed automatic build, event or through OpenAPI integration and trigger continuous integration pipeline;
-- **Plug-in enhancements**: Quality, vulnerability scanning, and other extension pipeline steps are based on automated plug-in decoration and enhancement techniques, with no additional plug-in installation, configuration file, or directory structure requirements for the source code project, and no impact on the build output;
-- **Visual Orchestration**: The on-off visual orchestration of pipeline, with a large number of processing templates for common CI processes such as build, test and deployment, supports rapid customization and extension of continuous integration pipeline;
-- **Elastic Resource scheduling**: supports load balancing and K8S elastic scheduling for large-scale parallel construction processing and resource scheduling, making full use of hardware resources.
-- **Mainstream development framework support**: compatible with mainstream Java, C# and front-end development project code compilation build and release mode; Support Docker image repository, Maven repository and NPM repository push;
-- **Project quality control**: Fully master all kinds of project quality index data scanned in the process of assembly line operation, can customize quality access control, red light repair reminder, support custom statistical analysis dimensions, and provide online quality reports or email reports.
+<img alt="image" src="docs/easypipeline.png" >
 
 
+- **Flexible and easy to use**: You only need to provide the project SVN/GIT repository information, you can experience the standardization of the whole process from packaging construction, unit testing, coverage scanning, quality vulnerability scanning, component warehouse push, and automatic deployment;
+- **Precise reminder**: pipeline process and scan reports, code submission and merging, real-time push via email, DingTalk, etc., and precise subscription configuration;
+- **Abundant integration methods**: Support Webhook, timed automatic build, event or integrate and trigger continuous integration pipeline through OpenAPI;
+- **Plug-in Enhancement**: Quality, vulnerability scanning, and other extended pipeline steps are based on automated plugin decoration and enhancement technology. There are no additional plugin installation, configuration files, or directory structure requirements for source code projects, and no additional requirements for build outputs. influences;
+- **Visual orchestration**: switch-style pipeline visual orchestration method, built-in a large number of processing templates for common CI processes such as build, test, deployment, etc., support rapid customization and expansion of continuous integration pipelines;
+- **Elastic Resource Scheduling**: Supports build machine load balancing, K8S elastic scheduling, supports large-scale parallel construction processing and resource scheduling requirements, and makes full use of hardware resources;
+- **Mainstream development framework support**: Compatible with mainstream Java, C# and front-end development project code compilation, build and release modes; support Docker image repository, Maven repository and NPM repository push;
+- **Project quality monitoring**: comprehensively grasp various engineering quality index data scanned during the operation of the assembly line, can customize quality access control, red light repair reminders, support custom statistical analysis dimensions, and provide online quality reports or emails report.
 
-### **Friendly cloud native environment**
+### **friendly cloud native environment**
 
-Copy minutes level environment, provide out-of-the-box cloud native plug-ins, such as: redis, directing, rabbitmq, mysql. Using standard k8s yaml management infrastructure middleware, easy to extend and easy to use.
-
-
-### **A full range of automated testing guarantee**
-
-With built-in sonarqube jmeter, liqiubase quality control tools, such as with safety as the criterion, the safety testing (code review, analysis, testing, etc.) move to the early stages of software development life cycle, so as to more effectively develop and publish high quality, the security software.
+Minute-level environment replication, providing out-of-the-box cloud native plug-ins, such as: redis, mongodb, rabbitmq, mysql. Use standard k8s yaml to manage basic middleware, which is easy to extend and easy to use.
+<img alt="image" src="docs/k8s-yaml.png" >
 
 
-### **Two-way traceability throughout the life cycle**
+### **Comprehensive automated testing guarantee**
 
-EazyBuilder from requirements creation, code development, automated testing, to the final online deployment, set a rich buried point, can be in the development of the whole life cycle of any link, do two-way traceability, integration of the cloud native development of massive messages, to avoid the information island.
+Built-in quality control tools such as sonarqube, jmeter, liqiubase, etc., take security as the criterion, move security detection (code review, analysis, testing, etc.) to the early stage of the software development life cycle, so as to more efficiently develop and release high-quality, secure software.
 
+<img alt="image" src="docs/sonarqube.png" >
+<img alt="image" src="docs/jmeter.png" >
+
+### **Two-way traceability of the whole life cycle**
+
+EazyBuilder has set up a wealth of buried points from requirement creation, code development, automated testing, to final online deployment, which can achieve two-way traceability in any link of the entire R&D life cycle, and integrates massive information in cloud-native development. Information silos are avoided.
+<img alt="image" src="docs/trace1.png" >
+<img alt="image" src="docs/trace2.png" >
 
 ### **Multi-dimensional measurement monitoring platform**
 
-EazyBuilder adopts four horizontal and two vertical dimensions, respectively from the product, research and development, testing, deployment dimension, as well as R & D personnel, project management personnel dimension, to provide accurate objective and comprehensive performance measurement data, to meet the different roles of different management requirements, accurate analysis of R & D performance shortcomings, promote steady improvement.
+EazyBuilder adopts four horizontal and two vertical dimensions, from the dimensions of product, R&D, testing, deployment, as well as the dimensions of R&D personnel and project managers, to provide accurate, objective and comprehensive performance measurement data, to meet the different management requirements of different roles, and to accurately analyze R&D. Efficiency short board, promote steady improvement.
+
+<img alt="image" src="docs/measure0.png" >
+<img alt="image" src="docs/measure1.png" >
+<img alt="image" src="docs/measure2.png" >
+<img alt="image" src="docs/measure3.png" >
+<img alt="image" src="docs/measure4.png" >
 
 
-### **Cloud native IDE plugin**
-Developers can get the core capabilities of EazyBuilder in the IDE without switching platforms. After coding, it can realize code quality scanning, automatic compilation and packaging, one-click hot deployment to the self-test environment, quickly complete self-test, joint investigation and integration verification, and double the development efficiency.
+### **Cloud Native IDE Plugin**
+Developers can obtain the core capabilities of EazyBuilder products in the IDE without switching platforms. After writing the code, you can scan the code quality, compile and package it automatically, deploy it to the self-test environment with one click, and quickly complete the self-test, joint debugging and integration verification, and the development efficiency is doubled.
 
 
-# **Getting Started**
+# **getting Started**
 
--Eazybulider contains a front end and a back end application, code directories are: eazybuilder-web,eazybuilder-server
+- Eazybulider includes a front-end and a back-end application, the code directories are: eazybuilder-web, eazybuilder-server
 
 #### Docker installation
 
 - Docker version: 1.13.0+
 
-- EazyBuilder image has been published to [Docker Hub](https://hub.docker.com/ "Docker Hub");
-You can use the official EazyBuilder image directly
+- EazyBuilder image has been released to [Docker Hub](https://hub.docker.com/ "Docker Hub");
+  You can directly use the official image of EazyBuilder
+  
+- Self-built mirrors
 
-- Build your own image
+  Generate an image: docker-compose build
 
-Generate a mirror: docker-compose build
+- start the app
 
-- Start the application.
+  docker-compose up -d
 
-docker-compose  up -d
+  Use default compose file: [dockercompose/docker-compose.yml](./dockercompose/docker-compose.yml)
 
-Use the default compose file :[dockercompose/docker-compose.yml](./dockercompose/docker-compose.
+  
 
-
-
-Visit http://localhost/console/index.html to
+Just visit http://localhost/console/index.html
 
 #### Kubernetes installation
-See the details tutorial for installation :[k8s/README.md](./k8s/README.md)
+Refer to the detailed tutorial to install: [k8s/README.md](./k8s/README.md)
 
-- Build machine
+- build machine
 
-The pipeline execution in EazyBuilder, which is compatible with jenkins, needs to initialize the build environment in jenkins in advance. Details you can refer to [Jenkins dockerfile] (. / eazybuilder - server/thridparty/Jenkins/SRC/main/docker/dockerfile)
-
-
-
-# **Contribute to**
-
-Welcome contributors to the EazyBuilder project. Check [CONTRIBUTING](./CONTRIBUTING.md) to see how to contribute to the project.
+  The pipeline execution in EazyBuilder depends on jenkins. You need to initialize the build environment in jenkins in advance. For details, please refer to [jenkins dockerfile](./eazybuilder-server/thridparty/jenkins/src/main/docker/Dockerfile)
 
 
-Scope of ##
+
+# **contribute**
+
+Contributors are welcome to join the EazyBuilder project. Please see [CONTRIBUTING](./CONTRIBUTING.md) to learn how to contribute to this project.
+
+
+## scope
 
 
 ### Scope of application
 
-EazyBuilder is designed to solve the problem of creating a CI pipeline quickly and easily. Therefore, the project will implement or has implemented:
+EazyBuilder is designed to solve quick and easy creation of CI pipelines. Therefore, the project will implement or has implemented:
 
 * [Build Resource Management]
-* [Visual Pipeline Choreography]
-* [Pipeline sharing reuse]
+* [Visual Pipeline Orchestration]
+* [Pipeline shared multiplexing]
 * [Pipeline monitoring and warning]
 * [event-driven pipeline]
-* [Message warning]
+* [Message Alert]
 * [OpenAPI integration support]
 
-### out of scope
+### Out of range
 
-EazyBuilder will be used with other tools in a cloud native environment. Therefore, the following specific features will not be included:
+EazyBuilder will be used with other tools in a cloud-native environment. Therefore, the following specific functions will not be included:
 
 * [Container Resource Management]
-* [Quality Specification Integration]
-* [Code Hosting]
-* [Automated testing]
+* [Quality Protocol Integration]
+* [code hosting]
+* [automated test]
 * [Demand Management]
 * [Product Management]
 
-# **Contact us**
+# **contact us**
 
 
-- "Welcome everyone to pay attention to eazybuilder, in the use of problems, you can add group discussion"
+- "Welcome to pay attention to eazybuilder, if you encounter problems in use, you can join the group discussion"
 
-- **Welcome to the exchange group. You can scan the QR code below to invite you to join the group. Please indicate to join easybuilder**
+- **Welcome to join the exchange group. You can scan the WeChat QR code below to invite you to join the group. Please specify to join easybuilder**
 
-<img width="400" alt="image" <="" span=""> src="https://user-images.githubusercontent.com/1069092/189043893-fe653257-3180-464b-85e1-c91876b29df4.jpg">
+<img width="400" alt="image" src="https://user-images.githubusercontent.com/1069092/189043893-fe653257-3180-464b-85e1-c91876b29df4.jpg">
 
 
-# **Resources**
+# **resource**
 
 The latest documentation for each release can be found at:
 
-- [EazyBuilder 1.0.0] (. / doc/referencebook/v1.0.0 referencebook_cn. Md)
+- [EazyBuilder 1.0.0](./doc/referencebook/v1.0.0/referencebook_cn.md)
 
 
-# **Download**
+# **download**
 
 - [Github Release](https://github.com/iSoftStoneGroup/EazyBuilder/releases)
 
 
-# **Permission**
+# **License**
 
-See [LICENSE](./LICENSE) for more information.
+See [license](./LICENSE) for more information.
 
-Rule of ##
+## Guidelines
 
-We follow the CNCF Code of Conduct (./CODE_OF_CONDUCT.md).
+We follow the [CNCF Code of Conduct](./CODE_OF_CONDUCT.md).
 
-## roadmap
-<img width="1000" alt="image" src="docs/eazybuilder.png" height="800">
+## route map
+<img width="1000" alt="image" src="docs/eazybuilder.png" height="800" >
 
 ## Roadmap design details
 
-### Line management
+### Pipeline management
 
-#### Visualizes pipelined orchestration
-The back end uses freemark template, solidifies each build into a template, the front end uses switch items, the user selects the build content, input the key information, the back end fills the data into the template, generates the completed jenkins pipeline script, calls jenkins api, and executes the pipeline
+#### Visual pipeline orchestration
+The back-end uses the freemark template to solidify each construction into a template, and the front-end uses switch items. The user chooses the content of the construction and enters key information. After the back-end fills the data into the template, the completed jenkins pipeline script is generated and the jenkins api is called. execution pipeline
 
-#### Pipeline creation with one click (Java,C#,JavaScript)
-The fixed configuration, all abstracted, so that the user only need to input the code warehouse address, can automatically create a pipeline
+#### One-click pipeline creation (Java, C#, JavaScript)
+All fixed configurations are abstracted, so that users only need to enter the address of the code warehouse to automatically create a pipeline
 
 #### Pipeline audit, rollback
-After a pipeline is modified, the background records it and stores it in the history table. The difference between any two pipeline versions can be compared, and the pipeline can be rolled back to any version
+After the pipeline is modified, it is recorded in the background and stored in the history table. The pipeline differences of any two versions can be compared, and the pipeline can be specified to roll back to any version.
 
-#### Integrates automatic deployment of Kubernetes
-Using kubectl+kubeconfig, the platform integrates kubectl. Users can specify different kubeconfig files in each pipeline, and use kubectl --kubeconfig to manage k8s cluster in the pipeline, so as to realize the cross-cluster of k8s. Cross environmental management
+#### Integrated Kubernetes automatic deployment
+Using kubectl+kubeconfig, the platform integrates kubectl, users can specify different kubeconfig files in each pipeline, and use kubectl --kubeconfig to manage k8s clusters in the pipeline, so as to realize cross-cluster and cross-environment management of k8s
 
 
-#### Integrates with Sonarqube to view technical debt directly within the platform
-- Method 1: Invoke the sonarqube api to query the quality details of the project code
+#### Integrate Sonarqube to directly view technical debt in the platform
+- Method 1: Call the sonarqube api to query the quality details of the engineering code
 - Method 2: Directly query the sonarqube table to query the quality details of the project code
 
 
-#### Integrates with jmeter to trigger automated test scripts in a pipeline
-The platform integrates the jmeter plug-in. In the build switch, the user turns on the switch of "automated test" and specifies the directory location of automated test scripts. The pipeline directly executes the jmeter command to run automated tests
+#### Integrate jmeter to trigger automated test scripts in the pipeline
+The platform integrates the jmeter plug-in. In the build switch, the user turns on the "automated test" switch, and specifies the directory location where the automated test script is located. The pipeline directly executes the jmeter command to run the automated test.
 
 ### Build resource management
 
-#### Builds automatic resource utilization and recycling
-Jenkins Kubernetes Agent plug-in is used to automatically create a pod in k8s cluster when the pipeline runs, and automatically delete the pod after the pipeline runs
+#### Build resource automatic utilization and recycling
+Using the Jenkins Kubernetes Agent plug-in, when the pipeline runs, a pod is automatically created in the k8s cluster, and the pod is automatically deleted after the pipeline runs.
 
 
-#### Self-service interactive pipeline orchestration, where users customize the build steps included in the pipeline on demand
-User-defined events, such as code submission, code merge. For each type of event, users can choose different assembly lines, so that different projects, different environments, to develop different assembly lines
+#### Self-service interactive pipeline orchestration, users can customize the construction steps contained in the pipeline as needed
+User-defined events, such as: code commit, code merge. For each type of event, users can choose different pipelines, so that different pipelines can be developed for different projects and different environments.
 
 ### Configuration file management
 
-Docking with nacos api, the user also puts the configuration file in the code warehouse. After the configuration file is changed, the corresponding pipeline is triggered, and nacos is called in the pipeline to update the configuration file in nacos
+When docking the nacos api, the user also puts the configuration file in the code repository. After the configuration file is changed, the corresponding pipeline is triggered, and nacos is called in the pipeline to update the configuration file in nacos
 
-#### Database script management
+### Database script management
 
-Connect to liqiubase and use liqiubase as the sql management platform
+Docking with liqiube, using liqiube as the sql management platform
 
-#### Quality safety management
+### Quality and Safety Management
 
-#### LDAP Login authentication
+#### LDAP login authentication
 
-Integrated with the ldap function, you can log in as an ldap user
+Integrated ldap function, you can log in with ldap user
 
-#### Assembly line access card control
+#### Assembly line access control card control
 
-You can set a threshold for access control in the system. For example, BUG blocking is no greater than 5. After the code is submitted, the code quality scan is performed in the pipeline to collect sonarqube scan results. If they do not meet the quality threshold set by the system, the pipeline will be considered as a failure and the subsequent process will be stopped
+The user configures the threshold of access control in the system, for example: BUG blocking is not greater than 5; after submitting the code, the code quality scan is performed in the pipeline, the scan results of sonarqube are collected, and the quality threshold set by the system is judged. The pipeline finally fails, aborting the subsequent process
 
-#### Integrated Gitlab, MR Automatic audit
+#### Integrate Gitlab, MR automatic audit
 
-Connect to gilab api, when the project code meets the quality access, automatically create merge request, automatically merge into the integration branch
+Docking with gilab api, when the project engineering code meets the quality gate, automatically create a merge request and automatically merge into the integration branch
 
-#### The submission code comment specification is strongly blocked
+#### Submit code comment specification strong card control
 
-Hooks are set in gitlab to verify the comments of the submitted code. The comments must contain a legitimate task id. Otherwise, the code cannot be submitted
+Set up hooks in gitlab to verify the comments of the submitted code. In the comments, the legal task id must be included. If it does not meet the specification, it is forbidden to submit the code.
 
-#### Message warning configuration
+#### Message alert configuration
 
-Design an alert configuration page that allows users to subscribe to message types such as code commit/merge, pipeline success/failure; The form of message sending can be Dingtai, email or wechat
+Design an alert configuration page to allow users to subscribe to message types, such as: code submission/merging, pipeline success/failure; message sending forms, such as DingTalk, email, WeChat
 
-#### R&D process management
+### R&D process management
 
-#### Assembly line warning
+#### Pipeline warning
 
-Design a red light repair switch, the user can open in the pipeline, and configure the warning time interval, times, if the pipeline fails, send a red light repair warning, so that developers can pay attention to some high-risk pipeline, timely repair development integration problems
+Design a red light repair switch, users can turn it on in the pipeline, and configure the time interval and number of warnings. If the pipeline fails, a red light repair warning will be sent, so that developers can pay attention to some high-risk pipelines and fix development integration problems in time
+
+
+#### Integrate Redmine/Zen Tao to establish the traceability relationship between pipeline and requirement tasks
+
+- Integrate the requirements management platform, currently considering connecting Redmine and ZenTao, the developer submits the code, and the comment must contain the task id (in the requirements management platform)
+- After the pipeline operation is completed, the operation result is sent to the requirements management platform (by calling the api), the content is automatically appended to the progress under the task, and the task status of the requirements management platform is automatically updated
+
+
+#### Approval flow of the assembly line to realize the approval of test, launch, and deployment
+
+For pipelines in different environments, do permission control, design approval flow, and automatically upgrade products after approval, and deploy test/production environments
+
+
+#### DingTalk approval flow docking to realize the workflow of the pipeline in DingTalk
+
+Butt DingTalk approval flow, involving the approval function, are all approved by DingTalk
+
+#### Pipeline integration Grafana metrics report
+
+Integrate Grafana, make Grafana reports from the process data of the platform, different roles can see different metrics reports
+
+#### IDE plugins
+
+Publish IDE plug-ins, developers can run plug-ins locally and deploy self-test environment with one click
