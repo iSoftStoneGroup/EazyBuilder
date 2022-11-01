@@ -138,7 +138,7 @@ EazyBuilder will be used with other tools in a cloud-native environment. Therefo
 
 - "Welcome to pay attention to eazybuilder, if you encounter problems in use, you can join the group discussion"
 
-- **Welcome to join the exchange group. You can scan the WeChat QR code below to invite you to join the group. Please specify to join easybuilder**
+- **Welcome to join the exchange group. You can scan the WeChat QR code below to invite you to join the group. Please specify to join eazybuilder**
 
 <img width="400" alt="image" src="https://user-images.githubusercontent.com/1069092/189043893-fe653257-3180-464b-85e1-c91876b29df4.jpg">
 
