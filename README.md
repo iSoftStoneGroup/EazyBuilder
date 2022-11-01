@@ -4,6 +4,7 @@
 EazyBuilder is an event-driven orchestration engine, an open source distributed DevOps platform product based on Kubernetes' independent design and development, which reduces the complexity of continuous delivery pipelines;
 
 EazyBuilder has a flexible and easy-to-use, safe and reliable pipeline, a sound change management system, two-way traceability of the entire link, a small and intelligent approval flow, and a cloud-native IDE plug-in;
+<img alt="image" src="docs/framework-en.png" >
 
 It connects various operations in cloud-native applications, provides pluggable docking, quantifies process data, provides objective and accurate performance insights, and provides enterprises with a unified DevOps collaboration plane, making it easier and more convenient to manage cloud-native The application on the infrastructure implements the DevOps culture, so as to develop and release high-quality and secure software more efficiently. EazyBuilder has built-in best practices for complex scenarios such as jenkins/Buddy, K8s YAML, Harbor, redmine/zentao/tapd, etc. It is suitable for scenarios such as sensitive and stable dual-state and high-frequency stable delivery.
 
