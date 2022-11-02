@@ -1,68 +1,53 @@
+# [中文说明](./README_CN.md)
 
-首选创建命名空间(这一步不是必选的，也可以将eazybuilder部署在其他命名空间)
+It is preferred to create a namespace (this step is not mandatory, and you can also deploy eazybuilder in other namespaces)
 ```shell
 kubectl apply -f namespace.yaml
 ```
-
-
-# 1.安装mysql
-
+# 1. Install MySQL
 ```shell
-kubectl apply -f mysql.yaml -n es
+kubectl apply -f mysql. yaml -n es
 ```
-
- mysql容器启动后，进入容器，执行如下命令，做初始化设置
- 
- ```shell
- mysql -u root -p
- 
- alter user 'root'@'%' identified by 'mysql_123' password expire never;
- alter user 'root'@'%' identified with mysql_native_password BY 'mysql_123';
- flush privileges;
- ```
- 
-# 2.创建数据库
+After the MySQL container is started, enter the container, execute the following command, and make initialization settings
+```shell
+mysql -u root -p
+alter user 'root'@'%' identified by 'mysql_ 123' password expire never;
+alter user 'root'@'%' identified with mysql_ native_ password BY 'mysql_ 123';
+flush privileges;
+```
+# 2. Create database
 ```shell
 create database ci;
 ```
-
-## 注意，这一步，可以采用初始化sql完成，直接执行[initsql](../initsql)目录下的sql，可以将eazybuilder与nacos的数据，一次性全部导入
-
-# 3.安装nacos
+## Note that this step can be completed by initializing SQL, directly executing SQL under the [initsql] (../initsql) directory, and importing all the data of eazybuilder and nacos at one time
+# 3. Install nacos
 ```shell
-kubectl apply -f nacos-quick-start.yaml -n es
+kubectl apply -f nacos-quick-start. yaml -n es
 ```
-
-# 4.导入nacos日志文件
-
-在nacos中创建命名空间 devops,导入eazybuilder-config目录下面的配置文件
-
-# 5.安装redis
+# 4. Import the nacos log file
+Create the namespace devops in nacos, and import the configuration file under the eazybuilder config directory
+# 5. Install Redis
 ```shell
-kubectl apply -f redis.yaml -n es
+kubectl apply -f redis. yaml -n es
 ```
-# 6.安装rabbitmq
+# 6. Install rabbit mq
 ```shell
-kubectl apply -f rbac.yaml -n es
-kubectl apply -f rabbitmq.yaml -n es
+kubectl apply -f rbac. yaml -n es
+kubectl apply -f rabbitmq. yaml -n es
 ```
-rabbitmq启动成功后，将rabbitmq绑定服务器端口，登录rabbitmq控制台，创建用户
+After Rabbitmq starts successfully, bind Rabbitmq to the server port, log in to the Rabbitmq console, and create a user
 ```shell
 kubectl apply -f rabbitmq-network -n es
 ```
-
-创建管理员用户/密码：devops/devops
-
-# 7.安装eazybuilder前后端
+Create administrator user/password: devops/devops
+# 7. Install the front and rear ends of eazybuilder
 ```shell
 kubectl apply -f eazybuilder-server.yaml
 kubectl apply -f eazybuilder-web.yaml
 ```
-# 8.创建eazybuilder ingress
+# 8. Create eazybuilder ingress
 ```shell
-kubectl apply -f eazybuilder-ingress.yaml -n es
+kubectl apply -f eazybuilder-ingress. yaml -n es
 ```
-访问地址：http://es-web.eazybuilder.com/eazybuilder-web/login.html
-
-注意：es-web.eazybuilder.com是k8s的集群假域名，本地访问，需要配置host映射到集群中的服务器中
-
+- Access address: http://es-web.eazybuilder.com/eazybuilder-web/login.html
+- Note: es-web.eazybuilder.com is the K8S cluster pseudo domain name. For local access, you need to configure the host to map to the server in the cluster
