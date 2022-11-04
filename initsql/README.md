@@ -1,3 +1,4 @@
+# [中文说明](./README_CN.md)
 Execute the SQL in this directory, complete the one click initialization, and configure the EazyBuilder environment
 # 1.nacos.sql
 ## Configuration item corresponding to Nacos
