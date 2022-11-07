@@ -3,7 +3,7 @@
         stage('maven deploy') {
             steps{
                 echo '========maven deploy start========'
-                sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if> clean deploy -Ddocker.registry.serverId=<#if project.profile.secondParty.secondPartyType =='mavenRelease'>iss-releases</#if><#if project.profile.secondParty.secondPartyType =='mavenSnapshot'>iss-snapshots</#if>   -Ddocker.registry.username=${project.profile.secondParty.secondPartyUser} -Ddocker.registry.password=${project.profile.secondParty.secondPartyPass} -Dmaven.test.skip=true',returnStdout: false
+                sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if> clean deploy -Ddocker.registry.serverId=<#if project.profile.secondParty.secondPartyType =='mavenRelease'>iss-releases</#if><#if project.profile.secondParty.secondPartyType =='mavenSnapshot'>iss-snapshots</#if> -Dmirror.url=${mirrorUrl} -Ddocker.registry.username=${project.profile.secondParty.secondPartyUser} -Ddocker.registry.password=${project.profile.secondParty.secondPartyPass} -Dmaven.test.skip=true',returnStdout: false
                 echo '========maven deploy end========'
             }
         }
