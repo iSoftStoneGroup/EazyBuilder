@@ -1,16 +1,17 @@
 # Welcome to the EazyBuilder project!
 
 
-EazyBuilder is an event-driven orchestration engine, an open source distributed DevOps platform product based on Kubernetes' independent design and development, which reduces the complexity of continuous delivery pipelines;
+EazyBuilder is a complete set of DevOps solutions under cloud native architecture.
 
-EazyBuilder has a flexible and easy-to-use, safe and reliable pipeline, a sound change management system, two-way traceability of the entire link, a small and intelligent approval flow, and a cloud-native IDE plug-in;
-<img alt="image" src="docs/framework-en.png" >
+First of all, EazyBuilder is an event driven orchestration engine. It is based on the open-source distributed DevOps platform product independently designed and developed by Kubernetes, which reduces the complexity of the continuous delivery pipeline; It has a flexible and easy-to-use, safe and reliable pipeline, a sound change management system, a full link two-way traceability, a compact and intelligent approval process, and a cloud native IDE plug-in, which connects various operations in cloud native applications, provides plug and pull connectivity, quantifies process data, and provides an objective and accurate performance insight, providing a unified DevOps collaboration plane for enterprises, Let it more easily and conveniently manage applications on the cloud's native infrastructure and implement DevOps culture, so as to develop and release high-quality and safe software more efficiently.
 
-It connects various operations in cloud-native applications, provides pluggable docking, quantifies process data, provides objective and accurate performance insights, and provides enterprises with a unified DevOps collaboration plane, making it easier and more convenient to manage cloud-native The application on the infrastructure implements the DevOps culture, so as to develop and release high-quality and secure software more efficiently. EazyBuilder has built-in best practices for complex scenarios such as jenkins/Buddy, K8s YAML, Harbor, redmine/zentao/tapd, etc. It is suitable for scenarios such as sensitive and stable dual-state and high-frequency stable delivery.
+Secondly, EazyBuilder provides the ability to integrate the DevOps tool chain under the cloud native architecture, provides external plug-ins for many cloud native tool platforms, and supports users to integrate their tool platforms into a complete DevOps platform through plug-in configuration and free combination. It makes it easier for users to obtain the basic technical capabilities of cloud manufacturers in computing, storage, and networking, and makes the cost of using the cloud lower.
+
+To sum up, EazyBuilder aims to solve the balance problem between external tools and existing tool platforms when users integrate DevOps platform under cloud native architecture. Through the application and integration of cloud native technology, we will create an extremely simple, efficient and easy to use cloud native work platform, standardize the development process, simplify the development difficulty, improve the development efficiency, enhance the code quality, support the entire software development life cycle (development, unit testing, integration testing, documents, production release, configuration, etc.), provide a complete cloud native development ecological environment and ecosystem, and enable enterprises to quickly embrace cloud native, Improve R&D efficiency, and then feed back the original cloud market.
 
 <img alt="image" src="docs/init.png" >
 
-Our goal is to create an extremely simple, efficient and easy-to-use cloud-native work platform through the application and integration of cloud-native technologies, standardize the development process, simplify development difficulty, improve development efficiency, enhance code quality, and support the entire software development life cycle (development , unit testing, integration testing, documentation, production release, configuration, etc.), provide a complete cloud-native development ecological environment and ecosystem, allowing enterprises to quickly embrace cloud-native, improve R&D efficiency, and then feed back the cloud-native market.
+
 
 # [中文概述](./README_CN.md)
 
