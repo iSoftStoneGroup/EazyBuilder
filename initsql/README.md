@@ -1,19 +1,8 @@
-
-执行本目录中的SQL，完成一键初始化，配置EazyBuilder环境
-
+# [中文说明](./README_CN.md)
+Execute the SQL in this directory, complete the one click initialization, and configure the EazyBuilder environment
 # 1.nacos.sql
-
-
-## Nacos对应的配置项
-
- 
+## Configuration item corresponding to Nacos
 # 2.ci.sql
- 
-## EazyBuilder后端sql
- 
-
-# 说明
- 
-## 执行完初始化sql后，登录EazyBuilder，系统中会包含一条示例流水线，直接运行，即可快速体验EazyBuilder极致流水线构建
- 
-
+## EazyBuilder backend sql
+# Description
+## After executing the initialization sql, log in to EazyBuilder, and the system will include a sample pipeline. Run it directly to quickly experience the EazyBuilder extreme pipeline construction

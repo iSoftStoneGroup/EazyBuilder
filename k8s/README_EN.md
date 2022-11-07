@@ -1,5 +1,3 @@
-# [中文说明](./README_CN.md)
-
 It is preferred to create a namespace (this step is not mandatory, and you can also deploy eazybuilder in other namespaces)
 ```shell
 kubectl apply -f namespace.yaml
