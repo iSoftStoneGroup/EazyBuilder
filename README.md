@@ -7,6 +7,8 @@ First of all, EazyBuilder is an event driven orchestration engine. It is based o
 
 Secondly, EazyBuilder provides the ability to integrate the DevOps tool chain under the cloud native architecture, provides external plug-ins for many cloud native tool platforms, and supports users to integrate their tool platforms into a complete DevOps platform through plug-in configuration and free combination. It makes it easier for users to obtain the basic technical capabilities of cloud manufacturers in computing, storage, and networking, and makes the cost of using the cloud lower.
 
+EazyBuilder is not a combination package of DevOps tool chains, nor a set of script commands to quickly start DevOps tools. EazyBuilder focuses on the concatenation of DevOps tools, such as submitting code to the Gitlab code warehouse, triggering Jenkins' automatic construction pipeline. EazyBuilder provides a coupling agent between Gitlab and Jenkins, and users assemble their existing Jenkins Url and Gitlab Url into EazyBuilder, You can connect the two tools in series.
+
 To sum up, EazyBuilder aims to solve the balance problem between external tools and existing tool platforms when users integrate DevOps platform under cloud native architecture. Through the application and integration of cloud native technology, we will create an extremely simple, efficient and easy to use cloud native work platform, standardize the development process, simplify the development difficulty, improve the development efficiency, enhance the code quality, support the entire software development life cycle (development, unit testing, integration testing, documents, production release, configuration, etc.), provide a complete cloud native development ecological environment and ecosystem, and enable enterprises to quickly embrace cloud native, Improve R&D efficiency, and then feed back the original cloud market.
 
 <img alt="image" src="docs/init.png" >
@@ -25,7 +27,7 @@ Event-driven, supports wildcards, configures different event types for different
 
 <img alt="image" src="docs/easypipeline.png" >
 
-
+ 
 - **Flexible and easy to use**: You only need to provide the project SVN/GIT repository information, you can experience the standardization of the whole process from packaging construction, unit testing, coverage scanning, quality vulnerability scanning, component warehouse push, and automatic deployment;
 - **Precise reminder**: pipeline process and scan reports, code submission and merging, real-time push via email, DingTalk, etc., and precise subscription configuration;
 - **Abundant integration methods**: Support Webhook, timed automatic build, event or integrate and trigger continuous integration pipeline through OpenAPI;
