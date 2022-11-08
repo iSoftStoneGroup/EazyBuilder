@@ -8,7 +8,7 @@ EazyBuilder是一套完整的云原生架构下DevOps解决方案。
 
 其次，EazyBuilder提供了整合云原生架构下DevOps工具链的能力，提供众多云原生工具平台的外置插件，支持用户通过插件配置，自由组合，即可实现将自己正在使用的工具平台，整合成一个完整的DevOps平台。让用户能更加容易获得云厂商在计算、存储、网络上的技术基础能力，能让使用云的成本更低。
 
-EazyBuilder并不是一套DevOps工具链组合包，也不是一套快速启动DevOps工具的脚本命令，EazyBuilder关注的是DevOps各个工具之前的串联，例如：向Gitlab代码仓库提交代码，触发Jenkins自动构建的流水线，EazyBuilder提供的是Gitlab与Jenkins之间的耦合剂，用户将自己已有的Jenkins Url，Gitlab Url,装配进EazyBuilder,就可以实现两个工具之前的串联。
+EazyBuilder并不是一套DevOps工具链组合包，也不是一套快速启动DevOps工具的脚本命令，EazyBuilder关注的是DevOps各个工具之前的串联，例如：向Gitlab代码仓库提交代码，触发Jenkins自动构建的流水线，EazyBuilder提供的是Gitlab与Jenkins之间的耦合剂，用户将自己已有的Jenkins Url，Gitlab Url,装配进EazyBuilder,就可以实现两个工具之间的串联。
 
 综上，EazyBuilder的目标是解决用户在云原生架构下整合DevOps平台时，外部工具与已有工具平台的平衡问题。通过云原生技术的运用和整合，打造极致简约、高效易用的云原生工作平台，规范开发流程，简化开发难度，提高开发效率，增强代码质量， 支撑软件开发整个生命周期（开发，单元测试，集成测试，文档，生产发布，配置等), 提供完整的云原生开发生态环境和生态体系，让企业快速拥抱云原生，提升研发效能，进而反哺云原生市场。
 
