@@ -106,7 +106,7 @@ data:
 
     # Web context. When set, it must start with forward slash (for example /sonarqube).
     # The default value is root context (empty value).
-    #sonar.web.context=
+    sonar.web.context=/sonarqube
     # TCP port for incoming HTTP connections. Default value is 9000.
     #sonar.web.port=9000
 
