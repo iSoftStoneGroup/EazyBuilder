@@ -35,6 +35,7 @@ EazyBuilder并不是一套DevOps工具链组合包，也不是一套快速启动
 ### **友好的云原生环境**
 
 分钟级环境复制，提供开箱即用的云原生插件，例如：redis,mongodb,rabbitmq,mysql。使用标准k8s yaml管理基础中间件，易于扩展，使用便捷。
+
 <img alt="image" src="docs/k8s-yaml.png"  >
 
 
