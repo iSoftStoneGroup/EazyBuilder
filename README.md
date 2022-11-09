@@ -1,3 +1,5 @@
+# [中文概述](./README_CN.md)
+
 # Welcome to the EazyBuilder project!
 
 
@@ -14,8 +16,6 @@ To sum up, EazyBuilder aims to solve the balance problem between external tools 
 <img alt="image" src="docs/init.png" >
 
 
-
-# [中文概述](./README_CN.md)
 
 # Features and Benefits
 
