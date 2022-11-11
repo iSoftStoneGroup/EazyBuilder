@@ -167,7 +167,7 @@ See [license](./LICENSE) for more information.
 We follow the [CNCF Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## route map
-<img width="1000" alt="image" src="docs/eazybuilder.png" height="400" >
+<img width="1000" alt="image" src="docs/eazybuilder.png" height="500" >
 
 ## Roadmap design details
 
