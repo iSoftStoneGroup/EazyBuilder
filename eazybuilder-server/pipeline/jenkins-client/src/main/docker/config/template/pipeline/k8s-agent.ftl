@@ -60,10 +60,14 @@ spec:
   serviceAccountName: nfs-client-provisioner
   terminationGracePeriodSeconds: 30
   volumes:
-    <#if storageType?? && storageType =="local">
+    <#if k8sYmlType?? && k8sYmlType =="host">
     - name: ci
       hostPath:
         path: ${k8sYamlPath}
+    <#else>
+    - name: ci
+      persistentVolumeClaim:
+        claimName: ${k8sYamlPath}
     </#if>
     <#if jenkinsWorkType?? && jenkinsWorkType =="host">
     - name: jenkins
