@@ -1,4 +1,4 @@
-### 禅道钩子脚本（pre-receive）一些说明：
+### GitLab钩子脚本（pre-receive）一些说明：
 
 
 
