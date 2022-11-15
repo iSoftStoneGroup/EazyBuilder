@@ -1,6 +1,6 @@
 
 # [中文说明](./README_CN.md)
-#Jenkins basic image
+# Jenkins basic image
 -This project is based on the official jenkins image, and some necessary plug-ins are installed
 # ci-tool
 -This directory is used to store all enhancement plug-ins. When making an image, *. jar in this directory will be copied to the image
