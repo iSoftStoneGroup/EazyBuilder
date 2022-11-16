@@ -207,7 +207,7 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 
 							if(response.data&&response.data!='null'){
 								if(response.data.buildStatus=='IN_PROGRESS'){
-									//var buildUrl="http://jenkins.eazybuilder-devops.cn/jenkins/job/"+row.jobName+"/";
+									//var buildUrl="http://jenkins.iss-devops.cn/jenkins/job/"+row.jobName+"/";
 									var buildUrl=row.jenkinsUrl+"/job/"+row.jobName+"/";
 									window.open(buildUrl,'_blank');
 									// alert('正在执行，请稍候查看最新结果');

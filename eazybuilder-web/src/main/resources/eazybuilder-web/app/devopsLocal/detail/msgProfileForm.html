@@ -562,13 +562,14 @@
                     <label class="col-sm-6 control-label">邮件通知:</label>
                     <div class="col-sm-6" style="padding-left: 7px;">
                         <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">
-                            <button  type="button" class="btn btn-md btn-default"
-                                     ng-click="entity.mailMsgProfile.pipelineFail= false"
-                                     ng-class="{'btn-success':!entity.mailMsgProfile.pipelineFail}">成功/失败
+                            <button type="button" class="btn btn-md btn-default"
+                                    ng-click="entity.mailMsgProfile.pipelineFail= true;entity.mailMsgProfile.pipelineSuccess=true;"
+                                    ng-class="{'btn-success':entity.mailMsgProfile.pipelineFail&&entity.mailMsgProfile.pipelineSuccess}">
+                                成功/失败
                             </button>
                             <button  type="button" class="btn btn-md btn-default"
-                                     ng-click="entity.mailMsgProfile.pipelineFail= true"
-                                     ng-class="{'btn-success':entity.mailMsgProfile.pipelineFail}">仅失败
+                                     ng-click="entity.mailMsgProfile.pipelineFail= true;entity.mailMsgProfile.pipelineSuccess=false;"
+                                     ng-class="{'btn-success':entity.mailMsgProfile.pipelineFail&&!entity.mailMsgProfile.pipelineSuccess}">仅失败
                             </button>
                         </div>
                     </div>

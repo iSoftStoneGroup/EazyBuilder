@@ -47,6 +47,10 @@ app.service('basicService', function($http,$q) {
 		 return fetch(backend.url+"/api/upms/getUpmsAllUsers");
 	   }
 
+		this.getAllUsers = function(){
+			return fetch(backend.url+"/api/user");
+		}
+
 
 	   this.getProjects=function(){
 		   return fetch(backend.url+"/api/project");

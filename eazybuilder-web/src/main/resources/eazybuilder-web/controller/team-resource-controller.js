@@ -61,7 +61,7 @@ app.controller('teamResourceController', function($scope,$http,$window,$state,$f
 				}
 			}, {
 				field: 'k8sYmlPath',
-				title: 'k8s部署文件路径',
+				title: 'k8s部署文件目录',
 				formatter: function (value) {
 					if (!value) {
 						return '--';
@@ -69,6 +69,15 @@ app.controller('teamResourceController', function($scope,$http,$window,$state,$f
 					return '<span title="' + value + '">' + value + '</span>';
 				}
 			}, {
+				field: 'k8sYmlType',
+				title: 'k8s部署文件挂载类型',
+				formatter: function (value) {
+					if (!value) {
+						return '--';
+					}
+					return '<span title="' + value + '">' + value + '</span>';
+				}
+			},{
 				field: 'jenkinsWorkPath',
 				title: 'Jenkins工作挂载目录',
 				formatter: function (value) {

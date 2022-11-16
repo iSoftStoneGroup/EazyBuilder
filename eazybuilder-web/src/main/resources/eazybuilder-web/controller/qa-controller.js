@@ -8,7 +8,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
 	basicService.getProjectGroups().then(function(response){
 		$scope.groups=response.data;
 	});
-	let baseServer = 'http://sonarqube.eazybuilder-devops.cn/'
+	let baseServer = 'http://sonarqube.iss-devops.cn/'
 	
 	var getMetric=function(metric,list){
 		if(!list){
@@ -96,7 +96,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
             		if(!value){
             			return "--";
             		}
-            		var buildUrl="http://jenkins.eazybuilder-devops.cn/jenkins/job/"+row.project.name+"/";
+            		var buildUrl=row.project.team.teamResource.jenkinsUrl+"/job/"+row.project.name+"/";
             		return "<a href='"+buildUrl+"' target='_blank'>"+getBuildStatus(value)+"</a>"
             	}
             },{
@@ -117,7 +117,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
             			return 'N/A';
             		var val=getMetric('bug_blocker',row.metrics);
             		if(val!='N/A'){
-            			var bugDetail=baseServer+"project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG";
+            			var bugDetail=row.project.team.teamResource.sonarUrl+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG";
             			return "<a href='"+bugDetail+"' target='_blank'>"+val+"</a>";
             		}else{
             			return val;
@@ -131,7 +131,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
             			return 'N/A';
             		var val=getMetric('bug_critical',row.metrics);
             		if(val!='N/A'){
-            			var bugDetail=baseServer+"project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG";
+            			var bugDetail=row.project.team.teamResource.sonarUrl+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG";
             			return "<a href='"+bugDetail+"' target='_blank'>"+val+"</a>";
             		}else{
             			return val;
@@ -145,7 +145,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
             			return 'N/A';
             		var val=getMetric('vulner_blocker',row.metrics);
             		if(val!='N/A'){
-            			var vulnerDetail=baseServer+"project/issues?id="+row.project.sonarKey+"&resolved=false&types=VULNERABILITY";
+            			var vulnerDetail=row.project.team.teamResource.sonarUrl+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=VULNERABILITY";
                 		return "<a href='"+vulnerDetail+"' target='_blank'>"+val+"</a>";
             		}else{
             			return val;
@@ -160,7 +160,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
             			return 'N/A';
             		var val=getMetric('vulner_critical',row.metrics);
             		if(val!='N/A'){
-            			var vulnerDetail=baseServer+"project/issues?id="+row.project.sonarKey+"&resolved=false&types=VULNERABILITY";
+            			var vulnerDetail=row.project.team.teamResource.sonarUrl+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=VULNERABILITY";
                 		return "<a href='"+vulnerDetail+"' target='_blank'>"+val+"</a>";
             		}else{
             			return val;
