@@ -64,15 +64,6 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">k8s部署文件挂载类型:</label>
-                <div class="col-sm-10">
-                    <select class="form-control" ng-model="entity.k8sYmlType" required="required" >
-                        <option value="host">host</option>
-                        <option value="pvc">pvc</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
                 <label class="col-sm-2 control-label">Jenkins工作挂载目录:</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" ng-model="entity.jenkinsWorkPath" placeholder="jenkins工作挂载目录，默认: /sfsdata/jenkins"/>

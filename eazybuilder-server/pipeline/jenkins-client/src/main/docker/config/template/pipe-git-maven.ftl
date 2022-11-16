@@ -68,7 +68,7 @@
                     sh '''mkdir -p /usr/share/maven-repo/org'''
                     sh '''ln -sfn /usr/share/maven-repo/org /usr/share/maven-repo/teams/${project.team.id}/org'''
                     script{
-                      def out = sh script: 'java -Dmaven.local.repo=/usr/share/maven-repo/teams/${project.team.id} -jar ci-tool/lib/buildfile-decorator*.jar maven ./<#if !project.legacyProject && project.pomPath?? && project.pomPath !="">${project.pomPath}</#if><#if project.profile.secondPartySwitch> ${project.profile.secondPartySwitchPath!'http://nexus3.iss-devops.cn/repository/devops_repo'}</#if>', returnStdout: true
+                      def out = sh script: 'java -Dmaven.local.repo=/usr/share/maven-repo/teams/${project.team.id} -jar ci-tool/lib/buildfile-decorator*.jar maven ./<#if !project.legacyProject && project.pomPath?? && project.pomPath !="">${project.pomPath}</#if><#if project.profile.secondPartySwitch> ${project.profile.secondPartySwitchPath!'http://nexus3.eazybuilder-devops.cn/repository/devops_repo'}</#if>', returnStdout: true
                       println(out)
 
                       // echo '修饰后的pom.xml-测试'
@@ -88,7 +88,7 @@
               stage('checkout from scm') {
                 steps {
                   echo '========checkout from scm start========'
-                  echo '软通动力DevOps持续集成平台'
+                  echo 'EazybuilderDevOps持续集成平台'
                   //check source code from svn
                   checkout([$class: 'GitSCM',
                     <#if tagName?? >
@@ -149,7 +149,7 @@
                       sh '''mkdir -p /usr/share/maven-repo/org'''
                       sh '''ln -sfn /usr/share/maven-repo/org /usr/share/maven-repo/teams/${project.team.id}/org'''
                       script{
-                        def out = sh script: 'java -Dmaven.local.repo=/usr/share/maven-repo/teams/${project.team.id} -jar ci-tool/lib/buildfile-decorator*.jar maven ./<#if !project.legacyProject && project.pomPath?? && project.pomPath !="">${project.pomPath}</#if><#if project.profile.secondPartySwitch> ${project.profile.secondPartySwitchPath!'http://nexus3.iss-devops.cn/repository/devops_repo'}</#if>', returnStdout: true
+                        def out = sh script: 'java -Dmaven.local.repo=/usr/share/maven-repo/teams/${project.team.id} -jar ci-tool/lib/buildfile-decorator*.jar maven ./<#if !project.legacyProject && project.pomPath?? && project.pomPath !="">${project.pomPath}</#if><#if project.profile.secondPartySwitch> ${project.profile.secondPartySwitchPath!'http://nexus3.eazybuilder-devops.cn/repository/devops_repo'}</#if>', returnStdout: true
                         println(out)
                         echo '修饰后的pom.xml'
                         <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">
