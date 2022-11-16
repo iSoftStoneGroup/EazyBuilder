@@ -56,7 +56,7 @@ spec:
           value:  '${deployConfigDetailEnv.data}'
        </#list>
         - name: NACOS_IP
-          value: ${nacosUrl}
+          value: nacos.iss-devops.cn
         - name: NACOS_PORT
           value: '80'
         - name: TZ
@@ -79,7 +79,7 @@ spec:
             cpu: ${deployConfig.limitsCpu!'500m'}
             memory: ${deployConfig.limitsMemory!'1Gi'}
           requests:
-            cpu: 100m
+            cpu: 1m
             memory: 100Mi
       imagePullSecrets:
       - name: harbor

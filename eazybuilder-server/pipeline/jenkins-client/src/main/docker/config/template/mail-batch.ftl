@@ -331,7 +331,7 @@ a {
                                                                 <td>项目</td><td>构建状态</td><td class="alignleft">检查项</td><td colspan="2">情况</td>
                                                             </tr>
                                                             <#list results as result>
-                                                                <#if result.success?? && result.success?string=="true">
+                                                                <#if result.success?? && result.success?string("true","false")=="true">
                                                                         <#assign firstRowPended=false>
                                                                         <#assign totalRow=0>
                                                                         <tr class="project">
@@ -453,13 +453,13 @@ a {
                     <table width="100%">
                         <tr>
                             <td class="content-block">
-                                <li>1.邮件中的链接需要访问公司内网服务器打开，如果您使用外网请通过VPN/开通访问权限；</li>
+                                <li>1.邮件中的链接需要访问公司内网服务器(10.129.131.43)打开，如果您使用外网请通过VPN/开通访问权限；</li>
                                 <li>2.对于构建失败的工程，请确保提供的SVN地址对应的工程项目能正常编译(没有缺失依赖)，<br/>点击【查看】链接jenkins上有更详细的信息；</li>
                                 <li>3.阻断类问题及高危漏洞会严重威胁系统运行安全，如果存在上述问题，请优先进行整改处理。</li>
                             </td>
                         </tr>
                         <tr>
-                            <td class="aligncenter content-block">有任何疑问，请发送邮件至<a href="mailto:zzzz@eazybuilder.com">DevOps项目组</a></td>
+                            <td class="aligncenter content-block">有任何疑问，请发送邮件至<a href="mailto:zpzhaoa@eazybuilder.com">DevOps项目组</a></td>
                         </tr>
                     </table>
                 </div></div>

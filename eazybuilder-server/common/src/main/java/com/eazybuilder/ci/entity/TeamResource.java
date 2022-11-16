@@ -19,7 +19,7 @@ public class TeamResource implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id",columnDefinition="int")
 	private String id;
-	
+
 	@Column(name="team_id",columnDefinition="int(8)")
 	private String teamId;
 	private String teamName;
@@ -29,6 +29,7 @@ public class TeamResource implements Serializable{
 	private String sonarUrl;
 	private String referenceSource;
 	private String k8sYmlPath;
+	private String k8sYmlType;
 	private String jenkinsWorkPath;
 	private String jenkinsWorkType;
 
@@ -92,6 +93,14 @@ public class TeamResource implements Serializable{
 
 	public void setReferenceSource(String referenceSource) {
 		this.referenceSource = referenceSource;
+	}
+
+	public String getK8sYmlType() {
+		return k8sYmlType;
+	}
+
+	public void setK8sYmlType(String k8sYmlType) {
+		this.k8sYmlType = k8sYmlType;
 	}
 
 	public String getK8sYmlPath() {

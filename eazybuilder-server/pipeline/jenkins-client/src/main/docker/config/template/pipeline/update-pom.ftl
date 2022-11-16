@@ -7,8 +7,8 @@
                              script {
 
                                      echo 'begin update pom version '
-                                     sh 'mvn versions:set -DnewVersion=${release.pomVersion}'
-                                     sh 'mvn -N versions:update-child-modules'
+                                     sh 'mvn versions:set -DnewVersion=${release.pomVersion} -Dmirror.url=${mirrorUrl}'
+                                     sh 'mvn -N versions:update-child-modules -Dmirror.url=${mirrorUrl}'
                                      echo 'end update pom version'
                                      sh 'git commit -m '[FEATURE] 更新pom 版本'
                                      sh 'git push https://${project.scm.user}:${project.scm.password}@${project.scm.url} –all'

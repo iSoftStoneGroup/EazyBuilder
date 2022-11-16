@@ -16,7 +16,7 @@ echo '========upgrade docker image start========'
         sh '''docker tag ${project.registry.url}/${project.nameSpace}/${dockerDigest.imageName}:v-${dockerDigest.tag} ${project.registry.url}/${project.profile.nameSpace}/${dockerDigest.imageName}:latest '''
         sh '''docker push  ${project.registry.url}/${project.profile.nameSpace}/${dockerDigest.imageName}:latest '''
 
-        sh '''docker rmi   ${project.registry.url}/${project.nameSpace}/${dockerDigest.imageName}:v-${dockerDigest.tag} '''
+<#--        sh '''docker rmi   ${project.registry.url}/${project.nameSpace}/${dockerDigest.imageName}:v-${dockerDigest.tag} '''-->
         echo '========upgrade docker image end========'
         </#list>
     <#else>

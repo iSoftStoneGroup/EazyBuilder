@@ -56,9 +56,9 @@ echo '========convert legacy project end========'
                       echo '========maven build start========'
                            script{
                                <#if project.profile?? && buildParam?? && buildParam != "" >
-                                    sh script: '${buildParam} -Dmaven.test.skip=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
+                                    sh script: '${buildParam} -Dmaven.test.skip=true -Dmirror.url=${mirrorUrl} -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
                                <#else>
-                                    sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
+                                    sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=true -Dmirror.url=${mirrorUrl} -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
                                </#if>
                            }
                        echo '========maven build end========'
@@ -90,7 +90,7 @@ echo '========convert legacy project end========'
                                    <#if project.profile?? && buildParam?? && buildParam != "" >
                                         sh script: '${buildParam} -Dmaven.test.skip=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.GIT_COMMIT='+revision,returnStdout: false
                                    <#else>
-                                        sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.GIT_COMMIT='+revision,returnStdout: false
+                                        sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=true -Dmirror.url=${mirrorUrl} -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.GIT_COMMIT='+revision,returnStdout: false
                                    </#if>
                                 }
                     echo '========maven build end========'

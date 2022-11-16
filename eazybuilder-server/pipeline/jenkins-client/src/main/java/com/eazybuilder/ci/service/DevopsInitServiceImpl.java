@@ -41,6 +41,8 @@ public class DevopsInitServiceImpl extends AbstractCommonServiceImpl<DevopsInitD
     String harborUrl;
     @Value("${ci.harbor.password}")
     String harborPassword;
+    @Value("${portal.used:false}")
+    private Boolean used;
 
 
     @Resource
@@ -148,14 +150,23 @@ public class DevopsInitServiceImpl extends AbstractCommonServiceImpl<DevopsInitD
         if(StringUtils.isNotBlank(project.getTeam().getDevopsTeamId())) {
             DevopsInit devopsInit = findOne(project.getTeam().getDevopsTeamId());
             Assert.isTrue(devopsInit != null, "项目组初始化信息已经被删除，无法更新项目信息！");
-            DevopsProject devopsProject = StringUtils.isNotEmpty(project.getDevopsProjectId()) ? devopsProjectDao.findById(project.getDevopsProjectId()).get() : new DevopsProject();
-            devopsProject = devopsProject == null ? new DevopsProject() : devopsProject;
-            devopsProject.update(project);
-            devopsProject.setId(project.getPiplineEventProjectId());
-            devopsInit.setDevopsProjects(Arrays.asList(devopsProject));
-//            devopsProjectDao.save(devopsProject);
-//            devopsInit.getDevopsProjects().add(devopsProject);
-//            dao.save(devopsInit);
+            DevopsProject devopsProject =  null;
+            if(StringUtils.isNotEmpty(project.getDevopsProjectId())){
+                devopsProject= devopsProjectDao.findById(project.getDevopsProjectId()).get();
+                devopsProject.update(project);
+                devopsProject.setId(project.getPiplineEventProjectId());
+                devopsProjectDao.save(devopsProject);
+            }else{
+                devopsProject = new DevopsProject();
+                devopsProject.update(project);
+                devopsProject.setId(project.getPiplineEventProjectId());
+                devopsProjectDao.save(devopsProject);
+                HashSet<DevopsProject> devopsProjectsSet=new HashSet<>(devopsInit.getDevopsProjects());
+                List<DevopsProject> devopsProjectList = new ArrayList<>(devopsProjectsSet);
+                devopsProjectList.add(devopsProject);
+                devopsInit.setDevopsProjects(devopsProjectList);
+                dao.save(devopsInit);
+            }
             return devopsInit;
         }else {
             logger.info("该项目所属的项目组没有经过初始化，暂时不推送消息。");
@@ -168,7 +179,7 @@ public class DevopsInitServiceImpl extends AbstractCommonServiceImpl<DevopsInitD
         List<Project> projects = new ArrayList<>();
         List<DeployConfig> listTemp=null;
         for(DevopsProject devopsProject : devopsProjects){
-        	listTemp=new ArrayList<DeployConfig>();
+            listTemp=new ArrayList<DeployConfig>();
             Project project = projectService.findByName(devopsProject.getDescription());
             if(project==null){
                 project = new Project();
@@ -263,7 +274,9 @@ public class DevopsInitServiceImpl extends AbstractCommonServiceImpl<DevopsInitD
             jsonUser.put("name", upmsUserVo.getUserName().substring(1));
             jsonUser.put("employeeId", upmsUserVo.getEmployeeId());
             //根据userId调用upms接口查询角色
-            jsonUser.put("role",queryUpmsData.getRoleByUserId(Long.valueOf(upmsUserVo.getUserId())));
+            if(used) {
+                jsonUser.put("role", queryUpmsData.getRoleByUserId(Long.valueOf(upmsUserVo.getUserId())));
+            }
             map.put(Long.valueOf(upmsUserVo.getUserId()),jsonUser);
             jsonArray.add(jsonUser);
         }

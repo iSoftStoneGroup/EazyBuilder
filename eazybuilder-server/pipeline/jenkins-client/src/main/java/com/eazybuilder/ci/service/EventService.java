@@ -57,6 +57,10 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
     public Map<Project,List<ProjectBuildVo>> getEventProject(JSONObject rabbitmqData) throws Exception {
         //根据.git路径来匹配项目
         if (rabbitmqData.containsKey("gitPath") && StringUtils.isNotBlank("gitPath")) {
+            String gitPath = rabbitmqData.getString("gitPath");
+            if(!gitPath.endsWith(".git")){
+                gitPath=gitPath+".git";
+            }
             List<Project> projects = projectService.findByRepo(rabbitmqData.getString("gitPath"));
             List<Event>  events= null;
             if (projects != null && !projects.isEmpty()) {
