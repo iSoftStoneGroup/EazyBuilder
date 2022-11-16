@@ -195,7 +195,6 @@ public class JenkinsPipelineService {
 		}else{
 			params.put("k8sYamlPath", "ci");
 		}
-
 		if(project.getTeam()!=null && project.getTeam().getTeamResource()!=null && StringUtils.isNotBlank(project.getTeam().getTeamResource().getK8sYmlType()) ){
 			params.put("k8sYmlType",project.getTeam().getTeamResource().getK8sYmlType());
 		}
