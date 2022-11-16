@@ -1,7 +1,7 @@
 <#if !project.profile?? || !project.profile.skipUnitTest>
                        // stage('run unit test') {
                       //      steps {
-                       //      sh '''mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>test --fail-never -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Dmaven.test.failure.ignore=true -Dsurefire.timeout=300  '''
+                       //      sh '''mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>test --fail-never -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Dmirror.url=${mirrorUrl} -Dmaven.test.failure.ignore=true -Dsurefire.timeout=300  '''
                        //     }
                        // }
                         stage('aggregate test report'){
@@ -37,8 +37,8 @@
                                         sh '''dotnet /root/.dotnet/tools/.store/dotnet-sonarscanner/5.8.0/dotnet-sonarscanner/5.8.0/tools/netcoreapp3.0/any/SonarScanner.MSBuild.dll end -d:sonar.login=${sonarUser} -d:sonar.password=${sonarPassword}'''
                                     </#if>
                                 <#else>
-                                    sh '''mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>surefire-report:report-only -Daggregate=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}'''
-                                    sh '''mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>org.jacoco:jacoco-maven-plugin:0.8.5:report-aggregate -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}'''
+                                    sh '''mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>surefire-report:report-only -Daggregate=true -Dmirror.url=${mirrorUrl} -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}'''
+                                    sh '''mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>org.jacoco:jacoco-maven-plugin:0.8.5:report-aggregate -Dmirror.url=${mirrorUrl} -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}'''
                                 </#if>
                             echo '========aggregate test report end========'
                             }

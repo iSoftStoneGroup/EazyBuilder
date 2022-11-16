@@ -188,7 +188,7 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
                                         if(rabbitmqData.containsKey("code")){
                                             projectBuildVo.setRedmineCode(rabbitmqData.getString("code"));
                                         }
-                                        projectBuildVo.setGitlabApiUrl(rabbitmqData.getString("gitPath"));
+                                        projectBuildVo.setGitlabApiUrl(gitPath);
                                         projectBuildVo.setEncodedUrl(projectBuildVo.getGitlabApiUrl());
                                         if(rabbitmqData.containsKey("userName")){
                                             String redmineUser = rabbitmqData.getString("userName");
@@ -212,7 +212,7 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
                 }
                 return projectProfileMap;
             } else {
-                throw new IllegalArgumentException("项目: " + rabbitmqData.getString("gitPath") + "不存在");
+                throw new IllegalArgumentException("项目: " + gitPath + "不存在");
             }
         }
         return null;

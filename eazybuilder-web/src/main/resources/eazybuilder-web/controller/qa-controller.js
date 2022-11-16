@@ -8,7 +8,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
 	basicService.getProjectGroups().then(function(response){
 		$scope.groups=response.data;
 	});
-	let baseServer = 'http://sonarqube.iss-devops.cn/'
+	let baseServer = 'http://sonarqube.eazybuilder-devops.cn/'
 	
 	var getMetric=function(metric,list){
 		if(!list){

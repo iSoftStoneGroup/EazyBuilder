@@ -1,0 +1,202 @@
+server:
+  port: 8080
+  servlet :
+   context-path: /ci
+spring:
+  servlet:
+    multipart:
+      maxFileSize: 50MB
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    #h2
+    #        driverClassName: org.h2.Driver
+    #        url: jdbc:h2:file:./h2/ci-client;AUTO_SERVER=TRUE;
+    #mysql
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql:3306/ci?useUnicode=true&useSSL=false&characterEncoding=utf-8
+    username: root
+    password: mysql_123
+    maxActive: 50
+    timeBetweenEvictionRunsMillis: 120000
+    testWhileIdle: true
+    validationQuery: select 1
+  jpa:
+    hibernate:
+      #update|none
+      ddl-auto: update
+    show-sql: false
+  mail:
+    host: smtp.eazybuilder.com
+    port: 25
+    default-encoding: UTF-8
+    username: eazybuilder
+    password: "eazybuilder"
+    from: ci@eazybuilder.com
+    subject: "(DevOps平台)CI构建报告"
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          timeout: 30000
+          connectiontimeout: 10000
+  freemarker:
+    template-loader-path: file:config/template/
+    cache: false
+    charset: UTF-8
+    suffix: .ftl
+  http:
+    multipart:
+      maxFileSize: 32MB
+      maxRequestSize: 32MB
+base:
+  url: http://es-web.eazybuilder.com
+
+ci:
+  report:
+    enable: true
+  dingtalk:
+    url: https://oapi.dingtalk.com/robot/send?access_token=xxxx
+    secret: xxxx
+    accessToken: xxxx
+  harbor:
+    url: jinqiu8810
+    password: xxxx
+  scm:
+    user: develop1
+    password: xxxx
+  k8s-folder: ""
+  hosts: http://es-web.eazybuilder.com/
+  redis: 
+   address: ${redis_addr:redis://redis-plat:6379}
+  storage:
+    type: local
+ldap:
+  enable: true
+  url: "ldap://0.0.0.0:389"
+  base: "DC=eazybuilder,DC=com"
+  userDn: "ci@eazybuilder.com"
+  userPwd: "xxxx"
+  referral: ignore
+  domainName: "%s@eazybuilder.com"
+
+jenkins:
+  url: http://jenkins.eazybuilder.com/jenkins/
+  user: admin
+  password: admin
+  home: /var/jenkins_home
+
+maven:
+  local_repo: /usr/share/maven-repo
+#    local_repo: e:/repository
+
+sonar:
+  url: http://sonarqube.eazybuilder.com/sonarqube/
+  user: admin
+  password: admin123
+  #查询sonarqube支持的语言
+  languagesListUrl: http://sonarqube.eazybuilder.com/api/languages/list
+  #查询语言对应的规则集
+  qualityprofilesSearchUrl: http://sonarqube.eazybuilder.com/api/qualityprofiles/search
+  #为指定项目设置默认规则集
+  qualityprofilesAddProjectUrl: http://sonarqube.eazybuilder.com/api/qualityprofiles/add_project
+
+build:
+  docker-host: 0.0.0.0:2375
+
+tool:
+  git: ""
+
+qtp:
+  agent:
+    url: ""
+
+selenium:
+  agent:
+    url: ""
+
+appscan:
+  agent:
+    url: ""
+message:
+    #生产者 需求状态
+    ciStatusExchange: ci.status.exchange
+    dtpReport: ci.ATSReceive.devqueue
+    ciDataSyncExchange: ""
+    ciGuardExchange: ci.guard.exchange
+    broadcastExchange: ci.datasync.exchange
+    topicExchange: devops.plat.exchange
+    fanoutExchange: ci.pipeline.exchange
+    queue: ci.pipeline.queue
+    routingKey: ci.*
+    confirmCallbackBean: esRabbitmqConfirmCallbackService
+    updateProject: ci.project.update
+    returnCallbackBean:
+    issNotifyFanoutExchange: es.notify.exchange
+    dtpexchange: devops.dtp.testTopic
+#统一登录portal
+portal:
+      used: false
+      #统一门户网站的登录地址
+      loginUrl: ""
+      #验签接口url
+      credentialsUrl: ""
+      #获取用户相关信息
+      getUserInfoUrl: ""
+      #获取用户所在的项目组
+      getProjectGroupUrl: "" 
+      #获取子系统下当前用户所对应的菜单信息--前端请求，需要使用域名
+      getMenusForCurrentUser: ""
+      #获取用户角色信息
+      getRolesById: ""
+      upmsTokenRefresh: false
+upms:
+  gateway:
+    url: ""
+    token: ""
+redmine:
+  #根据当前用户查询项目组
+  getProjectsUrl: ""
+  #根据项目组查询sprints
+  getSprintsUrl: ""
+  #根据sprint 查询对应的需求
+  getIssuesUrl: ""
+  #根据issuesId查询明细
+  getIssuesDetailUrl: ""
+  #根据sprintsid查询看板信息
+  getSprintsById: ""
+#门禁默认值  
+guard:
+  bug_blocker_name: 默认BUG阻断阈值
+  bug_blocker_name_thresholdMin: 30
+  bug_blocker_name_thresholdMax: 100
+
+  vulner_blocker_name: 默认安全漏洞阻断阈值
+  vulner_blocker_name_thresholdMin: 30
+  vulner_blocker_name_thresholdMax: 100
+    
+  code_smell_blocker_name: 默认编码规范阻断阈值
+  code_smell_blocker_name_thresholdMin: 30
+  codeSmellBlockerNameThresholdMax: 100
+
+harbor:
+    url: https://registry.eazybuilder.com
+    username: es
+    password: xxxx
+    addUserDefaultPwd: xxxx
+    project:
+      ## 默认设定为20GB
+      storageLimit: 21474836480
+logging:
+  level:
+    com.alibaba.nacos.client.naming: warn
+    org.hibernate.type.descriptor.sql.BasicBinder: error
+    com.iss.dtg.ci.jenkins: warn
+
+gitlabApi:
+  base_url: ""
+  ##必备参数，代码编译的流水线会从此地址下载依赖包
+mirror:
+  url: http://nexus3.eazybuilder.com/repository/maven-public/
+errorDingTalk:
+  emails: ""  
+  

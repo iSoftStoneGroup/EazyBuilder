@@ -9,6 +9,7 @@ import com.eazybuilder.ci.entity.Team;
 import com.eazybuilder.ci.entity.Upms.UpmsUserVo;
 import com.eazybuilder.ci.entity.User;
 import com.eazybuilder.ci.entity.devops.*;
+import com.eazybuilder.ci.local.QueryLocalData;
 import com.eazybuilder.ci.rabbitMq.SendRabbitMq;
 import com.eazybuilder.ci.service.*;
 import com.eazybuilder.ci.upms.QueryUpmsData;
@@ -47,6 +48,8 @@ public class DevopsInitController extends CRUDRestController<DevopsInitServiceIm
     SendRabbitMq sendRabbitMq;
     @Resource
     QueryUpmsData queryUpmsData;
+    @Resource
+    QueryLocalData queryLocalData;
     @Resource
     ProjectService projectService;
 

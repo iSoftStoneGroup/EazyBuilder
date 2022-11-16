@@ -34,19 +34,19 @@ public class LoginController {
 	private static Properties properties = new LoadConfigYML().getConfigProperties();
 	@Autowired
 	AccessTokenService accessService;
-
+	
 	@Autowired
 	UserService userService;
-
+	
 	@Autowired
-	TeamServiceImpl teamServiceImpl;
-
+    TeamServiceImpl teamServiceImpl;
+	
 	@Autowired(required = false)
 	LdapService ldapService;
-
+	
 	@Autowired
 	SystemPropertyService propService;
-
+	
 	@Value("${admin.passwd:admin}")
 	String passwd;
 
@@ -56,7 +56,7 @@ public class LoginController {
 	@PostConstruct
 	public void initSuper(){
 		User user=userService.findByEmail(USER_ADMIN);
-		if(user!=null){return;}
+		if(user!=null){return;}			
 		user=new User();
 		user.setRolesByRoleEnum(RoleEnum.admin);
 		user.setEmail(USER_ADMIN);
@@ -64,7 +64,7 @@ public class LoginController {
 		user.setName("平台管理员");
 		userService.save(user,true);
 	}
-
+	
 	@RequestMapping(method=RequestMethod.POST)
 	@OperLog(module = "auth",opType = "login",opDesc = "登录")
 	public Map login(@RequestBody LoginDTO dto,HttpServletRequest request) throws Exception{
@@ -85,9 +85,9 @@ public class LoginController {
 				}
 			}
 		}
-
+		
 		return authByLocal(dto, request);
-
+		
 	}
 
 	private Map authByLocal(LoginDTO dto, HttpServletRequest request) throws Exception {
@@ -100,9 +100,9 @@ public class LoginController {
 				!user.getPassword().equals(code)){
 			throw new AuthorizeFailedException();
 		}
-
+		
 		logger.info("USER {} LOGIN, REMOTE IP:{}",dto.getLoginName(),HttpUtil.getClientIpAddress(request));
-		Map tokenMap=Maps.newHashMap();
+		Map tokenMap=Maps.newHashMap(); 
 		tokenMap.put("access_token", accessService.createToken(user));
 		tokenMap.put("user",user);
 		//用户是否被指定为某个项目的配置管理员
@@ -165,7 +165,7 @@ public class LoginController {
 	public static class LoginDTO{
 		private String loginName;
 		private String passwd;
-
+		
 		public String getLoginName() {
 			return loginName;
 		}
@@ -179,7 +179,7 @@ public class LoginController {
 			this.passwd = passwd;
 		}
 	}
-
+	
 	@ResponseStatus(code=HttpStatus.FORBIDDEN,reason="认证失败,请重试")
 	public static class AuthorizeFailedException extends RuntimeException{
 		public AuthorizeFailedException() {
@@ -201,6 +201,6 @@ public class LoginController {
 		public AuthorizeFailedException(Throwable cause) {
 			super(cause);
 		}
-
+		
 	}
 }

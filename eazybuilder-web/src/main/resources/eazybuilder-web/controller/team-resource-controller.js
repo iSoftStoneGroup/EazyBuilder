@@ -77,7 +77,7 @@ app.controller('teamResourceController', function($scope,$http,$window,$state,$f
 					}
 					return '<span title="' + value + '">' + value + '</span>';
 				}
-			},{
+			}, {
 				field: 'jenkinsWorkPath',
 				title: 'Jenkins工作挂载目录',
 				formatter: function (value) {

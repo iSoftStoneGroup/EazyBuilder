@@ -1,0 +1,106 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  finalizers:
+    - kubernetes.io/pvc-protection
+  labels:
+    app: eazybuilder-pvc
+  name: eazybuilder-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: managed-nfs-storage
+  volumeMode: Filesystem
+---        
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eazybuilderserver
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: eazybuilderserver
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: eazybuilderserver
+    spec:
+      containers:
+      - env:
+        - name: NACOS_SPACE
+          value: public
+        - name: NACOS_IP
+          value: nacos-headless
+        - name: NACOS_PORT
+          value: "8848"
+        - name: TZ
+          value: Asia/Shanghai
+        image: jinqiu8810/eazybuilder-server
+        imagePullPolicy: Always
+        name: eazybuilderserver
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 10
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          successThreshold: 10
+          tcpSocket:
+            port: 8080
+          timeoutSeconds: 10
+        volumeMounts:
+        - mountPath: /opt/ci/resources
+          name: eazybuilder-pvc          
+        resources:
+          limits:
+            cpu: 500m
+            memory: 4Gi
+          requests:
+            cpu: 1m
+            memory: 10Mi
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+      - name: harbor
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: eazybuilder-pvc
+        persistentVolumeClaim:
+          claimName: eazybuilder-pvc      
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: eazybuilderserver
+  name: eazybuilderserver
+spec:
+  clusterIP: None
+  ports:
+  - name: server
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: eazybuilderserver
+  sessionAffinity: None
+  type: ClusterIP
+---
+
