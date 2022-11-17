@@ -2,6 +2,8 @@
 
 # Welcome to the EazyBuilder project!
 
+ <img src="https://img.shields.io/github/stars/iSoftStoneGroup/EazyBuilder?color=red&style=flat-square">
+
 
 EazyBuilder is a complete set of DevOps platform projects under cloud native architecture.
 
