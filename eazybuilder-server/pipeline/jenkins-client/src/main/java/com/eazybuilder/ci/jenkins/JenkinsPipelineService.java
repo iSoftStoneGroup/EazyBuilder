@@ -108,7 +108,7 @@ public class JenkinsPipelineService {
 			//构建ARM64镜像时 使用单独指定的docker host(ARM64平台)
 			params.put("gitlab_api_domain",project.getProfile().getGitlabApiDomain());
 		}else {
-			params.put("gitlab_api_domain","gitlab-api.iss-devops.cn");
+			params.put("gitlab_api_domain","gitlab-api.eazybuilder-devops.cn");
 		}
 
 //		params.put("jenkinsDataPath",env.getJenkinsDataPath());

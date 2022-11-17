@@ -416,7 +416,7 @@ a {
                 <div class="footer">
                     <table width="100%">
                         <tr>
-                            <td class="aligncenter content-block">有任何疑问，请发送邮件至<a href="mailto:xxx@eazybuilder.com">DevOps项目组</a></td>
+                            <td class="aligncenter content-block">有任何疑问，请发送邮件至<a href="mailto:xxx@Eazybuilder.com">DevOps项目组</a></td>
                         </tr>
                     </table>
                 </div></div>

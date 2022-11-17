@@ -32,7 +32,7 @@
         <version>1.9.1</version>
         <configuration>
           <nodeDownloadRoot>https://registry.npmmirror.com/binary.html?path=node/</nodeDownloadRoot>
-          <npmRegistryURL>http://nexus3.eazybuilder-devops.cn/repository/npm-iss-devops-group/</npmRegistryURL>
+          <npmRegistryURL>http://nexus3.eazybuilder-devops.cn/repository/npm-eazybuilder-devops-group/</npmRegistryURL>
         </configuration>
         <executions>
         </executions>

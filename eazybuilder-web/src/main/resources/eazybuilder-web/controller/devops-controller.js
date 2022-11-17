@@ -594,7 +594,7 @@ app.controller('deveopsController', function ($scope, $http, $window, $state, $m
                         }else{
                             $scope.devopsProject.deployConfigList = [{
                                 name: $scope.devopsProject.description,
-                                ingressHost: $scope.devopsProject.description + ".iss-devops.cn",
+                                ingressHost: $scope.devopsProject.description + ".eazybuilder-devops.cn",
                                 imageTag: $scope.devopsProject.description,
                                 appType:"deployment",
                                 limitsCpu: "100m",
