@@ -190,6 +190,11 @@ public class JenkinsPipelineService {
 			params.put("referenceSource",project.getTeam().getTeamResource().getReferenceSource());
 		}
 
+		if(project.getTeam()!=null && project.getTeam().getTeamResource()!=null && StringUtils.isNotBlank(project.getTeam().getTeamResource().getK8sYmlPath())){
+			params.put("k8sYamlPath", project.getTeam().getTeamResource().getK8sYmlPath());
+		}else{
+			params.put("k8sYamlPath", "ci");
+		}
 		if(project.getTeam()!=null && project.getTeam().getTeamResource()!=null && StringUtils.isNotBlank(project.getTeam().getTeamResource().getK8sYmlType()) ){
 			params.put("k8sYmlType",project.getTeam().getTeamResource().getK8sYmlType());
 		}
