@@ -56,7 +56,7 @@ spec:
           value:  '${deployConfigDetailEnv.data}'
        </#list>
         - name: NACOS_IP
-          value: nacos.eazybuilder-devops.cn
+          value: ${nacosUrl}
         - name: NACOS_PORT
           value: '80'
         - name: TZ
