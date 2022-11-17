@@ -1,7 +1,23 @@
+
 # [中文概述](./README_CN.md)
-
-# Welcome to the EazyBuilder project!
-
+<div align="center">
+<p align="center"> Welcome to the EazyBuilder project! </p>
+  <p align="center">
+ <img src="https://img.shields.io/github/stars/iSoftStoneGroup/EazyBuilder?color=red&style=flat-square">
+         <a href="mailto:yhwang@isoftstone.com">
+            <img src="https://img.shields.io/static/v1?label=contact%20me&message=email&color=green&style=flat-square">
+        </a>
+           <a href="https://github.com/iSoftStoneGroup/EazyBuilder/blob/master/LICENSE" target="_blank">
+           <img src="https://img.shields.io/static/v1?label=license&message=Apache License 2.0&color=orange&style=flat-square">
+        </a>
+        <a href="https://github.com/iSoftStoneGroup/EazyBuilder/issues/new/choose" target="_blank">
+            <img src="https://img.shields.io/static/v1?label=feedback&message=issues&color=pink&style=flat-square">
+        </a>
+   
+  </p>
+    </br>
+</div>
+ 
 
 EazyBuilder is a complete set of DevOps platform projects under cloud native architecture.
 
