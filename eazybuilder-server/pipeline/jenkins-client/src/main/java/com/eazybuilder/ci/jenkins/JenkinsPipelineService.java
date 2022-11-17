@@ -121,7 +121,7 @@ public class JenkinsPipelineService {
 //		params.put("jenkinsTeamGitlabUrl",env.getJenkinsTeamGitlabUrl());
 //		params.put("jenkinsTeamGitlabHost",env.getJenkinsTeamGitlabHost());
 		params=env.initEnvParams(params);
-		
+
 
 		if(!project.getDeployConfigList().isEmpty()) {
 			String yamlId=project.getDeployConfigList().get(0).getYamlId();
@@ -219,9 +219,9 @@ public class JenkinsPipelineService {
 		if(project.getProfile()!=null&&project.getProfile().isUpgradeDocker()) {
 			List<DockerDigest> dockerDigests = new ArrayList<>();
 			if(StringUtils.isNotBlank(buildParam.getReleaseId())) {
-				 dockerDigests = onlineService.findDockerDigest(buildParam.getReleaseId(), project.getTeam().getName());
+				dockerDigests = onlineService.findDockerDigest(buildParam.getReleaseId(), project.getTeam().getName());
 			}else{
-				 dockerDigests = onlineService.findDockerDigest(project);
+				dockerDigests = onlineService.findDockerDigest(project);
 			}
 			if(dockerDigests!=null&&dockerDigests.size()>0) {
 				params.put("dockerDigests", dockerDigests);
@@ -267,15 +267,15 @@ public class JenkinsPipelineService {
 	public void runPipeLine(String name) throws IOException{
 		boolean crumbflag=env.crumb();
 		logger.info("run job:{} crumb:{}",name,crumbflag);
-		
-		 
-		
+
+
+
 		QueueReference qr=jenkins.getJob(name).build(crumbflag);
-		
+
 		String jenkinsQueueId = qr.getQueueItemUrlPart().substring(qr.getQueueItemUrlPart().indexOf("/queue/item"));
 		logger.info("jenkins job任务号:{}",jenkinsQueueId);
 		this.jenkins.waitUnitRun(jenkinsQueueId);
-		
+
 //		String[] jenkins = qr.getQueueItemUrlPart().split("jenkins");
 //		String[] jenkins = qr.getQueueItemUrlPart().split("/");
 //

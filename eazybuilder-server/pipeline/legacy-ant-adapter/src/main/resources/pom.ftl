@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.eazybuilder.finance</groupId>
+  <groupId>com.Eazybuilder.finance</groupId>
   <artifactId>${name}</artifactId>
   <version>${version}</version>
   <packaging>war</packaging>
@@ -53,7 +53,7 @@
     <!-- UNKOWN JAR START-->
     <#list unkownJars as jar>
     <dependency>
-       <groupId>eazybuilder.legacy</groupId>
+       <groupId>Eazybuilder.legacy</groupId>
        <artifactId>${jar.name}</artifactId>
        <version>${jar.version}</version>
        <scope>system</scope>

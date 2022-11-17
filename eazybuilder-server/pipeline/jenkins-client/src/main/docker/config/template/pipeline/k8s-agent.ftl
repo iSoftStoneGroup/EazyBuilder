@@ -51,7 +51,9 @@ spec:
     operator: "Equal"
     value: ${project.team.code}-jenkins
     effect: "NoSchedule"
+  hostAliases:
   <#if jenkinsTeamGitlabUrl?? && jenkinsTeamGitlabUrl !="">
+  hostAliases:
   - hostnames:
     - ${jenkinsTeamGitlabUrl}
     ip: ${jenkinsTeamGitlabHost}

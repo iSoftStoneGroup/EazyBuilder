@@ -4,6 +4,7 @@ import com.eazybuilder.ci.entity.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -194,10 +195,30 @@ public class DevopsProject implements Serializable{
 
 	//TODO 待修改，如果都是用Project的话，代码可删除
 	public void update(Project project){
+		List<DeployConfig> listTemp=new ArrayList<DeployConfig>();
+		if(project.getDeployConfigList() !=null &&project.getDeployConfigList().size()>0) {
+			for (DeployConfig deployConfig : project.getDeployConfigList()) {
+				DeployConfig deployConfigNew=new DeployConfig();
+				deployConfigNew.setContainerPort(deployConfig.getContainerPort());
+				deployConfigNew.setImageTag(deployConfig.getImageTag());
+				deployConfigNew.setIngressHost(deployConfig.getIngressHost());
+				deployConfigNew.setInitImageTag(deployConfig.getInitImageTag());
+				deployConfigNew.setLimitsCpu(deployConfig.getLimitsCpu());
+				deployConfigNew.setName(deployConfig.getName());
+				deployConfigNew.setNameSpace(deployConfig.getNameSpace());
+				deployConfigNew.setReplicas(deployConfig.getReplicas());
+				deployConfigNew.setTag(deployConfig.getTag());
+				deployConfigNew.setYamlId(deployConfig.getYamlId());
+				deployConfigNew.setAppType(deployConfig.getAppType());
+				listTemp.add(deployConfigNew);
+			}
+		}
+		this.deployConfigList = listTemp;
+		this.description = project.getName();
 		this.scmUrl = project.getScm().getUrl();
 		this.projectName = project.getDescription();
-		this.projectType = project.getProjectType() == ProjectType.npm ? ProjectType.npm:ProjectType.java;
-		this.legacyProject = this.projectType == ProjectType.npm?false: project.getProjectType() == ProjectType.java;
+		this.projectType = project.getProjectType();
+		this.legacyProject =project.isLegacyProject();
 		this.pomPath = project.getPomPath();
 		this.netPath = project.getNetPath();
 		this.netSlnPath = project.getNetSlnPath();

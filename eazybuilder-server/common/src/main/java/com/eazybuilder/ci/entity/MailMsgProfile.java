@@ -26,7 +26,10 @@ public class MailMsgProfile {
 	 * 流水线通知类 仅失败发送
 	 */
 	private boolean pipelineFail;
-
+	/**
+	 * 流水线通知类 仅成功发送
+	 */
+	private boolean pipelineSuccess;
 	/**
 	 * 流水线通知类 红灯修复提醒间隔
 	 */
@@ -401,5 +404,13 @@ public class MailMsgProfile {
 
 	public void setFocusRedlightRepairConfig(String focusRedlightRepairConfig) {
 		this.focusRedlightRepairConfig = focusRedlightRepairConfig;
+	}
+
+	public boolean isPipelineSuccess() {
+		return pipelineSuccess;
+	}
+
+	public void setPipelineSuccess(boolean pipelineSuccess) {
+		this.pipelineSuccess = pipelineSuccess;
 	}
 }

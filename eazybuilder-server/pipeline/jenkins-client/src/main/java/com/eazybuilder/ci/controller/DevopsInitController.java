@@ -53,7 +53,8 @@ public class DevopsInitController extends CRUDRestController<DevopsInitServiceIm
     @Resource
     ProjectService projectService;
 
-
+    @Resource
+    QueryLocalData queryLocalData;
     @Value("${message.broadcastExchange}")
     public  String broadcastExchange;
 
@@ -82,8 +83,7 @@ public class DevopsInitController extends CRUDRestController<DevopsInitServiceIm
             } catch (Exception e) {
                 logger.error("ci初始化时和upms接口交互出现异常:{}", e.getMessage(), e);
             }
-        }
-        else{
+        } else{
             //判断当前项目组是否在本地Team中存在
             if (null == deveopsInitDto.getGroupId()) {
                 Long groupId = queryLocalData.createGroup(deveopsInitDto.getTeamName());
@@ -92,7 +92,6 @@ public class DevopsInitController extends CRUDRestController<DevopsInitServiceIm
                 }
             }
         }
-
         //2.将数据保存到数据库中
         //将deveopsDto转换成 DeveopsInit
         DevopsInit devopsInit = DtoEntityUtil.trans(deveopsInitDto, DevopsInit.class);

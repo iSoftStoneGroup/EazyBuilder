@@ -459,7 +459,7 @@ a {
                             </td>
                         </tr>
                         <tr>
-                            <td class="aligncenter content-block">有任何疑问，请发送邮件至<a href="mailto:zpzhaoa@eazybuilder.com">DevOps项目组</a></td>
+                            <td class="aligncenter content-block">有任何疑问，请发送邮件至<a href="mailto:zpzhaoa@Eazybuilder.com">DevOps项目组</a></td>
                         </tr>
                     </table>
                 </div></div>

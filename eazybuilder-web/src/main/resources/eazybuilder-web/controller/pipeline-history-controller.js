@@ -77,156 +77,156 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 					}
 				}
 			},
-			/*{
-				field:'sourceBranch',
-				title:'来源分支',
-				formatter:function(value){
-					if(!value){
-						return '--';
-					}
-					return "<span title='"+value+"'>"+value+"</span>";
-				}
-			},{
-				field:'targetBranch',
-				title:'目标分支',
-				formatter:function(value){
-					if(!value){
-						return '--';
-					}
-					return "<span title='"+value+"'>"+value+"</span>";
-				}
-			},{
-				field: 'sonarKey',
-				title: 'BUG',
-				align: 'left',
-				sortable: true,
-				formatter:function(value,row,index){
-					if(!value){
-						return '--';
-					}
-				    let statusName = $scope.statusTypes[value];
-					return "<img title='BUG(阻断)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_blocker' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_blocker'/><br>"+
-					       "<img title='BUG(严重)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_critical' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_critical'/><br>"+
-						   "<img title='BUG(主要)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_major' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_major'/>";
-				}
-			},{
-				field: 'sonarKey',
-				title: '安全漏洞',
-				align: 'left',
-				sortable: true,
-				formatter:function(value,row,index){
-					if(!value){
-						return '--';
-					}
-				    let statusName = $scope.statusTypes[value];
-					return "<img title='安全漏洞(阻断)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_blocker' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_blocker'/><br>"+
-					       "<img title='安全漏洞(严重)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_critical' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_critical'/><br>"+
-						   "<img title='安全漏洞(主要)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_major' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_major'/>";
-					}
-			},{
-				field: 'sonarKey',
-				title: '编码规范',
-				align: 'left',
-				sortable: true,
-				formatter:function(value,row,index){
-					if(!value){
-						return '--';
-					}
-				    let statusName = $scope.statusTypes[value];
-					return "<img title='编码规范(阻断)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_blocker' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_blocker'/><br>"+
-					       "<img title='编码规范(严重)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_critical' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_critical'/><br>"+
-						   "<img title='编码规范(主要)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_major' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_major'/>";
-				}
-			},{
-				field: 'sonarKey',
-				title: '单元测试',
-				align: 'left',
-				sortable: true,
-				formatter:function(value,row,index){
-					if(!value){
-						return '--';
-					}
-				    let statusName = $scope.statusTypes[value];
-					return "<img title='单元测试覆盖率' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=unit_test_coverage_rate' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=unit_test_coverage_rate'/><br>"+
-					       "<img title='单元测试成功率' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=unit_test_success_rate' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=unit_test_success_rate'/>";
+				/*{
+                    field:'sourceBranch',
+                    title:'来源分支',
+                    formatter:function(value){
+                        if(!value){
+                            return '--';
+                        }
+                        return "<span title='"+value+"'>"+value+"</span>";
+                    }
+                },{
+                    field:'targetBranch',
+                    title:'目标分支',
+                    formatter:function(value){
+                        if(!value){
+                            return '--';
+                        }
+                        return "<span title='"+value+"'>"+value+"</span>";
+                    }
+                },{
+                    field: 'sonarKey',
+                    title: 'BUG',
+                    align: 'left',
+                    sortable: true,
+                    formatter:function(value,row,index){
+                        if(!value){
+                            return '--';
+                        }
+                        let statusName = $scope.statusTypes[value];
+                        return "<img title='BUG(阻断)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_blocker' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_blocker'/><br>"+
+                               "<img title='BUG(严重)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_critical' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_critical'/><br>"+
+                               "<img title='BUG(主要)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_major' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=bug_major'/>";
+                    }
+                },{
+                    field: 'sonarKey',
+                    title: '安全漏洞',
+                    align: 'left',
+                    sortable: true,
+                    formatter:function(value,row,index){
+                        if(!value){
+                            return '--';
+                        }
+                        let statusName = $scope.statusTypes[value];
+                        return "<img title='安全漏洞(阻断)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_blocker' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_blocker'/><br>"+
+                               "<img title='安全漏洞(严重)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_critical' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_critical'/><br>"+
+                               "<img title='安全漏洞(主要)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_major' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=vulner_major'/>";
+                        }
+                },{
+                    field: 'sonarKey',
+                    title: '编码规范',
+                    align: 'left',
+                    sortable: true,
+                    formatter:function(value,row,index){
+                        if(!value){
+                            return '--';
+                        }
+                        let statusName = $scope.statusTypes[value];
+                        return "<img title='编码规范(阻断)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_blocker' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_blocker'/><br>"+
+                               "<img title='编码规范(严重)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_critical' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_critical'/><br>"+
+                               "<img title='编码规范(主要)' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_major' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=code_smell_major'/>";
+                    }
+                },{
+                    field: 'sonarKey',
+                    title: '单元测试',
+                    align: 'left',
+                    sortable: true,
+                    formatter:function(value,row,index){
+                        if(!value){
+                            return '--';
+                        }
+                        let statusName = $scope.statusTypes[value];
+                        return "<img title='单元测试覆盖率' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=unit_test_coverage_rate' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=unit_test_coverage_rate'/><br>"+
+                               "<img title='单元测试成功率' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=unit_test_success_rate' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=unit_test_success_rate'/>";
 
-				}
-			},{
-              	field: 'sonarKey',
-              	title: '技术债',
-              	align: 'left',
-              	sortable: true,
-              	formatter:function(value,row,index){
-              		if(!value){
-              			return '--';
-              		}
-                	let statusName = $scope.statusTypes[value];
-					return "<img title='技术债' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=technology_debt' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=technology_debt'/>";
+                    }
+                },{
+                      field: 'sonarKey',
+                      title: '技术债',
+                      align: 'left',
+                      sortable: true,
+                      formatter:function(value,row,index){
+                          if(!value){
+                              return '--';
+                          }
+                        let statusName = $scope.statusTypes[value];
+                        return "<img title='技术债' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=technology_debt' src='"+backend.url+"/public/sonarmetric/svg?projectId="+row.id+"&type=technology_debt'/>";
 
-              	}
-            },*/
-			{
-				field:'lastBuild',
-				title:'最新构建时间',
-				formatter:function(value,row,index){
-					if(!value){
-						return '--';
+                      }
+                },*/
+				{
+					field:'lastBuild',
+					title:'最新构建时间',
+					formatter:function(value,row,index){
+						if(!value){
+							return '--';
+						}
+						let dateTime = new Date(value).Format('yyyy-MM-dd hh:mm:ss');
+						return "<span title='"+dateTime+"'>" + dateTime + "</span>";
 					}
-					let dateTime = new Date(value).Format('yyyy-MM-dd hh:mm:ss');
-					return "<span title='"+dateTime+"'>" + dateTime + "</span>";
-				}
-			},
-			{
-				field:'profileName',
-				title:'最近执行过程'
-			},
-			{
-				field: 'buildStatus',
-				title: '最新状态',
-				align: 'center',
-				sortable: true,
-				formatter:function(value,row,index){
-				    let statusName = $scope.statusTypes[value];
-					return "<img title='点击查看阈值对比结果，当前状态："+ statusName + "' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/buildStatus/svg?projectId="+row.id+"' src='"+backend.url+"/public/buildStatus/svg?projectId="+row.id+"'/>";
 				},
-				events:{
-					'click .buildStatus':function(e, value, row, index){
-						$scope.thresholdCompareResult(row);
-					}
-				}
-			},
-			{
-				field:'lastLogId',
-				title:'最近一次构建',
-				formatter:function(value,row,index){
-					return "<a href=''><i class='fa fa-search'>查看</i></a>";
+				{
+					field:'profileName',
+					title:'最近执行过程'
 				},
-				events:{
-					'click a':function(e, value, row, index){
-						$http.get(backend.url+"/api/pipeline/buildStatus?projectId="+row.id).then(function(response){
+				{
+					field: 'buildStatus',
+					title: '最新状态',
+					align: 'center',
+					sortable: true,
+					formatter:function(value,row,index){
+						let statusName = $scope.statusTypes[value];
+						return "<img title='点击查看阈值对比结果，当前状态："+ statusName + "' class='buildStatus' onerror='this.style.display = \"none\"' originSrc='"+backend.url+"/public/buildStatus/svg?projectId="+row.id+"' src='"+backend.url+"/public/buildStatus/svg?projectId="+row.id+"'/>";
+					},
+					events:{
+						'click .buildStatus':function(e, value, row, index){
+							$scope.thresholdCompareResult(row);
+						}
+					}
+				},
+				{
+					field:'lastLogId',
+					title:'最近一次构建',
+					formatter:function(value,row,index){
+						return "<a href=''><i class='fa fa-search'>查看</i></a>";
+					},
+					events:{
+						'click a':function(e, value, row, index){
+							$http.get(backend.url+"/api/pipeline/buildStatus?projectId="+row.id).then(function(response){
 
-							if(response.data&&response.data!='null'){
-								if(response.data.buildStatus=='IN_PROGRESS'){
-									//var buildUrl="http://jenkins.eazybuilder-devops.cn/jenkins/job/"+row.jobName+"/";
-									var buildUrl=row.jenkinsUrl+"/job/"+row.jobName+"/";
-									window.open(buildUrl,'_blank');
-									// alert('正在执行，请稍候查看最新结果');
-								}else{
-									var buildUrl=backend.url+"/resources/"+response.data.lastLogId;
-									if(response.data.lastPipelineId){
-										$scope.onlineViewStage({id:response.data.lastPipelineId,logId:response.data.lastLogId,name:row.name});
-									}else{
+								if(response.data&&response.data!='null'){
+									if(response.data.buildStatus=='IN_PROGRESS'){
+										//var buildUrl="http://jenkins.eazybuilder-devops.cn/jenkins/job/"+row.jobName+"/";
+										var buildUrl=row.jenkinsUrl+"/job/"+row.jobName+"/";
 										window.open(buildUrl,'_blank');
+										// alert('正在执行，请稍候查看最新结果');
+									}else{
+										var buildUrl=backend.url+"/resources/"+response.data.lastLogId;
+										if(response.data.lastPipelineId){
+											$scope.onlineViewStage({id:response.data.lastPipelineId,logId:response.data.lastLogId,name:row.name});
+										}else{
+											window.open(buildUrl,'_blank');
+										}
 									}
+								}else{
+									alert('没有近期构建记录');
 								}
-							}else{
-								alert('没有近期构建记录');
-							}
-						});
+							});
 
+						}
 					}
-				}
-			}],
+				}],
 			clickToSelect:true, //设置支持行多选
 			search:true, //显示搜索框
 			searchOnEnterKey:true,//enter时才search
@@ -257,18 +257,18 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 				controller:function($scope){
 					let thresholdTypes = actionScopeGuardTypes.PIPELINE_BUILD;
 					let checkMetrics =  Object.keys(metricMap).filter(metricType=> thresholdTypes.includes(metricType))
-						.map(metricType=> metricMap[metricType]);
+				.map(metricType=> metricMap[metricType]);
 					$scope.metrics = [];
 					$scope.title = row.projectName
-                    /*if(row.npmInstal){
+					/*if(row.npmInstal){
                         checkMetrics.forEach((item)=>{
                            if(item.type!="unit_test_coverage_rate"&&item.type!="unit_test_success_rate"){
-							$scope.metrics.push(item)
-						   }
-						})
-					}else{
-						$scope.metrics = checkMetrics
-					}*/
+                            $scope.metrics.push(item)
+                           }
+                        })
+                    }else{
+                        $scope.metrics = checkMetrics
+                    }*/
 					$scope.metrics = checkMetrics;
 					$scope.guardTypes = guardTypes;
 					$scope.closeModal=function(){
@@ -295,7 +295,7 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 	};
 
 
-    var getMetric=function(metric,list){
+	var getMetric=function(metric,list){
 		if(!list){
 			return 'N/A';
 		}
@@ -402,60 +402,60 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 					return (minutes>0?(minutes+"分"):"")+seconds+"秒";
 				}
 			}, {
-					field:'pipelineType',
-					title:'触发类型',
-					formatter: function (value,row) {
+				field:'pipelineType',
+				title:'触发类型',
+				formatter: function (value,row) {
+					if (!value) {
+						return "其它";
+					}
+					switch (value) {
+						case 'release':
+							return '<span title="提测-'+row.pipelineVersion+'">提测-'+row.pipelineVersion+'</span>';
+						case 'online':
+							return '<span title="上线-'+row.pipelineVersion+'">上线-'+row.pipelineVersion+'</span>';
+						case 'push':
+							return "代码提交";
+						case 'merge':
+							return "分支合并";
+						case 'manual':
+							return "手动触发";
+						case 'job':
+							return "定时任务";
+						case 'manualJob':
+							return "定时任务-手动触发";
+						default:
+							return '<span title="'+value+'">'+value+'</span>';
+					}
+				}
+			},
+				{
+					field:'profileName',
+					title:'构建过程',
+					formatter:function(value){
 						if (!value) {
-							return "其它";
+							return "--";
 						}
-						switch (value) {
-							case 'release':
-								return '<span title="提测-'+row.pipelineVersion+'">提测-'+row.pipelineVersion+'</span>';
-							case 'online':
-								return '<span title="上线-'+row.pipelineVersion+'">上线-'+row.pipelineVersion+'</span>';
-							case 'push':
-								return "代码提交";
-							case 'merge':
-								return "分支合并";	
-							case 'manual':
-								return "手动触发";	
-							case 'job':
-								return "定时任务";	
-							case 'manualJob':
-								return "定时任务-手动触发";	
-							default:
-								return '<span title="'+value+'">'+value+'</span>';
+						return `<a title="${value}">${value}</a>` ;
+					},
+					events:{
+						'click a':function(e, value, row, index){
+							$scope.viewProfile(row);
 						}
 					}
 				},
 				{
-				field:'profileName',
-				title:'构建过程',
-				formatter:function(value){
-					if (!value) {
-						return "--";
-					}
-					return `<a title="${value}">${value}</a>` ;
-                },
-				events:{
-					'click a':function(e, value, row, index){
-                		$scope.viewProfile(row);
-                	}
-				}
-			},
-			{
-				field:'status',
-				title:'流水线状态',
-				align: 'center',
-                formatter: function (value,row,index) {
-                        if (!value) {
-                            return "--";
-                        }
-                        let detail = $scope.statusTypes[value];
-                        detail = detail == null ? value : detail;
+					field:'status',
+					title:'流水线状态',
+					align: 'center',
+					formatter: function (value,row,index) {
+						if (!value) {
+							return "--";
+						}
+						let detail = $scope.statusTypes[value];
+						detail = detail == null ? value : detail;
 						const statusTypes = {SUCCESS:'成功',FAILED:'失败',IN_PROGRESS:'执行中',UNSTABLE:'成功(不稳定)',ABORTED:'已取消',ASSERT_WARNRULE_FAILED:'门禁判定失败',WAIT_AUTO_TEST_RESULT:'等待测试结果',NOT_EXECUTED:'未执行'};
 						switch(value){
-                            case 'SUCCESS':
+							case 'SUCCESS':
 								return `<span class="tdLabel label-success">${detail}</span>`;
 							case 'FAILED':
 								return `<span class="tdLabel label-danger">${detail}</span>`;
@@ -474,45 +474,45 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 							default:
 								return 	`<span title="${detail}">${detail}</span>`;
 						}
-                        
-                    }
-			},
-			{					
-				field:'statusGuard',
-				title:'门禁结果',
-				formatter:function(value,row){
-					if (!value) {
-						return "--";
+
 					}
-					switch (value) {
-						case 'NOT_EXECUTED':
-							return '--';
-						case 'SUCCESS':
-							return '<span class="tdLabel label-success">通过</span>';
-						case 'FAILED':
-							return '<span class="tdLabel label-danger">未通过</span>';
-						default:
-							return '<span title="'+value+'">'+value+'</span>';
-					}
-                }
-			},
-			{
-				field:'stages',
-				title:'详情查看',
-				align: 'center',
-				formatter:function(value,row,index){
-					return "<a class='detail'>查看</a>";
 				},
-				events:{
-					'click a':function(e, value, row, index){
-						$scope.viewStage(row);
+				{
+					field:'statusGuard',
+					title:'门禁结果',
+					formatter:function(value,row){
+						if (!value) {
+							return "--";
+						}
+						switch (value) {
+							case 'NOT_EXECUTED':
+								return '--';
+							case 'SUCCESS':
+								return '<span class="tdLabel label-success">通过</span>';
+							case 'FAILED':
+								return '<span class="tdLabel label-danger">未通过</span>';
+							default:
+								return '<span title="'+value+'">'+value+'</span>';
+						}
 					}
-				}
-			}],
-            sortable: true,                     //是否启用排序
-            sortOrder: "asc",
-            sortName: "startTimeMillis",
-            paginationHAlign:'right',
+				},
+				{
+					field:'stages',
+					title:'详情查看',
+					align: 'center',
+					formatter:function(value,row,index){
+						return "<a class='detail'>查看</a>";
+					},
+					events:{
+						'click a':function(e, value, row, index){
+							$scope.viewStage(row);
+						}
+					}
+				}],
+			sortable: true,                     //是否启用排序
+			sortOrder: "asc",
+			sortName: "startTimeMillis",
+			paginationHAlign:'right',
 			clickToSelect:true, //设置支持行多选
 			//search:true, //显示搜索框
 			searchOnEnterKey:true,//enter时才search
@@ -557,7 +557,7 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 					if($scope.cracker.teamId){
 						$scope.getNamespacesByTeam();
 					}
-                    $scope.closeModal=function(){
+					$scope.closeModal=function(){
 						modalInstance.destroy();
 					}
 				}
@@ -660,7 +660,7 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 									dbUrl: $scope.dbUrl,
 									dbUserName: $scope.dbUserName,
 									dbPassword: $scope.dbPassword,
-                                    gitlabApiUrl: $scope.gitlabApiUrl,
+									gitlabApiUrl: $scope.gitlabApiUrl,
 									dockerImageTag:$scope.dockerImageTag,
 									rolloutVersion: $scope.rolloutVersion,
 									releaseDate: new Date($scope.releaseDate)
@@ -707,7 +707,7 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 			$state.go('pipeline.edit');
 		});
 	}
-    function bug_blocker(row,metrics,flag){
+	function bug_blocker(row,metrics,flag){
 		var val=getMetric(flag,metrics);
 		if(val!='N/A'){
 			var bugDetail=sonarServer+"/project/issues?id="+row.project.sonarKey+"&resolved=false&types=BUG";
@@ -726,8 +726,8 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 	function unit_test_coverage_rate(row,metrics,flag){
 		var val=getMetric(flag,metrics);
 		if(val!='N/A'){
-			  var vulnerDetail=sonarServer+"/dashboard?id="+row.project.sonarKey;
-			  return "<a href='"+vulnerDetail+"' target='_blank'>"+val+"%"+"</a>";
+			var vulnerDetail=sonarServer+"/dashboard?id="+row.project.sonarKey;
+			return "<a href='"+vulnerDetail+"' target='_blank'>"+val+"%"+"</a>";
 		}
 		return null;
 	}
@@ -766,17 +766,17 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 				animation:'am-fade-and-scale',
 				controller:function($scope,$sce){
 					if(logId.indexOf("console.txt")!=-1){
-							$scope.logUrl=backend.logUrl+"/resources/"+logId;
-						}else {
-							$scope.logUrl=backend.url+"/resources/"+logId;
-						}
+						$scope.logUrl=backend.logUrl+"/resources/"+logId;
+					}else {
+						$scope.logUrl=backend.url+"/resources/"+logId;
+					}
 					$scope.status=row.status;
 					$scope.stages=row.stages;
 					$scope.accessControls=[]
 					$scope.dtpTask = row.dtpTask
 					$scope.statusGuard= row.statusGuard;
 					if($scope.dtpTask){
-						$scope.dtpReports = row.dtpReports; 
+						$scope.dtpReports = row.dtpReports;
 						if($scope.dtpReports.length>0){
 							let dtpReportJson = {}
 							let succeedTotal = 0;
@@ -784,15 +784,15 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 							$scope.dtpReports.forEach((dtpReport) =>{
 								let stage = {}
 								stage.name = dtpReport.name;
-								stage.durationMillis = dtpReport.elapsedTime;
-								stage.status = dtpReport.succeed?'SUCCESS':'FAILED';
-								$scope.stages.push(stage)
-                                if(dtpReport.succeed){
-									succeedTotal++;
-								}else{
-									faildTotal++;
-								}
-							})
+							stage.durationMillis = dtpReport.elapsedTime;
+							stage.status = dtpReport.succeed?'SUCCESS':'FAILED';
+							$scope.stages.push(stage)
+							if(dtpReport.succeed){
+								succeedTotal++;
+							}else{
+								faildTotal++;
+							}
+						})
 							dtpReportJson.succeedTotal= succeedTotal;
 							dtpReportJson.faildTotal= faildTotal;
 							dtpReportJson.reslut = faildTotal>0? false:true;
@@ -804,7 +804,7 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 					let obj = {}
 					obj.bug_blocker = $sce.trustAsHtml(bug_blocker(row,row.metrics,'bug_blocker'))
 					obj.bug_critical = $sce.trustAsHtml(bug_blocker(row,row.metrics,'bug_critical'))
-					
+
 					obj.vulner_blocker = $sce.trustAsHtml(vulner_blocker(row,row.metrics,'vulner_blocker'))
 					obj.vulner_critical = $sce.trustAsHtml(vulner_blocker(row,row.metrics,'vulner_critical'))
 
@@ -824,15 +824,15 @@ app.controller('pipelineHistoryController', function($scope,$http,$window,$state
 					});
 					let thresholdTypes = actionScopeGuardTypes.PIPELINE_BUILD;
 					let checkMetrics =  Object.keys(metricMap).filter(metricType=> thresholdTypes.includes(metricType))
-						.map(metricType=> metricMap[metricType]);
+				.map(metricType=> metricMap[metricType]);
 					$scope.metrics = [];
 					$scope.title = row.projectName
 					if(row.npmInstal){
 						checkMetrics.forEach((item)=>{
 							if(item.type!="unit_test_coverage_rate"&&item.type!="unit_test_success_rate"){
 							$scope.metrics.push(item)
-							}
-						})
+						}
+					})
 					}else{
 						$scope.metrics = checkMetrics
 					}

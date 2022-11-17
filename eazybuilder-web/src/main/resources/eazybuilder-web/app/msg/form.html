@@ -621,8 +621,8 @@
                                             <div class="col-sm-6">
                                                 <div class="col-sm-12 btn-group pull-left " style="padding: 0 0;">
                                                     <button type="button" class="btn btn-md btn-default"
-                                                            ng-click="entity.mailMsgProfile.pipelineFail= false"
-                                                            ng-class="{'btn-success':!entity.mailMsgProfile.pipelineFail}">
+                                                            ng-click="entity.mailMsgProfile.pipelineFail= true;entity.mailMsgProfile.pipelineSuccess=true;"
+                                                            ng-class="{'btn-success':entity.mailMsgProfile.pipelineFail&&entity.mailMsgProfile.pipelineSuccess}">
                                                         成功/失败
                                                     </button>
                                                     <button type="button" class="btn btn-md btn-default"
