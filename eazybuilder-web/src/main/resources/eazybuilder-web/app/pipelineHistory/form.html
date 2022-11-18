@@ -21,16 +21,16 @@
                 <label class="col-sm-2 control-label">工程类型:</label>
                 <div class="col-sm-8">
                     <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
-                            <button type="button" class="btn btn-md btn-default"
+                        <button type="button" class="btn btn-md btn-default"
                                 ng-click="entity.projectType='java';entity.legacyProject=false;"
                                 ng-class="{'btn-success':entity.projectType=='java'&&!entity.legacyProject}">Java(Maven)</button>
-                            <button type="button" class="btn btn-md btn-default"
+                        <button type="button" class="btn btn-md btn-default"
                                 ng-click="entity.projectType='gradle'"
                                 ng-class="{'btn-success':entity.projectType=='gradle'}">Java(Gradle)</button>
-                            <button type="button" class="btn btn-md btn-default"
+                        <button type="button" class="btn btn-md btn-default"
                                 ng-click="entity.projectType='java';entity.legacyProject=true;"
                                 ng-class="{'btn-success':entity.projectType=='java'&&entity.legacyProject}">Java(其他)</button>
-                            <button type="button" class="btn btn-md btn-default"
+                        <button type="button" class="btn btn-md btn-default"
                                 ng-click="entity.projectType='npm'"
                                 ng-class="{'btn-success':entity.projectType=='npm'}">前端</button>
                         <button type="button" class="btn btn-md btn-default"
@@ -58,7 +58,7 @@
                     <label class="control-label"><font color="red">注意：ANT构建请自定义构建参数，另外编译依赖的要素均要包含在源码路径中</font></label>
                 </div>
             </div>
-             <div class="form-group" ng-if="entity.projectType=='gradle'">
+            <div class="form-group" ng-if="entity.projectType=='gradle'">
                 <label class="col-sm-2 control-label">build文件位置:</label>
                 <div class="col-sm-4">
                     <input type="text" class="form-control" ng-model="entity.pomPath"  placeholder="默认当前目录./build.gradle"/>
@@ -143,9 +143,9 @@
                 <label class="col-sm-2 control-label">部署方式:</label>
                 <div class="col-sm-4">
                     <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
-<!--                        <button type="button" class="btn btn-md btn-default"-->
-<!--                                ng-click="entity.deployType='dockerCompose'"-->
-<!--                                ng-class="{'btn-success':entity.deployType=='dockerCompose'}">dockerCompose</button>-->
+                        <!--                        <button type="button" class="btn btn-md btn-default"-->
+                        <!--                                ng-click="entity.deployType='dockerCompose'"-->
+                        <!--                                ng-class="{'btn-success':entity.deployType=='dockerCompose'}">dockerCompose</button>-->
                         <button type="button" class="btn btn-md btn-default"
                                 ng-click="entity.deployType='k8s'"
                                 ng-class="{'btn-warning':entity.deployType=='k8s'}">k8s</button>
@@ -223,13 +223,13 @@
                 <label class="col-sm-2 control-label">项目风格:</label>
                 <div class="col-sm-6">
                     <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
-                            <button type="button" class="btn btn-md btn-default"
+                        <button type="button" class="btn btn-md btn-default"
                                 ng-click="entity.eazybuilderEjbProject=true"
                                 ng-class="{'btn-success':entity.eazybuilderEjbProject==true}">Eazybuilder4.x/Eazybuilder5.x</button>
-                            <button type="button" class="btn btn-md btn-default"
+                        <button type="button" class="btn btn-md btn-default"
                                 ng-click="entity.eazybuilderEjbProject=false;entity.eazybuilderStyleProject=true;"
                                 ng-class="{'btn-warning':entity.eazybuilderEjbProject==false&&entity.eazybuilderStyleProject==true}">Eazybuilder工程</button>
-                            <button type="button" class="btn btn-md btn-default"
+                        <button type="button" class="btn btn-md btn-default"
                                 ng-click="entity.eazybuilderEjbProject=false;entity.eazybuilderStyleProject=false;"
                                 ng-class="{'btn-warning':entity.eazybuilderEjbProject==false&&entity.eazybuilderStyleProject==false}">其他</button>
                     </div>
@@ -259,18 +259,18 @@
                 <label class="col-sm-2 control-label">源码仓库类型:</label>
                 <div class="col-sm-4">
                     <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
-                            <button type="button" class="btn btn-md btn-default"
+                        <button type="button" class="btn btn-md btn-default"
                                 ng-click="entity.scm.type='svn'"
                                 ng-class="{'btn-success':entity.scm.type=='svn'}">SVN</button>
-                            <button type="button" class="btn btn-md btn-default"
+                        <button type="button" class="btn btn-md btn-default"
                                 ng-click="entity.scm.type='git'"
                                 ng-class="{'btn-success':entity.scm.type=='git'}">GIT</button>
-                        </div>
+                    </div>
                 </div>
-                
+
             </div>
             <div class="form-group" ng-if="entity.scm.type=='git'">
-             <label class="col-sm-2 control-label">标签/Tag:</label>
+                <label class="col-sm-2 control-label">标签/Tag:</label>
                 <div class="col-sm-4">
                     <input type="text" class="form-control" ng-model="entity.scm.tagName"  placeholder="指定标签名，空则使用*/master" ng-if="entity.scm.type=='git'"/>
                 </div>
@@ -286,7 +286,7 @@
                 <div class="col-sm-4">
                     <input type="text" class="form-control" ng-model="entity.scm.user" required="required" placeholder="SVN/GIT用户(只需要项目读取权限)"/>
                 </div>
-                 <label class="col-sm-2 control-label" ng-if="entity.id"><input type="checkbox" ng-model="entity.scm.changePwd">修改密码</input></label>
+                <label class="col-sm-2 control-label" ng-if="entity.id"><input type="checkbox" ng-model="entity.scm.changePwd">修改密码</input></label>
                 <label class="col-sm-2 control-label" ng-if="!entity.id">密码:</label>
                 <div class="col-sm-4">
                     <input ng-if="!entity.id||entity.scm.changePwd" type="password" class="form-control" ng-model="entity.scm.password" required="required" placeholder="SVN/GIT密码"/>
@@ -296,8 +296,8 @@
                 <label class="col-sm-2 control-label">所属项目组:</label>
                 <div class="col-sm-10">
                     <select class="form-control" ng-model="entity.teamId"
-                            required="required" 
-                            placeholder="项目组" 
+                            required="required"
+                            placeholder="项目组"
                             ng-options="team.id as team.name for team in teams">
                     </select>
                 </div>
@@ -309,16 +309,16 @@
                             ng-options="profile.id as profile.name for profile in profiles">
                     </select>
                 </div>
-                 <label class="col-sm-2 control-label">自动构建(仓库钩子触发):</label>
+                <label class="col-sm-2 control-label">自动构建(仓库钩子触发):</label>
                 <div class="col-sm-4">
-                     <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
-                                    <button type="button" class="btn btn-md btn-default" 
-                                        ng-click="entity.autoBuild=false"
-                                        ng-class="{'btn-info':!entity.autoBuild}">关闭</button>
-                                    <button type="button" class="btn btn-md btn-default"
-                                        ng-click="entity.autoBuild=true"
-                                        ng-class="{'btn-info':entity.autoBuild}">开启</button>
-                     </div>
+                    <div class="btn-group pull-left col-xs-12" style="padding: 0 0;">
+                        <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.autoBuild=false"
+                                ng-class="{'btn-info':!entity.autoBuild}">关闭</button>
+                        <button type="button" class="btn btn-md btn-default"
+                                ng-click="entity.autoBuild=true"
+                                ng-class="{'btn-info':entity.autoBuild}">开启</button>
+                    </div>
                 </div>
             </div>
             <div class="form-group" ng-if="entity.projectType=='java'">
@@ -326,10 +326,10 @@
                 <div class="col-sm-4">
                     <select class="form-control" ng-model="entity.registry.id" ng-options="registry.id as registry.url for registry in dockerRegistrys" ></select>
                 </div>
-<!--                <label class="col-sm-2 control-label">命名空间:</label>-->
-<!--                <div class="col-sm-4">-->
-<!--                    <input type="text" class="form-control" ng-model="entity.imageSchema" placeholder="镜像仓库命名空间,默认为organization.name或groupId"/>-->
-<!--                </div>-->
+                <!--                <label class="col-sm-2 control-label">命名空间:</label>-->
+                <!--                <div class="col-sm-4">-->
+                <!--                    <input type="text" class="form-control" ng-model="entity.imageSchema" placeholder="镜像仓库命名空间,默认为organization.name或groupId"/>-->
+                <!--                </div>-->
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label" >自定义构建参数:</label>
@@ -347,9 +347,9 @@
         <div class="block-footer">
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-9">
-                  <div class="col-sm-4">
-                    <button  class="btn btn-default" ng-click="back()">返回</button>
-                 </div>
+                    <div class="col-sm-4">
+                        <button  class="btn btn-default" ng-click="back()">返回</button>
+                    </div>
                 </div>
             </div>
         </div>

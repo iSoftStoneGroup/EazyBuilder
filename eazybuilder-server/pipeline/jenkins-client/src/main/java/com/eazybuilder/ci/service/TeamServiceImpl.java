@@ -135,7 +135,9 @@ public class TeamServiceImpl extends AbstractCommonServiceImpl<TeamDao, Team> im
 		}
 		return ids;
 	}
-	
+	public Team findByGroupId(String  groupId){
+		return   dao.findOne(QTeam.team.groupId.eq(Long.parseLong(groupId))).orElse(null);
+	}
 	@Override
 	public Iterable<Team> findAll() {
 		User currentUser=AuthUtils.getCurrentUser();

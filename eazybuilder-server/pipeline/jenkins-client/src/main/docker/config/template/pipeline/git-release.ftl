@@ -9,7 +9,7 @@
                                      echo 'begin create release branch'
                                      echo 'RUN git config --global credential.helper store'
 <#--                                  <#if project.tagDetail?? && project.tagDetail !="">-->
-                                     sh 'git config --global user.email  boot@eazybuilder.com '
+                                     sh 'git config --global user.email  boot@Eazybuilder.com '
                                      sh 'git config --global user.name robot'
                                       sh 'git checkout -B ${project.branchVersion}'
 <#--                                      sh 'git commit -m "Auto Create By Pipeline"'-->

@@ -96,7 +96,7 @@ app.controller('qaController', function($scope,$http,$window,$state,$filter,$mod
             		if(!value){
             			return "--";
             		}
-					var buildUrl=row.project.team.teamResource.jenkinsUrl+"/job/"+row.project.name+"/";
+            		var buildUrl=row.project.team.teamResource.jenkinsUrl+"/job/"+row.project.name+"/";
             		return "<a href='"+buildUrl+"' target='_blank'>"+getBuildStatus(value)+"</a>"
             	}
             },{

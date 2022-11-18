@@ -1,9 +1,6 @@
 package com.eazybuilder.ci.controller;
 
 import com.eazybuilder.ci.entity.*;
-import com.eazybuilder.ci.entity.devops.DevopsInit;
-import com.eazybuilder.ci.entity.devops.QDevopsInit;
-import com.eazybuilder.ci.repository.TeamNamespaceDao;
 import com.google.common.collect.Lists;
 import com.eazybuilder.ci.base.CRUDRestController;
 import com.eazybuilder.ci.base.PageResult;
@@ -22,8 +19,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.util.Assert;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -40,10 +35,10 @@ public class ProjectController extends CRUDRestController<ProjectService, Projec
 
 	@Autowired
 	ProjectGroupService projectGroupService;
-	
+
 	@Autowired
-    PipelineServiceImpl pipelineServiceImpl;
-	
+	PipelineServiceImpl pipelineServiceImpl;
+
 	@Autowired
 	MetricService metricService;
 
@@ -85,7 +80,7 @@ public class ProjectController extends CRUDRestController<ProjectService, Projec
 	@ApiOperation("切换项目历史数据版本")
 	public void recover(
 			@RequestBody ProjectHistory projectHistory){
-	    service.recover(projectHistory);
+		service.recover(projectHistory);
 	}
 
 
@@ -127,7 +122,7 @@ public class ProjectController extends CRUDRestController<ProjectService, Projec
 		return PageResult.create(page.getTotalElements(), prjWithBuilds);
 
 	}
-	
+
 	@RequestMapping(value="/pipeline",method=RequestMethod.GET)
 	@ApiOperation("含流水线信息")
 	public PageResult<ProjectLastBuildInfo> pageWithPipeline(
@@ -136,23 +131,23 @@ public class ProjectController extends CRUDRestController<ProjectService, Projec
 			@RequestParam(value="search",required=false)String searchText){
 		Pageable pageable=PageRequest.of(Math.floorDiv(offset, limit), limit,Direction.DESC,"id");
 		Page<Project> page=service.pageSearch(pageable, searchText);
-		
+
 		List<ProjectLastBuildInfo> prjWithBuilds=Lists.newArrayList();
 		page.getContent().forEach(prj->{
 			prjWithBuilds.add(pipelineServiceImpl.getLastBuildRecord(prj));
 		});
-		
+
 		return PageResult.create(page.getTotalElements(), prjWithBuilds);
-		
+
 	}
-	
+
 	@RequestMapping(value="/qaReport",method=RequestMethod.GET)
 	@ApiOperation("查询项目质量信息")
 	public PageResult<ProjectQAReport> queryQAReport(@RequestParam(value="limit",defaultValue="10")int limit,
-			@RequestParam(value="offset")int offset,
-			@RequestParam(value="search",required=false)String searchText,
-			@RequestParam(value="groupIds[]",required = false)List<String> groupIds,HttpServletRequest request){
-		
+													 @RequestParam(value="offset")int offset,
+													 @RequestParam(value="search",required=false)String searchText,
+													 @RequestParam(value="groupIds[]",required = false)List<String> groupIds,HttpServletRequest request){
+
 		if(groupIds!=null) {
 			List<ProjectQAReport> reports=Lists.newArrayList();
 			groupIds.forEach(groupId->{
@@ -182,7 +177,7 @@ public class ProjectController extends CRUDRestController<ProjectService, Projec
 				for(Project project:projects.getRows()){
 					ProjectQAReport report=new ProjectQAReport();
 					report.setProject(project);
-					
+
 					Page<Pipeline> pipPage= pipelineServiceImpl.pageQueryByProjectId(project.getId(),
 							PageRequest.of(0, 1, Direction.DESC, "startTimeMillis"));
 					if(pipPage!=null&&pipPage.getTotalElements()>0){
@@ -192,7 +187,7 @@ public class ProjectController extends CRUDRestController<ProjectService, Projec
 					}
 					reports.add(report);
 				}
-				
+
 				return PageResult.create(projects.getTotal(),reports);
 			}else{
 				return PageResult.create(0, Collections.emptyList());

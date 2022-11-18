@@ -51,7 +51,6 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
 
     @Autowired
     SystemPropertyService propService;
-
     /**
      * 根据mq传过来的json进行事件判定
      */
@@ -62,7 +61,7 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
             if(!gitPath.endsWith(".git")){
                 gitPath=gitPath+".git";
             }
-            List<Project> projects = projectService.findByRepo(gitPath);
+            List<Project> projects = projectService.findByRepo(rabbitmqData.getString("gitPath"));
             List<Event>  events= null;
             if (projects != null && !projects.isEmpty()) {
                 Map<Project,List<ProjectBuildVo>> projectProfileMap = new HashedMap();
@@ -261,7 +260,7 @@ public class EventService extends AbstractCommonServiceImpl<EventDao, Event> imp
                 if(event.getProjectType()== ProjectType.all || event.getProjectType()== project.getProjectType()){
                     //如果没有配置或者在前端页面上选的是默认 选默认的话值就是空的，则采用项目自带的默认流水线
                     //如果传了目标分支，则根据目标分支执行流水线，如果没用则用来源分支。
-                    //判断一下分支条件k
+                    //判断一下分支条件
                     if(isEventBranchRules(project,event,targetBranchName,sourceBranchName)) {
                         ProjectBuildVo projectBuildVo = new ProjectBuildVo();
                         if (StringUtils.isNotBlank(sourceBranchName)) {

@@ -23,6 +23,11 @@
                         </#if>
                              sh '''echo `pwd`'''
                              sh '''dotnet publish `pwd`/<#if project.netPath !="">${project.netPath}<#else>src/${project.name}.Api/${project.name}.Api.csproj</#if>  -c Release'''
+<#--                             <#if project.profile.secondPartySwitch>-->
+<#--                             sh '''nuget spec '''-->
+<#--                             sh '''nuget pack '''-->
+<#--                             sh script: 'dotnet nuget push "*.nupkg"  -k  ${project.profile.secondParty.secondPartyKey} -s ${project.profile.secondParty.secondPartyPath!'http://nexus3.Eazybuilder-devops.cn/repository/ipsa-net-test/'}',returnStdout: false-->
+<#--                             </#if>-->
                              echo '========net build end========'
                         }
                 }
@@ -64,17 +69,20 @@
                             echo '========maven build start========'
                             echo '修饰后的pom.xml'
                             <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">
-<#--                            sh script:'cat ${project.pomPath}/pom.xml'-->
-                            <#else>
-<#--                             sh script:'cat pom.xml'-->
+                            sh script:'cat ${project.pomPath}/pom.xml'
+                            <#elseif !project.legacyProject&&project.projectType=='java'>
+                             sh script:'cat pom.xml'
                             </#if>
                             
                    
                                <#if project.profile?? && buildParam?? && buildParam != "" >
-                                    sh script: '${buildParam} -Dmaven.test.skip=${project.profile.skipUnitTest ?string("true","false")} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
+                                    sh script: '${buildParam} -Dmaven.test.skip=${project.profile.skipUnitTest ?string("true","false")} -Dmirror.url=${mirrorUrl} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
                                <#else>
-                                    sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=${project.profile.skipUnitTest?string("true","false")} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
+                                    sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=${project.profile.skipUnitTest?string("true","false")} -Dmirror.url=${mirrorUrl} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
                                </#if>
+<#--                               <#if project.profile?? && project.profile.secondPartySwitch  >-->
+<#--                                   sh script: 'mvn deploy -Ddocker.registry.serverId=<#if project.profile.secondParty.secondPartyType =='mavenRelease'>Eazybuilder-releases</#if> <#if project.profile.secondParty.secondPartyType =='mavenSnapshot'>Eazybuilder-snapshots</#if> -Dmirror.url=${mirrorUrl} -Ddocker.registry.username=${project.profile.secondParty.secondPartyUser} -Ddocker.registry.password=${project.profile.secondParty.secondPartyPass}',returnStdout: false-->
+<#--                               </#if>-->
                              echo '========maven build end========'
                            }
                            
@@ -121,7 +129,7 @@
                                    <#else>
                                         buildPrefix="mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean org.jacoco:jacoco-maven-plugin:prepare-agent <#if project.legacyProject>compile<#else>install</#if>  ";
                                    </#if>
-                                   String buildSuffix="-Dmaven.test.skip=${project.profile.skipUnitTest?string("true","false")} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.GIT_COMMIT="+revision ;
+                                   String buildSuffix="-Dmaven.test.skip=${project.profile.skipUnitTest?string("true","false")} -Dmirror.url=${mirrorUrl} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id} -Denv.GIT_COMMIT="+revision ;
                                    <#if buildProperty?? && buildProperty !="">
                                         buildSuffix=" ${buildProperty} " +buildSuffix;
                                    </#if>

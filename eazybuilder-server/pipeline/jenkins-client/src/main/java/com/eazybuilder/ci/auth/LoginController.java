@@ -144,7 +144,7 @@ public class LoginController {
 				BeanUtils.copyProperties(user, existUser, "id","role");
 				userService.save(existUser);
 			}
-			Map tokenMap=Maps.newHashMap(); 
+			Map tokenMap=Maps.newHashMap();
 			tokenMap.put("access_token", accessService.createToken(existUser));
 			tokenMap.put("user",existUser);
 			//用户是否被指定为某个项目的配置管理员
@@ -154,7 +154,7 @@ public class LoginController {
 		}else {
 			//insert user info
 			userService.save(user);
-			Map tokenMap=Maps.newHashMap(); 
+			Map tokenMap=Maps.newHashMap();
 			tokenMap.put("access_token", accessService.createToken(user));
 			tokenMap.put("user",user);
 			AuthUtils.ACCESS_USER.set(UserVo.Instance(existUser));

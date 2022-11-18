@@ -19,7 +19,7 @@ public class TeamResource implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id",columnDefinition="int")
 	private String id;
-	
+
 	@Column(name="team_id",columnDefinition="int(8)")
 	private String teamId;
 	private String teamName;
