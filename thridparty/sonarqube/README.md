@@ -13,9 +13,11 @@
 
 
 - 分支扫描
+
 在github中搜索sonar-pmd-p3c，任意找一个项目，将代码下载下来，编译成jar:sonarqube-community-branch-plugin-*.jar
 
 - sql 规范扫描
+
 在github中，打开：https://github.com/gretard/sonar-sql-plugin，将代码下载下来，编译成jar:sonar-sql-plugin-*.jar
 
 ## 注意：选择的jar，要与自己sonarqube的版本保持一致。
