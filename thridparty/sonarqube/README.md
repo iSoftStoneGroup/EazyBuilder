@@ -9,12 +9,12 @@
 
 - p3c java代码规范扫描
 
-在github中搜索sonar-pmd-p3c，任意找一个项目，将代码下载下来，编译成jar:sonar-pmd-plugin-*.jar
+在github中搜索：sonar-pmd-p3c，任意找一个项目，将代码下载下来，编译成jar:sonar-pmd-plugin-*.jar
 
 
 - 分支扫描
 
-在github中搜索sonar-pmd-p3c，任意找一个项目，将代码下载下来，编译成jar:sonarqube-community-branch-plugin-*.jar
+在github中搜索：sonarqube-community-branch-plugin，任意找一个项目，将代码下载下来，编译成jar:sonarqube-community-branch-plugin-*.jar
 
 - sql 规范扫描
 
