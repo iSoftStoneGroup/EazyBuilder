@@ -690,9 +690,9 @@ public class PipelineWorkResultTracker implements Callable<PipelineExecuteResult
                     int strEndIndex = logStr.indexOf(" size:");
                     int urlStartIndex = logStr.indexOf("The push refers to repository [");
                     int urlEndIndex = logStr.indexOf("]");
-                    int tagStartIndex = logStr.indexOf("iss devops docker image tag are: ");
+                    int tagStartIndex = logStr.indexOf("Eazybuilder devops docker image tag are: ");
                     if(tagStartIndex >= 0) {
-                        String[] tagArr = logStr.substring(tagStartIndex + new String("iss devops docker image tag are: ").length()).split(",");
+                        String[] tagArr = logStr.substring(tagStartIndex + new String("Eazybuilder devops docker image tag are: ").length()).split(",");
                         tag = tagArr[0];
                     }
                     if(urlStartIndex>=0&&urlEndIndex>=0&&urlStartIndex<urlEndIndex) {
