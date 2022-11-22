@@ -198,7 +198,7 @@ logging:
   level:
     com.alibaba.nacos.client.naming: warn
     org.hibernate.type.descriptor.sql.BasicBinder: error
-    com.iss.dtg.ci.jenkins: warn
+    com.eazybuilder.dtg.ci.jenkins: warn
 
 gitlabApi:
   base_url: ""

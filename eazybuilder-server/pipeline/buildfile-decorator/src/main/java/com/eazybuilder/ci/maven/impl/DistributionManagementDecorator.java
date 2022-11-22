@@ -13,10 +13,10 @@ public class DistributionManagementDecorator implements POMDecorator {
 
 
 	//	static{
-//		REPOSITORY.setId("iss-releases");
+//		REPOSITORY.setId("Eazybuilder-releases");
 //		REPOSITORY.setUrl("http://nexus3.eazybuilder-devops.cn/repository/devops_repo");
 //
-//		SNAPSHOT_REPOSITORY.setId("iss-snapshots");
+//		SNAPSHOT_REPOSITORY.setId("Eazybuilder-snapshots");
 //		SNAPSHOT_REPOSITORY.setUrl("http://nexus3.eazybuilder-devops.cn/repository/devops_repo");
 //	}
 	@Override
@@ -26,12 +26,12 @@ public class DistributionManagementDecorator implements POMDecorator {
 		}
 
 		DeploymentRepository repository=new DeploymentRepository();
-		repository.setId("iss-releases");
+		repository.setId("Eazybuilder-releases");
 		repository.setUrl(nexusUrl);
 		DistributionManagement distributionManagement= new DistributionManagement();
 		distributionManagement.setRepository(repository);
 		DeploymentRepository snapshotRepository=new DeploymentRepository();
-		snapshotRepository.setId("iss-snapshots");
+		snapshotRepository.setId("Eazybuilder-snapshots");
 		snapshotRepository.setUrl(nexusUrl);
 		distributionManagement.setSnapshotRepository(snapshotRepository);
 		original.setDistributionManagement(distributionManagement);

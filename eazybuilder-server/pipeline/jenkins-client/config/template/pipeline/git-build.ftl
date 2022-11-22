@@ -81,7 +81,7 @@
                                     sh script: 'mvn <#if !project.legacyProject && project.pomPath?? && project.pomPath !="">-f ${project.pomPath} </#if>clean <#if project.legacyProject>compile<#else>install</#if> -Dmaven.test.skip=${project.profile.skipUnitTest?string("true","false")} -Dmirror.url=${mirrorUrl} -Dmaven.test.failure.ignore=true -Dmaven.repo.local=/usr/share/maven-repo/teams/${project.team.id}',returnStdout: false
                                </#if>
 <#--                               <#if project.profile?? && project.profile.secondPartySwitch  >-->
-<#--                                   sh script: 'mvn deploy -Ddocker.registry.serverId=<#if project.profile.secondParty.secondPartyType =='mavenRelease'>iss-releases</#if> <#if project.profile.secondParty.secondPartyType =='mavenSnapshot'>iss-snapshots</#if> -Dmirror.url=${mirrorUrl}  -Ddocker.registry.username=${project.profile.secondParty.secondPartyUser} -Ddocker.registry.password=${project.profile.secondParty.secondPartyPass}',returnStdout: false-->
+<#--                                   sh script: 'mvn deploy -Ddocker.registry.serverId=<#if project.profile.secondParty.secondPartyType =='mavenRelease'>Eazybuilder-releases</#if> <#if project.profile.secondParty.secondPartyType =='mavenSnapshot'>Eazybuilder-snapshots</#if> -Dmirror.url=${mirrorUrl}  -Ddocker.registry.username=${project.profile.secondParty.secondPartyUser} -Ddocker.registry.password=${project.profile.secondParty.secondPartyPass}',returnStdout: false-->
 <#--                               </#if>-->
                              echo '========maven build end========'
                            }

@@ -88,7 +88,7 @@
               stage('checkout from scm') {
                 steps {
                   echo '========checkout from scm start========'
-                  echo '软通动力DevOps持续集成平台'
+                  echo 'Eazybuilde持续集成平台'
                   //check source code from svn
                   checkout([$class: 'GitSCM',
                     <#if tagName?? >

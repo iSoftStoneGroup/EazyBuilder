@@ -64,8 +64,8 @@ public class SonarServer {
      * @throws URISyntaxException
      */
     public String getCodeLineNumbers(String projectKey, String branch) throws IOException, URISyntaxException{
-//    	http://0.0.0.0/sonarqube/api/measures/component?metricKeys=ncloc&component=com.eazybulider:iss-workflow
-//    	{"component":{"id":"AWQcPencuakdCDmv4422","key":"com.eazybulider:iss-workflow","name":"iss-workflow","qualifier":"TRK","measures":[{"metric":"ncloc","value":"30708"}]}}
+//    	http://0.0.0.0/sonarqube/api/measures/component?metricKeys=ncloc&component=com.eazybulider:Eazybuilder-workflow
+//    	{"component":{"id":"AWQcPencuakdCDmv4422","key":"com.eazybulider:Eazybuilder-workflow","name":"Eazybuilder-workflow","qualifier":"TRK","measures":[{"metric":"ncloc","value":"30708"}]}}
     	String url="/api/measures/component?metricKeys=ncloc&component="+projectKey+"&branch="+branch;
     	Map result=client.get(url, Map.class);
     	Map component=(Map) result.get("component");
