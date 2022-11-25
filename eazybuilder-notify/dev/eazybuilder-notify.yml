@@ -1,0 +1,114 @@
+spring:
+    main:
+        allow-bean-definition-overriding: true
+
+ftc:
+    swagger:
+        base-package: com.eazybuilder.dm
+    firewall:
+    # 是否启用拦截过滤功能
+        enable: true
+    # 全局忽略路径
+        ignore-path:
+        - "/test/1"
+        - "/test/2"   
+# feign配置
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+  # 开启Feign对Hystrix的支持
+  hystrix:
+    enabled: false
+ribbon:
+  okhttp:
+    enabled: true
+  restclient:
+    enabled: false
+  http:
+    client:
+      enabled: false
+  ConnectTimeout: 1000
+  ReadTimeout: 1000
+  # 对当前实例的重试次数
+  MaxAutoRetries: 6
+  # 切换实例的重试次数
+  MaxAutoRetriesNextServer: 0
+  # 对http响应码为500的请求重试
+  retryableStatusCodes: 500
+  # 设置只有get请求重试【插入和更新有幂等性问题】
+  OkToRetryOnAllOperations: false
+  # 负载均衡的算法
+  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+rancher-suport-service:
+  ribbon:
+    # 对当前实例的重试次数
+    MaxAutoRetries: 3
+    # 对http响应码为500的请求重试
+    retryableStatusCodes: 500
+    OkToRetryOnAllOperations: false
+hystrix:
+  command:
+    default:
+      requestLog:
+        enabled: true
+      execution:
+        isolation:
+          strategy: THREAD
+          thread:
+            # hystrix熔断超时时间
+            timeoutInMilliseconds: 10000
+    AccountFeign#subBalance(Long,BigDecimal):
+      circuitBreaker:
+        # 断路器断开的最小请求数【20次】
+        requestVolumeThreshold: 1
+        # 断路器再次闭合时间【5000ms】
+        sleepWindowInMilliseconds: 5000
+        # 断路器的错误百分率，当错误达到一定比率。断路器断开【50%】
+        errorThresholdPercentage: 50
+      fallback:
+        enabled: false
+      execution:
+        timeout:
+          enabled: false
+    AccountFeign#findAccountInfo(Long):
+      circuitBreaker:
+        # 断路器断开的最小请求数【20次】
+        requestVolumeThreshold: 1
+        # 断路器再次闭合时间【5000ms】
+        sleepWindowInMilliseconds: 5000
+        # 断路器的错误百分率，当错误达到一定比率。断路器断开【50%】
+        errorThresholdPercentage: 50
+      fallback:
+        enabled: false
+      execution:
+        timeout:
+          enabled: false             
+k8s:
+    basepath: https://0.0.0.0/k8s/clusters/c-5ksz6/
+    apiurl: ${k8s.basepath}api/v1
+    token: 
+        name: token-ztzdh
+        password: 5rt9vlf7v9hcw6zhghnmnpgpmlwmjjjtwkhq9lczdggvswr8njkbms
+# 日志
+logging:
+    level:
+        com.eazybuilder.dm.controller: debug
+        com.eazybuilder.dtg.ftc.trade.dao: debug
+        com.eazybuilder.dtg.ftc.trade.feign: debug
+        com.alibaba.nacos.client.naming: error
+        com.xxl.job.core.thread.ExecutorRegistryThread: error
+        io.seata.core.rpc.netty.RmMessageListener: error
+        org.springframework.retry.support.RetryTemplate: debug
+        org.redeazybuilderon.connection.DNSMonitor: error
+        com.netflix: debug
+message:
+    topicExchange: notify_topic_exchange
+    queue: notify_queue
+    routingKey: "notify.#"
+    confirmCallbackBean: eazybuilderRabbitmqConfirmCallbackService
+    returnCallbackBean: 
+    broadcastExchange: eazybuilder.notify.exchange
+dingtalk:
+    url: https://oapi.dingtalk.com/robot/send
