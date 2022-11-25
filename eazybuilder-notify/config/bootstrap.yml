@@ -1,0 +1,47 @@
+nacos:
+# ip: ${NACOS_IP:nacos-headless}
+# port: ${NACOS_PORT:8848}
+  ip: ${NACOS_IP:nacos.eazybuilder-devops.cn}
+  port: ${NACOS_PORT:80}
+  username: ${NACOS_USER:devops}
+  password: ${NACOS_PASSWORD:devops}
+server:
+  port: 8080
+  servlet :
+   context-path: /
+spring:
+  application:
+      name: eazybuilder-notify
+#  profiles:
+#    active: dev
+  cloud:
+    nacos:
+      username: ${nacos.username}
+      password: ${nacos.password}
+      config:
+        enabled: true
+        namespace: ${NACOS_SPACE:local}
+        group: DEFAULT_GROUP
+        server-addr: http://${nacos.ip}:${nacos.port}
+        prefix: ${spring.application.name}
+        file-extension: yml
+        # 公用的配置文佳，如：redis,kafka的配置
+        shared-configs:
+          - data-id: cache.yml
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: redis-common.yml
+            group: DEFAULT_GROUP
+            refresh: true
+          - data-id: rabbitmq.yml
+            group: DEFAULT_GROUP
+            refresh: true
+      discovery:
+        enabled: true
+        group: DEFAULT_GROUP
+        namespace: ${NACOS_SPACE:local}
+        server-addr: http://${nacos.ip}:${nacos.port}
+        service: ${spring.application.name}
+        metadata:
+          swagger: http://${LOCAL_IP:${spring.cloud.client.ip-address}}:${server.port:}/${spring.application.name}/swagger-resources
+          service.name: 消息服务
