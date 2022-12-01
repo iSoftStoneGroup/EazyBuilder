@@ -1,1 +1,2 @@
 EazyBuilder消息模块，使用redis pub/sub，发送消息
+EazyBuilder也可以使用RabbitMq作为消息模块，两个模块可以任选一个
