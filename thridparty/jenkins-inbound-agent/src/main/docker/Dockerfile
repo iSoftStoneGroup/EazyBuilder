@@ -14,6 +14,9 @@ ENV PATH="/usr/share/maven/bin:${PATH}"
 #install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs && npm config set registry https://registry.npm.taobao.org && \ 
   npm install -g nrm && npm install -g npm-cli-login && npm install -g yarn && npm config set cache "/usr/share/maven-repo/npm-cache"
+# install yarn source
+RUN yarn config set registry https://registry.npm.taobao.org -g
+RUN yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass -g
 
 #instal gradle
 RUN cd /opt && wget https://downloads.gradle-dn.com/distributions/gradle-6.8.3-bin.zip && unzip gradle-6.8.3-bin.zip -d /opt/gradle && rm -f /opt/gradle-6.8.3-bin.zip
