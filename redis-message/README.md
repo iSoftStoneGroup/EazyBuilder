@@ -1,2 +1,3 @@
-- EazyBuilder消息模块，使用redis pub/sub，发送消息
-- EazyBuilder也可以使用RabbitMq作为消息模块，两个模块可以任选一个
+# [中文说明](./README_CN.md)
+- EazyBuilder message module, using Redis pub/sub to send messages
+- EazyBuilder can also use RabbitMq as the message module. You can choose either module
