@@ -14,6 +14,7 @@ ENV PATH="/usr/share/maven/bin:${PATH}"
 #install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && apt-get install -y nodejs && npm config set registry https://registry.npm.taobao.org && \ 
   npm install -g nrm && npm install -g npm-cli-login && npm install -g yarn && npm config set cache "/usr/share/maven-repo/npm-cache"
+RUN apt-get update &&  apt-get install nodejs-legacy 
 # install yarn source
 RUN yarn config set registry https://registry.npm.taobao.org -g
 RUN yarn config set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass -g
