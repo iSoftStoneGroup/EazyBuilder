@@ -46,7 +46,8 @@ RUN echo “dash dash/sh boolean false” | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
 # add phantomjs
-ADD phantomjs-2.1.1-linux-x86_64.tar.bz2 /tmp/phantomjs/
+RUN mkdir /tmp/phantomjs/
+COPY phantomjs-2.1.1-linux-x86_64.tar.bz2 /tmp/phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2
 #华为obs安装
 RUN mkdir -p /temp
 ADD obsutil /temp/obsutil
