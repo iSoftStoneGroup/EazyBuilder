@@ -1,0 +1,68 @@
+#!/bin/sh
+
+commit_id=$(git rev-parse HEAD)
+echo "commit_id:"$commit_id
+
+
+catfile=`git cat-file commit $commit_id`
+#note=`git cat-file commit $commit_id | sed '1,/^$/d'`
+author=$(git log -1 $commit_id --pretty=%an)
+committer=$(git log -1 $commit_id --pretty=%cn)
+brancheDetail=$(git log -1 $commit_id --pretty=%D)
+echo "分支列表:"$brancheDetail
+
+
+branchName=`echo ${brancheDetail#*->}`
+branchName=(${branchName//,/})
+
+echo "当前分支:"$branchName
+
+groupName=""
+projectPath=""
+echo author:$author
+echo committer:$committer
+#echo note:$note  
+
+commit_msg=$1 
+for s in `cat ${commit_msg} | grep -v "^$"`
+do
+    echo "@@@@@@@"
+	note=$note" "$s
+   
+	
+done
+note=`echo $note`
+echo "注释信息："$note
+echo "开始进行注释规范校验......." 
+ 
+request_data="{\"userName\":\""${committer}"\",\"branchName\":\""${branchName}"\",\"groupName\":\""${groupName}"\",\"notes\":\""${note}"\",\"projectPath\":\""${projectPath}"\",\"commit\":\""${note}"\"}"
+echo "请求数据:"$request_data
+result=`curl -H "Content-Type: application/json" -X POST -d  "${request_data}" http://localhost:8011/gitlab-api/hook/checkCommit`
+echo "检查结果："${result}
+
+if [[ -z $result ]];then
+
+echo "校验引擎异常，请联系管理员"
+exit 1
+else
+
+result_message=`echo ${result} | sed 's/\"//g' | awk '{print $2}'`
+success_flag=`echo ${result} | sed 's/\"//g' | awk '{print $1}'` 
+ 
+echo "success_flag:"${success_flag}
+if [ ${success_flag} == "true" ];then		
+    echo -e "check result:"${result_message}
+else
+    echo "check result:"${result_message}
+    echo "GL-HOOK-ERR: 注释规范，详情参照"
+
+
+	exit 1
+fi
+
+fi
+
+
+ 
+
+
