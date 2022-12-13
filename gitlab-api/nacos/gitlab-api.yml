@@ -1,0 +1,105 @@
+spring:
+  mail:
+    host: smtp.163.com #邮箱服务器地址
+    username: eazybuilder@163.com
+    password: xxxx
+    default-encoding: utf-8
+    to: eazybuilder@163.com
+    main:
+      allow-bean-definition-overriding: true
+ftc:
+  swagger:
+    base-package: com.eazybuilder.ga.controller
+  firewall:
+    # 是否启用拦截过滤功能
+    enable: false
+
+
+k8s:
+  basepath: https://0.0.0.0/k8s/clusters/c-5ksz6/
+  apiurl: ${k8s.basepath}api/v1
+  token:
+    name: token-xxx
+    password: xxxx
+fdfs:
+  so-timeout: 1501
+  connect-timeout: 601
+  thumb-image:             #缩略图生成参数
+    width: 150
+    height: 150
+  tracker-list:            #TrackerList参数,支持多个
+    - tracker-service:22122
+
+# feign配置
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+  # 开启Feign对Hystrix的支持
+  hystrix:
+    enabled: false
+ribbon:
+  okhttp:
+    enabled: true
+  restclient:
+    enabled: false
+  http:
+    client:
+      enabled: false
+  ConnectTimeout: 10000
+  ReadTimeout: 10000
+  # 对当前实例的重试次数
+  MaxAutoRetries: 6
+  # 切换实例的重试次数
+  MaxAutoRetriesNextServer: 0
+  # 对http响应码为500的请求重试
+  retryableStatusCodes: 500
+  # 设置只有get请求重试【插入和更新有幂等性问题】
+  OkToRetryOnAllOperations: false
+  # 负载均衡的算法
+  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.WeightedResponseTimeRule
+    -
+dingTalk:
+  url: https://oapi.dingtalk.com/robot/sendaccess_token=xxxx
+  sign: xxxx
+  isAtAll: false
+  atMobiles: xxxx
+
+gitLab:
+  url: http://gitlab.eazybuilder.cn/api/v4/
+  login: xxxx
+  password: xxxx
+  token: xxxx
+  base_url: http://gitlab.eazybuilder.cn/
+
+redmine:
+  queue: redmine.comment.queue
+  topicExchange: devops.plat.exchange
+  initProject: redmine.initProject
+  addNote: redmine.addNote
+  changeStatus: redmine.changeStatus
+  checkCode: redmine.checkCode
+  base_url: http://redmine.eazybuilder.cn/
+
+ci:
+  queue: ci.pipeline.queue
+  topicExchange: devops.plat.exchange
+  package: scan.*
+  broadcastExchange: ci.datasync.exchange
+
+nacos:
+  url: http://nacos-headless:8848/nacos/v1/
+
+message:
+  topicExchange: redmine_topic_exchange
+  queue: REDMINE
+  routingKey: "redmine.#"
+  confirmCallbackBean: esRabbitmqConfirmCallbackService
+  returnCallbackBean:
+  broadcastExchange: ci.datasync.exchange
+
+
+test:
+  test1: 1111
+  test2: 22223
