@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  generation: 1
+  name: minio
+spec:
+  rules:
+  - host: minio.eazybuilder.com
+    http:
+      paths:
+      - backend:
+          serviceName: minio-service
+          servicePort: console
+        path: /
+        pathType: ImplementationSpecific

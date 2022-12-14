@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service
+spec:
+  clusterIP: None
+  ports:
+  - name: api
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  - name: console
+    port: 39340
+    protocol: TCP
+    targetPort: 39340
+  selector:
+    app: minio
+  sessionAffinity: None
+  type: ClusterIP
