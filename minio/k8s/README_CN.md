@@ -1,1 +1,2 @@
 - minio k8s部署yaml，单机版，数据挂载目录使用的pvc
+- pvc依耐于 k8s/高可用部署/nfs/中创建的资源
