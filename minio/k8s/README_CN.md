@@ -1,0 +1,1 @@
+- minio k8s部署yaml，单机版，数据挂载目录使用的pvc
