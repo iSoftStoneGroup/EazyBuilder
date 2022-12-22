@@ -4,6 +4,9 @@
 - **mysql**:mysql的挂载目录。（可删除，启动容器时会自动创建）
 - **nginx**:nginx的挂载目录。（需要开始的时候创建好）
 - - **config**:nginx的配置挂载目录。（不可删除）
+ 需要修改配置，conf.d/default.conf中的proxy_pass指向后端接口实际的访问地址
+  proxy_pass   http://0.0.0.0:8080/ci;
+   
 - **jenkins**:postgresql的挂载目录。（可删除，启动容器时会自动创建）
 - **rabbitmq**:rabbitmq的挂载目录。（可删除，启动容器时会自动创建）
 - **redis**:redis的挂载目录。（需要开始的时候创建好）
