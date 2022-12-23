@@ -93,7 +93,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 	}
 
 	@Bean
-	public RedissonClient  redissonClient(@Value("${ci.redis.address:redis-cluster-0.redis-cluster.dev.svc.cluster.local:6379,redis-cluster-1.redis-cluster.dev.svc.cluster.local:6379,redis-cluster-2.redis-cluster.dev.svc.cluster.local:6379}")String redisAddress) {
+	public RedissonClient  redissonClient(@Value("${ci.redis.address}")String redisAddress) {
 		Config config=new Config();
 		String[] split = redisAddress.split(",");
 		if(split.length==1){
