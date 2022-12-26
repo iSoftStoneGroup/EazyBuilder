@@ -18,3 +18,6 @@
 ##.sh脚本文件说明
 - **startMvn.sh**:生成eazybuilder项目jar，前后端对应的Dockerfile文件需要用到。
 - **startUp.sh**:一键部署eazybuilder项目脚本（现阶段不可以）。
+
+# eazybuilder-server是平台的后端接口，在docker-compose编排文件中，可以指定连接nacos的url，namespace等参数，可以根据实际情况，修改配置
+
