@@ -1,0 +1,2 @@
+- The minio k8s deploy yaml, stand-alone version, and pvc used by the data mount directory
+- Pvc is based on the resources created in k8s/high availability deployment/nfs/
