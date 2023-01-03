@@ -1,0 +1,476 @@
+caSecretName: ''
+cache:
+  enabled: false
+  expireHours: 24
+chartmuseum:
+  absoluteUrl: false
+  affinity: {}
+  automountServiceAccountToken: false
+  enabled: true
+  image:
+    repository: goharbor/chartmuseum-photon
+    tag: v2.7.0
+  indexLimit: 0
+  nodeSelector: {}
+  podAnnotations: {}
+  priorityClassName: null
+  replicas: 1
+  revisionHistoryLimit: 10
+  serviceAccountName: ''
+  tolerations: []
+core:
+  affinity: {}
+  artifactPullAsyncFlushDuration: null
+  automountServiceAccountToken: false
+  gdpr:
+    deleteUser: false
+  image:
+    repository: goharbor/harbor-core
+    tag: v2.7.0
+  nodeSelector: {}
+  podAnnotations: {}
+  priorityClassName: null
+  replicas: 1
+  revisionHistoryLimit: 10
+  secret: ''
+  secretName: ''
+  serviceAccountName: ''
+  serviceAnnotations: {}
+  startupProbe:
+    enabled: true
+    initialDelaySeconds: 10
+  tolerations: []
+  xsrfKey: ''
+database:
+  external:
+    coreDatabase: registry
+    existingSecret: ''
+    host: 192.168.0.1
+    notaryServerDatabase: notary_server
+    notarySignerDatabase: notary_signer
+    password: password
+    port: '5432'
+    sslmode: disable
+    username: user
+  internal:
+    affinity: {}
+    automountServiceAccountToken: false
+    image:
+      repository: goharbor/harbor-db
+      tag: v2.7.0
+    initContainer:
+      migrator: {}
+      permissions: {}
+    livenessProbe:
+      timeoutSeconds: 1
+    nodeSelector: {}
+    password: changeit
+    priorityClassName: null
+    readinessProbe:
+      timeoutSeconds: 1
+    serviceAccountName: ''
+    shmSizeLimit: 512Mi
+    tolerations: []
+  maxIdleConns: 100
+  maxOpenConns: 900
+  podAnnotations: {}
+  type: internal
+enableMigrateHelmHook: false
+existingSecretSecretKey: ''
+exporter:
+  affinity: {}
+  automountServiceAccountToken: false
+  cacheCleanInterval: 14400
+  cacheDuration: 23
+  image:
+    repository: goharbor/harbor-exporter
+    tag: v2.7.0
+  nodeSelector: {}
+  podAnnotations: {}
+  priorityClassName: null
+  replicas: 1
+  revisionHistoryLimit: 10
+  serviceAccountName: ''
+  tolerations: []
+expose:
+  clusterIP:
+    annotations: {}
+    name: harbor
+    ports:
+      httpPort: 80
+      httpsPort: 443
+      notaryPort: 4443
+  ingress:
+    annotations:
+      ingress.kubernetes.io/proxy-body-size: '0'
+      ingress.kubernetes.io/ssl-redirect: 'true'
+      nginx.ingress.kubernetes.io/proxy-body-size: '0'
+      nginx.ingress.kubernetes.io/ssl-redirect: 'true'
+    className: ''
+    controller: default
+    harbor:
+      annotations: {}
+      labels: {}
+    hosts:
+      core: registry.eazybuilder.com
+      notary: notary.eazybuilder.com
+    kubeVersionOverride: ''
+    notary:
+      annotations: {}
+      labels: {}
+  loadBalancer:
+    IP: ''
+    annotations: {}
+    name: harbor
+    ports:
+      httpPort: 80
+      httpsPort: 443
+      notaryPort: 4443
+    sourceRanges: []
+  nodePort:
+    name: harbor
+    ports:
+      http:
+        nodePort: 30002
+        port: 80
+      https:
+        nodePort: 30003
+        port: 443
+      notary:
+        nodePort: 30004
+        port: 4443
+  tls:
+    auto:
+      commonName: ''
+    certSource: auto
+    enabled: true
+    secret:
+      notarySecretName: ''
+      secretName: ''
+  type: ingress
+externalURL: 'https://registry.eazybuilder.com'
+harborAdminPassword: Harbor12345
+imagePullPolicy: IfNotPresent
+imagePullSecrets: null
+internalTLS:
+  certSource: auto
+  chartmuseum:
+    crt: ''
+    key: ''
+    secretName: ''
+  core:
+    crt: ''
+    key: ''
+    secretName: ''
+  enabled: false
+  jobservice:
+    crt: ''
+    key: ''
+    secretName: ''
+  portal:
+    crt: ''
+    key: ''
+    secretName: ''
+  registry:
+    crt: ''
+    key: ''
+    secretName: ''
+  trivy:
+    crt: ''
+    key: ''
+    secretName: ''
+  trustCa: ''
+ipFamily:
+  ipv4:
+    enabled: true
+  ipv6:
+    enabled: true
+jobservice:
+  affinity: {}
+  automountServiceAccountToken: false
+  image:
+    repository: goharbor/harbor-jobservice
+    tag: v2.7.0
+  jobLoggers:
+    - file
+  loggerSweeperDuration: 14
+  maxJobWorkers: 10
+  nodeSelector: {}
+  podAnnotations: {}
+  priorityClassName: null
+  replicas: 1
+  revisionHistoryLimit: 10
+  secret: ''
+  serviceAccountName: ''
+  tolerations: []
+logLevel: info
+metrics:
+  core:
+    path: /metrics
+    port: 8001
+  enabled: false
+  exporter:
+    path: /metrics
+    port: 8001
+  jobservice:
+    path: /metrics
+    port: 8001
+  registry:
+    path: /metrics
+    port: 8001
+  serviceMonitor:
+    additionalLabels: {}
+    enabled: false
+    interval: ''
+    metricRelabelings: []
+    relabelings: []
+nginx:
+  affinity: {}
+  automountServiceAccountToken: false
+  image:
+    repository: goharbor/nginx-photon
+    tag: v2.7.0
+  nodeSelector: {}
+  podAnnotations: {}
+  priorityClassName: null
+  replicas: 1
+  revisionHistoryLimit: 10
+  serviceAccountName: ''
+  tolerations: []
+notary:
+  enabled: true
+  secretName: ''
+  server:
+    affinity: {}
+    automountServiceAccountToken: false
+    image:
+      repository: goharbor/notary-server-photon
+      tag: v2.7.0
+    nodeSelector: {}
+    podAnnotations: {}
+    priorityClassName: null
+    replicas: 1
+    serviceAccountName: ''
+    tolerations: []
+  serviceAnnotations: {}
+  signer:
+    affinity: {}
+    automountServiceAccountToken: false
+    image:
+      repository: goharbor/notary-signer-photon
+      tag: v2.7.0
+    nodeSelector: {}
+    podAnnotations: {}
+    priorityClassName: null
+    replicas: 1
+    serviceAccountName: ''
+    tolerations: []
+persistence:
+  enabled: true
+  imageChartStorage:
+    azure:
+      accountkey: base64encodedaccountkey
+      accountname: accountname
+      container: containername
+      existingSecret: ''
+    disableredirect: false
+    filesystem:
+      rootdirectory: /storage
+    gcs:
+      bucket: bucketname
+      encodedkey: base64-encoded-json-key-file
+      existingSecret: ''
+      useWorkloadIdentity: false
+    oss:
+      accesskeyid: accesskeyid
+      accesskeysecret: accesskeysecret
+      bucket: bucketname
+      region: regionname
+    s3:
+      bucket: bucketname
+      region: us-west-1
+    swift:
+      authurl: 'https://storage.myprovider.com/v3/auth'
+      container: containername
+      password: password
+      username: username
+    type: filesystem
+  persistentVolumeClaim:
+    chartmuseum:
+      accessMode: ReadWriteOnce
+      annotations: {}
+      existingClaim: ''
+      size: 5Gi
+      storageClass: 'managed-nfs-storage'
+      subPath: ''
+    database:
+      accessMode: ReadWriteOnce
+      annotations: {}
+      existingClaim: ''
+      size: 1Gi
+      storageClass: 'managed-nfs-storage'
+      subPath: ''
+    jobservice:
+      jobLog:
+        accessMode: ReadWriteOnce
+        annotations: {}
+        existingClaim: ''
+        size: 1Gi
+        storageClass: 'managed-nfs-storage'
+        subPath: ''
+      scanDataExports:
+        accessMode: ReadWriteOnce
+        annotations: {}
+        existingClaim: ''
+        size: 1Gi
+        storageClass: 'managed-nfs-storage'
+        subPath: ''
+    redis:
+      accessMode: ReadWriteOnce
+      annotations: {}
+      existingClaim: ''
+      size: 1Gi
+      storageClass: 'managed-nfs-storage'
+      subPath: ''
+    registry:
+      accessMode: ReadWriteOnce
+      annotations: {}
+      existingClaim: ''
+      size: 5Gi
+      storageClass: 'managed-nfs-storage'
+      subPath: ''
+    trivy:
+      accessMode: ReadWriteOnce
+      annotations: {}
+      existingClaim: ''
+      size: 5Gi
+      storageClass: 'managed-nfs-storage'
+      subPath: ''
+  resourcePolicy: keep
+portal:
+  affinity: {}
+  automountServiceAccountToken: false
+  image:
+    repository: goharbor/harbor-portal
+    tag: v2.7.0
+  nodeSelector: {}
+  podAnnotations: {}
+  priorityClassName: null
+  replicas: 1
+  revisionHistoryLimit: 10
+  serviceAccountName: ''
+  tolerations: []
+proxy:
+  components:
+    - core
+    - jobservice
+    - trivy
+  httpProxy: null
+  httpsProxy: null
+  noProxy: '127.0.0.1,localhost,.local,.internal'
+redis:
+  external:
+    addr: '192.168.0.2:6379'
+    chartmuseumDatabaseIndex: '3'
+    coreDatabaseIndex: '0'
+    existingSecret: ''
+    jobserviceDatabaseIndex: '1'
+    password: ''
+    registryDatabaseIndex: '2'
+    sentinelMasterSet: ''
+    trivyAdapterIndex: '5'
+  internal:
+    affinity: {}
+    automountServiceAccountToken: false
+    image:
+      repository: goharbor/redis-photon
+      tag: v2.7.0
+    nodeSelector: {}
+    priorityClassName: null
+    serviceAccountName: ''
+    tolerations: []
+  podAnnotations: {}
+  type: internal
+registry:
+  affinity: {}
+  automountServiceAccountToken: false
+  controller:
+    image:
+      repository: goharbor/harbor-registryctl
+      tag: v2.7.0
+  credentials:
+    existingSecret: ''
+    password: harbor_registry_password
+    username: harbor_registry_user
+  middleware:
+    cloudFront:
+      baseurl: example.cloudfront.net
+      duration: 3000s
+      ipfilteredby: none
+      keypairid: KEYPAIRID
+      privateKeySecret: my-secret
+    enabled: false
+    type: cloudFront
+  nodeSelector: {}
+  podAnnotations: {}
+  priorityClassName: null
+  registry:
+    image:
+      repository: goharbor/registry-photon
+      tag: v2.7.0
+  relativeurls: false
+  replicas: 1
+  revisionHistoryLimit: 10
+  secret: ''
+  serviceAccountName: ''
+  tolerations: []
+  upload_purging:
+    age: 168h
+    dryrun: false
+    enabled: true
+    interval: 24h
+secretKey: not-a-secure-key
+trace:
+  enabled: false
+  jaeger:
+    endpoint: 'http://hostname:14268/api/traces'
+  otel:
+    compression: false
+    endpoint: 'hostname:4318'
+    insecure: true
+    timeout: 10
+    url_path: /v1/traces
+  provider: jaeger
+  sample_rate: 1
+trivy:
+  affinity: {}
+  automountServiceAccountToken: false
+  debugMode: false
+  enabled: true
+  gitHubToken: ''
+  ignoreUnfixed: false
+  image:
+    repository: goharbor/trivy-adapter-photon
+    tag: v2.7.0
+  insecure: false
+  nodeSelector: {}
+  offlineScan: false
+  podAnnotations: {}
+  priorityClassName: null
+  replicas: 1
+  resources:
+    limits:
+      cpu: 1
+      memory: 1Gi
+    requests:
+      cpu: 200m
+      memory: 512Mi
+  securityCheck: vuln
+  serviceAccountName: ''
+  severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
+  skipUpdate: false
+  timeout: 5m0s
+  tolerations: []
+  vulnType: 'os,library'
+updateStrategy:
+  type: RollingUpdate
