@@ -1,1 +1,1 @@
-# 后端应用（jenkins-client）配置文件
+Backend application (jenkins client) configuration file
